@@ -127,8 +127,16 @@ când începe implementarea.
 binar prin `go:embed`, deci DHS funcționează complet offline. GUI-ul, când vine, va fi Wails peste
 aceeași bibliotecă de nucleu.
 
-Propunerea completă de arhitectură (formatul pachetului, structura modulelor, suprafața CLI, schema
-bazei de aplicații): [`docs/ARHITECTURA.md`](docs/ARHITECTURA.md).
+- [`docs/ARHITECTURA.md`](docs/ARHITECTURA.md) — formatul pachetului, structura modulelor, suprafața
+  CLI, schema bazei de aplicații
+- [`docs/COMPRESIE.md`](docs/COMPRESIE.md) — cele trei niveluri de compresie, estimarea dimensiunii
+  înainte de backup, research-ul pe compresia „extremă"
+
+## ⛔ Regula #3 — nimic cu pierderi
+
+Un fișier restaurat trebuie să fie **identic bit cu bit** cu originalul. Migrăm pozele de la nunta
+cuiva, nu asseturi de joc. Orice tehnică de compresie care nu poate garanta reconstrucția exactă e
+în afara produsului, oricât ar câștiga la dimensiune.
 
 ## Decizii luate
 
@@ -155,6 +163,7 @@ bazei de aplicații): [`docs/ARHITECTURA.md`](docs/ARHITECTURA.md).
 | # | Decizie | Stare |
 |---|---|---|
 | **D6** | Licența și modelul de contribuție pentru baza de date de aplicații. Propunere: **GPLv3** pentru cod (un fork închis n-ar aduce nimic userilor) + licență permisivă pentru baza de aplicații, ca datele să poată fi reutilizate liber. | deschis, nu blochează |
+| **D7** | Modul ZIP necriptat. Nivelul 1 de compresie are sens doar dacă pachetul se poate deschide **fără DHS**, pe orice calculator — dar asta intră în conflict cu criptarea implicită din D4. Ori acceptăm un mod necriptat cu avertisment, ori nivelul 1 rămâne doar „rapid", nu „compatibil". | deschis |
 
 ## Convenții
 

@@ -21,7 +21,7 @@ proprietar sau legături simbolice.
 migrare-2026-09-02-necta.dhs/
   dhs.json              # manifest rădăcină, NECRIPTAT — vezi mai jos ce conține și ce nu
   volume/
-    0001.dhsv           # volum de date: tar → zstd → criptare. ~2 GB fiecare
+    0001.dhsv           # volum de date: blocuri solide pe clasă → criptare. 3,5 GiB fiecare
     0002.dhsv
     ...
   SUME.txt              # SHA-256 pentru fiecare fișier din pachet
@@ -53,11 +53,32 @@ manifestul aplicațiilor stau **în interiorul volumelor criptate** — altfel p
 
 ### Volume
 
-Fiecare volum e un flux: `tar` → `zstd` → criptare → disc. Streaming, deci nu ținem nimic mare în
-memorie și mergem la fel de repede pe un laptop cu 8 GB ca pe unul cu 64.
+Fiecare volum e un flux scris direct pe disc, fără să ținem nimic mare în memorie: mergem la fel de
+repede pe un laptop cu 8 GB ca pe unul cu 64.
 
-Dimensiunea implicită de ~2 GB e sub limita FAT32 și e și unitatea de reluare: dacă se smulge
-cablul, se reface cel mult volumul curent, nu tot backupul.
+**3,5 GiB implicit**, fiindcă FAT32 refuză fișierele de 4 GiB sau mai mari. Uniform pe orice sistem
+de fișiere — pachetul rămâne mutabil pe orice mediu, oricând.
+
+Volumul e și unitatea de reluare: dacă se smulge cablul, se reface cel mult volumul curent, nu tot
+backupul. Un fișier mai mare decât un volum (un ISO de 8 GiB) se taie între volume, iar manifestul
+reține că bucățile fac parte din același fișier.
+
+Dacă pachetul nu încape pe un singur mediu, volumele se **împart pe mai multe** — `dhs.json` știe
+câte sunt în total și care lipsesc la restaurare.
+
+### Ce e într-un volum
+
+Nu un singur flux comprimat, ci **blocuri solide grupate pe clasă de fișier**:
+
+- **incompresibil** (poze, video, muzică, arhive) → stocat, fără compresie
+- **comprimabil** (text, cod, documente, configurații) → bloc solid comprimat, ca redundanța dintre
+  fișiere mici să se exploateze
+- **necunoscut** → test de entropie pe primii 256 KB, apoi într-una din clasele de sus
+
+Plus **deduplicare la nivel de fișier**: sumele SHA-256 se calculează oricum pentru integritate,
+deci un fișier care apare de trei ori se stochează o dată.
+
+Detalii, măsurători și cele trei niveluri de compresie alese de user: [`COMPRESIE.md`](COMPRESIE.md).
 
 ### Criptare
 
@@ -164,8 +185,12 @@ unui sistem de operare. Restul e comun și testabil pe orice mașină.
 
 ```bash
 dhs scan                                    # ce s-ar include, cât ocupă, ce aplicații s-au găsit
+           --dest /run/media/x/SSD          # verifică dacă încape, cu tot cu compresie estimată
+           --nivel 2                        # 1 compatibil | 2 echilibrat | 3 maxim
+           --precis                         # eșantionare + dedup: estimare măsurată, nu presupusă
 dhs backup --dest /run/media/x/SSD          # creează pachetul (întreabă parola)
            --include documente,poze,config
+           --nivel 2
            --secrete                        # opt-in explicit pentru chei și parole
 dhs verify <pachet>                         # verifică sumele de control, fără să extragă nimic
 dhs plan   <pachet>                         # ce s-ar instala și restaura. Nu atinge nimic
@@ -187,13 +212,18 @@ comanda pe care o poate rula oricine, oricând, fără risc.
 ## Ce NU face v1
 
 Ca să rămână scris negru pe alb: fără sincronizare între dispozitive, fără cloud, fără traducere de
-configurații complexe, fără registry Windows → dconf, fără GUI, fără deduplicare, fără backup
-incremental. Toate în `BACKLOG.md`.
+configurații complexe, fără registry Windows → dconf, fără GUI, fără deduplicare pe blocuri în stil
+`srep`, fără preprocesare `precomp`, fără backup incremental. Toate în `BACKLOG.md`.
+
+Deduplicarea **la nivel de fișier** intră totuși în v1: e practic gratuită, fiindcă hash-urile se
+calculează oricum.
 
 ## Puncte deschise
 
 1. ⚠️ Cum comunicăm riscul parolei pierdute, fără să speriem userul obișnuit.
 2. ⚠️ Excluderi implicite pentru fișiere: `node_modules`, cache-uri, biblioteci Steam, mașini
    virtuale. Propunere: listă implicită vizibilă și editabilă înainte de backup.
-3. ⚠️ Ce facem cu fișierele mai mari decât un volum (un ISO de 8 GB): împărțire între volume.
+3. **D7** — modul ZIP necriptat. Nivelul 1 de compresie are sens doar dacă pachetul se poate
+   deschide fără DHS, ceea ce intră în conflict cu criptarea implicită din D4.
+   Vezi [`COMPRESIE.md` §4.3](COMPRESIE.md).
 4. D6 — licența.
