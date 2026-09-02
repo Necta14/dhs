@@ -13,12 +13,14 @@ import (
 func detect() (Info, error) {
 	i := Info{OS: Linux, Arch: Arch(), Name: "Linux"}
 
+	// $HOME are prioritate față de /etc/passwd: așa se comportă orice unealtă de sistem, și așa
+	// se poate rula DHS pe un profil sintetic, în teste, fără să atingă profilul real.
+	i.Home, _ = os.UserHomeDir()
 	if u, err := user.Current(); err == nil {
 		i.User = u.Username
-		i.Home = u.HomeDir
-	}
-	if i.Home == "" {
-		i.Home, _ = os.UserHomeDir()
+		if i.Home == "" {
+			i.Home = u.HomeDir
+		}
 	}
 	if h, err := os.Hostname(); err == nil {
 		i.Hostname = h

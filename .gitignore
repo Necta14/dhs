@@ -13,3 +13,6 @@
 *.test
 *.out
 *.prof
+
+# Jurnalele sesiunii de teste (se publică doar pe ramuri teste/*)
+/rezultate-teste/

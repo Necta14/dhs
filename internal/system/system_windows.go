@@ -15,16 +15,17 @@ import (
 func detect() (Info, error) {
 	i := Info{OS: Windows, Arch: Arch(), Name: "Windows"}
 
+	// %USERPROFILE% are prioritate, din același motiv ca $HOME pe Linux.
+	i.Home, _ = os.UserHomeDir()
 	if u, err := user.Current(); err == nil {
 		// Username vine ca „DOMENIU\\user"; ne interesează doar partea de user.
 		i.User = u.Username
 		if _, after, ok := strings.Cut(u.Username, `\`); ok {
 			i.User = after
 		}
-		i.Home = u.HomeDir
-	}
-	if i.Home == "" {
-		i.Home, _ = os.UserHomeDir()
+		if i.Home == "" {
+			i.Home = u.HomeDir
+		}
 	}
 	if h, err := os.Hostname(); err == nil {
 		i.Hostname = h
