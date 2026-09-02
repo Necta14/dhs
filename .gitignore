@@ -1,8 +1,15 @@
-node_modules/
-data/
-*.sqlite
-*.sqlite-wal
-*.sqlite-shm
+# Binare construite
+/dhs
+/dhs.exe
+/dist/
+/build/
+
+# Secrete — Regula #1
 .env
 .env.*
 !.env.example
+
+# Unelte locale
+*.test
+*.out
+*.prof

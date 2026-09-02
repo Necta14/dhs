@@ -1,34 +1,47 @@
-# BACKLOG — Direct Handoff Suite
+# BACKLOG — DHS
 
-Ordinea e o propunere; primele trei dau cel mai mult pentru scopul „handoff între agenți".
+Ce nu intră în v1. Ordinea în fiecare secțiune e o propunere, nu un angajament.
 
-## Faza 2 — integrare cu agenții
-- [ ] **Server MCP** (`dhs mcp`) care expune `recall`, `remember`, `search`, `handoff` ca unelte,
-      ca Claude Code / Codex să le cheme direct. Transport stdio; un singur fișier, fără SDK dacă
-      protocolul minim se poate scrie de mână, altfel `@modelcontextprotocol/sdk` ca dep opțională.
-- [ ] **Import KB existent**: `dhs index ~/atm/docs/kb -n atm` + extragerea deciziilor din
-      `NOTES.md`/`PROBLEMS.md` ca memorii (`decision`/`problem`), cu script dedicat.
-- [ ] **Handoff „la închidere"**: comandă care primește transcriptul/rezumatul sesiunii și
-      salvează o memorie de tip `handoff` + propune decizii/probleme de reținut.
+## v1 — ce mai lipsește din nucleu
 
-## Calitate a regăsirii
-- [ ] **Reranker LLM opțional** (`gemini-flash-lite`, free tier) peste top-30 din hibrid; interfață
-      `Reranker`, oprit implicit.
-- [ ] **Deduplicare la `remember`**: dacă există o memorie activă cu cosinus > 0,95, propune
-      `--supersedes` în loc să dubleze.
-- [ ] **Contextual retrieval**: un rând de context generat de LLM per fragment (scump la indexare;
-      doar pentru spații mici și valoroase).
-- [ ] Evaluare: set mic de întrebări/răspunsuri pe KB-ul ATM, măsurat MRR pentru hibrid vs vector
-      vs lexical, ca reglajele (k RRF, ponderi, prefix ≥ 5) să fie justificate cu cifre.
+- [x] `dhs scan` — inventar, clasificare, excluderi, estimare, verificarea destinației
+- [ ] `--precis` — eșantionare pentru raport măsurat + hash pentru deduplicare
+- [ ] `internal/pack` — formatul: volume de 3,5 GiB, blocuri solide pe clasă, jurnal de reluare, sume de control
+- [ ] `internal/crypto` — `age` cu frază de acces; secțiune separată pentru secrete, cu parolă proprie
+- [ ] `dhs backup` — scrierea pachetului
+- [ ] `dhs verify` — verificarea integrală, fără extragere
+- [ ] `internal/appdb` — baza de aplicații (TOML + `go:embed`) și interogarea ei
+- [ ] Detectarea aplicațiilor instalate: `pacman`/`dpkg`/`rpm`/`flatpak`/`snap` pe Linux, registry + `winget` pe Windows
+- [ ] `dhs plan` — manifest + appdb → plan de restaurare, fără să atingă nimic
+- [ ] `dhs restore` — execuția planului aprobat
+- [ ] `dhs raport` — ce a rămas necunoscut sau netradus
+- [ ] Cele 10–15 aplicații cu configurații portabile (D3)
+- [ ] Împărțirea pachetului pe mai multe medii
 
-## Scalare
-- [ ] **sqlite-vec** sau cuantizare int8 a matricei când un spațiu trece de ~200k fragmente
-      (acum: produs scalar exact, Float32, ~30 MB / 10k fragmente la 768 dimensiuni).
-- [ ] Contor **RPD** (cereri pe zi) pe lângă RPM/TPM — free tier are și plafon zilnic.
-- [ ] `dhs watch <dosar>` cu `fs.watch` pentru indexare continuă.
-- [ ] `dhs migrate-model` — re-vectorizare controlată la schimbarea modelului, cu raport de cost.
+## Calitate și infrastructură
 
-## Igienă
-- [ ] Export/backup (`dhs export -n atm > atm.jsonl`) și import.
-- [ ] `dhs gc` — șterge fizic documentele inactive mai vechi de N zile și intrările de cache orfane.
-- [ ] Pagină de ajutor per comandă (`dhs help search`).
+- [ ] CI: `go vet`, `go test`, build pentru linux/amd64, linux/arm64, windows/amd64, windows/arm64
+- [ ] Buget de dimensiune verificat în CI (Regula #4: binar ≤ 15 MiB)
+- [ ] Teste de integrare pe VM-uri: o migrare Windows → Linux dusă până la capăt
+- [ ] `CONTRIBUTING.md` cu regula DCO și cum se adaugă o aplicație în bază
+- [ ] Completarea numelui în `NOTICE` — blochează prima publicare
+
+## După v1
+
+- [ ] **GUI** — proces separat, vorbește JSON cu CLI-ul (D9). Linux: GTK4 + libadwaita prin `gotk4`. Windows: Win32 nativ sau WinUI
+- [ ] **Preprocesare tip preflate** pentru nivelul 3 (D8): docx/xlsx/pptx, PDF, instalatoare. Doar cu verificare bit-identică per flux
+- [ ] Recompresie JPEG fără pierderi (~20% pe o colecție de poze) — evaluat și amânat, vezi `COMPRESIE.md`
+- [ ] Deduplicare pe blocuri, în stil `srep`
+- [ ] Backup incremental peste un pachet existent
+- [ ] `dhs watch` — pachet ținut la zi
+- [ ] Traducerea configurațiilor complexe, registry Windows → fișiere Linux
+- [ ] Sincronizare între dispozitive
+- [ ] Suport enterprise, implementare în masă
+- [ ] Integrare cu instalatoarele de distribuții („ai un pachet DHS? îl restaurez acum")
+
+## Puncte deschise
+
+- Cum comunicăm că parola pierdută înseamnă pachet pierdut, fără să speriem un utilizator obișnuit
+- Fișiere mai mari decât un volum: tăierea între volume (proiectat, neimplementat)
+- KeePassXC: baza de parole intră la „secrete", deci opt-in
+- Steam: configurația da, biblioteca de jocuri nu — exclusă implicit

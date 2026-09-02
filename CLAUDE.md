@@ -101,31 +101,51 @@ e în bază, DHS spune că nu știe și o trece în raport; nu inventează un ec
 Consecință directă: nicio dependență de rețea la runtime, nicio cheie de API în produs, funcționare
 completă offline.
 
+## ⛔ Regula #4 — fără balast
+
+DHS nu are voie să devină bloatware. Bugetele sunt praguri, nu sugestii:
+
+| | Buget | Acum |
+|---|---|---|
+| Binar CLI, dezbrăcat (`-ldflags "-s -w"`) | ≤ 15 MiB | **2,1 MiB** Linux · **2,4 MiB** Windows |
+| Procese în fundal, servicii, daemoni | **zero** | zero |
+| Telemetrie, „statistici anonime", actualizator automat | **zero** | zero |
+| Apeluri de rețea la rulare | **zero** | zero |
+| Runtime de instalat pe sistemul destinație | **niciunul** | niciunul |
+| Pornire la rece | < 100 ms | ~10 ms |
+
+Fiecare dependență nouă se justifică. Un pachet Go care deschide un socket nu intră în produs.
+
 ## Sistemul intern de management al proiectului (RAG)
 
-Directorul conține și o **unealtă internă de memorie și cunoștințe** (comanda `dhs`, `src/`,
-`test/`): RAG local peste SQLite cu embeddings Gemini, construit pe 02.09.2026. Rolul ei e să țină
-minte deciziile proiectului între sesiuni și între agenți.
-
-**E infrastructură de lucru, nu parte din produs.** Nu se livrează, nu se publică odată cu DHS, nu
-influențează arhitectura produsului. Vezi [Regula #2](#-regula-2--dhs-nu-conține-ai).
-
-Spații de nume separate:
+Unealta de memorie folosită de agenți s-a mutat, conform D2, în **`~/dhs-memory`** — repo propriu.
+Nu face parte din produs, nu se livrează, nu influențează arhitectura lui.
 
 ```bash
-node src/cli.ts recall "scopul proiectului DHS" -n dhs     # produsul
-node src/cli.ts handoff -n dhs                             # rezumat pentru sesiunea următoare
-node src/cli.ts recall "cum e construit RAG-ul" -n mem     # unealta internă
+cd ~/dhs-memory
+node src/cli.ts recall "de ce am ales Go" -n dhs   # deciziile produsului
+node src/cli.ts handoff -n dhs                     # rezumat pentru sesiunea următoare
+node src/cli.ts recall "cum e construit RAG-ul" -n mem
 ```
-
-`README.md` și `AGENTS.md` din repo descriu deocamdată unealta internă. Se rescriu pentru produs
-când începe implementarea.
 
 ## Stiva
 
 **Go** — binar static unic, fără runtime pe sistemul destinație. Baza de date de aplicații intră în
-binar prin `go:embed`, deci DHS funcționează complet offline. GUI-ul, când vine, va fi Wails peste
-aceeași bibliotecă de nucleu.
+binar prin `go:embed`, deci DHS funcționează complet offline.
+
+**Windows și Linux se dezvoltă separat, dar din același repo.** Etichetele de build fac treaba:
+codul specific stă doar în `_linux.go` și `_windows.go`, iar binarul de Linux **nu conține niciun
+octet** din codul de Windows. Nu plătești pentru platforma cealaltă. Cross-compile-ul e o comandă,
+fără toolchain suplimentar:
+
+```bash
+go build ./cmd/dhs                 # Linux
+GOOS=windows go build ./cmd/dhs    # Windows, de pe Linux
+```
+
+**GUI-ul e proces separat, care vorbește cu CLI-ul prin JSON** (`dhs <comandă> --json`). Așa fiecare
+platformă își primește interfața ei nativă, scrisă în ce i se potrivește, fără să dublăm logica și
+fără ca un utilizator de Linux să descarce cod de Windows. Vezi D9.
 
 - [`docs/ARHITECTURA.md`](docs/ARHITECTURA.md) — formatul pachetului, structura modulelor, suprafața
   CLI, schema bazei de aplicații
@@ -167,6 +187,17 @@ cuiva, nu asseturi de joc. Orice tehnică de compresie care nu poate garanta rec
   a evita fișierele „importante" — DHS n-are cum să știe care sunt — ci din **verificare**: fiecare
   flux preprocesat se recompune și se compară octet cu octet pe loc, iar la restaurare fișierul
   refăcut se verifică față de SHA-256-ul originalului.
+- **D6 — licența · 02.09.2026: Apache-2.0.** Permisivă, dar cu `NOTICE` (atribuire care se duce în
+  orice derivat), clauză de marcă (§6 — nimeni nu poate numi forkul „DHS") și cesiune de brevete.
+  Deliberat **fără** clauză etică de utilizare: aceea ar scoate DHS din definiția open source și
+  l-ar face nepublicabil în Debian, Fedora, Arch, openSUSE și nixpkgs — exact publicul pentru care
+  există unealta. Poziția proiectului se apără altfel: [`TRADEMARK.md`](TRADEMARK.md) interzice
+  folosirea **numelui** într-un produs care implementează verificarea vârstei, iar
+  [`VALUES.md`](VALUES.md) o spune public. Dreptul mărcilor se poate aplica; „diabolic" nu.
+  Contribuții prin **DCO**; baza de aplicații primește **CC-BY-4.0**.
+- **Structura codului · 02.09.2026.** Windows și Linux se dezvoltă separat prin etichete de build,
+  nu prin repo-uri separate. Numele de pachete și identificatorii sunt în **engleză**; comentariile
+  și mesajele către utilizator, în **română**.
 - **D5 — instalare la restaurare · 02.09.2026: plan aprobat, apoi rulare.** DHS arată exact ce
   instalează, din ce sursă și cu ce comenzi; userul aprobă o dată, apoi rulează automat. Nimeni nu
   execută orbește comenzi de root generate dintr-un fișier de pe un stick.
@@ -175,8 +206,9 @@ cuiva, nu asseturi de joc. Orice tehnică de compresie care nu poate garanta rec
 
 | # | Decizie | Stare |
 |---|---|---|
-| **D6** | Licența. Userul o vrea **permisivă**, cu drepturile lui recunoscute. Propunere: **Apache-2.0** (singura permisivă cu `NOTICE`, clauză de marcă și cesiune de brevete) + **DCO** pentru contribuții + **CC-BY-4.0** pentru baza de aplicații. Comparație completă: [`docs/LICENTA.md`](docs/LICENTA.md). | de ales dintre opțiuni |
 | **D8** | Cum implementăm preprocesarea de tip preflate, când ajungem la ea: reimplementare în Go (binar curat, câteva săptămâni) sau `preflate-rs` prin cgo (rapid, dar cere `mingw` pentru Windows). **Nu se decide acum** — v1 livrează nivelul 3 ca LZMA2 fără preprocesare, iar formatul lasă loc pentru ea. | amânat până la etapa respectivă |
+| **D9** | Ce trusă grafică pe fiecare platformă. Candidați: pe Linux **GTK4 + libadwaita** prin `gotk4` (nativ pe GNOME, se leagă de bibliotecile sistemului, deja instalate); pe Windows **Win32 nativ** sau WinUI. Fiindcă GUI-ul e proces separat care vorbește JSON cu CLI-ul, decizia **nu blochează nimic** și se ia când ajungem la ea. | amânat, GUI-ul vine după v1 |
+| **—** | Numele care apare în `NOTICE` și în copyright: persoană fizică sau entitate. Blochează prima publicare, nu dezvoltarea. | **de răspuns** |
 
 ## Convenții
 

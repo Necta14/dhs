@@ -1,7 +1,7 @@
 # Arhitectura DHS — propunere pentru v1
 
-> Stare: **propunere**, scrisă după închiderea deciziilor D1–D5 (02.09.2026). Nu s-a scris cod de
-> produs. Punctele marcate ⚠️ mai au nevoie de confirmare.
+> Stare la 02.09.2026: **`scan` e implementat și rulează**; restul e propunere. Punctele marcate ⚠️
+> mai au nevoie de confirmare.
 >
 > Context și decizii: [`../CLAUDE.md`](../CLAUDE.md).
 
@@ -171,22 +171,29 @@ sute de GB; trebuie exclus implicit, cu opt-in separat.
 
 ## Structura codului
 
+Numele de pachete și identificatorii sunt în engleză; comentariile și mesajele către utilizator, în
+română. ✅ = există deja.
+
 ```
-cmd/dhs/                  CLI — doar parsare de argumente și afișare
+cmd/dhs/                  CLI — doar parsare de argumente și afișare        ✅
 internal/
-  sistem/                 detectare OS, căi standard, privilegii
-    windows/              registry, Known Folders, winget/choco/scoop
-    linux/                XDG, pacman/dpkg/rpm/flatpak/snap
-  scanare/                inventar de fișiere și aplicații, estimare de dimensiune
-  pachet/                 formatul: scriere, citire, volume, jurnal, sume de control
-  cripto/                 age cu frază de acces
+  system/                 detectare OS, căi standard, spațiu, privilegii    ✅
+    system_linux.go       /etc/os-release, XDG user-dirs, statfs            ✅
+    system_windows.go     registry, Known Folders, GetDiskFreeSpaceEx       ✅
+  scan/                   inventar, clasificare, excluderi, estimare        ✅
+  report/                 formatarea cifrelor pentru ochi de om             ✅
+  pack/                   formatul: scriere, citire, volume, jurnal, sume
+  crypto/                 age cu frază de acces
   appdb/                  baza de aplicații (go:embed) + interogare
   plan/                   manifest + appdb → plan de restaurare
-  restaurare/             execuția planului aprobat
-  raport/                 ce a mers, ce nu, ce a rămas necunoscut
+  restore/                execuția planului aprobat
 ```
 
-Regula: `internal/sistem/windows` și `internal/sistem/linux` sunt singurele locuri cu cod specific
+Codul specific unui sistem de operare stă **doar** în fișiere cu sufix `_linux.go` și `_windows.go`.
+Datorită etichetelor de build, binarul de Linux nu conține niciun octet din codul de Windows — de
+aici și dimensiunile: 2,1 MiB pe Linux, 2,4 MiB pe Windows.
+
+Regula: `internal/system/windows` și `internal/system/linux` sunt singurele locuri cu cod specific
 unui sistem de operare. Restul e comun și testabil pe orice mașină.
 
 ## Suprafața CLI
