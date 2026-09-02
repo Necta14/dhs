@@ -12,10 +12,11 @@ Ce nu intră în v1. Ordinea în fiecare secțiune e o propunere, nu un angajame
 - [ ] Reluarea unui backup întrerupt din jurnal + `index.dhsi` parțial — formatul o permite, comanda nu există
 - [x] `dhs backup` — scrierea pachetului — **scris, netestat**
 - [x] `dhs verify` — verificarea integrală, fără extragere — **scris, netestat**
+- [x] `dhs list` — conținutul pachetului, rezumat sau complet — **scris, netestat**
+- [x] `dhs restore` — plan (destinații, conflicte, nume adaptate, coliziuni de majuscule) → confirmare → scriere prin temporar + verificare hash + rename — **scris, netestat**
 - [ ] `internal/appdb` — baza de aplicații (TOML + `go:embed`) și interogarea ei
 - [ ] Detectarea aplicațiilor instalate: `pacman`/`dpkg`/`rpm`/`flatpak`/`snap` pe Linux, registry + `winget` pe Windows
 - [ ] `dhs plan` — manifest + appdb → plan de restaurare, fără să atingă nimic
-- [ ] `dhs restore` — execuția planului aprobat
 - [ ] `dhs raport` — ce a rămas necunoscut sau netradus
 - [ ] Cele 10–15 aplicații cu configurații portabile (D3)
 - [ ] Împărțirea pachetului pe mai multe medii

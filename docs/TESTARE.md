@@ -47,6 +47,10 @@ Ce trebuie să iasă verde și ce dovedește fiecare:
 | `TestAbortLeavesIncompletePackage` | după întrerupere: manifest incomplet, volum în curs rămas `.tmp`, nimic care să pară valid |
 | `TestRefusesNonEmptyDir` | nu suprascriem un director cu conținut |
 | `TestSizeMismatchIsRecorded` | un fișier crescut între scan și backup se reține la dimensiunea reală |
+| `restore.TestPlanAndExecute` | planul rezolvă destinații, conflictul păstrează existentul și scrie alături, rădăcinile inexistente merg sub `DHS-restaurat`, mod și mtime se refac, niciun `.dhs-tmp` nu rămâne |
+| `restore.TestPlanConflictPolicies` | `sari` nu atinge nimic; `suprascrie` înlocuiește |
+| `restore.TestPlanCaseCollisionOnWindows` | `Raport.txt` și `raport.txt` ajung în două fișiere pe Windows |
+| `restore.TestSanitizeWindows` | caractere interzise, nume rezervate, puncte finale — adaptate |
 | `internal/scan`, `internal/system` | clasificare, excluderi, secrete, inventar, estimare, detectare OS |
 
 Dacă ceva pică, **nu se trece la pasul 2**. Se notează în `docs/PROBLEMS.md` și se repară întâi.
@@ -92,9 +96,15 @@ ls /tmp/intrerupt.dhs/volume/                          # volumele încheiate .dh
 ```bash
 tar -xf /tmp/test.dhs.tar -C /tmp
 ./dhs verify /tmp/test.dhs --parola-fisier /tmp/parola
-./dhs restore /tmp/test.dhs --parola-fisier /tmp/parola --dry-run     # când există comanda
+./dhs list /tmp/test.dhs --parola-fisier /tmp/parola --tot
+./dhs restore /tmp/test.dhs --parola-fisier /tmp/parola --dry-run
 ./dhs restore /tmp/test.dhs --parola-fisier /tmp/parola
 sha256sum ~/Pictures/poza.jpg ~/Downloads/copie.jpg ~/Documents/numere.txt
+
+# conflict: rulează din nou — existentul rămâne, restauratul apare cu „ (DHS)”
+./dhs restore /tmp/test.dhs --parola-fisier /tmp/parola --da
+ls ~/Documents/                                        # numere.txt și „numere (DHS).txt”
+./dhs restore /tmp/test.dhs --parola-fisier /tmp/parola --conflicte sari --dry-run
 ```
 
 Sumele trebuie să fie identice cu cele de pe sursă. **Asta e testul care contează.**

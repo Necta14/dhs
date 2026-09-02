@@ -21,6 +21,8 @@ Comenzi
   scan       arată ce s-ar salva, cât ar ocupa și dacă încape pe destinație
   backup     creează pachetul de migrare pe mediul extern
   verify     verifică un pachet, bloc cu bloc, fără să extragă nimic
+  list       arată ce e într-un pachet
+  restore    pune fișierele la locul lor pe sistemul curent, după un plan aprobat
   version    versiunea și sistemul detectat
 
 Ajutor pentru o comandă
@@ -41,6 +43,10 @@ func main() {
 		err = runBackup(os.Args[2:])
 	case "verify":
 		err = runVerify(os.Args[2:])
+	case "list":
+		err = runList(os.Args[2:])
+	case "restore":
+		err = runRestore(os.Args[2:])
 	case "version", "--version", "-v":
 		err = runVersion()
 	case "help", "--help", "-h":

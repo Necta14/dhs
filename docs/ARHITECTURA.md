@@ -1,9 +1,9 @@
 # Arhitectura DHS — propunere pentru v1
 
 > Stare la 02.09.2026: `scan` implementat și rulat pe date reale. `pack`, `passphrase`, `backup`,
-> `verify` — **scrise și compilate, dar netestate**: testele rulează doar pe Codespaces
-> ([`TESTARE.md`](TESTARE.md)). `restore`, `appdb`, `plan` — nescrise. Punctele ⚠️ mai au nevoie
-> de confirmare.
+> `verify`, `list`, `restore` — **scrise și compilate, dar netestate**: testele rulează doar pe
+> Codespaces ([`TESTARE.md`](TESTARE.md)). `appdb`, detectarea aplicațiilor, `plan` — nescrise.
+> Punctele ⚠️ mai au nevoie de confirmare.
 >
 > Context și decizii: [`../CLAUDE.md`](../CLAUDE.md).
 
@@ -193,11 +193,11 @@ internal/
     system_windows.go     registry, Known Folders, GetDiskFreeSpaceEx       ✅
   scan/                   inventar, clasificare, excluderi, estimare        ✅
   report/                 formatarea cifrelor pentru ochi de om             ✅
-  pack/                   formatul: scriere, citire, volume, jurnal, sume
-  crypto/                 age cu frază de acces
+  pack/                   formatul: scriere, citire, volume, jurnal, sume    ✅ netestat
+  passphrase/             age cu frază de acces                             ✅ netestat
+  restore/                plan de restaurare + execuție prin temporar       ✅ netestat
   appdb/                  baza de aplicații (go:embed) + interogare
-  plan/                   manifest + appdb → plan de restaurare
-  restore/                execuția planului aprobat
+  apps/                   detectarea aplicațiilor instalate, plan de instalare
 ```
 
 Codul specific unui sistem de operare stă **doar** în fișiere cu sufix `_linux.go` și `_windows.go`.
