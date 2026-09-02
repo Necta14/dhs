@@ -121,25 +121,40 @@ node src/cli.ts recall "cum e construit RAG-ul" -n mem     # unealta internă
 `README.md` și `AGENTS.md` din repo descriu deocamdată unealta internă. Se rescriu pentru produs
 când începe implementarea.
 
-## Decizii deschise
+## Stiva
 
-Ordinea contează: D1 și D3 blochează scrierea de cod.
+**Go** — binar static unic, fără runtime pe sistemul destinație. Baza de date de aplicații intră în
+binar prin `go:embed`, deci DHS funcționează complet offline. GUI-ul, când vine, va fi Wails peste
+aceeași bibliotecă de nucleu.
 
-| # | Decizie | Stare |
-|---|---|---|
-| **D1** | Limbajul și stiva nucleului. Constrângerea tare: pe sistemul destinație, proaspăt instalat, **nu există niciun runtime** — deci binar unic, static. | deschis |
-| **D3** | Cât de departe merge migrarea configurațiilor în v1: doar fișiere + manifest, sau și o listă curată de aplicații cu reguli scrise de mână. | deschis |
-| **D4** | Criptarea pachetului și tratarea secretelor (chei, parole, token-uri). | deschis |
-| **D5** | La restaurare: instalare automată a pachetelor, sau generarea unui script pe care userul îl revizuiește și îl rulează. | deschis |
-| **D6** | Licența (GPLv3 vs Apache-2.0) și modelul de contribuție pentru baza de date de aplicații. | deschis |
+Propunerea completă de arhitectură (formatul pachetului, structura modulelor, suprafața CLI, schema
+bazei de aplicații): [`docs/ARHITECTURA.md`](docs/ARHITECTURA.md).
 
 ## Decizii luate
 
+- **D1 — stiva · 02.09.2026: Go.** Binar static unic, cross-compile din Arch către Windows cu o
+  singură comandă, stdlib care acoperă exact nevoile (arhive, hashing, filesystem, procese),
+  registry Windows prin `x/sys`. Curbă mică de învățare → contribuitori mai ușor de găsit.
 - **D2 — relația cu unealta RAG · 02.09.2026.** Nu există conflict: DHS e produsul, RAG-ul e
   sistemul intern de management al proiectului. Produsul nu conține AI sau RAG
   ([Regula #2](#-regula-2--dhs-nu-conține-ai)). Unealta internă rămâne separată de codul care se
   livrează; când începe implementarea produsului, ea se mută în propriul repo, ca repo-ul public să
   conțină doar DHS.
+- **D3 — configurații în v1 · 02.09.2026: fișiere + manifest + listă mică.** Copiere de fișiere,
+  manifest de aplicații, plus 10–15 aplicații cu configurații cu adevărat portabile. Restul se
+  arhivează și se raportează, **nu se traduce**. Fără promisiuni pe care nu le putem ține.
+- **D4 — securitate · 02.09.2026: criptat implicit, secrete opt-in.** Pachetul e criptat cu parolă
+  din start. Secretele (chei SSH/GPG, parole din browser, token-uri cloud) sunt **excluse implicit**
+  și incluse doar cu opt-in explicit și avertisment. Un SSD pierdut nu devine o scurgere totală.
+- **D5 — instalare la restaurare · 02.09.2026: plan aprobat, apoi rulare.** DHS arată exact ce
+  instalează, din ce sursă și cu ce comenzi; userul aprobă o dată, apoi rulează automat. Nimeni nu
+  execută orbește comenzi de root generate dintr-un fișier de pe un stick.
+
+## Decizii deschise
+
+| # | Decizie | Stare |
+|---|---|---|
+| **D6** | Licența și modelul de contribuție pentru baza de date de aplicații. Propunere: **GPLv3** pentru cod (un fork închis n-ar aduce nimic userilor) + licență permisivă pentru baza de aplicații, ca datele să poată fi reutilizate liber. | deschis, nu blochează |
 
 ## Convenții
 
