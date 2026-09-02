@@ -18,7 +18,7 @@ până atunci, pe Windows verificăm doar că **compilează** (`GOOS=windows go 
 ## Pasul 0 — pregătire, pe amândouă
 
 ```bash
-git clone <repo> && cd dhs
+git clone https://github.com/Necta14/dhs.git && cd dhs
 go version                       # ≥ 1.26
 gofmt -l . && go vet ./...       # trebuie tăcute
 go build -ldflags="-s -w" -o dhs ./cmd/dhs
