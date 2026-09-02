@@ -27,10 +27,12 @@ recitească zeci de fișiere.
 
 ```bash
 npm install
-printf 'GEMINI_API_KEY=cheia-ta\n' > .env.local     # CLI-ul citește .env.local și .env din cwd
-node src/cli.ts doctor                               # sau: npm run dhs -- doctor
-npm link                                             # opțional: comanda globală `dhs`
+cp .env.example .env.local && $EDITOR .env.local   # pune cheia; CLI-ul citește .env.local și .env din cwd
+node src/cli.ts doctor                             # sau: npm run dhs -- doctor
+npm link                                           # opțional: comanda globală `dhs`
 ```
+
+`.env.local` e ignorat de git (`.gitignore`); `.env.example` e șablonul care se comite.
 
 Baza implicită e **globală**: `~/.local/share/dhs/dhs.sqlite` (respectă `XDG_DATA_HOME`), ca aceeași
 memorie să fie văzută din orice proiect. Se schimbă cu `DHS_DB_PATH` sau `--db`.
