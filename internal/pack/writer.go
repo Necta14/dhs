@@ -163,6 +163,8 @@ func NewWriter(o Options) (*Writer, error) {
 	}
 	w.progress.Volume = 1
 
+	// Emițătorul există înainte de primul manifest: manifestul îl întreabă câte volume sunt.
+	w.em = newEmitter(w)
 	if err := w.writeManifest(false); err != nil {
 		return nil, err
 	}
@@ -171,7 +173,6 @@ func NewWriter(o Options) (*Writer, error) {
 		w.workers.Add(1)
 		go w.worker()
 	}
-	w.em = newEmitter(w)
 	go w.em.run()
 
 	return w, nil
@@ -618,9 +619,7 @@ func (w *Writer) writeManifest(complete bool) error {
 		}
 	}
 	w.mu.Unlock()
-	if w.em != nil {
-		m.Stored, _ = w.em.stats()
-	}
+	m.Stored, _ = w.em.stats()
 	b, err := json.MarshalIndent(m, "", "  ")
 	if err != nil {
 		return err
