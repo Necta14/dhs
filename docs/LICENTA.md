@@ -105,6 +105,104 @@ decizia se ia acum, nu mai târziu.
 aplicații, adică date, nu cod, iar frecarea mică ajută la creștere. Treci la CLA doar dacă apare
 intenția reală de a vinde ceva.
 
+## Apache-2.0 modificat, cu clauză etică — analiza
+
+Cerința: cod liber de folosit oriunde, **cu excepția** scopurilor „diabolice" și a produselor care
+fac verificare de vârstă.
+
+### Problema centrală: cele două jumătăți se anulează
+
+Ai spus, în aceeași frază, două lucruri care nu pot coexista:
+
+> „codul este liber de implementat în alte distro-uri/OS-uri" **și** „cât timp nu e folosit în [X]"
+
+Orice restricție de **utilizare** face licența să **nu mai fie open source**, după ambele definiții
+care contează în practică:
+
+- **Open Source Definition, criteriul 6** — „fără discriminare pe domenii de activitate": licența nu
+  poate interzice folosirea într-un anumit domeniu.
+- **Definiția software-ului liber, Libertatea 0** — „să rulezi programul cum vrei, în orice scop".
+
+Iar distribuțiile Linux își iau politicile **direct** din definițiile astea. Consecința e concretă,
+nu teoretică: DHS **nu ar mai putea intra** în Debian, Fedora, depozitele oficiale Arch, openSUSE,
+nixpkgs sau Homebrew core.
+
+Pentru o unealtă al cărei rost e **să ajute oamenii să treacă pe Linux**, a nu putea fi împachetată
+în distribuțiile Linux e aproape fatal. Ai plăti costul ăsta, sigur și imediat, ca să previi un
+scenariu aproape ipotetic: cine ar încorpora o unealtă locală de migrare de fișiere într-un produs de
+verificare a vârstei?
+
+### Precedentul care s-a jucat deja: licența JSON
+
+Douglas Crockford a adăugat la o licență MIT o singură propoziție: *„The Software shall be used for
+Good, not Evil."* Ce a urmat, timp de peste douăzeci de ani:
+
+- clasificată **non-liberă** de Debian, Fedora, Red Hat legal, GNU și FSF;
+- **nedistribuibilă** de nicio organizație care garantează libertatea utilizatorilor;
+- efect în cascadă — proiecte întregi n-au putut fi împachetate fiindcă *o dependență* avea clauza;
+- departamente juridice care au interzis-o din start, fiindcă „evil" nu e definit nicăieri;
+- IBM a fost nevoită să ceară oficial permisiunea de a face rău. Crockford a acordat-o, în glumă.
+
+Intenția era bună. Rezultatul a fost două decenii de durere în împachetare și zero rele împiedicate.
+
+### Și problema de nume
+
+Textul licenței Apache e al Apache Software Foundation. Un text modificat **nu mai poate fi numit
+„Apache-2.0"** — ar induce în eroare oamenii și uneltele automate (SPDX, scanere de licențe), care
+oricum l-ar marca drept licență proprie, necunoscută. Ar trebui botezat altfel, de exemplu
+„DHS Community License 1.0", și atunci fiecare firmă care îl vede îl trimite la juridic.
+
+### Că nu ești singur în tabăra asta
+
+Există o mișcare întreagă — *Ethical Source* — și licențe gata făcute, mai ales **Hippocratic
+License 3.0**, care interzice folosirea în activități ce încalcă Declarația Universală a Drepturilor
+Omului. Autorii ei susțin că respectă definiția open source, fiindcă restricțiile țintesc *activități*,
+nu *categorii de oameni*. OSI nu a aprobat-o, iar distribuțiile o tratează ca non-liberă. Deci
+poziția ta are companie și argumente; are însă și același cost practic.
+
+### Ce funcționează de fapt: marca, nu licența
+
+Nu poți controla legal **utilizarea** codului fără să pierzi statutul de open source. Dar poți
+controla foarte bine **numele tău** — iar numele e cel care poartă reputația.
+
+Apache-2.0 §6 îți rezervă deja marca. Peste asta publici o **politică de marcă**:
+
+> Codul e liber, sub Apache-2.0. Numele „DHS", „Direct Handoff Suite" și sigla sunt însă mărcile
+> mele. Le poți folosi doar pentru versiuni nemodificate. Dacă încorporezi acest cod într-un produs
+> care implementează verificarea vârstei, nu ai dreptul să-l numești DHS, să folosești sigla sau să
+> spui „powered by DHS". Redenumește-l.
+
+Diferența e că **asta chiar se poate aplica.** Dreptul mărcilor e vechi, clar și înțeles de instanțe
+— spre deosebire de „diabolic", care nu înseamnă nimic juridic. Mozilla a făcut exact asta cu
+Firefox, iar Debian a fost nevoită ani de zile să livreze „Iceweasel".
+
+Rezultatul: oricine poate folosi codul, inclusiv cineva de care n-ai chef — dar **nu sub numele
+tău**, și fără să pară că-l susții. Și DHS rămâne împachetabil peste tot.
+
+Adaugi lângă asta un fișier **`VALUES.md`**, fără forță juridică, dar public și clar: ce crede
+proiectul, inclusiv poziția față de verificarea vârstei. Nu costă nimic, nu strică nimic și rămâne
+scris.
+
+### Cele trei drumuri, pe scurt
+
+| | A · Apache-2.0 + marcă + `VALUES.md` | B · Apache-2.0 cu restricție proprie | C · Hippocratic 3.0 |
+|---|---|---|---|
+| E open source | ✅ | ❌ | contestat, tratat ca ❌ |
+| Intră în Debian/Fedora/Arch | ✅ | ❌ | ❌ |
+| Firmele îl pot folosi fără drum la juridic | ✅ | ❌ | ❌ |
+| Oprește legal folosirea „diabolică" | ❌ | pe hârtie, greu de aplicat | pe hârtie |
+| Îți protejează numele și reputația | **✅** | ✅ | ✅ |
+| Poziția ta e publică și explicită | ✅ prin `VALUES.md` | ✅ | ✅ |
+| Efort | mic | mediu + risc juridic | mic |
+
+**Recomandarea mea: A.** Îți păstrează scopul (rulează și se împachetează oriunde), îți apără numele
+cu un instrument care chiar funcționează, și îți lasă poziția scrisă negru pe alb. Restricția din B
+și C ți-ar costa exact distribuția în distribuțiile Linux — adică publicul pentru care construiești
+unealta — în schimbul unei protecții pe care, realist, n-ai putea-o pune în aplicare.
+
+Dacă alegi totuși B, atunci hai s-o facem **cinstit**: nume propriu al licenței, scris în README că
+e *source-available*, nu open source, și fără eticheta „Apache" pe ea.
+
 ## Baza de date de aplicații — licență separată
 
 Datele nu sunt cod și merită licența lor, ca să poată fi refolosite de oricine:
