@@ -83,21 +83,102 @@ implicit** (D4), iar un ZIP criptat de noi nu se mai deschide cu nimic altceva. 
 merită locul doar dacă acceptăm și un mod **necriptat**, cu avertisment.
 **De decis (D7).**
 
-### 4.4 Nivelul „extrem" — verdict
+## 4.4 Nivelul 3 și preprocesarea — cum se face bine
 
-Partea fără pierderi din stiva FitGirl care ne-ar folosi e **precomp**, și e chiar valoroasă exact
-acolo unde ne așteptăm mai puțin: documente Office, PDF-uri și instalatoare. Dar:
+Aici e partea care trebuie construită cu grijă, nu improvizată.
 
-- e greu de făcut corect: trebuie să dovedești, pentru fiecare flux, că recompresia iese **bit-identic**;
-- implementarea modernă și serioasă e [`microsoft/preflate-rs`](https://github.com/microsoft/preflate-rs),
-  scrisă în **Rust** — folosită de Microsoft tocmai pentru stocare unde datele trebuie refăcute exact.
-  Nu există echivalent Go matur;
-- a lega Rust de un binar Go strică exact avantajul pentru care am ales Go: cross-compile într-o
-  comandă și binar static.
+### Siguranța nu vine din evitare, ci din verificare
 
-**Propunere: nu în v1.** Merge în BACKLOG cu regula, dacă îl facem vreodată: fiecare flux
-preprocesat se verifică prin recompresie imediată și, dacă nu iese identic, se stochează originalul.
-Fără verificare, nu se atinge.
+Reflexul firesc e „nu atinge documentele importante". Problema e că **DHS nu are cum să știe care
+sunt importante** — un `.docx` poate fi o listă de cumpărături sau contractul casei. Dacă siguranța
+depinde de a ghici asta, siguranța nu există.
+
+Soluția corectă e alta: **fiecare flux preprocesat se verifică pe loc.**
+
+```
+pentru fiecare flux candidat:
+    1. desfă-l                                    (deflate → date brute)
+    2. recompune-l imediat, din ce ai salvat
+    3. compară octet cu octet cu originalul
+       ├─ identic      → păstrează forma preprocesată
+       └─ diferit      → aruncă tot, stochează originalul neatins
+```
+
+Fluxul preprocesat **nu e acceptat niciodată** fără dovada că se poate reface exact. Un fișier pe
+care nu-l putem reconstrui perfect pur și simplu nu e preprocesat — pierde câteva procente, nu
+integritatea.
+
+Peste asta stă a doua plasă: la restaurare, fișierul refăcut se compară cu **SHA-256-ul fișierului
+original**, salvat la împachetare. Nescriem niciodată pe disc un fișier care nu se potrivește; îl
+raportăm.
+
+Cu ambele verificări la locul lor, preprocesarea devine sigură **pentru orice fișier**. Rămâne
+atunci o singură întrebare, mult mai simplă: unde merită timpul?
+
+### Unde merită — lista albă
+
+Preprocesarea e scumpă, deci se aplică doar unde se știe că plătește:
+
+| Tip | Ce e înăuntru | Câștig | În v1.1? |
+|---|---|---|---|
+| `.docx` `.xlsx` `.pptx` `.odt` `.ods` | **containere ZIP** | mare | **da** |
+| `.zip` `.jar` `.apk` `.epub` | ZIP simplu | mare | **da** |
+| `.pdf` | obiecte `FlateDecode` | moderat | **da** |
+| `.exe` `.msi` instalatoare | comprimate intern | variabil | da, cu eșantionare |
+| `.png` | zlib în `IDAT` | ~10–20% | **nu** — e imagine |
+| `.jpg` | transcodare fără pierderi | ~20% | **nu în v1** — vezi mai jos |
+| `.mp4` `.mkv` `.mp3` `.flac` | deja optimale | ~0 | nu |
+
+Sub un prag de dimensiune (propunere: 64 KiB) nu se atinge nimic — costul depășește câștigul.
+
+⚠️ **Despre JPEG, ca să fie decizia informată:** recomprimarea JPEG fără pierderi (`packJPG`,
+`brunsli`, JPEG XL) e reală și dă ~20%. Pe o colecție de 50 GiB de poze înseamnă 10 GiB. Dar sunt
+exact fișierele pe care nu le mai poți reface dacă ceva iese prost, iar câștigul nu justifică riscul
+în v1. Rămâne în BACKLOG, cu cifra scrisă aici ca să se poată reevalua.
+
+### Măsoară înainte de a te angaja
+
+`dhs scan --precis --nivel 3` eșantionează fișierele reale din lista albă și spune **cât câștigi de
+fapt**, nu cât ar fi teoretic:
+
+```
+Nivel 2 · Echilibrat          19,4 – 21,8 GiB     ~14 min
+Nivel 3 · Maxim               17,9 – 19,1 GiB     ~52 min
+  din care preprocesare          −1,2 GiB          +31 min   (2 341 fișiere)
+
+  Merită? 1,4 GiB câștigați pentru 38 de minute în plus.
+```
+
+Userul decide cu cifra în față. Fără promisiuni, fără surprize.
+
+### Problema de implementare, spusă pe față
+
+Ca recompresia să iasă bit-identic nu ajunge să reții „era deflate nivel 6" — implementările diferă,
+iar `compress/flate` din Go nu produce aceiași octeți ca zlib. Trebuie salvată o **rețetă**: exact
+deciziile de codare ale fluxului original. Asta face
+[`microsoft/preflate-rs`](https://github.com/microsoft/preflate-rs), scris în **Rust** și folosit de
+Microsoft tocmai pentru stocare unde datele trebuie refăcute exact. În Go nu există echivalent matur.
+
+Două drumuri, ambele reale:
+
+1. **Reimplementare în Go** a algoritmului de tip preflate. Păstrează binarul curat și cross-compile-ul
+   într-o comandă. Costă câteva săptămâni de muncă atentă.
+2. **`preflate-rs` legat prin cgo.** Rapid de obținut, dar cere `mingw` pentru compilarea către
+   Windows și complică lanțul de build.
+
+**Nu se decide acum** — e D8, se ia când ajungem la etapa aia.
+
+### Ce facem în schimb, imediat
+
+**Nivelul 3 din v1 = LZMA2, fără preprocesare.** Funcțional, util, livrabil.
+
+Dar formatul se proiectează **de pe acum** ca preprocesarea să poată fi adăugată fără să spargem
+pachetele vechi: fiecare intrare stocată are un câmp `preprocesare`, implicit `niciuna`. O versiune
+viitoare de DHS scrie `preflate/v1` acolo; una veche vede o valoare pe care n-o cunoaște, spune clar
+că îi trebuie o versiune mai nouă și **nu strică nimic**.
+
+Asta e partea de „implementat bine" care se face acum: nu codul de precomp, ci **spațiul lăsat
+pentru el**.
 
 ## 5. Estimarea dimensiunii înainte de backup
 

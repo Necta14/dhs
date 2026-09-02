@@ -86,6 +86,14 @@ Detalii, măsurători și cele trei niveluri de compresie alese de user: [`COMPR
 propriul strat: `age` e proiectat și auditat exact pentru asta, iar criptografia scrisă de mână e
 locul clasic unde un proiect ca ăsta face o gaură pe care nimeni n-o observă doi ani.
 
+**Parola acoperă tot pachetul** — toate fișierele, nu o selecție. Criptarea e alegerea userului:
+pornită implicit, se poate opri (`--fara-criptare`), caz în care nivelul 1 dă un ZIP deschizabil pe
+orice calculator, fără DHS.
+
+**Secretele au parolă proprie.** Când userul le include explicit (`--secrete`), ele stau într-o
+secțiune separată, cu a doua frază de acces. Așa poți da pachetul cuiva ca să-ți recupereze
+documentele, fără să-i dai și cheile SSH.
+
 ⚠️ **Parola pierdută = pachet pierdut, definitiv.** Trebuie decis cum comunicăm asta în interfață
 (propunere: confirmare dublă la creare, plus un avertisment care nu se poate sări).
 

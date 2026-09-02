@@ -154,6 +154,17 @@ cuiva, nu asseturi de joc. Orice tehnică de compresie care nu poate garanta rec
 - **D4 — securitate · 02.09.2026: criptat implicit, secrete opt-in.** Pachetul e criptat cu parolă
   din start. Secretele (chei SSH/GPG, parole din browser, token-uri cloud) sunt **excluse implicit**
   și incluse doar cu opt-in explicit și avertisment. Un SSD pierdut nu devine o scurgere totală.
+  **Precizat 02.09.2026:** parola acoperă **toate** fișierele din pachet, iar criptarea e alegerea
+  userului — pornită implicit, dar se poate opri. Secretele, când sunt incluse, stau într-o secțiune
+  cu **parolă proprie**, ca pachetul să poată fi dat cuiva pentru documente fără a-i da și cheile.
+- **D7 — modul necriptat · 02.09.2026, decurge din D4.** Fiindcă criptarea e o alegere, tensiunea
+  dispare: cine vrea un pachet deschizabil pe orice calculator, fără DHS, alege nivelul 1 (ZIP) și
+  oprește criptarea, cu un avertisment vizibil. Cine vrea confidențialitate lasă criptarea pornită și
+  acceptă că îi trebuie DHS ca să-l deschidă.
+- **Regula #3 — nimic cu pierderi · 02.09.2026.** Vezi mai sus. Siguranța preprocesării nu vine din
+  a evita fișierele „importante" — DHS n-are cum să știe care sunt — ci din **verificare**: fiecare
+  flux preprocesat se recompune și se compară octet cu octet pe loc, iar la restaurare fișierul
+  refăcut se verifică față de SHA-256-ul originalului.
 - **D5 — instalare la restaurare · 02.09.2026: plan aprobat, apoi rulare.** DHS arată exact ce
   instalează, din ce sursă și cu ce comenzi; userul aprobă o dată, apoi rulează automat. Nimeni nu
   execută orbește comenzi de root generate dintr-un fișier de pe un stick.
@@ -163,7 +174,7 @@ cuiva, nu asseturi de joc. Orice tehnică de compresie care nu poate garanta rec
 | # | Decizie | Stare |
 |---|---|---|
 | **D6** | Licența și modelul de contribuție pentru baza de date de aplicații. Propunere: **GPLv3** pentru cod (un fork închis n-ar aduce nimic userilor) + licență permisivă pentru baza de aplicații, ca datele să poată fi reutilizate liber. | deschis, nu blochează |
-| **D7** | Modul ZIP necriptat. Nivelul 1 de compresie are sens doar dacă pachetul se poate deschide **fără DHS**, pe orice calculator — dar asta intră în conflict cu criptarea implicită din D4. Ori acceptăm un mod necriptat cu avertisment, ori nivelul 1 rămâne doar „rapid", nu „compatibil". | deschis |
+| **D8** | Cum implementăm preprocesarea de tip preflate, când ajungem la ea: reimplementare în Go (binar curat, câteva săptămâni) sau `preflate-rs` prin cgo (rapid, dar cere `mingw` pentru Windows). **Nu se decide acum** — v1 livrează nivelul 3 ca LZMA2 fără preprocesare, iar formatul lasă loc pentru ea. | amânat până la etapa respectivă |
 
 ## Convenții
 
