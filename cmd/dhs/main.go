@@ -19,10 +19,12 @@ Utilizare
 
 Comenzi
   scan       arată ce s-ar salva, cât ar ocupa și dacă încape pe destinație
+  backup     creează pachetul de migrare pe mediul extern
+  verify     verifică un pachet, bloc cu bloc, fără să extragă nimic
   version    versiunea și sistemul detectat
 
 Ajutor pentru o comandă
-  dhs scan --help
+  dhs <comandă> --help
 `
 
 func main() {
@@ -35,6 +37,10 @@ func main() {
 	switch cmd := os.Args[1]; cmd {
 	case "scan":
 		err = runScan(os.Args[2:])
+	case "backup":
+		err = runBackup(os.Args[2:])
+	case "verify":
+		err = runVerify(os.Args[2:])
 	case "version", "--version", "-v":
 		err = runVersion()
 	case "help", "--help", "-h":

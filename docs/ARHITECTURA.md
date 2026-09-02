@@ -1,7 +1,9 @@
 # Arhitectura DHS — propunere pentru v1
 
-> Stare la 02.09.2026: **`scan` e implementat și rulează**; restul e propunere. Punctele marcate ⚠️
-> mai au nevoie de confirmare.
+> Stare la 02.09.2026: `scan` implementat și rulat pe date reale. `pack`, `passphrase`, `backup`,
+> `verify` — **scrise și compilate, dar netestate**: testele rulează doar pe Codespaces
+> ([`TESTARE.md`](TESTARE.md)). `restore`, `appdb`, `plan` — nescrise. Punctele ⚠️ mai au nevoie
+> de confirmare.
 >
 > Context și decizii: [`../CLAUDE.md`](../CLAUDE.md).
 
@@ -18,15 +20,24 @@ formatate FAT32 sau exFAT, iar FAT32 nu acceptă fișiere peste 4 GB și nu păs
 proprietar sau legături simbolice.
 
 ```
-migrare-2026-09-02-necta.dhs/
+migrare-2026-09-02-1014.dhs/
   dhs.json              # manifest rădăcină, NECRIPTAT — vezi mai jos ce conține și ce nu
+  index.dhsi            # indexul complet (fișiere, blocuri, plasare), CRIPTAT; mic, se citește primul
   volume/
-    0001.dhsv           # volum de date: blocuri solide pe clasă → criptare. 3,5 GiB fiecare
+    0001.dhsv           # blocuri + index propriu + trailer, CRIPTAT, ≤ 3,5 GiB
     0002.dhsv
     ...
   SUME.txt              # SHA-256 pentru fiecare fișier din pachet
-  jurnal.jsonl          # jurnal append-only de progres, pentru reluare după întrerupere
+  jurnal.jsonl          # o linie per volum încheiat, pentru reluare după întrerupere
 ```
+
+Implementat în `internal/pack`: `format.go` (antete binare), `index.go` (structurile JSON),
+`writer.go` + `emitter.go` (scriere paralelă, ordonată, cu rotirea volumelor), `reader.go`
+(deschidere, verificare, extragere secvențială), `journal.go` (jurnal, sume, scriere atomică).
+
+Indexul stă **într-un fișier separat, criptat** (`index.dhsi`), nu la începutul primului volum:
+`age` e un flux, nu permite citirea de la coadă, iar indexul nu e cunoscut până la final. Fiecare
+volum poartă totuși și un index propriu, la coadă — dacă `index.dhsi` se pierde, se poate reconstrui.
 
 ### Ce e necriptat și de ce
 

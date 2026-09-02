@@ -6,10 +6,12 @@ Ce nu intră în v1. Ordinea în fiecare secțiune e o propunere, nu un angajame
 
 - [x] `dhs scan` — inventar, clasificare, excluderi, estimare, verificarea destinației
 - [ ] `--precis` — eșantionare pentru raport măsurat + hash pentru deduplicare
-- [ ] `internal/pack` — formatul: volume de 3,5 GiB, blocuri solide pe clasă, jurnal de reluare, sume de control
-- [ ] `internal/crypto` — `age` cu frază de acces; secțiune separată pentru secrete, cu parolă proprie
-- [ ] `dhs backup` — scrierea pachetului
-- [ ] `dhs verify` — verificarea integrală, fără extragere
+- [x] `internal/pack` — formatul: volume de 3,5 GiB, blocuri solide pe clasă, dedup pe fișier, jurnal, sume, index criptat, index redundant per volum — **scris, netestat** (vezi `TESTARE.md`)
+- [x] `internal/passphrase` — `age` cu frază de acces — **scris, netestat**
+- [ ] Secțiune separată pentru secrete, cu parolă proprie (D4) — formatul o permite, neimplementat
+- [ ] Reluarea unui backup întrerupt din jurnal + `index.dhsi` parțial — formatul o permite, comanda nu există
+- [x] `dhs backup` — scrierea pachetului — **scris, netestat**
+- [x] `dhs verify` — verificarea integrală, fără extragere — **scris, netestat**
 - [ ] `internal/appdb` — baza de aplicații (TOML + `go:embed`) și interogarea ei
 - [ ] Detectarea aplicațiilor instalate: `pacman`/`dpkg`/`rpm`/`flatpak`/`snap` pe Linux, registry + `winget` pe Windows
 - [ ] `dhs plan` — manifest + appdb → plan de restaurare, fără să atingă nimic

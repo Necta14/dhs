@@ -107,7 +107,7 @@ DHS nu are voie să devină bloatware. Bugetele sunt praguri, nu sugestii:
 
 | | Buget | Acum |
 |---|---|---|
-| Binar CLI, dezbrăcat (`-ldflags "-s -w"`) | ≤ 15 MiB | **2,1 MiB** Linux · **2,4 MiB** Windows |
+| Binar CLI, dezbrăcat (`-ldflags "-s -w"`) | ≤ 15 MiB | **4,2 MiB** Linux · **4,5 MiB** Windows (cu age, zstd, xz) |
 | Procese în fundal, servicii, daemoni | **zero** | zero |
 | Telemetrie, „statistici anonime", actualizator automat | **zero** | zero |
 | Apeluri de rețea la rulare | **zero** | zero |
