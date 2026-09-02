@@ -131,6 +131,8 @@ aceeași bibliotecă de nucleu.
   CLI, schema bazei de aplicații
 - [`docs/COMPRESIE.md`](docs/COMPRESIE.md) — cele trei niveluri de compresie, estimarea dimensiunii
   înainte de backup, research-ul pe compresia „extremă"
+- [`docs/LICENTA.md`](docs/LICENTA.md) — opțiunile de licență, modelul de contribuție, ce spune
+  Cyber Resilience Act despre open source
 
 ## ⛔ Regula #3 — nimic cu pierderi
 
@@ -173,7 +175,7 @@ cuiva, nu asseturi de joc. Orice tehnică de compresie care nu poate garanta rec
 
 | # | Decizie | Stare |
 |---|---|---|
-| **D6** | Licența și modelul de contribuție pentru baza de date de aplicații. Propunere: **GPLv3** pentru cod (un fork închis n-ar aduce nimic userilor) + licență permisivă pentru baza de aplicații, ca datele să poată fi reutilizate liber. | deschis, nu blochează |
+| **D6** | Licența. Userul o vrea **permisivă**, cu drepturile lui recunoscute. Propunere: **Apache-2.0** (singura permisivă cu `NOTICE`, clauză de marcă și cesiune de brevete) + **DCO** pentru contribuții + **CC-BY-4.0** pentru baza de aplicații. Comparație completă: [`docs/LICENTA.md`](docs/LICENTA.md). | de ales dintre opțiuni |
 | **D8** | Cum implementăm preprocesarea de tip preflate, când ajungem la ea: reimplementare în Go (binar curat, câteva săptămâni) sau `preflate-rs` prin cgo (rapid, dar cere `mingw` pentru Windows). **Nu se decide acum** — v1 livrează nivelul 3 ca LZMA2 fără preprocesare, iar formatul lasă loc pentru ea. | amânat până la etapa respectivă |
 
 ## Convenții
