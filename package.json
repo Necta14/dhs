@@ -1,0 +1,19 @@
+{
+  "name": "direct-handoff-suite",
+  "version": "0.1.0",
+  "description": "RAG local pentru memorie și cunoștințe: SQLite (FTS5 + vectori) + embeddings Gemini, zero infrastructură.",
+  "type": "module",
+  "private": true,
+  "engines": { "node": ">=24" },
+  "bin": { "dhs": "./bin/dhs.js" },
+  "scripts": {
+    "dhs": "node src/cli.ts",
+    "test": "node --test 'test/**/*.test.ts'",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "typescript": "latest"
+  }
+}
