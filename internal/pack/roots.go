@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/necta/dhs/internal/system"
+	"github.com/Necta14/dhs/internal/system"
 )
 
 // RootMap leagă locurile standard ale unui sistem de căile lor concrete, în ambele sensuri.

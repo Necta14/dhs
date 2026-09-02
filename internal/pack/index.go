@@ -3,8 +3,8 @@ package pack
 import (
 	"time"
 
-	"github.com/necta/dhs/internal/scan"
-	"github.com/necta/dhs/internal/system"
+	"github.com/Necta14/dhs/internal/scan"
+	"github.com/Necta14/dhs/internal/system"
 )
 
 // Root e locul standard din profil de care ține un fișier. Se stochează în loc de calea absolută

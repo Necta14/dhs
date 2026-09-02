@@ -14,8 +14,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/necta/dhs/internal/scan"
-	"github.com/necta/dhs/internal/system"
+	"github.com/Necta14/dhs/internal/scan"
+	"github.com/Necta14/dhs/internal/system"
 )
 
 const testPass = "o-fraza-de-test-suficient-de-lunga"

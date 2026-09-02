@@ -13,9 +13,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/necta/dhs/internal/passphrase"
-	"github.com/necta/dhs/internal/scan"
-	"github.com/necta/dhs/internal/system"
+	"github.com/Necta14/dhs/internal/passphrase"
+	"github.com/Necta14/dhs/internal/scan"
+	"github.com/Necta14/dhs/internal/system"
 )
 
 // Options configurează scrierea unui pachet.

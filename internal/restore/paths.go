@@ -10,7 +10,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/necta/dhs/internal/system"
+	"github.com/Necta14/dhs/internal/system"
 )
 
 // windowsReserved sunt numele pe care Windows le refuză indiferent de extensie.

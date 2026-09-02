@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/necta/dhs/internal/passphrase"
+	"github.com/Necta14/dhs/internal/passphrase"
 )
 
 // emitter e singurul care scrie pe disc. Primește blocurile comprimate în orice ordine, le

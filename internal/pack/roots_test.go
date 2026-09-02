@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/necta/dhs/internal/system"
+	"github.com/Necta14/dhs/internal/system"
 )
 
 func TestRootMapSplitJoin(t *testing.T) {

@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/necta/dhs/internal/report"
-	"github.com/necta/dhs/internal/scan"
-	"github.com/necta/dhs/internal/system"
+	"github.com/Necta14/dhs/internal/report"
+	"github.com/Necta14/dhs/internal/scan"
+	"github.com/Necta14/dhs/internal/system"
 )
 
 const scanUsage = `dhs scan — arată ce s-ar salva și cât ar ocupa, fără să scrie nimic

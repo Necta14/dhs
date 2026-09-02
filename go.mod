@@ -1,4 +1,4 @@
-module github.com/necta/dhs
+module github.com/Necta14/dhs
 
 go 1.26
 

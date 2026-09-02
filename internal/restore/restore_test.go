@@ -12,9 +12,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/necta/dhs/internal/pack"
-	"github.com/necta/dhs/internal/scan"
-	"github.com/necta/dhs/internal/system"
+	"github.com/Necta14/dhs/internal/pack"
+	"github.com/Necta14/dhs/internal/scan"
+	"github.com/Necta14/dhs/internal/system"
 )
 
 func TestSanitizeWindows(t *testing.T) {

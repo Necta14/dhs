@@ -11,7 +11,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/necta/dhs/internal/passphrase"
+	"github.com/Necta14/dhs/internal/passphrase"
 )
 
 // Reader deschide un pachet și citește din el.

@@ -11,10 +11,10 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/necta/dhs/internal/pack"
-	"github.com/necta/dhs/internal/report"
-	"github.com/necta/dhs/internal/restore"
-	"github.com/necta/dhs/internal/system"
+	"github.com/Necta14/dhs/internal/pack"
+	"github.com/Necta14/dhs/internal/report"
+	"github.com/Necta14/dhs/internal/restore"
+	"github.com/Necta14/dhs/internal/system"
 )
 
 const restoreUsage = `dhs restore — pune fișierele dintr-un pachet la locul lor pe sistemul curent

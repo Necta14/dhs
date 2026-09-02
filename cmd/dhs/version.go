@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/necta/dhs/internal/system"
+	"github.com/Necta14/dhs/internal/system"
 )
 
 func runVersion() error {

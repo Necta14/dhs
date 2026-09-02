@@ -10,7 +10,7 @@ import (
 
 	"golang.org/x/term"
 
-	"github.com/necta/dhs/internal/passphrase"
+	"github.com/Necta14/dhs/internal/passphrase"
 )
 
 // confirm pune o întrebare da/nu. Implicitul e „nu": tăcerea nu aprobă nimic.

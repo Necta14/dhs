@@ -10,8 +10,8 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/necta/dhs/internal/pack"
-	"github.com/necta/dhs/internal/report"
+	"github.com/Necta14/dhs/internal/pack"
+	"github.com/Necta14/dhs/internal/report"
 )
 
 const verifyUsage = `dhs verify — verifică un pachet, fără să extragă nimic

@@ -10,7 +10,7 @@ import (
 	"github.com/klauspost/compress/zstd"
 	"github.com/ulikunitz/xz"
 
-	"github.com/necta/dhs/internal/scan"
+	"github.com/Necta14/dhs/internal/scan"
 )
 
 // kindFor leagă nivelul ales de utilizator de codificarea blocurilor solide.
