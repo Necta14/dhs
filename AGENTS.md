@@ -13,13 +13,17 @@ Reguli pentru orice agent care lucrează pe acest repo. Ce e produsul și ce s-a
 4. **Fără balast.** Fiecare dependență nouă se justifică. Bugetele din Regula #4 (CLAUDE.md) sunt
    praguri, nu sugestii: binarul CLI rămâne sub 15 MiB.
 5. **Codul specific unui OS stă doar** în fișiere `_linux.go` / `_windows.go`. Restul e comun și
-   trebuie să se compileze și să se testeze pe orice mașină. Verifică mereu amândouă:
+   trebuie să se compileze pe orice mașină. Verifică mereu amândouă platformele, static:
    ```bash
-   go build ./... && GOOS=windows go build ./... && go vet ./... && go test ./...
+   gofmt -l . && go vet ./... && go build ./... && GOOS=windows go build ./...
    ```
+   `go test` — doar pe Codespaces, vezi regula 7.
 6. **Nimic cu pierderi.** Orice transformare de date trebuie să fie reversibilă bit cu bit, și
    trebuie **dovedit** prin verificare, nu presupus.
-7. **Testele nu ating rețeaua și nu scriu în afara `t.TempDir()`.**
+7. **Testele NU se rulează pe laptopul userului.** Nici `go test`, nici binarul `dhs` pe datele lui.
+   Testele se scriu aici, dar se rulează **doar în sesiunea dedicată, pe cele două GitHub
+   Codespaces**. Local sunt permise doar verificările statice: `gofmt`, `go vet`, `go build` pentru
+   ambele platforme. Testele, când rulează, nu ating rețeaua și nu scriu în afara `t.TempDir()`.
 8. **Limba.** Documentație, mesaje de interfață și comentarii în **română**; identificatorii și
    numele de pachete în **engleză**. Proiectul e open source, codul trebuie să fie citibil de
    oricine.
