@@ -55,10 +55,10 @@ function Good([string] $Text) { Write-Host "  $Text" -ForegroundColor Green }
 function Die([string] $Text) { Write-Host "  $Text" -ForegroundColor Red; exit 1 }
 
 Say ''
-Say 'DHS — Direct Handoff Suite'
+Say 'DHS - Direct Handoff Suite'
 Say ''
 
-# ── which build ────────────────────────────────────────────────────────────────────────────────
+# -- which build --------------------------------------------------------------------------------
 # On ARM64 Windows an x64 PowerShell reports AMD64 and puts the real answer in ARCHITEW6432.
 $raw = $env:PROCESSOR_ARCHITEW6432
 if (-not $raw) { $raw = $env:PROCESSOR_ARCHITECTURE }
@@ -71,12 +71,12 @@ switch ($raw.ToUpperInvariant()) {
     default { Die "Unrecognised processor architecture: $raw" }
 }
 
-# ── which release ──────────────────────────────────────────────────────────────────────────────
+# -- which release ------------------------------------------------------------------------------
 $headers = @{ 'Accept' = 'application/vnd.github+json'; 'User-Agent' = 'dhs-install' }
 
 if ($Version -eq 'latest') {
     # Not /releases/latest: that endpoint skips pre-releases, and every DHS release so far is one.
-    Step 'Looking up the most recent release…'
+    Step 'Looking up the most recent release...'
     $rel = (Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases?per_page=10" -Headers $headers) |
            Where-Object { -not $_.draft } | Select-Object -First 1
     if (-not $rel) { Die 'No release found. Check https://github.com/Necta14/dhs/releases' }
@@ -95,26 +95,26 @@ if ($tag -match '^v0\.') {
 $asset = "dhs_${number}_windows_${arch}.zip"
 $base  = "https://github.com/$Repo/releases/download/$tag"
 
-# ── download ───────────────────────────────────────────────────────────────────────────────────
+# -- download -----------------------------------------------------------------------------------
 $work = Join-Path ([IO.Path]::GetTempPath()) ("dhs-install-" + [Guid]::NewGuid().ToString('N'))
 New-Item -ItemType Directory -Path $work -Force | Out-Null
 
 try {
     $zip = Join-Path $work $asset
-    Step "Downloading $asset …"
+    Step "Downloading $asset ..."
     try {
         Invoke-WebRequest -Uri "$base/$asset" -OutFile $zip -Headers $headers -UseBasicParsing
     } catch {
-        Die "Could not download $base/$asset — $($_.Exception.Message)"
+        Die "Could not download $base/$asset - $($_.Exception.Message)"
     }
 
-    # ── verify ─────────────────────────────────────────────────────────────────────────────────
-    Step 'Checking SHA-256 against the sums published with the release…'
+    # -- verify ---------------------------------------------------------------------------------
+    Step 'Checking SHA-256 against the sums published with the release...'
     $sumsFile = Join-Path $work 'SHA256SUMS'
     try {
         Invoke-WebRequest -Uri "$base/SHA256SUMS" -OutFile $sumsFile -Headers $headers -UseBasicParsing
     } catch {
-        Die "The release has no SHA256SUMS to check against — refusing to install unverified. $($_.Exception.Message)"
+        Die "The release has no SHA256SUMS to check against - refusing to install unverified. $($_.Exception.Message)"
     }
 
     $expected = $null
@@ -126,7 +126,7 @@ try {
             break
         }
     }
-    if (-not $expected) { Die "SHA256SUMS does not mention $asset — refusing to install unverified." }
+    if (-not $expected) { Die "SHA256SUMS does not mention $asset - refusing to install unverified." }
 
     $actual = (Get-FileHash -LiteralPath $zip -Algorithm SHA256).Hash.ToLowerInvariant()
     if ($actual -ne $expected) {
@@ -134,7 +134,7 @@ try {
     }
     Good 'Checksum matches.'
 
-    # ── unpack ─────────────────────────────────────────────────────────────────────────────────
+    # -- unpack ---------------------------------------------------------------------------------
     if (-not $InstallDir) {
         $localAppData = $env:LOCALAPPDATA
         if (-not $localAppData) { $localAppData = Join-Path $HOME '.local' }
@@ -157,7 +157,7 @@ try {
     }
     Good "Installed to $target"
 
-    # ── PATH ───────────────────────────────────────────────────────────────────────────────────
+    # -- PATH -----------------------------------------------------------------------------------
     if ($NoPathUpdate) {
         Step 'Leaving PATH untouched, as asked.'
     } elseif (-not $onWindows) {
@@ -178,7 +178,7 @@ try {
         if (($env:Path -split ';') -notcontains $InstallDir) { $env:Path = "$env:Path;$InstallDir" }
     }
 
-    # ── prove it runs ──────────────────────────────────────────────────────────────────────────
+    # -- prove it runs --------------------------------------------------------------------------
     Say ''
     if ($onWindows) {
         try {
