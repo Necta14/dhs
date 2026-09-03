@@ -2,6 +2,25 @@
 
 Session journal. Newest at the top. Decisions live in `CLAUDE.md`; this is *what happened*.
 
+## 2026-09-03 — 0.1.1: desktop integration and two AUR packages
+
+0.1.1 exists because the GTK4 front end could not be installed: it had no desktop entry and no
+icon. Both are now in `gui/linux/`, named after the application id the GUI registers
+(`io.github.necta14.dhs`) so the shell matches the window to its icon.
+
+The AUR recipe became a split package: `pkgbase=dhs` with `pkgname=('dhs-cli' 'dhs-gui')`, so one
+push publishes both. `dhs-cli` is the binary and also `provides=('dhs')`; `dhs-gui` is `arch=any`
+because it is a Python script, and depends on `dhs-cli` plus the GTK stack. The distribution
+package builds with `-buildmode=pie`, which Go links internally with CGO off, so the binary stays
+static; the release artifacts stay plain static binaries.
+
+Validated in a clean Arch container: `makepkg` builds both, `check()` runs the test suite, both
+install, `desktop-file-validate` is clean, GTK4 and libadwaita import, and `dhs version` answers.
+Three namcap warnings survive and are explained in `packaging/aur/README.md`; none is a defect.
+
+Not submitted yet: the AUR needs an account with a registered SSH key, which only the maintainer
+can create.
+
 ## 2026-09-03 — 0.1.0 published, with packages
 
 The first pre-release: https://github.com/Necta14/dhs/releases/tag/v0.1.0, eleven files. Binaries
