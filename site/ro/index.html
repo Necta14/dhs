@@ -413,23 +413,28 @@
   <section id="get">
     <div class="wrap">
       <h2>Descarcă</h2>
-      <p class="sub"><strong>0.1.0 e publicată ca pre-release.</strong> Nucleul pentru fișiere e testat pe cinci distribuții; manifestul aplicațiilor și detectarea lor lipsesc încă, iar binarele de Windows n-au fost rulate pe Windows.</p>
-      <div class="ctas" style="margin-bottom:30px">
-        <a class="btn primary" href="https://github.com/Necta14/dhs/releases/tag/v0.1.0">Descarcă 0.1.0</a>
-        <a class="btn ghost" style="border-color:var(--line);color:var(--ink)" href="https://github.com/Necta14/dhs/releases/latest">Toate versiunile</a>
+      <p class="sub"><strong>0.1.2 e publicată ca pre-release.</strong> Nucleul pentru fișiere e testat pe cinci distribuții Linux și, prin Wine, pe Windows; manifestul aplicațiilor și detectarea lor lipsesc încă.</p>
+      <h3 style="margin:0 0 12px;font-size:19px">Windows</h3>
+      <div class="term" aria-label="Comanda de instalare în PowerShell" style="margin-bottom:16px">
+        <div class="bar"><i></i><i></i><i></i>&nbsp; PowerShell</div>
+<pre><span class="p">&gt;</span> irm https://dhs-suite.vercel.app/install.ps1 | iex</pre>
       </div>
+      <p class="sub" style="margin-bottom:36px">Alege singură varianta pentru procesorul tău, o verifică față de sumele SHA-256 publicate cu versiunea, o dezarhivează în profilul tău și o pune în PATH. Fără drepturi de administrator, fără nimic lăsat în execuție. Ca să fixezi o versiune, creează un bloc de script: <code>&amp; ([scriptblock]::Create((irm https://dhs-suite.vercel.app/install.ps1))) -Version 0.1.2</code></p>
+      <h3 style="margin:0 0 12px;font-size:19px">Linux</h3>
       <div class="tablewrap">
       <table>
         <thead><tr><th>Ești pe</th><th>Ia</th></tr></thead>
         <tbody>
-          <tr><td>Debian, Ubuntu, Mint</td><td><code>dhs_0.1.0_amd64.deb</code> · și arm64</td></tr>
-          <tr><td>Fedora, RHEL, openSUSE</td><td><code>dhs-0.1.0-1.x86_64.rpm</code> · și aarch64</td></tr>
+          <tr><td>Debian, Ubuntu, Mint</td><td><code>dhs_&lt;versiune&gt;_amd64.deb</code> · și arm64</td></tr>
+          <tr><td>Fedora, RHEL, openSUSE</td><td><code>dhs-&lt;versiune&gt;-1.x86_64.rpm</code> · și aarch64</td></tr>
           <tr><td>Arch</td><td><code>dhs-cli</code> și <code>dhs-gui</code> din rețeta AUR din <code>packaging/aur/</code></td></tr>
-          <tr><td>Orice Linux, fără să instalezi nimic</td><td><code>DHS-0.1.0-x86_64.AppImage</code></td></tr>
-          <tr><td>Windows</td><td><code>dhs_0.1.0_windows_amd64.zip</code> · netestat pe Windows</td></tr>
-          <tr><td>Compilezi singur</td><td><code>dhs-0.1.0-source.tar.gz</code></td></tr>
+          <tr><td>Orice Linux, fără să instalezi nimic</td><td><code>DHS-&lt;versiune&gt;-x86_64.AppImage</code></td></tr>
+          <tr><td>Compilezi singur</td><td><code>dhs-&lt;versiune&gt;-source.tar.gz</code></td></tr>
         </tbody>
       </table>
+      </div>
+      <div class="ctas" style="margin-top:26px">
+        <a class="btn primary" href="https://github.com/Necta14/dhs/releases/latest">Toate descărcările</a>
       </div>
       <p class="sub" style="margin-top:28px">Verifică ce ai descărcat cu fișierul <code>SHA256SUMS</code> publicat lângă el, prin <code>sha256sum -c SHA256SUMS --ignore-missing</code>. Sau compilează din sursă, cu o singură comandă și fără niciun toolchain suplimentar, nici măcar pentru Windows.</p>
       <div class="term" aria-label="Comenzi de compilare">

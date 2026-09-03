@@ -64,25 +64,29 @@ not exist on the new system go under `~/DHS-restored/`. Every command takes `--j
 
 ## Install
 
-**[0.1.0 is out as a pre-release.](https://github.com/Necta14/dhs/releases/tag/v0.1.0)** The file
-core is tested; the app manifest and app detection are not written yet, and the Windows binaries
-are cross-compiled but unrun on Windows. Do not migrate anything you care about with it yet.
+**[The latest release](https://github.com/Necta14/dhs/releases/latest) is a pre-release.** The file
+core is tested; the app manifest and app detection are not written yet. Do not migrate anything you
+care about with it yet.
 
-```bash
-# Debian, Ubuntu, Mint
-sudo apt install ./dhs_0.1.0_amd64.deb
+On **Windows**, in PowerShell:
 
-# Fedora, RHEL, openSUSE
-sudo rpm -i dhs-0.1.0-1.x86_64.rpm
-
-# Arch: two packages from one recipe, in packaging/aur/
-makepkg -si          # dhs-cli, and dhs-gui for the GTK4 front end
-
-# any Linux, installing nothing
-chmod +x DHS-0.1.0-x86_64.AppImage && ./DHS-0.1.0-x86_64.AppImage scan --dest /run/media/you/SSD
+```powershell
+irm https://dhs-suite.vercel.app/install.ps1 | iex
 ```
 
-Every file is listed in [the release](https://github.com/Necta14/dhs/releases/latest), with `SHA256SUMS` beside them:
+It picks the build for your processor, checks it against the published SHA-256 sums, unpacks it
+under your own profile and puts it on your PATH. No administrator rights, nothing left running.
+
+On **Linux**:
+
+```bash
+sudo apt install ./dhs_<version>_amd64.deb     # Debian, Ubuntu, Mint
+sudo rpm -i dhs-<version>-1.x86_64.rpm         # Fedora, RHEL, openSUSE
+makepkg -si                                    # Arch: dhs-cli and dhs-gui, from packaging/aur/
+chmod +x DHS-<version>-x86_64.AppImage         # anything else, installing nothing
+```
+
+Check what you downloaded against the sums published beside it:
 
 ```bash
 sha256sum -c SHA256SUMS --ignore-missing

@@ -2,6 +2,41 @@
 
 Session journal. Newest at the top. Decisions live in `CLAUDE.md`; this is *what happened*.
 
+## 2026-09-03 — 0.1.2: a real defect, found by testing Windows under Wine
+
+The Windows binary had never been run. Wine is not Windows, but it is close enough to be worth an
+hour: `wine64` on Ubuntu ran `dhs.exe` against a Wine-built user profile, and the whole cycle,
+scan, backup, verify, list, restore, works. It reports `Windows 10 Pro`, finds the profile roots,
+reads free space on NTFS and refuses a wrong passphrase.
+
+It also found a **data-integrity defect, and not a Windows one**. A duplicate of a *compressible*
+file was written with no block references: the dedup branch copied the original's parts at the
+moment it was added, while the original's bytes were still in an open solid block, and every part
+that arrived afterwards went to the original alone. The package verified as intact and restoring
+that one file failed with `corrupt data`, writing nothing. Safe behaviour, lost file.
+
+Why three rounds of green tests missed it: the only duplicate fixture is `pictures/copy.jpg`,
+Incompressible, and stored bytes get their part immediately. Duplicates never went through a solid
+block in any test. `TestDuplicateInSolidBlockKeepsItsParts` now covers a Text and a Binary
+duplicate, and asserts the index entry has parts at all rather than only comparing bytes. Verified
+to fail against the old writer and pass against the new one.
+
+0.1.2 carries the fix; 0.1.0 and 0.1.1 are marked superseded in their release notes, with the way
+to tell whether a package is affected (`dhs list --all` marks duplicates).
+
+Also in 0.1.2: `site/install.ps1`, so Windows installs with
+`irm https://dhs-suite.vercel.app/install.ps1 | iex`. It resolves the release through the API
+rather than `/releases/latest`, which skips pre-releases and would have found nothing, verifies the
+SHA-256 before unpacking, installs under LOCALAPPDATA and adds that to the user PATH. Exercised in
+Microsoft's PowerShell container: default run, pinned version, and a version that does not exist.
+
+The packages were checked on the distributions they target: `.deb` on Debian and Ubuntu, `.rpm` on
+Fedora, Rocky and openSUSE, the tarball on Alpine against musl, the AppImage without FUSE.
+
+One false alarm worth recording: a filename with diacritics appeared mangled and unreadable in the
+first Wine run. It was the container's C locale, through which Wine translates Unix filenames. With
+`LANG=C.UTF-8` the file backs up and restores byte for byte.
+
 ## 2026-09-03 — 0.1.1: desktop integration and two AUR packages
 
 0.1.1 exists because the GTK4 front end could not be installed: it had no desktop entry and no

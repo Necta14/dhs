@@ -1,5 +1,5 @@
 pkgbase = dhs
-	pkgver = 0.1.1
+	pkgver = 0.1.2
 	pkgrel = 1
 	url = https://dhs-suite.vercel.app
 	arch = x86_64
@@ -7,8 +7,8 @@ pkgbase = dhs
 	license = Apache-2.0
 	makedepends = go
 	options = !debug
-	source = dhs-0.1.1.tar.gz::https://github.com/Necta14/dhs/releases/download/v0.1.1/dhs-0.1.1-source.tar.gz
-	sha256sums = bf4f46017952d73d5c838f6b67f2d3f316426d2f0b8fc64ff002e2fe8bd46460
+	source = dhs-0.1.2.tar.gz::https://github.com/Necta14/dhs/releases/download/v0.1.2/dhs-0.1.2-source.tar.gz
+	sha256sums = 41987c8a19fcf09001ac5dc02bdae7d2f7ac4edf797121a7552aa9e4bec53cd6
 
 pkgname = dhs-cli
 	pkgdesc = Migrate a working environment between operating systems through a portable, encrypted package

@@ -63,26 +63,30 @@ rădăcină nu există pe sistemul nou ajung sub `~/DHS-restored/`. Fiecare coma
 
 ## Instalare
 
-**[0.1.0 e publicată ca pre-release.](https://github.com/Necta14/dhs/releases/tag/v0.1.0)**
-Nucleul pentru fișiere e testat; manifestul aplicațiilor și detectarea lor nu sunt încă scrise, iar
-binarele de Windows sunt compilate încrucișat, dar nerulate pe Windows. Nu migra încă nimic care
-îți pasă.
+**[Ultima versiune](https://github.com/Necta14/dhs/releases/latest) e un pre-release.** Nucleul
+pentru fișiere e testat; manifestul aplicațiilor și detectarea lor nu sunt încă scrise. Nu migra
+încă nimic care îți pasă.
 
-```bash
-# Debian, Ubuntu, Mint
-sudo apt install ./dhs_0.1.0_amd64.deb
+Pe **Windows**, în PowerShell:
 
-# Fedora, RHEL, openSUSE
-sudo rpm -i dhs-0.1.0-1.x86_64.rpm
-
-# Arch: două pachete din aceeași rețetă, în packaging/aur/
-makepkg -si          # dhs-cli, plus dhs-gui pentru interfața GTK4
-
-# orice Linux, fără să instalezi nimic
-chmod +x DHS-0.1.0-x86_64.AppImage && ./DHS-0.1.0-x86_64.AppImage scan --dest /run/media/tu/SSD
+```powershell
+irm https://dhs-suite.vercel.app/install.ps1 | iex
 ```
 
-Toate fișierele sunt în [versiunea publicată](https://github.com/Necta14/dhs/releases/latest), cu `SHA256SUMS` lângă ele:
+Alege singură varianta pentru procesorul tău, o verifică față de sumele SHA-256 publicate, o
+dezarhivează în profilul tău și o pune în PATH. Fără drepturi de administrator, fără nimic lăsat în
+execuție.
+
+Pe **Linux**:
+
+```bash
+sudo apt install ./dhs_<versiune>_amd64.deb     # Debian, Ubuntu, Mint
+sudo rpm -i dhs-<versiune>-1.x86_64.rpm         # Fedora, RHEL, openSUSE
+makepkg -si                                     # Arch: dhs-cli și dhs-gui, din packaging/aur/
+chmod +x DHS-<versiune>-x86_64.AppImage         # orice altceva, fără să instalezi nimic
+```
+
+Verifică ce ai descărcat cu sumele publicate lângă el:
 
 ```bash
 sha256sum -c SHA256SUMS --ignore-missing

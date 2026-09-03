@@ -426,23 +426,28 @@
   <section id="get">
     <div class="wrap">
       <h2>Get it</h2>
-      <p class="sub"><strong>0.1.0 is out as a pre-release.</strong> The file core is tested on five distributions; the app manifest and app detection are still missing, and the Windows binaries have not been run on Windows.</p>
-      <div class="ctas" style="margin-bottom:30px">
-        <a class="btn primary" href="https://github.com/Necta14/dhs/releases/tag/v0.1.0">Download 0.1.0</a>
-        <a class="btn ghost" style="border-color:var(--line);color:var(--ink)" href="https://github.com/Necta14/dhs/releases/latest">All releases</a>
+      <p class="sub"><strong>0.1.2 is out as a pre-release.</strong> The file core is tested on five Linux distributions and, through Wine, on Windows; the app manifest and app detection are still missing.</p>
+      <h3 style="margin:0 0 12px;font-size:19px">Windows</h3>
+      <div class="term" aria-label="PowerShell install command" style="margin-bottom:16px">
+        <div class="bar"><i></i><i></i><i></i>&nbsp; PowerShell</div>
+<pre><span class="p">&gt;</span> irm https://dhs-suite.vercel.app/install.ps1 | iex</pre>
       </div>
+      <p class="sub" style="margin-bottom:36px">It picks the build for your processor, checks it against the SHA-256 sums published with the release, unpacks it under your own profile and puts it on your PATH. No administrator rights, nothing left running. To pin a version, create a script block instead: <code>&amp; ([scriptblock]::Create((irm https://dhs-suite.vercel.app/install.ps1))) -Version 0.1.2</code></p>
+      <h3 style="margin:0 0 12px;font-size:19px">Linux</h3>
       <div class="tablewrap">
       <table>
         <thead><tr><th>You are on</th><th>Take</th></tr></thead>
         <tbody>
-          <tr><td>Debian, Ubuntu, Mint</td><td><code>dhs_0.1.0_amd64.deb</code> · also arm64</td></tr>
-          <tr><td>Fedora, RHEL, openSUSE</td><td><code>dhs-0.1.0-1.x86_64.rpm</code> · also aarch64</td></tr>
+          <tr><td>Debian, Ubuntu, Mint</td><td><code>dhs_&lt;version&gt;_amd64.deb</code> · also arm64</td></tr>
+          <tr><td>Fedora, RHEL, openSUSE</td><td><code>dhs-&lt;version&gt;-1.x86_64.rpm</code> · also aarch64</td></tr>
           <tr><td>Arch</td><td><code>dhs-cli</code> and <code>dhs-gui</code> from the AUR recipe in <code>packaging/aur/</code></td></tr>
-          <tr><td>Any Linux, installing nothing</td><td><code>DHS-0.1.0-x86_64.AppImage</code></td></tr>
-          <tr><td>Windows</td><td><code>dhs_0.1.0_windows_amd64.zip</code> · untested on Windows</td></tr>
-          <tr><td>Building it yourself</td><td><code>dhs-0.1.0-source.tar.gz</code></td></tr>
+          <tr><td>Any Linux, installing nothing</td><td><code>DHS-&lt;version&gt;-x86_64.AppImage</code></td></tr>
+          <tr><td>Building it yourself</td><td><code>dhs-&lt;version&gt;-source.tar.gz</code></td></tr>
         </tbody>
       </table>
+      </div>
+      <div class="ctas" style="margin-top:26px">
+        <a class="btn primary" href="https://github.com/Necta14/dhs/releases/latest">All downloads</a>
       </div>
       <p class="sub" style="margin-top:28px">Check what you downloaded against the <code>SHA256SUMS</code> published beside it, with <code>sha256sum -c SHA256SUMS --ignore-missing</code>. Or build from source, in one command and with no extra toolchain, even for Windows.</p>
       <div class="term" aria-label="Build commands">
