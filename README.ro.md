@@ -75,8 +75,8 @@ sudo apt install ./dhs_0.1.0_amd64.deb
 # Fedora, RHEL, openSUSE
 sudo rpm -i dhs-0.1.0-1.x86_64.rpm
 
-# Arch, din rețeta din packaging/aur/
-makepkg -si
+# Arch: două pachete din aceeași rețetă, în packaging/aur/
+makepkg -si          # dhs-cli, plus dhs-gui pentru interfața GTK4
 
 # orice Linux, fără să instalezi nimic
 chmod +x DHS-0.1.0-x86_64.AppImage && ./DHS-0.1.0-x86_64.AppImage scan --dest /run/media/tu/SSD

@@ -75,8 +75,8 @@ sudo apt install ./dhs_0.1.0_amd64.deb
 # Fedora, RHEL, openSUSE
 sudo rpm -i dhs-0.1.0-1.x86_64.rpm
 
-# Arch, from the recipe in packaging/aur/
-makepkg -si
+# Arch: two packages from one recipe, in packaging/aur/
+makepkg -si          # dhs-cli, and dhs-gui for the GTK4 front end
 
 # any Linux, installing nothing
 chmod +x DHS-0.1.0-x86_64.AppImage && ./DHS-0.1.0-x86_64.AppImage scan --dest /run/media/you/SSD

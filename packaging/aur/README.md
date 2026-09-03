@@ -74,3 +74,20 @@ namcap PKGBUILD ./*.pkg.tar.zst           # the packaging linter, if installed
   `io.github.necta14.dhs`, so the shell matches the window to its icon.
 - `NOTICE` is installed next to `LICENSE` in both packages: Apache-2.0 requires it to travel with
   the software.
+
+## The namcap warnings that remain, and why
+
+With both packages installed so namcap can resolve everything, three warnings are left. All three
+are expected:
+
+- **`dhs-cli W: ELF file lacks FULL RELRO`** — Go's internal linker does not emit `-z relro -z now`.
+  Getting it would mean external linking through cgo, which would make the binary depend on the
+  system glibc and destroy the property the whole project rests on: a binary that needs nothing
+  installed on the destination system. `-buildmode=pie` is applied, which is the part that can be
+  had without that cost.
+- **`dhs-gui W: Referenced library 'python3' is an uninstalled dependency`** — the script's shebang
+  names `python3`, while the Arch package that provides `/usr/bin/python3` is called `python`, which
+  the package depends on. A naming artefact, not a missing dependency.
+- **`dhs-gui W: Dependency included, but may not be needed ('dhs-cli')`** — the front end runs the
+  `dhs` binary as a subprocess and parses its `--json` output. namcap reads linkage and imports, so
+  it cannot see a runtime subprocess. The dependency is real and required.
