@@ -2,6 +2,43 @@
 
 Session journal. Newest at the top. Decisions live in `CLAUDE.md`; this is *what happened*.
 
+## 2026-09-03 - the first run on real Windows
+
+Windows 11 IoT Enterprise LTSC 24H2, PowerShell 5.1, in a local VM driven over SSH. The 0.1.2
+release binary, installed by our own `install.ps1`, ran the whole cycle: scan, backup with
+`--verify`, verify, list, a refused wrong passphrase, a dry run, a restore into an emptied profile
+and a second restore over existing files.
+
+**All eight test files came back identical bit for bit**, including a name with Romanian diacritics
+written through the real Win32 API, a compressible duplicate pair and an incompressible one. The
+second restore placed all eight beside the originals with the ` (DHS)` suffix rather than
+overwriting. The system line reads `Windows 11 IoT Enterprise LTSC 2024 24H2 (amd64)`.
+
+`install.ps1` works on stock PowerShell 5.1 with Defender's real-time protection on: it resolves
+the pre-release through the API, verifies the SHA-256 against the published sums, installs under
+LOCALAPPDATA and updates the user PATH. **It is not flagged.**
+
+Two real defects came out of the session:
+
+- **A mistyped flag exited 0.** Every command swallowed flag parse errors with `return nil`, so
+  `dhs scan --only foo` printed "flag provided but not defined" and then reported success. A
+  script, a CI job or the GUI would carry on as if the command had run. Fixed: parse errors exit 2,
+  `--help` still exits 0.
+- **The output carried non-ASCII decoration.** The ellipsis in `install.ps1` rendered as a bare
+  full stop on a real console, making lines look truncated. Now ASCII only.
+
+One thing that looked like a defect and was not: Defender flagged
+`powershell -NoProfile -ExecutionPolicy Bypass -Command irm <url> | iex` as
+`Trojan:Win32/Commando.A!ml` and killed it mid-run. That is the child-process form used by the test
+harness, not the documented interactive one-liner, which is clean. Worth knowing before anyone
+automates the install.
+
+Three defects were mine, in the harness, and are worth recording because they cost three rounds:
+`$Args` is an automatic PowerShell variable and cannot be a parameter name; `@(Invoke-RestMethod)`
+nests the already-deserialised array one level deeper; and wrapping a pipeline that ends in
+`Select-Object -First 1` in parentheses yields `$null` on 5.1. The last one is why the harness
+failed where `install.ps1`, which does not wrap it, works.
+
 ## 2026-09-03 — 0.1.2: a real defect, found by testing Windows under Wine
 
 The Windows binary had never been run. Wine is not Windows, but it is close enough to be worth an

@@ -147,6 +147,61 @@ ls ~/Documents/                                          # numbers.txt and "numb
 
 The checksums must be identical to the ones on the source. **That is the test that counts.**
 
+## Real Windows, in a local VM over SSH
+
+Wine is enough to catch gross breakage, and it did find the deduplication defect fixed in 0.1.2.
+It is not Windows. This is how the real thing is exercised without a Windows machine on the desk.
+
+A Windows VM through [WinBoat](https://github.com/TibixDev/winboat), which wraps
+`dockur/windows` in a container with KVM. The Windows disk lives on a bind mount, so the container
+can be recreated freely without touching the installation.
+
+**Reaching the guest without RDP.** RDP over a remote console is unusable for this: the keyboard
+layout mangles anything that is not a letter, and clipboard sharing rarely survives the chain. The
+answer is to get a shell instead. Add the guest port to the compose file, since podman cannot add a
+port to an existing container:
+
+```yaml
+environment:
+  USER_PORTS: "7148,22"
+ports:
+  - 127.0.0.1::22/tcp
+```
+
+Then, once inside the guest for the only time, enable OpenSSH and install a public key:
+
+```powershell
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+Set-Service sshd -StartupType Automatic; Start-Service sshd
+New-ItemProperty -Path HKLM:\SOFTWARE\OpenSSH -Name DefaultShell -Force `
+  -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String
+Set-Content "$env:ProgramData\ssh\administrators_authorized_keys" '<your public key>' -Encoding ascii
+icacls "$env:ProgramData\ssh\administrators_authorized_keys" /inheritance:r `
+  /grant "Administrators:F" /grant "SYSTEM:F"
+New-NetFirewallRule -Name sshd -DisplayName 'OpenSSH Server' -Enabled True `
+  -Direction Inbound -Protocol TCP -Action Allow -LocalPort 22
+Restart-Service sshd
+```
+
+The Windows firewall rule is not optional: forwarding the port is not enough on its own. From then
+on the guest is an ordinary SSH target, `scp` included, and everything below is scriptable.
+
+**Writing the test script.** Four traps cost a round each:
+
+- `$Args` is an automatic variable. A parameter named `$Args` silently receives nothing, so the
+  program under test gets no arguments and prints its usage.
+- `@(Invoke-RestMethod ...)` nests the array that was already deserialised, so a loop over it sees
+  one element holding everything.
+- A pipeline ending in `Select-Object -First 1`, wrapped in parentheses, evaluates to `$null` on
+  PowerShell 5.1.
+- Save the script as UTF-8 **with a BOM**, or 5.1 reads it as the ANSI codepage and any non-ASCII
+  character becomes three, one of which is usually a quote that breaks the parse.
+
+**What to assert.** Hash every file before, empty the profile, restore, hash again, and compare.
+Include a name with diacritics, a compressible duplicate pair, an incompressible one, an empty
+file and something nested. Assert that the index entries carry block references, not only that the
+bytes come back. And check the exit codes: a command that prints an error must not exit 0.
+
 ## Step 3 — what gets written down at the end
 
 In `docs/NOTES.md`: the version tested (commit), what passed, what failed, timings (how long the
