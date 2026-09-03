@@ -62,6 +62,32 @@ suffix ` (DHS)` — unless you say `--conflicts skip` or `--conflicts overwrite`
 not exist on the new system go under `~/DHS-restored/`. Every command takes `--json`;
 `DHS_LANG=ro` switches the messages to Romanian.
 
+## Install
+
+**[0.1.0 is out as a pre-release.](https://github.com/Necta14/dhs/releases/tag/v0.1.0)** The file
+core is tested; the app manifest and app detection are not written yet, and the Windows binaries
+are cross-compiled but unrun on Windows. Do not migrate anything you care about with it yet.
+
+```bash
+# Debian, Ubuntu, Mint
+sudo apt install ./dhs_0.1.0_amd64.deb
+
+# Fedora, RHEL, openSUSE
+sudo rpm -i dhs-0.1.0-1.x86_64.rpm
+
+# Arch, from the recipe in packaging/aur/
+makepkg -si
+
+# any Linux, installing nothing
+chmod +x DHS-0.1.0-x86_64.AppImage && ./DHS-0.1.0-x86_64.AppImage scan --dest /run/media/you/SSD
+```
+
+Every file is listed in [the release](https://github.com/Necta14/dhs/releases/latest), with `SHA256SUMS` beside them:
+
+```bash
+sha256sum -c SHA256SUMS --ignore-missing
+```
+
 ## How it is built
 
 - **A single static binary**, in Go. On the freshly installed destination system there is no

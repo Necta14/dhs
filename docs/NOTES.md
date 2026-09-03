@@ -2,6 +2,28 @@
 
 Session journal. Newest at the top. Decisions live in `CLAUDE.md`; this is *what happened*.
 
+## 2026-09-03 — 0.1.0 published, with packages
+
+The first pre-release: https://github.com/Necta14/dhs/releases/tag/v0.1.0, eleven files. Binaries
+and archives for Linux and Windows on amd64 and arm64, `.deb` for both Debian architectures, `.rpm`
+for both RPM ones, an x86_64 AppImage, the source tarball and `SHA256SUMS` over all of it.
+
+Built by `packaging/release.sh` on the test Codespace, not by hand. Three defects surfaced on that
+first real run and are fixed in the scripts: `local a=$1 b=${a}` expands before it assigns and died
+under `set -u`; `dpkg-deb` refused the control directory's permissions; the containerised
+`rpmbuild` left root-owned output the host could not copy. The AppImage step now runs the artifact
+it just wrote.
+
+Verified in clean containers: the `.deb` installs on Debian, the `.rpm` on Fedora, the AUR recipe
+builds on Arch through `makepkg` with `check()` running the test suite, and the binary answers
+`dhs version` in all three.
+
+The AUR recipe is ready in `packaging/aur/` but not submitted: that needs the maintainer's own SSH
+key on aur.archlinux.org. `packaging/aur/README.md` has the commands.
+
+Also: the site gained SEO metadata, structured data and a sitemap, and is verified in Google Search
+Console. The repository now carries a description, the site URL and discovery topics.
+
 ## 2026-09-03 — English becomes the primary language (Claude Fable 5.1)
 
 **What changed.** Code, comments, documentation and the CLI are now in English; Romanian stays as

@@ -413,7 +413,25 @@
   <section id="get">
     <div class="wrap">
       <h2>Descarcă</h2>
-      <p class="sub">Nu există încă o versiune publicată. Până atunci, compilează din sursă — o singură comandă și niciun toolchain suplimentar, nici măcar pentru Windows.</p>
+      <p class="sub"><strong>0.1.0 e publicată ca pre-release.</strong> Nucleul pentru fișiere e testat pe cinci distribuții; manifestul aplicațiilor și detectarea lor lipsesc încă, iar binarele de Windows n-au fost rulate pe Windows.</p>
+      <div class="ctas" style="margin-bottom:30px">
+        <a class="btn primary" href="https://github.com/Necta14/dhs/releases/tag/v0.1.0">Descarcă 0.1.0</a>
+        <a class="btn ghost" style="border-color:var(--line);color:var(--ink)" href="https://github.com/Necta14/dhs/releases/latest">Toate versiunile</a>
+      </div>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>Ești pe</th><th>Ia</th></tr></thead>
+        <tbody>
+          <tr><td>Debian, Ubuntu, Mint</td><td><code>dhs_0.1.0_amd64.deb</code> · și arm64</td></tr>
+          <tr><td>Fedora, RHEL, openSUSE</td><td><code>dhs-0.1.0-1.x86_64.rpm</code> · și aarch64</td></tr>
+          <tr><td>Arch</td><td>rețeta din <code>packaging/aur/</code>, apoi <code>makepkg -si</code></td></tr>
+          <tr><td>Orice Linux, fără să instalezi nimic</td><td><code>DHS-0.1.0-x86_64.AppImage</code></td></tr>
+          <tr><td>Windows</td><td><code>dhs_0.1.0_windows_amd64.zip</code> · netestat pe Windows</td></tr>
+          <tr><td>Compilezi singur</td><td><code>dhs-0.1.0-source.tar.gz</code></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="sub" style="margin-top:28px">Verifică ce ai descărcat cu fișierul <code>SHA256SUMS</code> publicat lângă el, prin <code>sha256sum -c SHA256SUMS --ignore-missing</code>. Sau compilează din sursă, cu o singură comandă și fără niciun toolchain suplimentar, nici măcar pentru Windows.</p>
       <div class="term" aria-label="Comenzi de compilare">
         <div class="bar"><i></i><i></i><i></i>&nbsp; build</div>
 <pre><span class="p">$</span> git clone https://github.com/Necta14/dhs && cd dhs

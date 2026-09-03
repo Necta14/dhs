@@ -426,7 +426,25 @@
   <section id="get">
     <div class="wrap">
       <h2>Get it</h2>
-      <p class="sub">There is no release yet. Until there is one, build from source — it takes one command and no extra toolchain, even for Windows.</p>
+      <p class="sub"><strong>0.1.0 is out as a pre-release.</strong> The file core is tested on five distributions; the app manifest and app detection are still missing, and the Windows binaries have not been run on Windows.</p>
+      <div class="ctas" style="margin-bottom:30px">
+        <a class="btn primary" href="https://github.com/Necta14/dhs/releases/tag/v0.1.0">Download 0.1.0</a>
+        <a class="btn ghost" style="border-color:var(--line);color:var(--ink)" href="https://github.com/Necta14/dhs/releases/latest">All releases</a>
+      </div>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>You are on</th><th>Take</th></tr></thead>
+        <tbody>
+          <tr><td>Debian, Ubuntu, Mint</td><td><code>dhs_0.1.0_amd64.deb</code> · also arm64</td></tr>
+          <tr><td>Fedora, RHEL, openSUSE</td><td><code>dhs-0.1.0-1.x86_64.rpm</code> · also aarch64</td></tr>
+          <tr><td>Arch</td><td>the recipe in <code>packaging/aur/</code>, then <code>makepkg -si</code></td></tr>
+          <tr><td>Any Linux, installing nothing</td><td><code>DHS-0.1.0-x86_64.AppImage</code></td></tr>
+          <tr><td>Windows</td><td><code>dhs_0.1.0_windows_amd64.zip</code> · untested on Windows</td></tr>
+          <tr><td>Building it yourself</td><td><code>dhs-0.1.0-source.tar.gz</code></td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="sub" style="margin-top:28px">Check what you downloaded against the <code>SHA256SUMS</code> published beside it, with <code>sha256sum -c SHA256SUMS --ignore-missing</code>. Or build from source, in one command and with no extra toolchain, even for Windows.</p>
       <div class="term" aria-label="Build commands">
         <div class="bar"><i></i><i></i><i></i>&nbsp; build</div>
 <pre><span class="p">$</span> git clone https://github.com/Necta14/dhs && cd dhs

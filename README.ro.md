@@ -61,6 +61,33 @@ Restaurarea nu suprascrie niciodată: fișierul existent rămâne, iar cel resta
 sufixul ` (DHS)` — dacă nu spui `--conflicts skip` sau `--conflicts overwrite`. Fișierele a căror
 rădăcină nu există pe sistemul nou ajung sub `~/DHS-restored/`. Fiecare comandă acceptă `--json`.
 
+## Instalare
+
+**[0.1.0 e publicată ca pre-release.](https://github.com/Necta14/dhs/releases/tag/v0.1.0)**
+Nucleul pentru fișiere e testat; manifestul aplicațiilor și detectarea lor nu sunt încă scrise, iar
+binarele de Windows sunt compilate încrucișat, dar nerulate pe Windows. Nu migra încă nimic care
+îți pasă.
+
+```bash
+# Debian, Ubuntu, Mint
+sudo apt install ./dhs_0.1.0_amd64.deb
+
+# Fedora, RHEL, openSUSE
+sudo rpm -i dhs-0.1.0-1.x86_64.rpm
+
+# Arch, din rețeta din packaging/aur/
+makepkg -si
+
+# orice Linux, fără să instalezi nimic
+chmod +x DHS-0.1.0-x86_64.AppImage && ./DHS-0.1.0-x86_64.AppImage scan --dest /run/media/tu/SSD
+```
+
+Toate fișierele sunt în [versiunea publicată](https://github.com/Necta14/dhs/releases/latest), cu `SHA256SUMS` lângă ele:
+
+```bash
+sha256sum -c SHA256SUMS --ignore-missing
+```
+
 ## Cum e construit
 
 - **Un singur binar static**, în Go. Pe sistemul destinație, proaspăt instalat, nu există niciun
