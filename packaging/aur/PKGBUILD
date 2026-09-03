@@ -8,7 +8,7 @@ url="https://dhs-suite.vercel.app"
 license=('Apache-2.0')
 makedepends=('go')
 source=("$pkgname-$pkgver.tar.gz::https://github.com/Necta14/dhs/releases/download/v$pkgver/dhs-$pkgver-source.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('dd5cb95af4669918d1ef364cfc50970bee81c14fbbe33f4f59301dca6599924b')
 
 prepare() {
   cd "$pkgname-$pkgver"
