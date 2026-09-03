@@ -9,6 +9,16 @@
 > reparat: un nil pointer la creare, patru curse de date la serializarea indexului, un contor
 > dublat și scrypt de producție care făcea suita să dureze 10 minute.
 
+## Migrare între distribuții — `scripts/e2e-distro.sh`
+
+Backup pe gazda Ubuntu, restaurare în containere Docker de **Arch, Fedora, Debian, openSUSE și
+Alpine (musl)**, comparare sha256 pe căi relative. Fiecare container are doar binarul static și
+pachetul de pe „SSD" — un sistem proaspăt instalat. **Verde 03.09.2026, commit `6a55e1d`**: cinci
+din cinci, identic bit cu bit. Pentru o singură distribuție: `bash scripts/e2e-distro.sh alpine:latest`.
+
+Ce nu acoperă: Windows (Codespaces n-are VM-uri Windows) și XDG localizat (`user-dirs.dirs`) —
+containerele folosesc numele implicite.
+
 ## Cel mai scurt drum: de pe laptop, prin `gh`
 
 ```bash

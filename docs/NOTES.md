@@ -1,37 +1,47 @@
-# NOTES — Direct Handoff Suite
+# NOTES — DHS
 
-Jurnal de sesiuni. Cel mai nou sus.
+Jurnal de sesiuni. Cel mai nou sus. Deciziile stau în `CLAUDE.md`; aici e *ce s-a întâmplat*.
 
-## 2026-09-02 — faza 1: nucleul RAG + memorie (Claude Fable 5.1)
+## 03.09.2026 — prima sesiune de teste pe Codespaces: verde (Claude Fable 5.1)
 
-**Ce există.** CLI `dhs` și bibliotecă `Suite`: indexare incrementală de fișiere, fragmentare
-Markdown, embeddings Gemini cu cache/loturi/limitator, căutare hibridă (vector în memorie + FTS5,
-RRF, MMR), memorie cu tipuri/importanță/etichete/înlocuire/expirare, `handoff` Markdown.
-`npm run check` verde: tipuri + 40 de aserțiuni în 6 fișiere de test, fără rețea.
+**Rezultat.** Pe `3a39aef`: gofmt, vet, build linux/windows/arm64, `go test` (2 s), `go test
+-race` (11 s), fluxul e2e (11 s) — **0 eșecuri**. Pe `6a55e1d`, `e2e-distro.sh`: backup pe Ubuntu,
+restaurare în **Arch, Fedora, Debian, openSUSE, Alpine** — 5/5 identice bit cu bit, cu binarul
+static de 4,3 MiB și nicio dependență în container.
 
-**Decizii și motivele lor.**
-- *SQLite prin `node:sqlite`, nu Postgres/pgvector.* Zero infrastructură, o singură bază pentru
-  toate proiectele, FTS5 inclus în Node 26. Postgres-ul de pe VPS rămâne al aplicațiilor.
-- *Index vectorial exact, în memorie, fără extensii native.* La scara actuală (mii–zeci de mii
-  de fragmente) o căutare e sub 10 ms; sqlite-vec/cuantizare sunt în backlog pentru >200k.
-- *`gemini-embedding-2` la 768 dimensiuni.* Verificat pe cheia userului: există și e GA (8192
-  tokeni intrare, întoarce vectori deja normalizați și `usageMetadata`). `gemini-embedding-001` la
-  768 nu e normalizat — normalizăm oricum, mereu.
-- *Cheia cache-ului = model + dimensiune + titlu + text.* Schimbarea modelului nu invalidează
-  cache-ul vechi, doar îl ocolește.
-- *Interogările FTS se construiesc, nu se transmit.* Tokeni citați (operatorii userului devin
-  literali), prefix pentru tokeni ≥ 5 caractere (flexiuni RO), stopwords RO/EN, AND cu fallback OR.
-- *Baza implicită globală (XDG).* Memoria e a userului, nu a repo-ului.
-- *Regula #1 se aplică și la indexare.* `.env*`, chei, credențiale sunt refuzate după nume, înainte
-  de `open`.
+**Ce au găsit rundele, în ordine.**
+1. `NewWriter` scria manifestul înainte să existe emițătorul → nil pointer; bloca toate testele.
+2. Patru curse de date: emițătorul serializa intrări în timp ce `Add` le adăuga părți (un bloc
+   solid ține coada unui fișier terminat până se umple). Acum `addPart` sub lacăt, emițătorul
+   serializează copii.
+3. `octeti_stocati` dublat la închiderea volumului — contor, nu disc. Real: 12,9 → 8,6 MiB.
+4. „Blocaj" de 10 minute sub `-race`: scrypt 2^18 apelat de sute de ori. `passphrase.WorkFactor`
+   e variabilă; testele o coboară la 2^10, produsul rămâne la 2^18.
+5. Încă două curse pe `progress`. Plus trei defecte în scripturile de test: `tee /dev/stderr`
+   trunchia jurnalul, `pipefail` pica testul cu fraza greșită, `grep` fără rezultate omora scriptul.
 
-**Verificat pe viu.** `dhs doctor` cu cheia reală: embedding 768 dimensiuni în ~1,1 s. `dhs models`
-listează `gemini-embedding-001`, `gemini-embedding-2-preview`, `gemini-embedding-2`.
+**Infrastructură.** `gh` de pe laptop are două conturi: atelierul (**activ**, îl folosesc ceilalți
+agenți — nu se schimbă) și Necta14 (scope `codespace`). Comenzile către Codespaces:
+`GH_TOKEN=$(gh auth token -u Necta14) gh codespace ssh -c <nume> -- '<comandă>'`. Docker e în
+imaginea implicită, `/dev/kvm` există, `sudo` fără parolă. Distrobox nu e necesar: containere
+Docker simple fac exact ce trebuie.
 
-**De făcut de user.** `.env.local` cu `GEMINI_API_KEY=…` (agentul nu scrie fișiere `.env*`).
+**Următorul pas.** Partea de aplicații: `internal/appdb` (TOML + `go:embed`), detectarea
+aplicațiilor instalate, `dhs plan`. De răspuns de user: numele din `NOTICE`.
 
-**Capcane întâlnite.**
-- `"parola"*` nu prinde „parolele" — prefixul e pe litere, nu pe rădăcină lexicală. Testul a fost
-  corectat, nu codul; un stemmer RO ar fi următorul pas dacă se dovedește necesar.
-- Un heredoc cu un caracter NUL a fost respins de unealta de shell; fișierele sursă se scriu cu
-  unealta de scriere, nu prin `cat <<EOF`.
+## 02.09.2026 — definirea produsului și nucleul pentru fișiere (Claude Fable 5.1 / Opus 5)
+
+**Dimineața.** S-a construit întâi unealta internă de memorie (RAG), apoi userul a definit
+produsul. Deciziile D1–D7 s-au închis în aceeași zi: Go, fără AI în produs, fișiere + manifest +
+listă mică de aplicații în v1, criptat implicit cu secrete opt-in, restaurare prin plan aprobat,
+Apache-2.0 cu politică de marcă în loc de clauză etică. Research pe compresia „extremă" (FitGirl):
+partea utilă e precomp, amânată (D8); Regula #3, nimic cu pierderi.
+
+**După-amiaza.** Unealta RAG s-a mutat în `~/dhs-memory`. S-au scris `internal/system`,
+`internal/scan`, `cmd/dhs scan` — rulat pe profilul real: 68 463 fișiere, 43,7 GiB, ~1 s. Apoi
+`internal/pack` (formatul), `internal/passphrase`, `internal/restore`, comenzile `backup`,
+`verify`, `list`, `restore` — **scrise, compilate, netestate**, conform regulii că testele
+rulează doar pe Codespaces. Repo-ul a devenit public: github.com/Necta14/dhs.
+
+**Bug găsit înainte de prima rulare.** Detectarea lua directorul acasă din `/etc/passwd`, nu din
+`$HOME`; ar fi făcut imposibil testul pe profil sintetic.
