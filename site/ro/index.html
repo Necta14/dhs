@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DHS — Direct Handoff Suite</title>
+<meta name="description" content="Mută-ți întregul mediu de lucru pe un sistem de operare nou — Windows ↔ Linux, de la o distribuție la alta — printr-un singur pachet portabil, criptat, pe un mediu extern. Fără cloud, fără cont, fără rețea, fără AI.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#1E293B">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="/">
+<link rel="alternate" hreflang="ro" href="/ro/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="DHS — Direct Handoff Suite">
+<meta property="og:description" content="Fișierele, setările și lista aplicațiilor tale, împachetate pe un SSD și predate următorului sistem de operare. Fără cloud, fără cont, fără AI.">
+<meta property="og:image" content="/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #F8FAFC;
+    --surface: #FFFFFF;
+    --ink: #0F172A;
+    --muted: #475569;
+    --line: #E2E8F0;
+    --slate: #1E293B;
+    --slate-deep: #0F172A;
+    --on-slate: #F8FAFC;
+    --on-slate-muted: #CBD5E1;
+    --green: #22C55E;
+    --green-ink: #052E16;
+    --green-text: #15803D;
+    --amber-bg: #FEF3C7;
+    --amber-line: #F59E0B;
+    --amber-ink: #78350F;
+    --code-bg: #0F172A;
+    --code-ink: #E2E8F0;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0B1220;
+      --surface: #111A2E;
+      --ink: #F1F5F9;
+      --muted: #94A3B8;
+      --line: #1E293B;
+      --green-text: #4ADE80;
+      --amber-bg: #2A1F08;
+      --amber-line: #D97706;
+      --amber-ink: #FCD34D;
+      --code-bg: #060B16;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, "Segoe UI", Cantarell, Inter, Roboto, "Noto Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--green-text); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code, pre, kbd {
+    font-family: ui-monospace, "Cascadia Code", "JetBrains Mono", "Source Code Pro", Menlo, Consolas, monospace;
+    font-size: 0.92em;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  header { background: var(--slate); color: var(--on-slate); }
+  header .wrap {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    min-height: 64px; flex-wrap: wrap; padding-top: 8px; padding-bottom: 8px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--on-slate); font-weight: 700; font-size: 18px; }
+  .brand img { width: 36px; height: 36px; border-radius: 9px; }
+  nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a {
+    color: var(--on-slate-muted); padding: 10px 12px; border-radius: 8px; min-height: 44px;
+    display: inline-flex; align-items: center; font-weight: 500;
+  }
+  nav a:hover { color: var(--on-slate); background: rgba(255,255,255,.07); text-decoration: none; }
+  nav a.lang { border: 1px solid rgba(255,255,255,.18); margin-left: 8px; }
+
+  .hero {
+    background: linear-gradient(180deg, var(--slate) 0%, var(--slate-deep) 100%);
+    color: var(--on-slate);
+    padding: 64px 0 72px;
+  }
+  .hero .wrap { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+  @media (min-width: 820px) { .hero .wrap { grid-template-columns: 1.4fr 1fr; } }
+  .hero h1 { font-size: clamp(30px, 4.6vw, 46px); line-height: 1.12; margin: 0 0 18px; letter-spacing: -0.01em; }
+  .hero p.lead { font-size: 19px; color: var(--on-slate-muted); margin: 0 0 20px; max-width: 560px; }
+  .hero p.creed { font-size: 17px; font-weight: 600; margin: 0 0 28px; color: var(--on-slate); }
+  .hero p.creed span { color: var(--green); }
+  .hero .art { display: flex; justify-content: center; }
+  .hero .art img { width: min(260px, 60vw); height: auto; filter: drop-shadow(0 24px 48px rgba(0,0,0,.45)); }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px;
+    border-radius: 999px; font-weight: 700; text-decoration: none; transition: transform .12s ease, background .12s ease;
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-1px); }
+  .btn.primary { background: var(--green); color: var(--green-ink); }
+  .btn.primary:hover { background: #4ADE80; }
+  .btn.ghost { border: 1px solid rgba(255,255,255,.28); color: var(--on-slate); }
+  .btn.ghost:hover { background: rgba(255,255,255,.08); }
+
+  .status {
+    background: var(--amber-bg); border-left: 4px solid var(--amber-line); color: var(--amber-ink);
+    border-radius: 10px; padding: 14px 18px; margin: -32px auto 0; position: relative; z-index: 1;
+    box-shadow: 0 8px 24px rgba(15,23,42,.10);
+  }
+  .status strong { font-weight: 800; }
+
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid var(--line); }
+  h2 { font-size: clamp(24px, 3vw, 32px); margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin: 0 0 32px; max-width: 640px; font-size: 17px; }
+  .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px 22px 20px; box-shadow: 0 1px 2px rgba(15,23,42,.04);
+  }
+  .card h3 { margin: 0 0 8px; font-size: 18px; }
+  .card p { margin: 0; color: var(--muted); }
+  .card .n {
+    display: inline-flex; width: 34px; height: 34px; border-radius: 10px; align-items: center; justify-content: center;
+    background: var(--slate); color: var(--green); font-weight: 800; margin-bottom: 14px;
+  }
+  .card .ico { display: block; width: 28px; height: 28px; margin-bottom: 14px; color: var(--green-text); }
+  .steps { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+  .term {
+    background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius); overflow: hidden;
+    border: 1px solid rgba(148,163,184,.18); box-shadow: 0 16px 40px rgba(15,23,42,.18);
+  }
+  .term .bar {
+    display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: rgba(255,255,255,.04);
+    border-bottom: 1px solid rgba(148,163,184,.14); font-size: 13px; color: #94A3B8;
+  }
+  .term .bar i { width: 10px; height: 10px; border-radius: 50%; background: #475569; display: inline-block; }
+  .term pre { margin: 0; padding: 18px 20px; overflow-x: auto; line-height: 1.5; font-size: 14px; }
+  .term .p { color: #94A3B8; }
+  .term .k { color: #7DD3FC; }
+  .term .ok { color: var(--green); font-weight: 700; }
+  .term .dim { color: #64748B; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .tablewrap { overflow-x: auto; border-radius: var(--radius); }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; }
+  tr:last-child td { border-bottom: 0; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td .ok { color: var(--green-text); font-weight: 700; }
+
+  .principle {
+    background: var(--slate); color: var(--on-slate); border-radius: var(--radius); padding: 28px 28px;
+    display: grid; gap: 18px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) { .principle { grid-template-columns: 1fr 1fr; } }
+  .principle h3 { margin: 0 0 8px; color: var(--green); font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
+  .principle p { margin: 0; color: var(--on-slate-muted); }
+
+  .docs { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .docs li a {
+    display: block; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink);
+  }
+  .docs li a:hover { border-color: var(--green); text-decoration: none; }
+  .docs li a small { display: block; color: var(--muted); }
+  .docs li a code { color: var(--green-text); }
+
+  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: grid; gap: 12px; }
+  footer p { margin: 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="/ro/"><img src="/dhs.svg" alt="" width="36" height="36"> DHS <span style="font-weight:500;color:var(--on-slate-muted)">· Direct Handoff Suite</span></a>
+    <nav aria-label="Principal">
+      <a href="#how">Cum funcționează</a>
+      <a href="#why">De ce DHS</a>
+      <a href="#get">Descarcă</a>
+      <a href="#docs">Documentație</a>
+      <a href="https://github.com/Necta14/dhs">GitHub</a>
+      <a class="lang" href="/" lang="en" hreflang="en">English</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Mută-ți întregul mediu de lucru pe un sistem de operare nou.</h1>
+        <p class="lead">De pe Windows pe Linux, de pe Linux pe Windows, de la o distribuție la alta, de la o versiune de Windows la următoarea. Fișierele, setările și lista aplicațiilor tale intră într-un singur pachet portabil, pe un mediu extern — și ies pe partea cealaltă.</p>
+        <p class="creed">Fără cloud. Fără cont. Fără rețea. <span>Fără AI.</span> Un binar de câțiva megaocteți.</p>
+        <div class="ctas">
+          <a class="btn primary" href="https://github.com/Necta14/dhs">Vezi pe GitHub</a>
+          <a class="btn ghost" href="#how">Cum funcționează</a>
+        </div>
+      </div>
+      <div class="art"><img src="/dhs.svg" alt="Iconul DHS: o valiză străbătută de o săgeată" width="260" height="260"></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="status" role="note">
+      <strong>În construcție.</strong> Nucleul pentru fișiere — <code>scan</code>, <code>backup</code>, <code>verify</code>, <code>list</code>, <code>restore</code> — funcționează și e testat pe cinci distribuții Linux. Manifestul aplicațiilor, detectarea lor și <code>plan</code> nu sunt încă scrise, iar binarul de Windows e compilat încrucișat, dar netestat încă pe Windows. <strong>Nu-l folosi încă pentru o migrare reală.</strong>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="wrap">
+      <h2>Trei pași, un singur mediu</h2>
+      <p class="sub">DHS construiește un pachet de migrare pe un SSD sau un stick USB. Instalezi sistemul nou, bagi mediul la loc și iei totul cu tine.</p>
+      <div class="grid steps">
+        <div class="card">
+          <span class="n">1</span>
+          <h3>Împachetezi, pe sistemul vechi</h3>
+          <p>DHS îți scanează home-ul, îți spune cât va ocupa <em>înainte</em> să scrie un octet, apoi scrie pachetul: criptat, împărțit în volume de 3,5 GiB ca să încapă pe orice mediu, FAT32 inclusiv.</p>
+        </div>
+        <div class="card">
+          <span class="n">2</span>
+          <h3>Îl duci cu tine</h3>
+          <p>Pachetul e doar niște fișiere pe mediul tău. Nu atinge niciun server. Un SSD pierdut nu e o scurgere: tot ce e în el e criptat cu fraza ta, iar secretele nici măcar nu sunt înăuntru dacă nu ceri asta.</p>
+        </div>
+        <div class="card">
+          <span class="n">3</span>
+          <h3>Restaurezi, pe cel nou</h3>
+          <p>DHS verifică fiecare sumă de control, îți arată planul și doar apoi scrie — lângă fișierele existente, niciodată peste ele. Ce nu poate așeza ajunge în <code>~/DHS-restored/</code>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cli">
+    <div class="wrap">
+      <h2>Estimarea vine prima</h2>
+      <p class="sub">O singură comandă îți spune ce s-ar salva, cât spațiu ocupă la fiecare nivel de compresie și dacă încape pe mediul pe care l-ai băgat. Nu se scrie nimic până nu spui tu.</p>
+      <div class="term" aria-label="Exemplu de ieșire pentru dhs scan">
+        <div class="bar"><i></i><i></i><i></i>&nbsp; DHS_LANG=ro dhs scan --dest /run/media/tu/SSD</div>
+<pre><span class="k">Sistem</span>        Arch Linux (amd64)
+<span class="k">Rădăcini</span>      /home/tu/Documente
+              /home/tu/Poze
+              <span class="dim">…</span>
+
+<span class="k">De inclus</span>     44,0 GiB în 68 000 fișiere   <span class="dim">(scanat în ~1 s)</span>
+<span class="k">Excluse</span>       6,2 GiB   <span class="dim">--all le aduce înapoi</span>
+                target                 5,9 GiB · artefacte de build
+                node_modules           237 MiB · dependențe, refăcute de npm install
+<span class="k">Secrete</span>       1,2 MiB în 9 fișiere   <span class="dim">excluse implicit; --secrets le include</span>
+
+<span class="k">Compoziție</span>
+                binar            20,0 GiB     46%
+                incompresibil    11,8 GiB     27%   <span class="dim">stocat, nu comprimat</span>
+                text             2,4 GiB      6%
+
+<span class="k">Nivel</span>         2 · Echilibrat
+<span class="k">Estimare</span>      27,4 GiB – 34,4 GiB   ~3 min pe 8 nuclee
+<span class="k">Volume</span>        10 × 3,5 GiB
+
+<span class="k">Destinație</span>    /run/media/tu/SSD   64,0 GiB liberi din 119 GiB   exFAT
+
+              <span class="ok">✓ Încape, cu 29,6 GiB de rezervă.</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <h2>De ce DHS</h2>
+      <p class="sub">Are pe mână întreaga viață digitală a cuiva — documente, poze, chei. De aceea e construit pe câteva reguli care nu se negociază.</p>
+      <div class="grid">
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
+          <h3>Bit cu bit, sau nimic</h3>
+          <p>Fiecare fișier primește un SHA-256 la împachetare și e verificat din nou înainte să fie pus la loc. Un fișier care nu se verifică nu se scrie. Niciun truc cu pierderi, oricât ar economisi.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <h3>Criptat implicit</h3>
+          <p>Întreg pachetul e criptat cu o frază de acces (<a href="https://age-encryption.org">age</a>, scrypt). Secretele — chei SSH și GPG, parole din browser, tokenuri — rămân afară dacă nu ceri altfel, și atunci primesc o frază a lor.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/><path d="M8 17h8M8 13h4"/></svg>
+          <h3>Nu suprascrie niciodată</h3>
+          <p>Restaurarea păstrează ce e deja acolo; copia restaurată se așază alături, cu sufixul <code>(DHS)</code>. Orice alegere distructivă e explicită, iar <code>--dry-run</code> arată planul fără să atingă nimic.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.3L3 16"/><path d="M3 21v-5h5"/></svg>
+          <h3>Sincer când e întrerupt</h3>
+          <p>Un cablu smuls sau o baterie moartă lasă un pachet care spune că e incomplet — un jurnal notează până unde a ajuns. Nu lasă niciodată un pachet pe jumătate scris care pare valid.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/><path d="M4 4l16 16"/></svg>
+          <h3>Nimic nu-ți părăsește discul</h3>
+          <p>Fără cloud, fără cont, fără telemetrie, fără actualizator, fără niciun rând de cod de rețea. Baza de aplicații e compilată în binar, așa că DHS merge și pe o mașină care n-a fost niciodată online.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7l-8-4-8 4 8 4z"/><path d="M4 7v10l8 4 8-4V7"/><path d="M12 11v10"/></svg>
+          <h3>Mic, cu intenție</h3>
+          <p>Un singur binar static de vreo 4 MiB, niciun runtime de instalat pe sistemul proaspăt, zero procese în fundal. Trei niveluri de compresie, de la ZIP simplu la LZMA2, toate la alegerea ta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="budgets">
+    <div class="wrap">
+      <h2>Bugete, nu sugestii</h2>
+      <p class="sub">Umflarea e un mod de eșec pe care îl planificăm împotriva lui. Pragurile de mai jos stau în regulile proiectului, iar build-ul curent trebuie să rămână sub ele.</p>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>Ce</th><th>Buget</th><th>Azi</th></tr></thead>
+        <tbody>
+          <tr><td>Binarul CLI, stripped</td><td class="num">≤ 15 MiB</td><td class="num"><span class="ok">4,2 MiB</span> Linux · <span class="ok">4,5 MiB</span> Windows</td></tr>
+          <tr><td>Procese în fundal, servicii, daemoni</td><td class="num">zero</td><td class="num"><span class="ok">zero</span></td></tr>
+          <tr><td>Telemetrie, „statistici anonime", actualizator automat</td><td class="num">zero</td><td class="num"><span class="ok">zero</span></td></tr>
+          <tr><td>Apeluri de rețea la rulare</td><td class="num">zero</td><td class="num"><span class="ok">zero</span></td></tr>
+          <tr><td>Runtime de instalat pe destinație</td><td class="num">niciunul</td><td class="num"><span class="ok">niciunul</span></td></tr>
+          <tr><td>Pornire la rece</td><td class="num">&lt; 100 ms</td><td class="num"><span class="ok">~10 ms</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="principles">
+    <div class="wrap">
+      <div class="principle">
+        <div>
+          <h3>Fără AI, prin proiectare</h3>
+          <p>DHS e o unealtă de sistem deterministă: citește, împachetează, verifică, restaurează. Poți prezice exact ce face. Aplicațiile sunt potrivite între platforme printr-o bază de date întreținută de oameni, cu identificatori exacți — nu prin ghicit. Dacă o aplicație nu e în bază, DHS spune asta și o trece în raport. Nu inventează un echivalent.</p>
+        </div>
+        <div>
+          <h3>Nimic nu rulează orbește</h3>
+          <p>La restaurare, DHS arată exact ce ar instala, din ce sursă și cu ce comenzi. Aprobi planul o dată; apoi rulează. Nimeni n-ar trebui să execute comenzi de root generate dintr-un fișier de pe un stick fără să le citească — așa că DHS nici nu-ți cere asta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="get">
+    <div class="wrap">
+      <h2>Descarcă</h2>
+      <p class="sub">Nu există încă o versiune publicată. Până atunci, compilează din sursă — o singură comandă și niciun toolchain suplimentar, nici măcar pentru Windows.</p>
+      <div class="term" aria-label="Comenzi de compilare">
+        <div class="bar"><i></i><i></i><i></i>&nbsp; build</div>
+<pre><span class="p">$</span> git clone https://github.com/Necta14/dhs && cd dhs
+<span class="p">$</span> go build -ldflags="-s -w" -o dhs ./cmd/dhs               <span class="dim"># Linux</span>
+<span class="p">$</span> GOOS=windows go build -ldflags="-s -w" ./cmd/dhs         <span class="dim"># Windows, de pe Linux</span>
+<span class="p">$</span> ./dhs scan --dest /run/media/tu/SSD
+<span class="p">$</span> ./dhs backup --dest /run/media/tu/SSD --name laptop
+<span class="p">$</span> ./dhs verify /run/media/tu/SSD/laptop.dhs
+<span class="p">$</span> ./dhs restore /run/media/tu/SSD/laptop.dhs --dry-run</pre>
+      </div>
+      <p class="sub" style="margin-top:28px">Fiecare comandă acceptă <code>--json</code> pentru scripturi și interfețe; <code>DHS_LANG=ro</code> trece mesajele pe română. Un prototip de interfață grafică pentru Linux (GTK4 + libadwaita) stă în <code>gui/linux/</code> și conduce același binar — logica e într-un singur loc, interfața e doar o coajă peste ea.</p>
+    </div>
+  </section>
+
+  <section id="docs">
+    <div class="wrap">
+      <h2>Documentație</h2>
+      <p class="sub">Totul e în repo, în engleză, cu traduceri în română în <code>docs/ro/</code>.</p>
+      <ul class="docs">
+        <li><a href="https://github.com/Necta14/dhs/blob/main/README.ro.md"><code>README.ro.md</code><small>Ce face, cum se compilează, starea curentă</small></a></li>
+        <li><a href="https://github.com/Necta14/dhs/blob/main/docs/ro/ARHITECTURA.md"><code>docs/ro/ARHITECTURA.md</code><small>Formatul pachetului, structura modulelor, suprafața CLI</small></a></li>
+        <li><a href="https://github.com/Necta14/dhs/blob/main/docs/ro/COMPRESIE.md"><code>docs/ro/COMPRESIE.md</code><small>Cele trei niveluri, estimarea, cercetarea despre compresia extremă</small></a></li>
+        <li><a href="https://github.com/Necta14/dhs/blob/main/docs/ro/TESTARE.md"><code>docs/ro/TESTARE.md</code><small>Cum merge sesiunea de teste, pe cinci distribuții</small></a></li>
+        <li><a href="https://github.com/Necta14/dhs/blob/main/docs/ro/LICENTA.md"><code>docs/ro/LICENTA.md</code><small>De ce Apache-2.0 și de ce fără clauză etică</small></a></li>
+        <li><a href="https://github.com/Necta14/dhs/blob/main/docs/ro/VALUES.md"><code>docs/ro/VALUES.md</code><small>În ce crede proiectul, spus public</small></a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Licența Apache 2.0.</strong> Codul e liber. Numele nu: „DHS" și „Direct Handoff Suite" sunt mărci ale proiectului — vezi <a href="https://github.com/Necta14/dhs/blob/main/docs/ro/TRADEMARK.md">TRADEMARK.md</a>.</p>
+    <p>Făcut de <a href="https://github.com/Necta14">Necta</a> și contributori. Pagina asta nu încarcă nimic de la terți, nu rulează scripturi și nu pune cookie-uri. <a href="/" lang="en" hreflang="en">English version</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>

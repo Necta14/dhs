@@ -16,3 +16,5 @@
 
 # Test-session logs (published only on tests/* branches)
 /test-results/
+/site/.vercel/
+/site/.env*

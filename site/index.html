@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DHS — Direct Handoff Suite</title>
+<meta name="description" content="Move your whole working environment to a new operating system — Windows ↔ Linux, distro to distro — through one portable, encrypted package on an external drive. No cloud, no account, no network, no AI.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#1E293B">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="/">
+<link rel="alternate" hreflang="ro" href="/ro/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="DHS — Direct Handoff Suite">
+<meta property="og:description" content="Your files, settings and app list, packed on an SSD and handed to the next operating system. No cloud, no account, no AI.">
+<meta property="og:image" content="/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root {
+    --bg: #F8FAFC;
+    --surface: #FFFFFF;
+    --ink: #0F172A;
+    --muted: #475569;
+    --line: #E2E8F0;
+    --slate: #1E293B;
+    --slate-deep: #0F172A;
+    --on-slate: #F8FAFC;
+    --on-slate-muted: #CBD5E1;
+    --green: #22C55E;
+    --green-ink: #052E16;
+    --green-text: #15803D;
+    --amber-bg: #FEF3C7;
+    --amber-line: #F59E0B;
+    --amber-ink: #78350F;
+    --code-bg: #0F172A;
+    --code-ink: #E2E8F0;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0B1220;
+      --surface: #111A2E;
+      --ink: #F1F5F9;
+      --muted: #94A3B8;
+      --line: #1E293B;
+      --green-text: #4ADE80;
+      --amber-bg: #2A1F08;
+      --amber-line: #D97706;
+      --amber-ink: #FCD34D;
+      --code-bg: #060B16;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, "Segoe UI", Cantarell, Inter, Roboto, "Noto Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--green-text); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  code, pre, kbd {
+    font-family: ui-monospace, "Cascadia Code", "JetBrains Mono", "Source Code Pro", Menlo, Consolas, monospace;
+    font-size: 0.92em;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  /* header */
+  header {
+    background: var(--slate);
+    color: var(--on-slate);
+  }
+  header .wrap {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    min-height: 64px; flex-wrap: wrap; padding-top: 8px; padding-bottom: 8px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; color: var(--on-slate); font-weight: 700; font-size: 18px; }
+  .brand img { width: 36px; height: 36px; border-radius: 9px; }
+  nav { display: flex; gap: 4px; flex-wrap: wrap; }
+  nav a {
+    color: var(--on-slate-muted); padding: 10px 12px; border-radius: 8px; min-height: 44px;
+    display: inline-flex; align-items: center; font-weight: 500;
+  }
+  nav a:hover { color: var(--on-slate); background: rgba(255,255,255,.07); text-decoration: none; }
+  nav a.lang { border: 1px solid rgba(255,255,255,.18); margin-left: 8px; }
+
+  /* hero */
+  .hero {
+    background: linear-gradient(180deg, var(--slate) 0%, var(--slate-deep) 100%);
+    color: var(--on-slate);
+    padding: 64px 0 72px;
+  }
+  .hero .wrap { display: grid; grid-template-columns: 1fr; gap: 32px; align-items: center; }
+  @media (min-width: 820px) { .hero .wrap { grid-template-columns: 1.4fr 1fr; } }
+  .hero h1 { font-size: clamp(30px, 4.6vw, 46px); line-height: 1.12; margin: 0 0 18px; letter-spacing: -0.01em; }
+  .hero p.lead { font-size: 19px; color: var(--on-slate-muted); margin: 0 0 20px; max-width: 560px; }
+  .hero p.creed { font-size: 17px; font-weight: 600; margin: 0 0 28px; color: var(--on-slate); }
+  .hero p.creed span { color: var(--green); }
+  .hero .art { display: flex; justify-content: center; }
+  .hero .art img { width: min(260px, 60vw); height: auto; filter: drop-shadow(0 24px 48px rgba(0,0,0,.45)); }
+  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px;
+    border-radius: 999px; font-weight: 700; text-decoration: none; transition: transform .12s ease, background .12s ease;
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-1px); }
+  .btn.primary { background: var(--green); color: var(--green-ink); }
+  .btn.primary:hover { background: #4ADE80; }
+  .btn.ghost { border: 1px solid rgba(255,255,255,.28); color: var(--on-slate); }
+  .btn.ghost:hover { background: rgba(255,255,255,.08); }
+
+  /* status */
+  .status {
+    background: var(--amber-bg); border-left: 4px solid var(--amber-line); color: var(--amber-ink);
+    border-radius: 10px; padding: 14px 18px; margin: -32px auto 0; position: relative; z-index: 1;
+    box-shadow: 0 8px 24px rgba(15,23,42,.10);
+  }
+  .status strong { font-weight: 800; }
+  .status a { color: inherit; text-decoration: underline; }
+
+  /* sections */
+  section { padding: 64px 0; }
+  section + section { border-top: 1px solid var(--line); }
+  h2 { font-size: clamp(24px, 3vw, 32px); margin: 0 0 10px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin: 0 0 32px; max-width: 640px; font-size: 17px; }
+  .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 22px 22px 20px; box-shadow: 0 1px 2px rgba(15,23,42,.04);
+  }
+  .card h3 { margin: 0 0 8px; font-size: 18px; }
+  .card p { margin: 0; color: var(--muted); }
+  .card .n {
+    display: inline-flex; width: 34px; height: 34px; border-radius: 10px; align-items: center; justify-content: center;
+    background: var(--slate); color: var(--green); font-weight: 800; margin-bottom: 14px;
+  }
+  .card .ico { display: block; width: 28px; height: 28px; margin-bottom: 14px; color: var(--green-text); }
+  .steps { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+
+  /* terminal */
+  .term {
+    background: var(--code-bg); color: var(--code-ink); border-radius: var(--radius); overflow: hidden;
+    border: 1px solid rgba(148,163,184,.18); box-shadow: 0 16px 40px rgba(15,23,42,.18);
+  }
+  .term .bar {
+    display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: rgba(255,255,255,.04);
+    border-bottom: 1px solid rgba(148,163,184,.14); font-size: 13px; color: #94A3B8;
+  }
+  .term .bar i { width: 10px; height: 10px; border-radius: 50%; background: #475569; display: inline-block; }
+  .term pre { margin: 0; padding: 18px 20px; overflow-x: auto; line-height: 1.5; font-size: 14px; }
+  .term .p { color: #94A3B8; }
+  .term .k { color: #7DD3FC; }
+  .term .ok { color: var(--green); font-weight: 700; }
+  .term .dim { color: #64748B; }
+
+  /* budgets table */
+  table { width: 100%; border-collapse: collapse; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+  .tablewrap { overflow-x: auto; border-radius: var(--radius); }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; }
+  tr:last-child td { border-bottom: 0; }
+  td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  td .ok { color: var(--green-text); font-weight: 700; }
+
+  /* quote / principle */
+  .principle {
+    background: var(--slate); color: var(--on-slate); border-radius: var(--radius); padding: 28px 28px;
+    display: grid; gap: 18px; grid-template-columns: 1fr;
+  }
+  @media (min-width: 820px) { .principle { grid-template-columns: 1fr 1fr; } }
+  .principle h3 { margin: 0 0 8px; color: var(--green); font-size: 15px; letter-spacing: .06em; text-transform: uppercase; }
+  .principle p { margin: 0; color: var(--on-slate-muted); }
+
+  /* docs list */
+  .docs { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .docs li a {
+    display: block; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--ink);
+  }
+  .docs li a:hover { border-color: var(--green); text-decoration: none; }
+  .docs li a small { display: block; color: var(--muted); }
+  .docs li a code { color: var(--green-text); }
+
+  footer { border-top: 1px solid var(--line); padding: 36px 0 48px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: grid; gap: 12px; }
+  footer p { margin: 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/dhs.svg" alt="" width="36" height="36"> DHS <span style="font-weight:500;color:var(--on-slate-muted)">· Direct Handoff Suite</span></a>
+    <nav aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#why">Why DHS</a>
+      <a href="#get">Get it</a>
+      <a href="#docs">Docs</a>
+      <a href="https://github.com/Necta14/dhs">GitHub</a>
+      <a class="lang" href="/ro/" lang="ro" hreflang="ro">Română</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Move your whole working environment to a new operating system.</h1>
+        <p class="lead">Windows to Linux, Linux to Windows, one distribution to another, one Windows version to the next. Your files, your settings and the list of your applications go into one portable package on an external drive — and come back out on the other side.</p>
+        <p class="creed">No cloud. No account. No network. <span>No AI.</span> A binary of a few megabytes.</p>
+        <div class="ctas">
+          <a class="btn primary" href="https://github.com/Necta14/dhs">View on GitHub</a>
+          <a class="btn ghost" href="#how">See how it works</a>
+        </div>
+      </div>
+      <div class="art"><img src="/dhs.svg" alt="The DHS icon: a suitcase with an arrow cut through it" width="260" height="260"></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="status" role="note">
+      <strong>Under construction.</strong> The file core — <code>scan</code>, <code>backup</code>, <code>verify</code>, <code>list</code>, <code>restore</code> — works and is tested on five Linux distributions. The application manifest, app detection and <code>plan</code> are not written yet, and the Windows build is cross-compiled but not yet tested on Windows. <strong>Do not use it for a real migration yet.</strong>
+    </div>
+  </div>
+
+  <section id="how">
+    <div class="wrap">
+      <h2>Three steps, one drive</h2>
+      <p class="sub">DHS builds a migration package on an SSD or a USB stick. Install the new system, plug the drive back in, and take everything with you.</p>
+      <div class="grid steps">
+        <div class="card">
+          <span class="n">1</span>
+          <h3>Pack, on the old system</h3>
+          <p>DHS scans your home, tells you how much it will take <em>before</em> writing a byte, then writes the package: encrypted, split into 3.5 GiB volumes so it fits any drive, FAT32 included.</p>
+        </div>
+        <div class="card">
+          <span class="n">2</span>
+          <h3>Carry it</h3>
+          <p>The package is just files on your drive. It never touches a server. A lost drive is not a leak: everything in it is encrypted with your passphrase, and your secrets are not even in it unless you say so.</p>
+        </div>
+        <div class="card">
+          <span class="n">3</span>
+          <h3>Restore, on the new one</h3>
+          <p>DHS verifies every checksum, shows you the plan, and only then writes — beside existing files, never over them. Anything it cannot place goes under <code>~/DHS-restored/</code>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cli">
+    <div class="wrap">
+      <h2>The estimate comes first</h2>
+      <p class="sub">One command tells you what would be saved, how much space it takes at each compression level, and whether it fits on the drive you plugged in. Nothing is written until you say so.</p>
+      <div class="term" aria-label="Example output of dhs scan">
+        <div class="bar"><i></i><i></i><i></i>&nbsp; dhs scan --dest /run/media/you/SSD</div>
+<pre><span class="k">System</span>        Arch Linux (amd64)
+<span class="k">Roots</span>         /home/you/Documents
+              /home/you/Pictures
+              <span class="dim">…</span>
+
+<span class="k">To include</span>    44.0 GiB in 68 000 files   <span class="dim">(scanned in ~1 s)</span>
+<span class="k">Excluded</span>      6.2 GiB   <span class="dim">--all brings them back</span>
+                target                 5.9 GiB · build artifacts
+                node_modules           237 MiB · dependencies, restored by npm install
+<span class="k">Secrets</span>       1.2 MiB in 9 files   <span class="dim">excluded by default; --secrets includes them</span>
+
+<span class="k">Composition</span>
+                binary           20.0 GiB     46%
+                incompressible   11.8 GiB     27%   <span class="dim">stored, not compressed</span>
+                text             2.4 GiB      6%
+
+<span class="k">Level</span>         2 · Balanced
+<span class="k">Estimate</span>      27.4 GiB – 34.4 GiB   ~3 min on 8 cores
+<span class="k">Volumes</span>       10 × 3.5 GiB
+
+<span class="k">Destination</span>   /run/media/you/SSD   64.0 GiB free of 119 GiB   exFAT
+
+              <span class="ok">✓ Fits, with 29.6 GiB to spare.</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <h2>Why DHS</h2>
+      <p class="sub">It handles someone's entire digital life — documents, photos, keys. So it is built around a few rules that are not up for negotiation.</p>
+      <div class="grid">
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg>
+          <h3>Bit for bit, or nothing</h3>
+          <p>Every file is hashed with SHA-256 when packed and checked again before it is committed at restore time. A file that does not verify is not written. No lossy trick, however much it would save.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+          <h3>Encrypted by default</h3>
+          <p>The whole package is encrypted with a passphrase (<a href="https://age-encryption.org">age</a>, scrypt). Secrets — SSH and GPG keys, browser passwords, tokens — stay out unless you opt in, and then get a passphrase of their own.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/><path d="M8 17h8M8 13h4"/></svg>
+          <h3>Never overwrites</h3>
+          <p>Restoring keeps what is already there; the restored copy lands beside it with a <code>(DHS)</code> suffix. Every destructive choice is explicit, and <code>--dry-run</code> shows the plan without touching anything.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 15.5-6.3L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15.5 6.3L3 16"/><path d="M3 21v-5h5"/></svg>
+          <h3>Honest about interruptions</h3>
+          <p>A yanked cable or a dead battery leaves a package that says it is incomplete — a journal records how far it got. It never leaves a half-written package that looks valid.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h20"/><path d="M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/><path d="M4 4l16 16"/></svg>
+          <h3>Nothing leaves your drive</h3>
+          <p>No cloud, no account, no telemetry, no updater, no network code at all. The application database is compiled into the binary, so DHS works on a machine that has never been online.</p>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7l-8-4-8 4 8 4z"/><path d="M4 7v10l8 4 8-4V7"/><path d="M12 11v10"/></svg>
+          <h3>Small, on purpose</h3>
+          <p>One static binary of about 4 MiB, no runtime to install on the freshly installed destination, zero background processes. Three compression levels, from plain ZIP to LZMA2, all yours to choose.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="budgets">
+    <div class="wrap">
+      <h2>Budgets, not suggestions</h2>
+      <p class="sub">Bloat is a failure mode we plan against. These thresholds live in the project rules, and the current build has to stay under them.</p>
+      <div class="tablewrap">
+      <table>
+        <thead><tr><th>What</th><th>Budget</th><th>Today</th></tr></thead>
+        <tbody>
+          <tr><td>CLI binary, stripped</td><td class="num">≤ 15 MiB</td><td class="num"><span class="ok">4.2 MiB</span> Linux · <span class="ok">4.5 MiB</span> Windows</td></tr>
+          <tr><td>Background processes, services, daemons</td><td class="num">zero</td><td class="num"><span class="ok">zero</span></td></tr>
+          <tr><td>Telemetry, "anonymous statistics", auto-updater</td><td class="num">zero</td><td class="num"><span class="ok">zero</span></td></tr>
+          <tr><td>Network calls at runtime</td><td class="num">zero</td><td class="num"><span class="ok">zero</span></td></tr>
+          <tr><td>Runtime to install on the destination</td><td class="num">none</td><td class="num"><span class="ok">none</span></td></tr>
+          <tr><td>Cold start</td><td class="num">&lt; 100 ms</td><td class="num"><span class="ok">~10 ms</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="principles">
+    <div class="wrap">
+      <div class="principle">
+        <div>
+          <h3>No AI, by design</h3>
+          <p>DHS is a deterministic system tool: it reads, packs, verifies, restores. You can predict exactly what it does. Applications are matched across platforms through a human-curated database with exact identifiers — not through guessing. If an app is not in the database, DHS says so and lists it in the report. It does not invent an equivalent.</p>
+        </div>
+        <div>
+          <h3>Nothing runs blind</h3>
+          <p>At restore time, DHS shows exactly what it would install, from which source and with which commands. You approve the plan once; then it runs. Nobody should execute root commands generated from a file on a stick without reading them first — so DHS does not ask you to.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="get">
+    <div class="wrap">
+      <h2>Get it</h2>
+      <p class="sub">There is no release yet. Until there is one, build from source — it takes one command and no extra toolchain, even for Windows.</p>
+      <div class="term" aria-label="Build commands">
+        <div class="bar"><i></i><i></i><i></i>&nbsp; build</div>
+<pre><span class="p">$</span> git clone https://github.com/Necta14/dhs && cd dhs
+<span class="p">$</span> go build -ldflags="-s -w" -o dhs ./cmd/dhs               <span class="dim"># Linux</span>
+<span class="p">$</span> GOOS=windows go build -ldflags="-s -w" ./cmd/dhs         <span class="dim"># Windows, from Linux</span>
+<span class="p">$</span> ./dhs scan --dest /run/media/you/SSD
+<span class="p">$</span> ./dhs backup --dest /run/media/you/SSD --name laptop
+<span class="p">$</span> ./dhs verify /run/media/you/SSD/laptop.dhs
+<span class="p">$</span> ./dhs restore /run/media/you/SSD/laptop.dhs --dry-run</pre>
+      </div>
+      <p class="sub" style="margin-top:28px">Every command takes <code>--json</code> for scripts and front ends; <code>DHS_LANG=ro</code> switches the messages to Romanian. A Linux GUI prototype (GTK4 + libadwaita) lives in <code>gui/linux/</code> and drives the same binary — the logic is in one place, the interface is a shell over it.</p>
+    </div>
+  </section>
+
+  <section id="docs">
+    <div class="wrap">
+      <h2>Documentation</h2>
+      <p class="sub">Everything is in the repository, in English, with Romanian translations under <code>docs/ro/</code>.</p>
+      <ul class="docs">
+        <li><a href="https://github.com/Necta14/dhs#readme"><code>README.md</code><small>What it does, how to build it, the current status</small></a></li>
+        <li><a href="https://github.com/Necta14/dhs/blob/main/docs/ARCHITECTURE.md"><code>docs/ARCHITECTURE.md</code><small>The package format, the module layout, the CLI surface</small></a></li>
+        <li><a href="https://github.com/Necta14/dhs/blob/main/docs/COMPRESSION.md"><code>docs/COMPRESSION.md</code><small>The three levels, the estimate, the research on extreme compression</small></a></li>
+        <li><a href="https://github.com/Necta14/dhs/blob/main/docs/TESTING.md"><code>docs/TESTING.md</code><small>How the test session works, across five distributions</small></a></li>
+        <li><a href="https://github.com/Necta14/dhs/blob/main/docs/LICENSE-CHOICE.md"><code>docs/LICENSE-CHOICE.md</code><small>Why Apache-2.0, and why no ethical-use clause</small></a></li>
+        <li><a href="https://github.com/Necta14/dhs/blob/main/VALUES.md"><code>VALUES.md</code><small>What the project believes, said publicly</small></a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Apache License 2.0.</strong> The code is free. The name is not: "DHS" and "Direct Handoff Suite" are trademarks of the project — see <a href="https://github.com/Necta14/dhs/blob/main/TRADEMARK.md">TRADEMARK.md</a>.</p>
+    <p>Made by <a href="https://github.com/Necta14">Necta</a> and contributors. This page loads nothing from third parties, runs no scripts and sets no cookies. <a href="/ro/" lang="ro" hreflang="ro">Versiunea în română</a>.</p>
+  </div>
+</footer>
+
+</body>
+</html>

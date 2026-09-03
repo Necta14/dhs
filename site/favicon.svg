@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="DHS — Direct Handoff Suite">
+  <title>DHS — Direct Handoff Suite</title>
+  <!--
+    A suitcase: your digital life, packed. An arrow cut through it: handed off, directly.
+    Two colours only, flat, no gradients — readable from 512 px down to a 16 px favicon.
+  -->
+  <defs>
+    <clipPath id="body">
+      <rect x="96" y="184" width="320" height="232" rx="40"/>
+    </clipPath>
+  </defs>
+
+  <!-- background -->
+  <rect width="512" height="512" rx="112" fill="#1E293B"/>
+
+  <!-- handle -->
+  <path d="M192 184 V152 a24 24 0 0 1 24 -24 h80 a24 24 0 0 1 24 24 V184"
+        fill="none" stroke="#F8FAFC" stroke-width="28" stroke-linecap="round"/>
+
+  <!-- suitcase body -->
+  <rect x="96" y="184" width="320" height="232" rx="40" fill="#F8FAFC"/>
+
+  <!-- arrow cut through the body: the handoff -->
+  <g clip-path="url(#body)">
+    <path d="M140 300 H330" stroke="#1E293B" stroke-width="44" stroke-linecap="round"/>
+    <path d="M282 232 L350 300 L282 368" fill="none" stroke="#1E293B" stroke-width="44"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- accent dot: the destination -->
+  <circle cx="350" cy="300" r="22" fill="#22C55E"/>
+</svg>
