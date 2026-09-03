@@ -41,21 +41,27 @@ FAILS=0
 for IMG in "${IMAGES[@]}"; do
   TAG=$(echo "$IMG" | tr '/:' '__')
   echo; echo "══════════ $IMG ══════════"
-  docker pull -q "$IMG" >/dev/null
-  # Containerul e curat: are doar dhs (read-only) și pachetul (read-only). HOME e /root.
+  # Un pull eșuat (registry, limită de rată) e un eșec al acelei distribuții, nu al întregului test.
+  if ! docker pull -q "$IMG" > "$BASE/$TAG.pull" 2>&1; then
+    echo "❌ $IMG — imaginea nu s-a putut descărca:"; tail -3 "$BASE/$TAG.pull"; FAILS=$((FAILS+1)); continue
+  fi
+  # Containerul e curat: are doar dhs (read-only) și pachetul (read-only). HOME e /root, montat de
+  # pe gazdă, ca sumele să se calculeze aici — imaginile minimale n-au nici măcar `find`.
+  DEST="$BASE/$TAG-home"; mkdir -p "$DEST"
   if docker run --rm \
       -v "$BASE/dhs:/usr/local/bin/dhs:ro" \
       -v "$MEDIA:/ssd:ro" \
+      -v "$DEST:/root" \
       -e HOME=/root \
       "$IMG" sh -c '
         set -e
         dhs version
         dhs restore /ssd/test.dhs --parola-fisier /ssd/parola --dry-run | grep -E "Migrare|De scris|Redenumite" || true
         dhs restore /ssd/test.dhs --parola-fisier /ssd/parola --da | tail -2
-        cd /root && find Documents Pictures Downloads -type f -exec sha256sum {} + | sort
       ' > "$BASE/$TAG.out" 2>&1
   then
-    grep -E "^[0-9a-f]{64}  " "$BASE/$TAG.out" > "$BASE/$TAG.sha"
+    sudo chown -R "$(id -u):$(id -g)" "$DEST" 2>/dev/null || true   # scrise ca root în container
+    (cd "$DEST" && find Documents Pictures Downloads -type f -exec sha256sum {} + 2>/dev/null | sort) > "$BASE/$TAG.sha" || true
     if diff "$BASE/sursa.sha" "$BASE/$TAG.sha" > "$BASE/$TAG.diff"; then
       echo "✅ $IMG — $(wc -l < "$BASE/$TAG.sha") fișiere identice bit cu bit"
       grep -E "^sistem:" "$BASE/$TAG.out" | head -1
