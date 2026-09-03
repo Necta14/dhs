@@ -42,6 +42,45 @@ What does not go into v1. The order within each section is a proposal, not a com
 - [ ] Enterprise support, mass deployment
 - [ ] Integration with distribution installers ("have a DHS package? I'll restore it now")
 
+## Reaching users
+
+The order matters more than the list. A tool that says "do not use this for a real migration"
+spends its one-time launch attention badly, so nothing below happens before v1 works end to end
+on Windows as well as Linux. The website is live at https://dhs-suite.vercel.app and the
+repository points at it.
+
+**Before any announcement**
+- [ ] A v1 release with attached binaries for Linux and Windows, plus `SHA256SUMS` next to them.
+      Nothing spreads that people cannot download and run.
+- [ ] A recording in the README: `scan`, `backup`, `restore` in one terminal, and the GUI beside
+      it. A migration tool is judged on whether the output looks trustworthy.
+- [ ] `dhs backup` and `dhs restore` exercised on real Windows, not only cross-compiled.
+
+**Where the audience already is** (people mid-migration, searching for exactly this)
+- [ ] Reddit: r/linux, r/linux4noobs, r/DistroHopping, r/selfhosted. Post as an author, not as an
+      advert: what it does, what it does not do yet, and ask what breaks.
+- [ ] Hacker News, as "Show HN". One shot, weekday morning US time.
+- [ ] Lobsters, Fosstodon and the other Mastodon instances where Linux tooling circulates.
+- [ ] Existing threads asking "how do I move from Windows to Linux without losing my files" —
+      answer the question, mention the tool only if it genuinely fits.
+
+**Packaging is distribution**
+- [ ] AUR first: Arch users are the distribution-hopping audience, and a `PKGBUILD` is a day's work.
+- [ ] Then `winget` and `scoop` for Windows, `.deb` and `.rpm`, and Flathub once the GUI is real.
+- [ ] Every packaging line is also a backlink and an entry in someone's package search.
+
+**Directories and lists**
+- [ ] AlternativeTo, as an alternative to the vendor migration assistants.
+- [ ] awesome-go, awesome-linux, awesome-selfhosted, awesome-privacy.
+- [ ] LibHunt and the Go package index pick these up on their own once the topics are set.
+
+**What actually compounds**
+- [ ] Answer every issue within a day, even with "not yet, here is why".
+- [ ] A short post per milestone rather than one big launch: the app database, the GUI, Windows
+      support. Each one is a fresh reason for someone to link to the project.
+- [ ] Keep the "under construction" banner honest. For a tool that handles someone's whole home
+      directory, credibility is the only real advantage over the alternatives.
+
 ## Open points
 
 - How we communicate that a lost passphrase means a lost package, without scaring an ordinary user
