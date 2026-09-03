@@ -2,7 +2,7 @@
 
 # DHS — Direct Handoff Suite
 
-🇬🇧 [English version](README.md) — versiunea de referință.
+🌐 **[dhs-suite.vercel.app/ro](https://dhs-suite.vercel.app/ro/)** · 🇬🇧 [English version](README.md) — versiunea de referință.
 
 Îți mută mediul de lucru dintr-un sistem de operare în altul: **Windows ↔ Linux**, o distribuție
 Linux în alta, o versiune de Windows în alta. Faci un **pachet de migrare portabil** pe un SSD sau
