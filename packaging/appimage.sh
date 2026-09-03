@@ -64,6 +64,12 @@ ARCH=x86_64 VERSION="$VERSION" "$TOOL" --appimage-extract-and-run \
   --no-appstream "$APPDIR" "$OUT" >"$DIST/appimage.log" 2>&1 \
   || { echo "appimagetool failed:"; tail -20 "$DIST/appimage.log"; exit 1; }
 
+# Prove the artifact actually runs. A desktop has FUSE; containers and CI runners do not, hence
+# --appimage-extract-and-run, which unpacks to a temporary directory instead of mounting.
+if ! ( cd "$DIST" && ./"$(basename "$OUT")" --appimage-extract-and-run version >/dev/null 2>&1 ); then
+  echo "   ✗ the AppImage was written but does not run"; exit 1
+fi
+
 rm -rf "$APPDIR" "$TOOL" "$DIST/appimage.log" "$DIST/squashfs-root" 2>/dev/null || true
-printf '   %-24s %s\n' "$(basename "$OUT")" "$(du -h "$OUT" | cut -f1)"
+printf '   %-24s %s  (runs)\n' "$(basename "$OUT")" "$(du -h "$OUT" | cut -f1)"
 ( cd "$DIST" && sha256sum ./*.AppImage >> SHA256SUMS )

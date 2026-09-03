@@ -46,6 +46,12 @@ Description: Migrate a working environment between operating systems
  A single static binary. Nothing runs in the background.
 EOF
 
+  # mktemp -d gives 0700 and the host umask can give the rest anything; dpkg-deb refuses a
+  # control directory outside 0755..0775, and a package must not carry the builder's umask.
+  find "$root" -type d -exec chmod 0755 {} +
+  find "$root" -type f -exec chmod 0644 {} +
+  chmod 0755 "$root/usr/bin/dhs"
+
   local out="$DIST/dhs_${VERSION}_${arch}.deb"
   if command -v dpkg-deb >/dev/null 2>&1; then
     dpkg-deb --root-owner-group -Zxz -b "$root" "$out" >/dev/null

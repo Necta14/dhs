@@ -89,8 +89,12 @@ for arch in amd64 arm64; do
     rpmbuild --define "_topdir $top" --target "$target" -bb "$top/SPECS/dhs.spec" >"$top/log" 2>&1 \
       || { echo "rpmbuild failed:"; tail -20 "$top/log"; exit 1; }
   elif command -v docker >/dev/null 2>&1; then
+    # The container builds as root, so hand the result back to the invoking user before leaving,
+    # otherwise copying it out fails with a permission error.
     docker run --rm -v "$top:/top" fedora:latest bash -lc \
-      "dnf install -q -y rpm-build >/dev/null 2>&1 && rpmbuild --define '_topdir /top' --target $target -bb /top/SPECS/dhs.spec" \
+      "dnf install -q -y rpm-build >/dev/null 2>&1 \
+       && rpmbuild --define '_topdir /top' --target $target -bb /top/SPECS/dhs.spec \
+       && chown -R $(id -u):$(id -g) /top" \
       >"$top/log" 2>&1 || { echo "containerised rpmbuild failed:"; tail -20 "$top/log"; exit 1; }
   else
     echo "neither rpmbuild nor docker is available"; exit 1
