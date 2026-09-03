@@ -2,6 +2,41 @@
 
 Session journal. Newest at the top. Decisions live in `CLAUDE.md`; this is *what happened*.
 
+## 2026-09-03 - 0.1.3, and a native interface on Windows
+
+The Windows interface exists: `gui/windows`, one portable executable under 3 MiB, Win32 drawn by
+hand, no cgo, nothing installed and no elevation asked. It drives the same binary over `--json`
+like the GTK4 front end, and takes libadwaita's palette and metrics so the two read as one program.
+
+The route there is worth recording. Themed common controls were not the problem: the manifest was
+correct, verified by walking the PE resource directory. A grey dialog with static labels and a tab
+strip simply looks like 2009 whatever the theme does, so the contents are now drawn: header,
+sidebar, cards, toggle switches, buttons. Real `EDIT` controls stay for text entry, with the sunken
+border replaced by a drawn frame, because nobody should reimplement selection and IME behaviour.
+
+The constraint that shaped `render.go`: **GDI+ cannot be called from Go for anything taking a
+float.** The Microsoft x64 convention passes floats in XMM registers and Go's `syscall` puts every
+argument in an integer register, so `GdipCreateFont` would receive rubbish. Rather than carry an
+assembly trampoline, shapes are drawn into a surface twice the size with integer GDI and shrunk
+with a halftone stretch; text is drawn afterwards at native size so ClearType stays crisp. Two
+passes over one layout.
+
+Verified by clicking the Scan button through the VM's own input channel, then reading the screen
+back through the QEMU monitor: the binary ran and the panel filled with the real system line, home
+directory and scanned places.
+
+Two defects closed on the way:
+
+- **A mistyped flag exited 0.** Every command swallowed parse errors with `return nil`. Found
+  because a wrong flag in the Windows harness looked like three clean runs in a row.
+- **Nothing was compiling the Windows interface.** It sits behind a build tag, so `go vet ./...` on
+  Linux never saw it. The Codespace suite now vets the Windows tree and builds both interfaces for
+  both architectures: thirteen steps, all green.
+
+0.1.3 is published with complete packages: the Windows archives carry both executables, and D9 is
+settled for Windows. It stays a pre-release until the application database exists, because matching
+programs across systems is the reason the tool exists and that part is still unwritten.
+
 ## 2026-09-03 - the first run on real Windows
 
 Windows 11 IoT Enterprise LTSC 24H2, PowerShell 5.1, in a local VM driven over SSH. The 0.1.2

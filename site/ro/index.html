@@ -275,7 +275,7 @@
 
   <div class="wrap">
     <div class="status" role="note">
-      <strong>În construcție.</strong> Nucleul pentru fișiere — <code>scan</code>, <code>backup</code>, <code>verify</code>, <code>list</code>, <code>restore</code> — funcționează și e testat pe cinci distribuții Linux. Manifestul aplicațiilor, detectarea lor și <code>plan</code> nu sunt încă scrise, iar binarul de Windows e compilat încrucișat, dar netestat încă pe Windows. <strong>Nu-l folosi încă pentru o migrare reală.</strong>
+      <strong>În construcție.</strong> Nucleul pentru fișiere — <code>scan</code>, <code>backup</code>, <code>verify</code>, <code>list</code>, <code>restore</code> — funcționează și e testat pe cinci distribuții Linux. Manifestul aplicațiilor, detectarea lor și <code>plan</code> nu sunt încă scrise. <strong>Nu-l folosi încă pentru o migrare reală.</strong>
     </div>
   </div>
 
@@ -413,13 +413,14 @@
   <section id="get">
     <div class="wrap">
       <h2>Descarcă</h2>
-      <p class="sub"><strong>0.1.2 e publicată ca pre-release.</strong> Nucleul pentru fișiere e testat pe cinci distribuții Linux și, prin Wine, pe Windows; manifestul aplicațiilor și detectarea lor lipsesc încă.</p>
+      <p class="sub"><strong>0.1.3 e publicată ca pre-release.</strong> Nucleul pentru fișiere e testat pe cinci distribuții Linux și pe Windows 11, iar ambele platforme au acum interfață grafică; manifestul aplicațiilor și detectarea lor lipsesc încă.</p>
       <h3 style="margin:0 0 12px;font-size:19px">Windows</h3>
       <div class="term" aria-label="Comanda de instalare în PowerShell" style="margin-bottom:16px">
         <div class="bar"><i></i><i></i><i></i>&nbsp; PowerShell</div>
 <pre><span class="p">&gt;</span> irm https://dhs-suite.vercel.app/install.ps1 | iex</pre>
       </div>
-      <p class="sub" style="margin-bottom:36px">Alege singură varianta pentru procesorul tău, o verifică față de sumele SHA-256 publicate cu versiunea, o dezarhivează în profilul tău și o pune în PATH. Fără drepturi de administrator, fără nimic lăsat în execuție. Ca să fixezi o versiune, creează un bloc de script: <code>&amp; ([scriptblock]::Create((irm https://dhs-suite.vercel.app/install.ps1))) -Version 0.1.2</code></p>
+      <p class="sub" style="margin-bottom:14px">Asta instalează unealta de linie de comandă. Pentru interfața grafică ia arhiva de Windows de mai jos: conține <code>dhs.exe</code> și <code>dhs-gui.exe</code>, două fișiere care rulează din orice folder, fără să instaleze nimic.</p>
+      <p class="sub" style="margin-bottom:36px">Instalatorul alege singur varianta pentru procesorul tău, o verifică față de sumele SHA-256 publicate cu versiunea, o dezarhivează în profilul tău și o pune în PATH. Fără drepturi de administrator, fără nimic lăsat în execuție. Ca să fixezi o versiune, creează un bloc de script: <code>&amp; ([scriptblock]::Create((irm https://dhs-suite.vercel.app/install.ps1))) -Version 0.1.2</code></p>
       <h3 style="margin:0 0 12px;font-size:19px">Linux</h3>
       <div class="tablewrap">
       <table>

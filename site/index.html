@@ -288,7 +288,7 @@
 
   <div class="wrap">
     <div class="status" role="note">
-      <strong>Under construction.</strong> The file core — <code>scan</code>, <code>backup</code>, <code>verify</code>, <code>list</code>, <code>restore</code> — works and is tested on five Linux distributions. The application manifest, app detection and <code>plan</code> are not written yet, and the Windows build is cross-compiled but not yet tested on Windows. <strong>Do not use it for a real migration yet.</strong>
+      <strong>Under construction.</strong> The file core — <code>scan</code>, <code>backup</code>, <code>verify</code>, <code>list</code>, <code>restore</code> — works and is tested on five Linux distributions. The application manifest, app detection and <code>plan</code> are not written yet. <strong>Do not use it for a real migration yet.</strong>
     </div>
   </div>
 
@@ -426,13 +426,14 @@
   <section id="get">
     <div class="wrap">
       <h2>Get it</h2>
-      <p class="sub"><strong>0.1.2 is out as a pre-release.</strong> The file core is tested on five Linux distributions and, through Wine, on Windows; the app manifest and app detection are still missing.</p>
+      <p class="sub"><strong>0.1.3 is out as a pre-release.</strong> The file core is tested on five Linux distributions and on Windows 11, and both platforms now have a graphical interface; the app manifest and app detection are still missing.</p>
       <h3 style="margin:0 0 12px;font-size:19px">Windows</h3>
       <div class="term" aria-label="PowerShell install command" style="margin-bottom:16px">
         <div class="bar"><i></i><i></i><i></i>&nbsp; PowerShell</div>
 <pre><span class="p">&gt;</span> irm https://dhs-suite.vercel.app/install.ps1 | iex</pre>
       </div>
-      <p class="sub" style="margin-bottom:36px">It picks the build for your processor, checks it against the SHA-256 sums published with the release, unpacks it under your own profile and puts it on your PATH. No administrator rights, nothing left running. To pin a version, create a script block instead: <code>&amp; ([scriptblock]::Create((irm https://dhs-suite.vercel.app/install.ps1))) -Version 0.1.2</code></p>
+      <p class="sub" style="margin-bottom:14px">That installs the command-line tool. For the graphical interface take the Windows archive below: it holds <code>dhs.exe</code> and <code>dhs-gui.exe</code>, two files that run from any folder with nothing installed.</p>
+      <p class="sub" style="margin-bottom:36px">The installer picks the build for your processor, checks it against the SHA-256 sums published with the release, unpacks it under your own profile and puts it on your PATH. No administrator rights, nothing left running. To pin a version, create a script block instead: <code>&amp; ([scriptblock]::Create((irm https://dhs-suite.vercel.app/install.ps1))) -Version 0.1.2</code></p>
       <h3 style="margin:0 0 12px;font-size:19px">Linux</h3>
       <div class="tablewrap">
       <table>
