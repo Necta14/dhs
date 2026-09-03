@@ -5,6 +5,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -13,6 +14,11 @@ import (
 
 // version is filled in at build time with -ldflags "-X main.version=...".
 var version = "dev"
+
+// errUsage says the command has already printed its own message, and main only has to set the
+// exit code. Returning nil there would report success for a mistyped flag, which is worse than
+// useless: a script, a CI job or the GUI would carry on as if the command had run.
+var errUsage = errors.New("usage")
 
 const usage = `dhs — Direct Handoff Suite · migrate your working environment between operating systems
 
@@ -59,6 +65,9 @@ func main() {
 	}
 
 	if err != nil {
+		if errors.Is(err, errUsage) {
+			os.Exit(2)
+		}
 		fmt.Fprintf(os.Stderr, "dhs: %v\n", err)
 		os.Exit(1)
 	}

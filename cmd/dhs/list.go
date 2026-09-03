@@ -35,7 +35,10 @@ func runList(args []string) error {
 	var positional []string
 	for rest := args; ; {
 		if err := fs.Parse(rest); err != nil {
-			return nil
+			if errors.Is(err, flag.ErrHelp) {
+				return nil // asking for help is not a failure
+			}
+			return errUsage // flag printed the message; exit 2 rather than pretend success
 		}
 		rest = fs.Args()
 		if len(rest) == 0 {
