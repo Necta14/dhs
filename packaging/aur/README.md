@@ -1,19 +1,45 @@
 # Publishing to the AUR
 
-The AUR holds only the recipe, not the code: `PKGBUILD` downloads the source tarball from the
-GitHub release and builds it on the user's machine. `packaging/aur.sh <version>` keeps `pkgver`,
-the checksum and `.SRCINFO` in step with a published release, so run that first.
+One recipe, two packages. `pkgbase` is `dhs`, so the AUR repository is named `dhs`, and a single
+push publishes both:
 
-Publishing needs an SSH key registered on the maintainer's aur.archlinux.org account, which is why
-it is not automated here.
+| Package | What it holds | Depends on |
+|---|---|---|
+| `dhs-cli` | `/usr/bin/dhs`, the tool itself | nothing |
+| `dhs-gui` | `/usr/bin/dhs-gui`, the GTK4 front end, its desktop entry and icon | `dhs-cli`, `python-gobject`, `gtk4`, `libadwaita` |
 
-## Once, to claim the package name
+`dhs-cli` also `provides=('dhs')`, so anything depending on `dhs` is satisfied. Installing
+`dhs-gui` pulls in `dhs-cli`; the front end is a separate process that drives the CLI over
+`--json`, which is decision D9.
+
+The AUR holds only the recipe: `PKGBUILD` downloads the source tarball from the GitHub release and
+builds it on the user's machine. `packaging/aur.sh <version>` keeps `pkgver`, the checksum and
+`.SRCINFO` in step with a published release, so run that first.
+
+## Before the first push, once
+
+1. Create an account at <https://aur.archlinux.org/register>.
+2. Paste a public SSH key into **My Account → SSH Public Key**. Any key works; a dedicated one
+   keeps it separate from your GitHub key.
+3. Point SSH at it, if the key is not your default:
+
+```
+Host aur.archlinux.org
+    User aur
+    IdentityFile ~/.ssh/aur
+    IdentitiesOnly yes
+```
+
+`ssh aur@aur.archlinux.org help` answers with a command list once the key is registered. Until
+then it says `Permission denied (publickey)`.
+
+## Claiming the name
 
 ```bash
-git clone ssh://aur@aur.archlinux.org/dhs.git ~/aur-dhs   # empty repo on the first clone
+git clone ssh://aur@aur.archlinux.org/dhs.git ~/aur-dhs   # an empty repo on the first clone
 cp packaging/aur/PKGBUILD packaging/aur/.SRCINFO ~/aur-dhs/
 cd ~/aur-dhs && git add PKGBUILD .SRCINFO
-git commit -m "Initial import: dhs 0.1.0"
+git commit -m "Initial import: dhs 0.1.1 (dhs-cli, dhs-gui)"
 git push
 ```
 
@@ -27,19 +53,24 @@ cp packaging/aur/PKGBUILD packaging/aur/.SRCINFO ~/aur-dhs/
 cd ~/aur-dhs && git commit -am "dhs 0.2.0" && git push
 ```
 
-## Before pushing, if you are on Arch
+## Checking it before pushing, on Arch
 
 ```bash
-cd packaging/aur && makepkg -f            # builds and runs the test suite through check()
-namcap PKGBUILD dhs-*.pkg.tar.zst         # the packaging linter, if it is installed
+cd packaging/aur && makepkg -f            # builds both packages; check() runs the test suite
+namcap PKGBUILD ./*.pkg.tar.zst           # the packaging linter, if installed
 ```
 
-`makepkg` builds in place and leaves `src/` and `pkg/` behind; both are ignored by git.
+`makepkg` leaves `src/` and `pkg/` behind; both are ignored by git.
 
-## Conventions this package follows
+## Conventions this recipe follows
 
 - `license=('Apache-2.0')`, the SPDX identifier, as current Arch guidelines ask.
 - `prepare()` downloads the Go modules, so `build()` runs with `-mod=readonly` and no surprises.
 - `check()` runs `go test ./...`, so a broken release fails on the builder's machine rather than
   installing quietly.
-- `NOTICE` is installed next to `LICENSE`: Apache-2.0 requires it to travel with the software.
+- `options=('!debug')`: the binary is linked with `-s -w`, so a split debug package would be empty.
+- `arch=('any')` on `dhs-gui` alone, since it is a Python script.
+- The desktop entry and the icon are named after the application id the GUI registers,
+  `io.github.necta14.dhs`, so the shell matches the window to its icon.
+- `NOTICE` is installed next to `LICENSE` in both packages: Apache-2.0 requires it to travel with
+  the software.

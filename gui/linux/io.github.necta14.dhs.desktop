@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=DHS
+GenericName=Direct Handoff Suite
+GenericName[ro]=Direct Handoff Suite
+Comment=Migrate your working environment to another operating system
+Comment[ro]=Mută-ți mediul de lucru pe alt sistem de operare
+Exec=dhs-gui
+Icon=io.github.necta14.dhs
+Terminal=false
+StartupNotify=true
+Categories=System;Utility;Archiving;
+Keywords=migration;backup;restore;handoff;package;
+Keywords[ro]=migrare;backup;restaurare;pachet;

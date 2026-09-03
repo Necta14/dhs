@@ -1,6 +1,5 @@
 pkgbase = dhs
-	pkgdesc = Migrate a working environment between operating systems through a portable, encrypted package
-	pkgver = 0.1.0
+	pkgver = 0.1.1
 	pkgrel = 1
 	url = https://dhs-suite.vercel.app
 	arch = x86_64
@@ -8,7 +7,18 @@ pkgbase = dhs
 	license = Apache-2.0
 	makedepends = go
 	options = !debug
-	source = dhs-0.1.0.tar.gz::https://github.com/Necta14/dhs/releases/download/v0.1.0/dhs-0.1.0-source.tar.gz
-	sha256sums = dd5cb95af4669918d1ef364cfc50970bee81c14fbbe33f4f59301dca6599924b
+	source = dhs-0.1.1.tar.gz::https://github.com/Necta14/dhs/releases/download/v0.1.1/dhs-0.1.1-source.tar.gz
+	sha256sums = SKIP
 
-pkgname = dhs
+pkgname = dhs-cli
+	pkgdesc = Migrate a working environment between operating systems through a portable, encrypted package
+	provides = dhs
+
+pkgname = dhs-gui
+	pkgdesc = GTK4 front end for DHS, the migration tool between operating systems
+	arch = any
+	depends = dhs-cli
+	depends = python
+	depends = python-gobject
+	depends = gtk4
+	depends = libadwaita

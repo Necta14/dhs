@@ -1,8 +1,10 @@
 # Maintainer: Necta <179446771+Necta14@users.noreply.github.com>
-pkgname=dhs
-pkgver=0.1.0
+# A split package: one recipe, two packages. dhs-cli is the tool itself; dhs-gui is the optional
+# GTK4 front end, a separate process that drives the CLI over --json (decision D9).
+pkgbase=dhs
+pkgname=('dhs-cli' 'dhs-gui')
+pkgver=0.1.1
 pkgrel=1
-pkgdesc="Migrate a working environment between operating systems through a portable, encrypted package"
 arch=('x86_64' 'aarch64')
 url="https://dhs-suite.vercel.app"
 license=('Apache-2.0')
@@ -10,30 +12,48 @@ makedepends=('go')
 # The binary is linked with -s -w, so there is nothing for makepkg's debug package to hold and
 # gdb-add-index complains about the missing symbols. Go binaries are conventionally built this way.
 options=('!debug')
-source=("$pkgname-$pkgver.tar.gz::https://github.com/Necta14/dhs/releases/download/v$pkgver/dhs-$pkgver-source.tar.gz")
-sha256sums=('dd5cb95af4669918d1ef364cfc50970bee81c14fbbe33f4f59301dca6599924b')
+source=("$pkgbase-$pkgver.tar.gz::https://github.com/Necta14/dhs/releases/download/v$pkgver/dhs-$pkgver-source.tar.gz")
+sha256sums=('SKIP')
 
 prepare() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgbase-$pkgver"
   go mod download
 }
 
 build() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgbase-$pkgver"
   export CGO_ENABLED=0
   export GOFLAGS="-trimpath -mod=readonly -modcacherw"
   go build -ldflags "-s -w -X main.version=$pkgver" -o dhs ./cmd/dhs
 }
 
 check() {
-  cd "$pkgname-$pkgver"
+  cd "$pkgbase-$pkgver"
   go test ./...
 }
 
-package() {
-  cd "$pkgname-$pkgver"
+package_dhs-cli() {
+  pkgdesc="Migrate a working environment between operating systems through a portable, encrypted package"
+  provides=('dhs')
+  cd "$pkgbase-$pkgver"
   install -Dm755 dhs "$pkgdir/usr/bin/dhs"
-  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
-  install -Dm644 NOTICE "$pkgdir/usr/share/licenses/$pkgname/NOTICE"
-  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/dhs-cli/LICENSE"
+  install -Dm644 NOTICE "$pkgdir/usr/share/licenses/dhs-cli/NOTICE"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/dhs-cli/README.md"
+  install -Dm644 README.ro.md "$pkgdir/usr/share/doc/dhs-cli/README.ro.md"
+}
+
+package_dhs-gui() {
+  pkgdesc="GTK4 front end for DHS, the migration tool between operating systems"
+  arch=('any')
+  depends=('dhs-cli' 'python' 'python-gobject' 'gtk4' 'libadwaita')
+  cd "$pkgbase-$pkgver"
+  # The script carries its own shebang and finds the binary on PATH, so it needs no wrapper.
+  install -Dm755 gui/linux/dhs-gui.py "$pkgdir/usr/bin/dhs-gui"
+  install -Dm644 gui/linux/io.github.necta14.dhs.desktop \
+    "$pkgdir/usr/share/applications/io.github.necta14.dhs.desktop"
+  install -Dm644 assets/dhs.svg \
+    "$pkgdir/usr/share/icons/hicolor/scalable/apps/io.github.necta14.dhs.svg"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/dhs-gui/LICENSE"
+  install -Dm644 NOTICE "$pkgdir/usr/share/licenses/dhs-gui/NOTICE"
 }
