@@ -262,7 +262,9 @@ func (w *Writer) Add(ctx context.Context, f File) error {
 			e.Parts = append([]Part(nil), orig.Parts...)
 			w.mu.Unlock()
 			w.commitEntry(e)
+			w.mu.Lock()
 			w.progress.Dedup += n
+			w.mu.Unlock()
 			w.report()
 			return nil
 		}
@@ -288,9 +290,10 @@ func (w *Writer) commitEntry(e *Entry) {
 	for _, p := range e.Parts {
 		w.blockEntries[p.Block] = append(w.blockEntries[p.Block], e)
 	}
-	w.mu.Unlock()
+	// Tot sub lacăt: manifestul citește progress.Bytes din goroutina emițătorului.
 	w.progress.Files++
 	w.progress.Bytes += e.Size
+	w.mu.Unlock()
 }
 
 // addPart adaugă o parte unei intrări. Sub lacăt, fiindcă intrarea poate fi deja înregistrată:
@@ -309,7 +312,9 @@ func (w *Writer) report() {
 	if w.o.OnProgress == nil {
 		return
 	}
+	w.mu.Lock()
 	p := w.progress
+	w.mu.Unlock()
 	p.Stored, p.Volume = w.em.stats()
 	w.o.OnProgress(p)
 }

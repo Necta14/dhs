@@ -66,10 +66,16 @@ cmp "$DST/Documents/numere.txt" "$DST/Documents/numere (DHS).txt" && echo "copia
 
 echo; echo "══ frază greșită → refuz ══"
 echo 'alta-fraza-gresita' > "$BASE/parola-gresita"
-if "$DHS" verify "$MEDIA/test.dhs" --parola-fisier "$BASE/parola-gresita" 2>&1 | tee /dev/stderr | grep -qi 'greșită'; then
-  echo "refuzat corect"
+# dhs TREBUIE să iasă cu eroare aici; cu pipefail, o conductă ar raporta eroarea lui ca eșec al testului.
+set +e
+OUT=$("$DHS" verify "$MEDIA/test.dhs" --parola-fisier "$BASE/parola-gresita" 2>&1)
+CODE=$?
+set -e
+echo "$OUT"
+if [ "$CODE" -ne 0 ] && echo "$OUT" | grep -q 'greșită'; then
+  echo "refuzat corect (exit $CODE)"
 else
-  echo "EROARE: fraza greșită nu a fost refuzată"; exit 1
+  echo "EROARE: fraza greșită nu a fost refuzată (exit $CODE)"; exit 1
 fi
 
 echo; echo "══ pachet necriptat, nivel 1 ══"
