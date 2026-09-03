@@ -13,7 +13,8 @@ DIST="dist"
 MAINTAINER="Necta <179446771+Necta14@users.noreply.github.com>"
 
 one() {
-  local arch="$1" src="$DIST/build/linux_${arch}/dhs"
+  local arch="$1"
+  local src="$DIST/build/linux_${arch}/dhs"
   [ -f "$src" ] || { echo "missing $src — run packaging/build.sh first"; exit 1; }
 
   local root; root="$(mktemp -d)"

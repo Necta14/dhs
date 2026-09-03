@@ -21,7 +21,12 @@ echo "── dhs ${VERSION} · $(go version | awk '{print $3}')"
 
 # one <os> <arch>: a static binary plus the documents that must travel with it
 one() {
-  local os="$1" arch="$2" ext="" dir="$DIST/build/${os}_${arch}"
+  # Separate statements on purpose: `local a=$1 b=${a}` expands every word before the first
+  # assignment happens, so ${a} would still be unset there — and fatal under `set -u`.
+  local os="$1"
+  local arch="$2"
+  local ext=""
+  local dir="$DIST/build/${os}_${arch}"
   [ "$os" = windows ] && ext=".exe"
   mkdir -p "$dir"
   CGO_ENABLED=0 GOOS="$os" GOARCH="$arch" \
@@ -30,7 +35,17 @@ one() {
 
   local base="dhs_${VERSION}_${os}_${arch}"
   if [ "$os" = windows ]; then
-    ( cd "$dir" && zip -q -9 "../../${base}.zip" "dhs${ext}" "${DOCS[@]}" )
+    if command -v zip >/dev/null 2>&1; then
+      ( cd "$dir" && zip -q -9 "../../${base}.zip" "dhs${ext}" "${DOCS[@]}" )
+    else
+      # No zip on the host: Python's zipfile writes the same archive.
+      ( cd "$dir" && python3 -c "
+import sys, zipfile
+with zipfile.ZipFile(sys.argv[1], 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
+    for name in sys.argv[2:]:
+        z.write(name)
+" "../../${base}.zip" "dhs${ext}" "${DOCS[@]}" )
+    fi
   else
     tar -czf "$DIST/${base}.tar.gz" -C "$dir" "dhs${ext}" "${DOCS[@]}"
   fi
