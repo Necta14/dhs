@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"runtime"
 
+	"github.com/Necta14/dhs/internal/i18n"
 	"github.com/Necta14/dhs/internal/system"
 )
 
@@ -13,7 +14,7 @@ func runVersion() error {
 		return err
 	}
 	fmt.Printf("dhs %s  (%s)\n", version, runtime.Version())
-	fmt.Printf("sistem: %s\n", info)
-	fmt.Printf("acasă:  %s\n", info.Home)
+	fmt.Printf(i18n.T("system: %s\n"), info)
+	fmt.Printf(i18n.T("home:   %s\n"), info.Home)
 	return nil
 }

@@ -18,49 +18,49 @@ import (
 	"github.com/Necta14/dhs/internal/system"
 )
 
-// Options configurează scrierea unui pachet.
+// Options configures the writing of a package.
 type Options struct {
-	// Dir e directorul pachetului; se creează. Trebuie să fie gol sau inexistent.
+	// Dir is the package directory; it gets created. It must be empty or not exist yet.
 	Dir        string
 	Level      scan.Level
-	Passphrase string // gol = fără criptare, alegere explicită a utilizatorului
+	Passphrase string // empty = no encryption, an explicit choice by the user
 	Source     system.Info
-	VolumeSize int64 // implicit DefaultVolumeSize
-	BlockSize  int   // implicit DefaultBlockSize
-	Workers    int   // implicit runtime.NumCPU()
+	VolumeSize int64 // default DefaultVolumeSize
+	BlockSize  int   // default DefaultBlockSize
+	Workers    int   // default runtime.NumCPU()
 	Tool       string
 	Now        func() time.Time
 	OnProgress func(Progress)
 }
 
-// Progress e starea scrierii, raportată după fiecare fișier și după fiecare volum.
+// Progress is the state of the write, reported after every file and after every volume.
 type Progress struct {
-	Files  int64  // fișiere adăugate
-	Bytes  int64  // octeți bruți citiți
-	Stored int64  // octeți scriși pe disc, criptați
-	Dedup  int64  // octeți economisiți prin deduplicare
-	Volume uint32 // volumul în curs
+	Files  int64  // files added
+	Bytes  int64  // raw bytes read
+	Stored int64  // bytes written to disk, encrypted
+	Dedup  int64  // bytes saved through deduplication
+	Volume uint32 // volume in progress
 }
 
-// File e ce trebuie să știe scriitorul despre un fișier de adăugat.
+// File is what the writer needs to know about a file that is to be added.
 type File struct {
 	Root    Root
-	Path    string // relativ la Root, cu „/"
-	Orig    string // calea absolută originală
+	Path    string // relative to Root, with "/"
+	Orig    string // original absolute path
 	Size    int64
 	Mode    uint32
 	ModTime time.Time
 	Class   scan.Class
 	Secret  bool
-	// MaybeDup cere verificarea deduplicării: fișierul se citește o dată pentru hash și, dacă nu e
-	// duplicat, încă o dată pentru împachetare. Apelantul o setează doar când altă intrare are
-	// aceeași dimensiune — restul fișierelor n-au cum să fie duplicate.
+	// MaybeDup asks for the deduplication check: the file is read once for the hash and, if it is
+	// not a duplicate, once more for packing. The caller sets it only when another entry has the
+	// same size — the remaining files cannot possibly be duplicates.
 	MaybeDup bool
 	Open     func() (io.ReadCloser, error)
 }
 
-// Writer scrie un pachet. Nu e sigur pentru apeluri concurente la Add; compresia și scrierea pe
-// disc merg însă în paralel, în spatele lui.
+// Writer writes a package. It is not safe for concurrent calls to Add; compression and writing to
+// disk, however, run in parallel behind it.
 type Writer struct {
 	o       Options
 	id      ID
@@ -73,12 +73,12 @@ type Writer struct {
 	blockEntries map[int][]*Entry
 	dedup        map[Hash]*Entry
 	solid        map[BlockKind]*solidBuf
-	storedBuf    []byte // blocul stocat în curs de umplere
+	storedBuf    []byte // the stored block currently being filled
 
 	jobs    chan *job
 	results chan *job
 	workers sync.WaitGroup
-	emitted chan struct{} // închis când emițătorul a terminat
+	emitted chan struct{} // closed when the emitter has finished
 	em      *emitter
 
 	failMu sync.Mutex
@@ -108,10 +108,10 @@ type member struct {
 	n   int64
 }
 
-// NewWriter creează directorul pachetului, scrie manifestul provizoriu și pornește conducta.
+// NewWriter creates the package directory, writes the provisional manifest and starts the pipeline.
 func NewWriter(o Options) (*Writer, error) {
 	if !o.Level.Valid() {
-		return nil, fmt.Errorf("pack: nivel de compresie invalid %d", o.Level)
+		return nil, fmt.Errorf("pack: invalid compression level %d", o.Level)
 	}
 	if o.Passphrase != "" {
 		if err := passphrase.Check(o.Passphrase); err != nil {
@@ -125,7 +125,7 @@ func NewWriter(o Options) (*Writer, error) {
 		o.BlockSize = DefaultBlockSize
 	}
 	if o.BlockSize > MaxBlockSize {
-		return nil, fmt.Errorf("pack: blocul de %d depășește maximul %d", o.BlockSize, MaxBlockSize)
+		return nil, fmt.Errorf("pack: block size %d exceeds the maximum of %d", o.BlockSize, MaxBlockSize)
 	}
 	if o.Workers <= 0 {
 		o.Workers = runtime.NumCPU()
@@ -163,7 +163,7 @@ func NewWriter(o Options) (*Writer, error) {
 	}
 	w.progress.Volume = 1
 
-	// Emițătorul există înainte de primul manifest: manifestul îl întreabă câte volume sunt.
+	// The emitter exists before the first manifest: the manifest asks it how many volumes there are.
 	w.em = newEmitter(w)
 	if err := w.writeManifest(false); err != nil {
 		return nil, err
@@ -187,18 +187,18 @@ func ensureEmptyDir(dir string) error {
 		return err
 	}
 	if len(entries) > 0 {
-		return fmt.Errorf("pack: directorul %s nu e gol — nu suprascriu nimic", dir)
+		return fmt.Errorf("pack: directory %s is not empty; refusing to overwrite anything", dir)
 	}
 	return nil
 }
 
-// ID e identificatorul pachetului în curs.
+// ID is the identifier of the package in progress.
 func (w *Writer) ID() ID { return w.id }
 
-// Dir e directorul pachetului.
+// Dir is the package directory.
 func (w *Writer) Dir() string { return w.o.Dir }
 
-// fail reține prima eroare; toate operațiile ulterioare o întorc.
+// fail records the first error; every later operation returns it.
 func (w *Writer) fail(err error) {
 	if err == nil {
 		return
@@ -210,27 +210,27 @@ func (w *Writer) fail(err error) {
 	w.failMu.Unlock()
 }
 
-// Err e prima eroare apărută în conductă, dacă a apărut.
+// Err is the first error that occurred in the pipeline, if any.
 func (w *Writer) Err() error {
 	w.failMu.Lock()
 	defer w.failMu.Unlock()
 	return w.failed
 }
 
-// Add citește fișierul și îl pune în pachet. Întoarce eroarea de citire a fișierului (apelantul
-// decide dacă continuă), sau eroarea fatală a conductei.
+// Add reads the file and puts it in the package. It returns the file's read error (the caller
+// decides whether to go on), or the pipeline's fatal error.
 func (w *Writer) Add(ctx context.Context, f File) error {
 	if w.closed {
-		return errors.New("pack: scriitorul e închis")
+		return errors.New("pack: writer is closed")
 	}
 	if err := w.Err(); err != nil {
 		return err
 	}
 	if f.Open == nil {
-		return errors.New("pack: File.Open lipsește")
+		return errors.New("pack: File.Open is missing")
 	}
 	if f.Root == "" || f.Path == "" {
-		return fmt.Errorf("pack: intrare fără rădăcină sau cale: %q", f.Orig)
+		return fmt.Errorf("pack: entry without root or path: %q", f.Orig)
 	}
 
 	e := &Entry{
@@ -242,12 +242,12 @@ func (w *Writer) Add(ctx context.Context, f File) error {
 	w.mu.Lock()
 	if _, dup := w.keys[key]; dup {
 		w.mu.Unlock()
-		return fmt.Errorf("pack: intrarea %s/%s există deja", f.Root, f.Path)
+		return fmt.Errorf("pack: entry %s/%s already exists", f.Root, f.Path)
 	}
 	w.mu.Unlock()
 
-	// Deduplicare: doar când există alt fișier de aceeași dimensiune (MaybeDup). Hash-uim
-	// întâi; dacă am mai văzut conținutul, intrarea trimite la blocurile existente.
+	// Deduplication: only when another file of the same size exists (MaybeDup). We hash first; if
+	// we have seen this content before, the entry points at the existing blocks.
 	if f.MaybeDup && f.Size > 0 {
 		h, n, err := hashSource(f.Open)
 		if err != nil {
@@ -257,7 +257,7 @@ func (w *Writer) Add(ctx context.Context, f File) error {
 			e.SHA256 = h
 			e.Size = n
 			e.Dup = true
-			// Părțile originalului pot încă primi ultima bucată dintr-un bloc solid; le citim sub lacăt.
+			// The original's parts may still receive the last piece of a solid block; read them under the lock.
 			w.mu.Lock()
 			e.Parts = append([]Part(nil), orig.Parts...)
 			w.mu.Unlock()
@@ -281,8 +281,8 @@ func (w *Writer) Add(ctx context.Context, f File) error {
 	return nil
 }
 
-// commitEntry face intrarea vizibilă emițătorului. De aici încolo, orice modificare a ei trece
-// prin addPart, sub lacăt — emițătorul o poate serializa oricând.
+// commitEntry makes the entry visible to the emitter. From here on, any change to it goes through
+// addPart, under the lock — the emitter may serialize it at any moment.
 func (w *Writer) commitEntry(e *Entry) {
 	w.mu.Lock()
 	w.entries = append(w.entries, e)
@@ -290,15 +290,15 @@ func (w *Writer) commitEntry(e *Entry) {
 	for _, p := range e.Parts {
 		w.blockEntries[p.Block] = append(w.blockEntries[p.Block], e)
 	}
-	// Tot sub lacăt: manifestul citește progress.Bytes din goroutina emițătorului.
+	// Also under the lock: the manifest reads progress.Bytes from the emitter's goroutine.
 	w.progress.Files++
 	w.progress.Bytes += e.Size
 	w.mu.Unlock()
 }
 
-// addPart adaugă o parte unei intrări. Sub lacăt, fiindcă intrarea poate fi deja înregistrată:
-// un bloc solid ține coada unui fișier terminat până se umple cu următoarele, iar emițătorul
-// poate serializa intrarea exact atunci.
+// addPart adds a part to an entry. Under the lock, because the entry may already be registered:
+// a solid block holds the tail of a finished file until it fills up with the following ones, and
+// the emitter may serialize the entry exactly then.
 func (w *Writer) addPart(e *Entry, p Part) {
 	w.mu.Lock()
 	e.Parts = append(e.Parts, p)
@@ -319,7 +319,7 @@ func (w *Writer) report() {
 	w.o.OnProgress(p)
 }
 
-// pack citește fișierul o dată, calculând hash-ul și împărțindu-l în blocuri.
+// pack reads the file once, computing the hash and splitting it into blocks.
 func (w *Writer) pack(ctx context.Context, f File, e *Entry) error {
 	rc, err := f.Open()
 	if err != nil {
@@ -330,7 +330,7 @@ func (w *Writer) pack(ctx context.Context, f File, e *Entry) error {
 	hasher := sha256.New()
 	var total int64
 
-	// Clasa Unknown se lămurește pe prima mostră.
+	// The Unknown class gets settled on the first sample.
 	kind := KindStored
 	compressible := f.Class.Compressible()
 	var pending []byte
@@ -380,8 +380,8 @@ func (w *Writer) pack(ctx context.Context, f File, e *Entry) error {
 		w.flushStored(e)
 	}
 
-	// Intrarea nu e încă înregistrată, deci n-o citește nimeni; lacătul e totuși ieftin și ține
-	// invariantul simplu: orice câmp pe care îl serializează emițătorul se scrie sub lacăt.
+	// The entry is not registered yet, so nobody reads it; the lock is cheap anyway and keeps the
+	// invariant simple: every field the emitter serializes is written under the lock.
 	w.mu.Lock()
 	copy(e.SHA256[:], hasher.Sum(nil))
 	e.Size = total
@@ -389,10 +389,11 @@ func (w *Writer) pack(ctx context.Context, f File, e *Entry) error {
 	return nil
 }
 
-// ─────────────────────────── blocuri stocate ───────────────────────────
+// ─────────────────────────── stored blocks ───────────────────────────
 //
-// Fișierele incompresibile se copiază ca atare, în blocuri de câte BlockSize; fiecare bloc e o
-// parte a fișierului. Bufferul curent e ținut pe scriitor ca să nu alocăm pentru fiecare chunk.
+// Incompressible files are copied as they are, in blocks of BlockSize each; every block is one
+// part of the file. The current buffer is kept on the writer so that we don't allocate for every
+// chunk.
 
 func (w *Writer) appendStored(e *Entry, data []byte) {
 	for len(data) > 0 {
@@ -418,11 +419,11 @@ func (w *Writer) flushStored(e *Entry) {
 	w.storedBuf = nil
 }
 
-// ─────────────────────────── blocuri solide ───────────────────────────
+// ─────────────────────────── solid blocks ───────────────────────────
 //
-// Fișierele comprimabile se adună împreună până la BlockSize și se comprimă ca un singur bloc:
-// redundanța dintre fișiere mici se exploatează. Un fișier poate începe într-un bloc și continua
-// în următorul; atunci are două părți.
+// Compressible files are gathered together up to BlockSize and compressed as a single block: the
+// redundancy between small files gets exploited. A file may start in one block and continue in
+// the next one; it then has two parts.
 
 func (w *Writer) appendSolid(e *Entry, kind BlockKind, data []byte) {
 	sb := w.solid[kind]
@@ -435,7 +436,7 @@ func (w *Writer) appendSolid(e *Entry, kind BlockKind, data []byte) {
 		n := min(room, len(data))
 		off := int64(len(sb.buf))
 		sb.buf = append(sb.buf, data[:n]...)
-		// Continuăm membrul curent dacă e al aceluiași fișier și e lipit de capăt.
+		// Extend the current member if it belongs to the same file and is glued to the end.
 		if k := len(sb.members) - 1; k >= 0 && sb.members[k].e == e && sb.members[k].off+sb.members[k].n == off {
 			sb.members[k].n += int64(n)
 		} else {
@@ -460,8 +461,8 @@ func (w *Writer) flushSolid(sb *solidBuf) {
 	sb.members = sb.members[:0]
 }
 
-// emit înregistrează blocul, îi dă un id și îl trimite la compresie. Datele sunt preluate;
-// apelantul nu le mai atinge.
+// emit registers the block, gives it an id and sends it off to compression. The data is taken
+// over; the caller must not touch it again.
 func (w *Writer) emit(kind BlockKind, raw []byte) int {
 	var h Hash
 	s := sha256.Sum256(raw)
@@ -484,14 +485,15 @@ func (w *Writer) worker() {
 		} else {
 			j.stored, j.err = compress(j.kind, j.raw)
 			if j.kind != KindStored {
-				j.raw = nil // memoria brută nu mai e necesară; stocatul e ce scriem
+				j.raw = nil // the raw memory is no longer needed; the stored form is what we write
 			}
 		}
 		w.results <- j
 	}
 }
 
-// Close golește bufferele, așteaptă conducta, încheie ultimul volum și scrie indexul final.
+// Close flushes the buffers, waits for the pipeline, finishes the last volume and writes the
+// final index.
 func (w *Writer) Close() error {
 	if w.closed {
 		return w.Err()
@@ -525,7 +527,7 @@ func (w *Writer) Close() error {
 		w.fail(err)
 		return err
 	}
-	if err := appendJournal(w.o.Dir, JournalLine{Type: "complet", When: w.o.Now().UTC()}); err != nil {
+	if err := appendJournal(w.o.Dir, JournalLine{Type: "complete", When: w.o.Now().UTC()}); err != nil {
 		w.fail(err)
 		return err
 	}
@@ -533,11 +535,11 @@ func (w *Writer) Close() error {
 	return nil
 }
 
-// Abort oprește totul și lasă pachetul marcat incomplet. Nu șterge nimic: ce e pe disc poate fi
-// reluat sau inspectat.
+// Abort stops everything and leaves the package marked incomplete. It deletes nothing: what is
+// on disk can be resumed or inspected.
 func (w *Writer) Abort(cause error) {
 	if cause == nil {
-		cause = errors.New("pack: anulat")
+		cause = errors.New("pack: aborted")
 	}
 	w.fail(cause)
 	if !w.closed {
@@ -549,10 +551,10 @@ func (w *Writer) Abort(cause error) {
 	}
 }
 
-// snapshotIndex construiește indexul din starea curentă, cu COPII ale intrărilor: apelantul îl
-// serializează după ce a eliberat lacătul, iar între timp Add poate adăuga părți. Se cheamă sub
-// w.mu. Cu final=false, intră doar intrările ale căror blocuri sunt toate în volume încheiate —
-// exact ce poate fi reluat.
+// snapshotIndex builds the index from the current state, with COPIES of the entries: the caller
+// serializes it after releasing the lock, and meanwhile Add may add parts. Called under w.mu.
+// With final=false, only the entries whose blocks are all in finished volumes go in — exactly
+// what can be resumed.
 func (w *Writer) snapshotIndex(final bool) *Index {
 	idx := &Index{
 		Format:   FormatVersion,
@@ -569,8 +571,8 @@ func (w *Writer) snapshotIndex(final bool) *Index {
 	return idx
 }
 
-// writeIndexFile scrie index.dhsi ca un mini-volum cu numărul 0: același antet, un singur bloc de
-// tip index, același trailer. Cititorul folosește exact codul de la volume.
+// writeIndexFile writes index.dhsi as a mini-volume numbered 0: the same header, a single block of
+// kind index, the same trailer. The reader uses exactly the code it uses for volumes.
 func (w *Writer) writeIndexFile(idx *Index) error {
 	payload, err := json.Marshal(idx)
 	if err != nil {
@@ -670,7 +672,7 @@ func (w *Writer) writeSums() error {
 	return writeSums(w.o.Dir, sums)
 }
 
-// hashSource citește complet o sursă doar pentru hash — pasul întâi al deduplicării.
+// hashSource reads a source in full just for the hash — the first step of deduplication.
 func hashSource(open func() (io.ReadCloser, error)) (Hash, int64, error) {
 	var h Hash
 	rc, err := open()

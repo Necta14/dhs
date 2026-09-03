@@ -1,0 +1,39 @@
+# AGENTS.md — DHS
+
+> Traducere în română. Versiunea de referință e cea în engleză: [`../../AGENTS.md`](../../AGENTS.md)
+
+Reguli pentru orice agent care lucrează pe acest repo. Ce e produsul și ce s-a decis:
+[`CLAUDE.md`](CLAUDE.md). Nu începe fără să-l citești.
+
+1. **Datele utilizatorului sunt sacre.** Unealta umblă la documentele, pozele și cheile cuiva. O
+   greșeală nu e un bug, sunt date pierdute. Nimic nu se suprascrie fără confirmare, orice pas
+   distructiv are `--dry-run`, iar ce nu poate fi verificat nu se scrie.
+2. **Fără rețea în produs.** Zero apeluri HTTP, zero dependențe care fac apeluri, zero telemetrie.
+   Dacă un pachet Go pe care vrei să-l adaugi deschide un socket, nu intră.
+3. **Fără AI în produs.** Fără embeddings, fără modele, fără „potrivire inteligentă". Baza de
+   aplicații e scrisă de om, cu identificatori exacți.
+4. **Fără balast.** Fiecare dependență nouă se justifică. Bugetele din Regula #4 (CLAUDE.md) sunt
+   praguri, nu sugestii: binarul CLI rămâne sub 15 MiB.
+5. **Codul specific unui OS stă doar** în fișiere `_linux.go` / `_windows.go`. Restul e comun și
+   trebuie să se compileze pe orice mașină. Verifică mereu amândouă platformele, static:
+   ```bash
+   gofmt -l . && go vet ./... && go build ./... && GOOS=windows go build ./...
+   ```
+   `go test` — doar pe Codespaces, vezi regula 7.
+6. **Nimic cu pierderi.** Orice transformare de date trebuie să fie reversibilă bit cu bit, și
+   trebuie **dovedit** prin verificare, nu presupus.
+7. **Testele NU se rulează pe mașina menținătorului.** Nici `go test`, nici binarul `dhs` pe
+   datele lui. Testele se scriu aici, dar se rulează **doar în sesiunea dedicată, pe cele două
+   GitHub Codespaces** — `scripts/codespace-tests.sh`, după [`TESTARE.md`](TESTARE.md). Local sunt
+   permise doar verificările statice: `gofmt`, `go vet`, `go build` pentru ambele platforme.
+   Testele, când rulează, nu ating rețeaua și nu scriu în afara `t.TempDir()`.
+8. **Limba.** Codul, comentariile, documentația și CLI-ul sunt în **engleză**. Româna se menține ca
+   traducere: [`README.ro.md`](../../README.ro.md), `docs/ro/` (dosarul ăsta) și catalogul CLI
+   `internal/i18n/ro.go` (ales cu `DHS_LANG=ro` sau din localizare). Discuția cu menținătorul poate
+   avea loc în română. Proiectul e open source, codul trebuie să fie citibil de oricine.
+9. **`gofmt` și `go vet` curate** înainte de commit. Fără excepții.
+10. **Ce nu e în v1 nu se implementează.** Domeniul e în CLAUDE.md; restul se scrie în
+    [`BACKLOG.md`](BACKLOG.md).
+11. **Sincronizare.** La început de sesiune citește `CLAUDE.md`, `BACKLOG.md` și jurnalul de
+    decizii. La final, notează ce ai schimbat și de ce.
+12. **Ramura de lucru e `main`.** Commit după fiecare fază, cu mesaj care spune *ce* și *de ce*.

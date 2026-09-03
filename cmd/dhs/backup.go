@@ -14,65 +14,67 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/Necta14/dhs/internal/i18n"
 	"github.com/Necta14/dhs/internal/pack"
 	"github.com/Necta14/dhs/internal/report"
 	"github.com/Necta14/dhs/internal/scan"
 	"github.com/Necta14/dhs/internal/system"
 )
 
-const backupUsage = `dhs backup — creează pachetul de migrare
+const backupUsage = `dhs backup — create the migration package
 
-Utilizare
-  dhs backup --dest <cale> [cale...] [opțiuni]
+Usage
+  dhs backup --dest <path> [path...] [options]
 
-Fără căi, salvează locurile standard din profil. Pachetul e un director <dest>/<nume>.dhs,
-format din volume de 3,5 GiB. Înainte să scrie ceva, arată estimarea și cere confirmare.
+Without paths, saves the standard places in the profile. The package is a directory
+<dest>/<name>.dhs, made of 3.5 GiB volumes. Before writing anything, it shows the estimate and
+asks for confirmation.
 
-Opțiuni
-  --dest <cale>      unde se scrie pachetul (obligatoriu)
-  --nume <nume>      numele directorului pachetului; implicit migrare-<data>-<ora>
-  --nivel <1|2|3>    compresie: 1 compatibil, 2 echilibrat (implicit), 3 maxim
-  --secrete          include chei, parole și fișiere .env — excluse implicit
-  --tot              nu exclude nimic (cache-uri, jocuri, mașini virtuale)
-  --fara-criptare    scrie pachetul necriptat. Cu nivelul 1 dă un pachet deschizabil fără DHS
-  --parola-fisier <cale>   citește fraza de acces din fișier (pentru automatizare); altfel o cere
-  --da               nu cere confirmare
-  --verifica         după scriere, verifică integral pachetul (decriptează și verifică fiecare bloc)
-  --json             ieșire JSON
+Options
+  --dest <path>       where the package is written (required)
+  --name <name>       name of the package directory; default migration-<date>-<time>
+  --level <1|2|3>     compression: 1 compatible, 2 balanced (default), 3 maximum
+  --secrets           include keys, passwords and .env files — excluded by default
+  --all               exclude nothing (caches, games, virtual machines)
+  --no-encrypt        write the package unencrypted. With level 1 it gives a package that opens without DHS
+  --passphrase-file <path>   read the passphrase from a file (for automation); otherwise it is asked
+  --yes               do not ask for confirmation
+  --verify            after writing, verify the whole package (decrypt and check every block)
+  --json              JSON output
   --help
 `
 
 type backupOutput struct {
-	Package  string             `json:"pachet"`
+	Package  string             `json:"package"`
 	Manifest pack.Manifest      `json:"manifest"`
-	Files    int64              `json:"fisiere"`
-	Bytes    int64              `json:"octeti_brut"`
-	Stored   int64              `json:"octeti_stocati"`
-	Dedup    int64              `json:"octeti_dedup"`
-	Skipped  []skippedFile      `json:"sarite,omitempty"`
-	Duration time.Duration      `json:"durata_ns"`
-	Verify   *pack.VerifyReport `json:"verificare,omitempty"`
+	Files    int64              `json:"files"`
+	Bytes    int64              `json:"raw_bytes"`
+	Stored   int64              `json:"stored_bytes"`
+	Dedup    int64              `json:"dedup_bytes"`
+	Skipped  []skippedFile      `json:"skipped,omitempty"`
+	Duration time.Duration      `json:"duration_ns"`
+	Verify   *pack.VerifyReport `json:"verification,omitempty"`
 }
 
 type skippedFile struct {
-	Path   string `json:"cale"`
-	Reason string `json:"motiv"`
+	Path   string `json:"path"`
+	Reason string `json:"reason"`
 }
 
 func runBackup(args []string) error {
 	fs := flag.NewFlagSet("backup", flag.ContinueOnError)
 	fs.SetOutput(os.Stderr)
-	fs.Usage = func() { fmt.Fprint(os.Stderr, backupUsage) }
+	fs.Usage = func() { fmt.Fprint(os.Stderr, i18n.T(backupUsage)) }
 
 	dest := fs.String("dest", "", "")
-	name := fs.String("nume", "", "")
-	level := fs.Int("nivel", int(scan.LevelBalanced), "")
-	secrets := fs.Bool("secrete", false, "")
-	all := fs.Bool("tot", false, "")
-	noCrypt := fs.Bool("fara-criptare", false, "")
-	passFile := fs.String("parola-fisier", "", "")
-	yes := fs.Bool("da", false, "")
-	verify := fs.Bool("verifica", false, "")
+	name := fs.String("name", "", "")
+	level := fs.Int("level", int(scan.LevelBalanced), "")
+	secrets := fs.Bool("secrets", false, "")
+	all := fs.Bool("all", false, "")
+	noCrypt := fs.Bool("no-encrypt", false, "")
+	passFile := fs.String("passphrase-file", "", "")
+	yes := fs.Bool("yes", false, "")
+	verify := fs.Bool("verify", false, "")
 	asJSON := fs.Bool("json", false, "")
 
 	var explicitRoots []string
@@ -89,17 +91,17 @@ func runBackup(args []string) error {
 	}
 
 	if *dest == "" {
-		return errors.New("backup: --dest e obligatoriu")
+		return errors.New(i18n.T("backup: --dest is required"))
 	}
 	lvl := scan.Level(*level)
 	if !lvl.Valid() {
-		return fmt.Errorf("nivelul %d nu există; alege 1, 2 sau 3", *level)
+		return fmt.Errorf(i18n.T("level %d does not exist; choose 1, 2 or 3"), *level)
 	}
 	live := !*asJSON && isTerminal(os.Stderr)
 
 	info, err := system.Detect()
 	if err != nil {
-		return fmt.Errorf("nu pot detecta sistemul: %w", err)
+		return fmt.Errorf(i18n.T("cannot detect the system: %w"), err)
 	}
 	locs := system.Locations(info)
 	roots := explicitRoots
@@ -113,23 +115,23 @@ func runBackup(args []string) error {
 		roots = scan.HomeRoots(paths)
 	}
 	if len(roots) == 0 {
-		return errors.New("backup: nimic de salvat")
+		return errors.New(i18n.T("backup: nothing to save"))
 	}
 
-	// Destinația: există, e director, are loc.
+	// The destination: exists, is a directory, has room.
 	destInfo, err := os.Stat(*dest)
 	if err != nil {
-		return fmt.Errorf("destinația %s: %w", *dest, err)
+		return fmt.Errorf(i18n.T("destination %s: %w"), *dest, err)
 	}
 	if !destInfo.IsDir() {
-		return fmt.Errorf("destinația %s nu e un director", *dest)
+		return fmt.Errorf(i18n.T("destination %s is not a directory"), *dest)
 	}
 	vol, err := system.SpaceOf(*dest)
 	if err != nil {
-		return fmt.Errorf("nu pot citi spațiul de pe %s: %w", *dest, err)
+		return fmt.Errorf(i18n.T("cannot read the free space on %s: %w"), *dest, err)
 	}
 
-	// 1. Inventar — același cu dhs scan, dar reținem intrările ca să le împachetăm.
+	// 1. Inventory — the same as dhs scan, but we keep the entries in order to pack them.
 	var entries []scan.Entry
 	sizes := make(map[int64]int)
 	opts := scan.Options{
@@ -156,35 +158,35 @@ func runBackup(args []string) error {
 	est := scan.Estimator{Workers: runtime.NumCPU()}.Estimate(inv, lvl)
 	fits, left := est.Fits(vol.Free)
 
-	// 2. Arată ce urmează și cere confirmare — înainte de parolă, ca să nu o ceri degeaba.
+	// 2. Show what comes next and ask for confirmation — before the passphrase, so it is not asked in vain.
 	if !*asJSON {
 		printScan(scanOutput{System: info, Inventory: inv, Estimate: est, Dest: &vol, Fits: &fits}, 0)
 		fmt.Println()
 	}
 	if !fits {
-		return fmt.Errorf("nu încape: lipsesc %s pe %s", report.Bytes(-left), *dest)
+		return fmt.Errorf(i18n.T("does not fit: %s missing on %s"), report.Bytes(-left), *dest)
 	}
 	if inv.Files == 0 {
-		return errors.New("backup: inventarul e gol")
+		return errors.New(i18n.T("backup: the inventory is empty"))
 	}
 	if !*yes && !*asJSON {
-		if !confirm(fmt.Sprintf("Scriu %s fișiere (%s) în %s. Continui?", report.Count(inv.Files), report.Bytes(inv.Bytes), *dest)) {
-			return errors.New("anulat")
+		if !confirm(i18n.Tf("Writing %s files (%s) to %s. Continue?", report.Count(inv.Files), report.Bytes(inv.Bytes), *dest)) {
+			return errors.New(i18n.T("cancelled"))
 		}
 	}
 
-	// 3. Fraza de acces.
+	// 3. The passphrase.
 	pass := ""
 	if !*noCrypt {
 		switch {
 		case *passFile != "":
 			b, err := os.ReadFile(*passFile)
 			if err != nil {
-				return fmt.Errorf("nu pot citi fraza din %s: %w", *passFile, err)
+				return fmt.Errorf(i18n.T("cannot read the passphrase from %s: %w"), *passFile, err)
 			}
 			pass = strings.TrimRight(string(b), "\r\n")
 		case *asJSON:
-			return errors.New("backup --json cere --parola-fisier sau --fara-criptare")
+			return errors.New(i18n.T("backup --json requires --passphrase-file or --no-encrypt"))
 		default:
 			pass, err = askNewPassphrase()
 			if err != nil {
@@ -192,15 +194,15 @@ func runBackup(args []string) error {
 			}
 		}
 	} else if !*yes && !*asJSON {
-		fmt.Fprintln(os.Stderr, warn("Pachetul va fi NECRIPTAT: oricine pune mâna pe disc îți citește fișierele."))
-		if !confirm("Continui fără criptare?") {
-			return errors.New("anulat")
+		fmt.Fprintln(os.Stderr, warn(i18n.T("The package will be UNENCRYPTED: anyone who gets hold of the drive can read your files.")))
+		if !confirm(i18n.T("Continue without encryption?")) {
+			return errors.New(i18n.T("cancelled"))
 		}
 	}
 
-	// 4. Scrierea.
+	// 4. Writing.
 	if *name == "" {
-		*name = "migrare-" + time.Now().Format("2006-01-02-1504")
+		*name = "migration-" + time.Now().Format("2006-01-02-1504")
 	}
 	pkgDir := filepath.Join(*dest, strings.TrimSuffix(*name, ".dhs")+".dhs")
 
@@ -220,7 +222,7 @@ func runBackup(args []string) error {
 				return
 			}
 			lastLine = time.Now()
-			fmt.Fprintf(os.Stderr, "\r\033[K  %s / %s fișiere · %s citiți · %s scriși · volumul %d",
+			fmt.Fprintf(os.Stderr, i18n.T("\r\033[K  %s / %s files · %s read · %s written · volume %d"),
 				report.Count(p.Files), report.Count(inv.Files), report.Bytes(p.Bytes), report.Bytes(p.Stored), p.Volume)
 		},
 	})
@@ -233,7 +235,7 @@ func runBackup(args []string) error {
 	for _, e := range entries {
 		if err := ctx.Err(); err != nil {
 			w.Abort(err)
-			return fmt.Errorf("întrerupt; pachetul %s e incomplet și poate fi șters", pkgDir)
+			return fmt.Errorf(i18n.T("interrupted; the package %s is incomplete and can be deleted"), pkgDir)
 		}
 		root, rel := rm.Split(e.Path)
 		st, err := os.Lstat(e.Path)
@@ -252,24 +254,24 @@ func runBackup(args []string) error {
 		if err != nil {
 			if w.Err() != nil {
 				w.Abort(err)
-				return fmt.Errorf("scrierea a eșuat: %w", err)
+				return fmt.Errorf(i18n.T("writing failed: %w"), err)
 			}
-			// Eroare de citire pe un singur fișier: îl sărim și mergem mai departe.
+			// Read error on a single file: skip it and move on.
 			skipped = append(skipped, skippedFile{e.Path, err.Error()})
 		}
 	}
 	if err := w.Close(); err != nil {
-		return fmt.Errorf("închiderea pachetului a eșuat: %w", err)
+		return fmt.Errorf(i18n.T("closing the package failed: %w"), err)
 	}
 	if live {
 		fmt.Fprint(os.Stderr, "\r\033[K")
 	}
 	elapsed := time.Since(start)
 
-	// 5. Recitire.
+	// 5. Re-read.
 	r, err := pack.Open(pkgDir, pass)
 	if err != nil {
-		return fmt.Errorf("pachetul s-a scris dar nu se poate redeschide: %w", err)
+		return fmt.Errorf(i18n.T("the package was written but cannot be reopened: %w"), err)
 	}
 	out := backupOutput{Package: pkgDir, Manifest: r.Manifest, Files: r.Manifest.Files, Bytes: r.Manifest.Raw, Stored: r.Manifest.Stored, Skipped: skipped, Duration: elapsed}
 	if *verify {
@@ -283,28 +285,28 @@ func runBackup(args []string) error {
 	if *asJSON {
 		return writeJSON(out)
 	}
-	fmt.Printf("%s%s\n", report.Pad("Pachet", 14), pkgDir)
-	fmt.Printf("%s%s fișiere · %s → %s pe disc · %d volume · %s\n", report.Pad("Scris", 14),
+	fmt.Printf("%s%s\n", report.Pad(i18n.T("Package"), 14), pkgDir)
+	fmt.Printf(i18n.T("%s%s files · %s → %s on disk · %d volumes · %s\n"), report.Pad(i18n.T("Written"), 14),
 		report.Count(out.Files), report.Bytes(out.Bytes), report.Bytes(out.Stored), r.Manifest.Volumes, report.Duration(elapsed))
 	if len(skipped) > 0 {
-		fmt.Printf("%s%d fișiere n-au putut fi citite (vezi --json pentru listă)\n", report.Pad("Sărite", 14), len(skipped))
+		fmt.Printf(i18n.T("%s%d files could not be read (see --json for the list)\n"), report.Pad(i18n.T("Skipped"), 14), len(skipped))
 	}
 	if out.Verify != nil {
 		if out.Verify.OK() {
-			fmt.Printf("%s%s\n", report.Pad("Verificat", 14), green("✓ toate blocurile și sumele sunt în regulă"))
+			fmt.Printf("%s%s\n", report.Pad(i18n.T("Verified"), 14), green(i18n.T("✓ all blocks and checksums are fine")))
 		} else {
-			fmt.Printf("%s%s\n", report.Pad("Verificat", 14), red(fmt.Sprintf("✗ %d probleme", len(out.Verify.Problems))))
+			fmt.Printf("%s%s\n", report.Pad(i18n.T("Verified"), 14), red(i18n.Tf("✗ %d problems", len(out.Verify.Problems))))
 			for _, p := range out.Verify.Problems {
 				fmt.Printf("%s%s\n", report.Pad("", 16), p)
 			}
-			return errors.New("pachetul nu a trecut verificarea")
+			return errors.New(i18n.T("the package did not pass verification"))
 		}
 	} else {
-		fmt.Printf("%s%s\n", report.Pad("", 14), dim("dhs verify "+pkgDir+"  — verifică integral, oricând"))
+		fmt.Printf("%s%s\n", report.Pad("", 14), dim("dhs verify "+pkgDir+i18n.T("  — verifies the whole package, any time")))
 	}
 	if pass != "" {
 		fmt.Println()
-		fmt.Println(warn("Fără fraza de acces, pachetul e pierdut definitiv. N-o putem recupera."))
+		fmt.Println(warn(i18n.T("Without the passphrase the package is lost for good. We cannot recover it.")))
 	}
 	return nil
 }
@@ -314,7 +316,7 @@ func verifyProgress(live bool) func(done, total int64) {
 		return nil
 	}
 	return func(done, total int64) {
-		fmt.Fprintf(os.Stderr, "\r\033[K  verific… %s / %s", report.Bytes(done), report.Bytes(total))
+		fmt.Fprintf(os.Stderr, i18n.T("\r\033[K  verifying… %s / %s"), report.Bytes(done), report.Bytes(total))
 		if done >= total {
 			fmt.Fprint(os.Stderr, "\r\033[K")
 		}

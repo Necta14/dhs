@@ -1,220 +1,234 @@
 # CLAUDE.md — DHS · Direct Handoff Suite
 
-> Fișierul de față descrie **produsul DHS**. Regulile de lucru pentru agenți sunt în
-> [`AGENTS.md`](AGENTS.md), jurnalul în [`docs/NOTES.md`](docs/NOTES.md), sarcinile în
+> This file describes **the DHS product**. The working rules for agents are in
+> [`AGENTS.md`](AGENTS.md), the journal in [`docs/NOTES.md`](docs/NOTES.md), the tasks in
 > [`docs/BACKLOG.md`](docs/BACKLOG.md).
 >
-> **Stare la 03.09.2026.** Nucleul pentru fișiere e implementat și **verde pe Codespaces**:
-> `scan`, `backup`, `verify`, `list`, `restore` — teste unitare, detector de curse și un flux
-> complet backup → restore cu comparare bit cu bit. Lipsesc baza de aplicații, detectarea
-> aplicațiilor și `plan`. Testele se rulează **doar** pe Codespaces (AGENTS.md, regula 7);
-> cum: [`docs/TESTARE.md`](docs/TESTARE.md).
+> **State as of 2026-09-03.** The file core is implemented and **green on Codespaces**: `scan`,
+> `backup`, `verify`, `list`, `restore` — unit tests, race detector and a complete backup → restore
+> flow with bit-for-bit comparison. Missing: the app database, app detection and `plan`. Tests run
+> **only** on Codespaces (AGENTS.md, rule 7); how: [`docs/TESTING.md`](docs/TESTING.md).
 
-## Ce este DHS
+## What DHS is
 
-Unealtă **open source** care migrează rapid și eficient mediul de lucru al unui utilizator între
-sisteme de operare:
+An **open source** tool that migrates a user's working environment between operating systems,
+quickly and efficiently:
 
 - Windows → Linux
 - Linux → Windows
-- o distribuție Linux → altă distribuție
-- o versiune de Windows → altă versiune
+- one Linux distribution → another distribution
+- one Windows version → another version
 
-Ideea centrală: un **pachet de migrare portabil**, scris pe un mediu extern (SSD / HDD / USB).
-**Cloud-ul nu e obligatoriu niciodată** — asta e o proprietate a produsului, nu o preferință.
+The central idea: a **portable migration package**, written to an external medium (SSD / HDD /
+USB). **The cloud is never mandatory** — that is a property of the product, not a preference.
 
-### Pachetul de migrare
+### The migration package
 
-1. Fișiere personale ale utilizatorului
-2. Configurații ale aplicațiilor
-3. Manifest cu aplicațiile instalate
-4. Configurații și preferințe ale utilizatorului
-5. Metadate necesare pentru restaurare
+1. The user's personal files
+2. Application configurations
+3. A manifest of the installed applications
+4. User configurations and preferences
+5. The metadata needed for restoration
 
-### Fluxul, pe un exemplu (Windows 11 Pro → Arch Linux)
+### The flow, on an example (Windows 11 Pro → Arch Linux)
 
-**Pe sursă (Windows):** instalezi DHS → alegi mediul extern → alegi datele personale și aplicațiile
-→ DHS construiește pachetul (documente, imagini/video, profile de aplicații, configurații, lista
-aplicațiilor instalate, reguli de conversie Windows → Linux).
+**On the source (Windows):** install DHS → choose the external medium → choose the personal data
+and the applications → DHS builds the package (documents, pictures/videos, application profiles,
+configurations, the list of installed applications, Windows → Linux conversion rules).
 
-**Pe destinație (după instalarea Arch):** instalezi DHS → alegi pachetul → DHS analizează manifestul
-→ identifică alternativele Linux → instalează aplicațiile disponibile → restaurează fișierele și
-configurațiile compatibile.
+**On the destination (after installing Arch):** install DHS → choose the package → DHS analyses the
+manifest → identifies the Linux alternatives → installs the available applications → restores the
+compatible files and configurations.
 
-### Baza de date de aplicații
+### The app database
 
-Proprie, nu împrumutată. Conține, per aplicație:
+Our own, not borrowed. It holds, per application:
 
-- dacă e suportată și sub ce identificatori e cunoscută pe fiecare platformă
-- echivalentele între platforme (ex. Notepad++ → Kate / VSCodium)
-- metodele de instalare: `winget` / `choco` / `scoop` pe Windows; `pacman` / `apt` / `dnf` /
-  `flatpak` pe Linux
-- locațiile de configurare pe fiecare sistem de operare
-- cât de portabilă e configurația: identică / traductibilă / netraductibilă
+- whether it is supported and under which identifiers it is known on each platform
+- the equivalents across platforms (e.g. Notepad++ → Kate / VSCodium)
+- the install methods: `winget` / `choco` / `scoop` on Windows; `pacman` / `apt` / `dnf` /
+  `flatpak` on Linux
+- the configuration locations on each operating system
+- how portable the configuration is: identical / translatable / untranslatable
 
-## Domeniul versiunii 1
+## The scope of version 1
 
-**În v1 intră doar:**
+**Only this goes into v1:**
 
-- creare backup
-- restaurare backup
-- manifest de aplicații
-- detectare sistem de operare
-- suport Windows și Linux
-- CLI funcțional
+- creating a backup
+- restoring a backup
+- the app manifest
+- operating system detection
+- Windows and Linux support
+- a working CLI
 
-**Amânat explicit după v1:** migrare automată de configurații complexe, sincronizare între
-dispozitive, suport enterprise, integrare profundă cu distribuțiile, GUI.
+**Explicitly postponed after v1:** automatic migration of complex configurations, sync between
+devices, enterprise support, deep integration with distributions, GUI.
 
-Orice cerere din afara listei de v1 se scrie în `docs/BACKLOG.md`. Nu se implementează ad-hoc.
+Any request outside the v1 list goes into `docs/BACKLOG.md`. It is not implemented ad hoc.
 
-## Interfețe
+## Interfaces
 
-- **CLI** — utilizatori avansați și automatizare. Se face primul.
-- **GUI** — utilizatori obișnuiți. Se face după ce nucleul CLI e stabil.
+- **CLI** — advanced users and automation. Comes first.
+- **GUI** — ordinary users. Comes after the CLI core is stable.
 
-Consecință de arhitectură, nefacultativă: **toată logica stă într-o bibliotecă de nucleu**, iar CLI-ul
-și GUI-ul sunt învelișuri subțiri peste ea. Nicio regulă de business în stratul de interfață.
+A non-optional architectural consequence: **all the logic lives in a core library**, and the CLI and
+GUI are thin wrappers over it. No business rule in the interface layer.
 
-## ⛔ Regula #1 — datele utilizatorului sunt sacre
+## ⛔ Rule #1 — the user's data is sacred
 
-DHS umblă la întreaga viață digitală a cuiva: documente, poze, profile de browser, chei. O greșeală
-nu înseamnă un bug, înseamnă date pierdute definitiv. Propuneri, **de confirmat** (vezi D4):
+DHS handles someone's entire digital life: documents, photos, browser profiles, keys. A mistake does
+not mean a bug, it means data lost for good. Proposals, **to be confirmed** (see D4):
 
-- restaurarea **nu suprascrie niciodată** fără confirmare explicită; implicit, conflictele se
-  păstrează alături, nu se înlocuiesc
-- orice operațiune distructivă are `--dry-run` și îl folosește ca mod de prezentare înainte de a
-  cere confirmarea
-- pachetul are **sume de control verificabile**; restaurarea refuză un pachet care nu se verifică
-- procesul e **reluabil** după întrerupere (cablu smuls, baterie, disc plin) — fără pachete pe
-  jumătate scrise care par valide
-- **secretele** (chei SSH/GPG, parole din browser, token-uri) sunt tratate separat de restul datelor
+- restoration **never overwrites** without explicit confirmation; by default, conflicts are kept
+  side by side, not replaced
+- every destructive operation has `--dry-run` and uses it as the presentation mode before asking
+  for confirmation
+- the package has **verifiable checksums**; restoration refuses a package that does not verify
+- the process is **resumable** after an interruption (yanked cable, battery, full disk) — no
+  half-written packages that look valid
+- **secrets** (SSH/GPG keys, browser passwords, tokens) are treated separately from the rest of the
+  data
 
-## ⛔ Regula #2 — DHS nu conține AI
+## ⛔ Rule #2 — DHS contains no AI
 
-**Produsul livrat nu are AI, nu are RAG, nu are embeddings, nu cheamă niciun model.** DHS e o
-unealtă deterministă de sistem: citește, împachetează, verifică, restaurează. Utilizatorul trebuie
-să poată prezice exact ce face.
+**The shipped product has no AI, no RAG, no embeddings, and calls no model.** DHS is a deterministic
+system tool: it reads, packs, verifies, restores. The user must be able to predict exactly what it
+does.
 
-Potrivirea aplicațiilor între platforme se face **prin baza de date curată de la om**, cu
-identificatori exacți — nu prin căutare semantică, nu prin „ghicit inteligent". Dacă o aplicație nu
-e în bază, DHS spune că nu știe și o trece în raport; nu inventează un echivalent.
+Matching applications across platforms is done **through the human-curated database**, with exact
+identifiers — not through semantic search, not through "clever guessing". If an application is not
+in the database, DHS says it does not know and lists it in the report; it does not invent an
+equivalent.
 
-Consecință directă: nicio dependență de rețea la runtime, nicio cheie de API în produs, funcționare
-completă offline.
+Direct consequence: no network dependency at runtime, no API key in the product, complete offline
+operation.
 
-## ⛔ Regula #4 — fără balast
+## ⛔ Rule #4 — no bloat
 
-DHS nu are voie să devină bloatware. Bugetele sunt praguri, nu sugestii:
+DHS is not allowed to become bloatware. The budgets are thresholds, not suggestions:
 
-| | Buget | Acum |
+| | Budget | Now |
 |---|---|---|
-| Binar CLI, dezbrăcat (`-ldflags "-s -w"`) | ≤ 15 MiB | **4,2 MiB** Linux · **4,5 MiB** Windows (cu age, zstd, xz) |
-| Procese în fundal, servicii, daemoni | **zero** | zero |
-| Telemetrie, „statistici anonime", actualizator automat | **zero** | zero |
-| Apeluri de rețea la rulare | **zero** | zero |
-| Runtime de instalat pe sistemul destinație | **niciunul** | niciunul |
-| Pornire la rece | < 100 ms | ~10 ms |
+| CLI binary, stripped (`-ldflags "-s -w"`) | ≤ 15 MiB | **4.2 MiB** Linux · **4.5 MiB** Windows (with age, zstd, xz) |
+| Background processes, services, daemons | **zero** | zero |
+| Telemetry, "anonymous statistics", auto-updater | **zero** | zero |
+| Network calls at runtime | **zero** | zero |
+| Runtime to install on the destination system | **none** | none |
+| Cold start | < 100 ms | ~10 ms |
 
-Fiecare dependență nouă se justifică. Un pachet Go care deschide un socket nu intră în produs.
+Every new dependency is justified. A Go package that opens a socket does not go into the product.
 
-## Sistemul intern de management al proiectului (RAG)
+## The internal project-management system (RAG)
 
-Unealta de memorie folosită de agenți s-a mutat, conform D2, în **`~/dhs-memory`** — repo propriu.
-Nu face parte din produs, nu se livrează, nu influențează arhitectura lui.
+The memory tool used by the agents has moved, per D2, to **`~/dhs-memory`** — its own repo. It is
+not part of the product, is not shipped, and does not influence its architecture.
 
 ```bash
 cd ~/dhs-memory
-node src/cli.ts recall "de ce am ales Go" -n dhs   # deciziile produsului
-node src/cli.ts handoff -n dhs                     # rezumat pentru sesiunea următoare
-node src/cli.ts recall "cum e construit RAG-ul" -n mem
+node src/cli.ts recall "why we chose Go" -n dhs      # the product's decisions
+node src/cli.ts handoff -n dhs                       # summary for the next session
+node src/cli.ts recall "how the RAG is built" -n mem
 ```
 
-## Stiva
+## The stack
 
-**Go** — binar static unic, fără runtime pe sistemul destinație. Baza de date de aplicații intră în
-binar prin `go:embed`, deci DHS funcționează complet offline.
+**Go** — a single static binary, no runtime on the destination system. The app database goes into
+the binary through `go:embed`, so DHS works completely offline.
 
-**Windows și Linux se dezvoltă separat, dar din același repo.** Etichetele de build fac treaba:
-codul specific stă doar în `_linux.go` și `_windows.go`, iar binarul de Linux **nu conține niciun
-octet** din codul de Windows. Nu plătești pentru platforma cealaltă. Cross-compile-ul e o comandă,
-fără toolchain suplimentar:
+**Windows and Linux are developed separately, but from the same repo.** Build tags do the work:
+platform-specific code lives only in `_linux.go` and `_windows.go`, and the Linux binary **contains
+not a single byte** of the Windows code. You do not pay for the other platform. Cross-compiling is
+one command, with no extra toolchain:
 
 ```bash
 go build ./cmd/dhs                 # Linux
-GOOS=windows go build ./cmd/dhs    # Windows, de pe Linux
+GOOS=windows go build ./cmd/dhs    # Windows, from Linux
 ```
 
-**GUI-ul e proces separat, care vorbește cu CLI-ul prin JSON** (`dhs <comandă> --json`). Așa fiecare
-platformă își primește interfața ei nativă, scrisă în ce i se potrivește, fără să dublăm logica și
-fără ca un utilizator de Linux să descarce cod de Windows. Vezi D9.
+**The GUI is a separate process that talks to the CLI through JSON** (`dhs <command> --json`). That
+way each platform gets its own native interface, written in whatever suits it, without duplicating
+the logic and without a Linux user downloading Windows code. See D9. A Linux prototype exists:
+`gui/linux/dhs-gui.py` (GTK4 + libadwaita through PyGObject).
 
-- [`docs/ARHITECTURA.md`](docs/ARHITECTURA.md) — formatul pachetului, structura modulelor, suprafața
-  CLI, schema bazei de aplicații
-- [`docs/COMPRESIE.md`](docs/COMPRESIE.md) — cele trei niveluri de compresie, estimarea dimensiunii
-  înainte de backup, research-ul pe compresia „extremă"
-- [`docs/LICENTA.md`](docs/LICENTA.md) — opțiunile de licență, modelul de contribuție, ce spune
-  Cyber Resilience Act despre open source
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) — the package format, the module structure, the
+  CLI surface, the app database schema
+- [`docs/COMPRESSION.md`](docs/COMPRESSION.md) — the three compression levels, the size estimate
+  before the backup, the research on "extreme" compression
+- [`docs/LICENSE-CHOICE.md`](docs/LICENSE-CHOICE.md) — the licence options, the contribution model,
+  what the Cyber Resilience Act says about open source
+- [`docs/TESTING.md`](docs/TESTING.md) — the dedicated test session on Codespaces
 
-## ⛔ Regula #3 — nimic cu pierderi
+## ⛔ Rule #3 — nothing lossy
 
-Un fișier restaurat trebuie să fie **identic bit cu bit** cu originalul. Migrăm pozele de la nunta
-cuiva, nu asseturi de joc. Orice tehnică de compresie care nu poate garanta reconstrucția exactă e
-în afara produsului, oricât ar câștiga la dimensiune.
+A restored file must be **identical bit for bit** to the original. We are migrating someone's
+wedding photos, not game assets. Any compression technique that cannot guarantee exact
+reconstruction is outside the product, however much it would gain in size.
 
-## Decizii luate
+## Decisions taken
 
-- **D1 — stiva · 02.09.2026: Go.** Binar static unic, cross-compile din Arch către Windows cu o
-  singură comandă, stdlib care acoperă exact nevoile (arhive, hashing, filesystem, procese),
-  registry Windows prin `x/sys`. Curbă mică de învățare → contribuitori mai ușor de găsit.
-- **D2 — relația cu unealta RAG · 02.09.2026.** Nu există conflict: DHS e produsul, RAG-ul e
-  sistemul intern de management al proiectului. Produsul nu conține AI sau RAG
-  ([Regula #2](#-regula-2--dhs-nu-conține-ai)). Unealta internă rămâne separată de codul care se
-  livrează; când începe implementarea produsului, ea se mută în propriul repo, ca repo-ul public să
-  conțină doar DHS.
-- **D3 — configurații în v1 · 02.09.2026: fișiere + manifest + listă mică.** Copiere de fișiere,
-  manifest de aplicații, plus 10–15 aplicații cu configurații cu adevărat portabile. Restul se
-  arhivează și se raportează, **nu se traduce**. Fără promisiuni pe care nu le putem ține.
-- **D4 — securitate · 02.09.2026: criptat implicit, secrete opt-in.** Pachetul e criptat cu parolă
-  din start. Secretele (chei SSH/GPG, parole din browser, token-uri cloud) sunt **excluse implicit**
-  și incluse doar cu opt-in explicit și avertisment. Un SSD pierdut nu devine o scurgere totală.
-  **Precizat 02.09.2026:** parola acoperă **toate** fișierele din pachet, iar criptarea e alegerea
-  userului — pornită implicit, dar se poate opri. Secretele, când sunt incluse, stau într-o secțiune
-  cu **parolă proprie**, ca pachetul să poată fi dat cuiva pentru documente fără a-i da și cheile.
-- **D7 — modul necriptat · 02.09.2026, decurge din D4.** Fiindcă criptarea e o alegere, tensiunea
-  dispare: cine vrea un pachet deschizabil pe orice calculator, fără DHS, alege nivelul 1 (ZIP) și
-  oprește criptarea, cu un avertisment vizibil. Cine vrea confidențialitate lasă criptarea pornită și
-  acceptă că îi trebuie DHS ca să-l deschidă.
-- **Regula #3 — nimic cu pierderi · 02.09.2026.** Vezi mai sus. Siguranța preprocesării nu vine din
-  a evita fișierele „importante" — DHS n-are cum să știe care sunt — ci din **verificare**: fiecare
-  flux preprocesat se recompune și se compară octet cu octet pe loc, iar la restaurare fișierul
-  refăcut se verifică față de SHA-256-ul originalului.
-- **D6 — licența · 02.09.2026: Apache-2.0.** Permisivă, dar cu `NOTICE` (atribuire care se duce în
-  orice derivat), clauză de marcă (§6 — nimeni nu poate numi forkul „DHS") și cesiune de brevete.
-  Deliberat **fără** clauză etică de utilizare: aceea ar scoate DHS din definiția open source și
-  l-ar face nepublicabil în Debian, Fedora, Arch, openSUSE și nixpkgs — exact publicul pentru care
-  există unealta. Poziția proiectului se apără altfel: [`TRADEMARK.md`](TRADEMARK.md) interzice
-  folosirea **numelui** într-un produs care implementează verificarea vârstei, iar
-  [`VALUES.md`](VALUES.md) o spune public. Dreptul mărcilor se poate aplica; „diabolic" nu.
-  Contribuții prin **DCO**; baza de aplicații primește **CC-BY-4.0**.
-- **Structura codului · 02.09.2026.** Windows și Linux se dezvoltă separat prin etichete de build,
-  nu prin repo-uri separate. Numele de pachete și identificatorii sunt în **engleză**; comentariile
-  și mesajele către utilizator, în **română**.
-- **D5 — instalare la restaurare · 02.09.2026: plan aprobat, apoi rulare.** DHS arată exact ce
-  instalează, din ce sursă și cu ce comenzi; userul aprobă o dată, apoi rulează automat. Nimeni nu
-  execută orbește comenzi de root generate dintr-un fișier de pe un stick.
+- **D1 — the stack · 2026-09-02: Go.** A single static binary, cross-compiled from Arch to Windows
+  with one command, a stdlib that covers exactly the needs (archives, hashing, filesystem,
+  processes), the Windows registry through `x/sys`. A small learning curve → contributors easier to
+  find.
+- **D2 — the relationship with the RAG tool · 2026-09-02.** There is no conflict: DHS is the
+  product, the RAG is the project's internal management system. The product contains no AI or RAG
+  ([Rule #2](#-rule-2--dhs-contains-no-ai)). The internal tool stays separate from the shipped
+  code; when the product's implementation starts, it moves to its own repo, so the public repo
+  contains only DHS.
+- **D3 — configurations in v1 · 2026-09-02: files + manifest + a small list.** File copying, the
+  app manifest, plus 10–15 applications with genuinely portable configurations. The rest is archived
+  and reported, **not translated**. No promises we cannot keep.
+- **D4 — security · 2026-09-02: encrypted by default, secrets opt-in.** The package is encrypted
+  with a passphrase from the start. Secrets (SSH/GPG keys, browser passwords, cloud tokens) are
+  **excluded by default** and included only with an explicit opt-in and a warning. A lost SSD does
+  not become a total leak. **Clarified 2026-09-02:** the passphrase covers **all** the files in the
+  package, and encryption is the user's choice — on by default, but it can be turned off. Secrets,
+  when included, live in a section with **its own passphrase**, so the package can be handed to
+  someone for the documents without also handing them the keys.
+- **D7 — unencrypted mode · 2026-09-02, follows from D4.** Since encryption is a choice, the
+  tension disappears: whoever wants a package that opens on any computer, without DHS, chooses
+  level 1 (ZIP) and turns encryption off, with a visible warning. Whoever wants confidentiality
+  leaves encryption on and accepts that DHS is needed to open it.
+- **Rule #3 — nothing lossy · 2026-09-02.** See above. The safety of preprocessing does not come
+  from avoiding the "important" files — DHS has no way of knowing which they are — but from
+  **verification**: every preprocessed stream is recomposed and compared byte for byte on the spot,
+  and at restore time the rebuilt file is checked against the original's SHA-256.
+- **D6 — the licence · 2026-09-02: Apache-2.0.** Permissive, but with `NOTICE` (attribution that
+  travels into every derivative), a trademark clause (§6 — nobody can call a fork "DHS") and a
+  patent grant. Deliberately **without** an ethical usage clause: that would take DHS out of the
+  open source definition and make it unpublishable in Debian, Fedora, Arch, openSUSE and nixpkgs —
+  exactly the audience the tool exists for. The project's position is defended differently:
+  [`TRADEMARK.md`](TRADEMARK.md) forbids using the **name** in a product that implements age
+  verification, and [`VALUES.md`](VALUES.md) says so publicly. Trademark law can be enforced;
+  "evil" cannot. Contributions through **DCO**; the app database gets **CC-BY-4.0**.
+- **Code structure · 2026-09-02.** Windows and Linux are developed separately through build tags,
+  not through separate repos. Package names and identifiers are in English (the language of
+  comments and messages was settled later, by D10).
+- **D5 — installation at restore time · 2026-09-02: approved plan, then execution.** DHS shows
+  exactly what it installs, from which source and with which commands; the user approves once, then
+  it runs automatically. Nobody blindly executes root commands generated from a file on a stick.
+- **D10 — language · 2026-09-03: English is primary.** Code, comments, documentation and the CLI
+  are in English. Romanian is maintained as a translation: [`README.ro.md`](README.ro.md),
+  [`docs/ro/`](docs/ro/), and the CLI catalog `internal/i18n/ro.go` (selected with `DHS_LANG=ro` or
+  from the locale). Discussion with the maintainer may happen in Romanian. Reason: the project is
+  open source and aimed at people moving between operating systems anywhere; the reference
+  documentation must be readable by any contributor.
+- **NOTICE holder · 2026-09-03.** The copyright line in `NOTICE` names the maintainer's public
+  handle, Necta (https://github.com/Necta14) — a person, not an entity. Unblocks the first release.
 
-## Decizii deschise
+## Open decisions
 
-| # | Decizie | Stare |
+| # | Decision | State |
 |---|---|---|
-| **D8** | Cum implementăm preprocesarea de tip preflate, când ajungem la ea: reimplementare în Go (binar curat, câteva săptămâni) sau `preflate-rs` prin cgo (rapid, dar cere `mingw` pentru Windows). **Nu se decide acum** — v1 livrează nivelul 3 ca LZMA2 fără preprocesare, iar formatul lasă loc pentru ea. | amânat până la etapa respectivă |
-| **D9** | Ce trusă grafică pe fiecare platformă. Candidați: pe Linux **GTK4 + libadwaita** prin `gotk4` (nativ pe GNOME, se leagă de bibliotecile sistemului, deja instalate); pe Windows **Win32 nativ** sau WinUI. Fiindcă GUI-ul e proces separat care vorbește JSON cu CLI-ul, decizia **nu blochează nimic** și se ia când ajungem la ea. | amânat, GUI-ul vine după v1 |
-| **—** | Numele care apare în `NOTICE` și în copyright: persoană fizică sau entitate. Blochează prima publicare, nu dezvoltarea. | **de răspuns** |
+| **D8** | How we implement preflate-style preprocessing, when we get there: a reimplementation in Go (clean binary, a few weeks) or `preflate-rs` through cgo (fast, but needs `mingw` for Windows). **Not decided now** — v1 ships level 3 as LZMA2 without preprocessing, and the format leaves room for it. | postponed until that stage |
+| **D9** | Which GUI toolkit on each platform. Candidates: on Linux **GTK4 + libadwaita** (a PyGObject prototype exists in `gui/linux/dhs-gui.py`; `gotk4` would be the Go route, native on GNOME, linking to system libraries that are already installed); on Windows **native Win32** or WinUI. Since the GUI is a separate process that speaks JSON with the CLI, the decision **blocks nothing** and is made when we get there. | postponed, the GUI comes after v1 |
 
-## Convenții
+## Conventions
 
-- Documentație, mesaje de interfață și comentarii **în română**; identificatorii în engleză.
-- Fiecare fază se termină cu commit. Ramura de lucru: `main`.
-- Nu se șterg fișiere fără confirmare. Nu se rescrie cod funcțional.
-- Răspunsuri scurte: concluzia în 1–3 rânduri, detaliile în documentație, nu în chat.
+- Code, comments, documentation and the CLI are in **English**. Romanian is maintained as a
+  translation: `README.ro.md`, `docs/ro/`, and the CLI catalog `internal/i18n/ro.go` (selected with
+  `DHS_LANG=ro` or from the locale). Discussion with the maintainer may happen in Romanian.
+- Every phase ends with a commit. Working branch: `main`.
+- No files are deleted without confirmation. No working code is rewritten.
+- Short answers: the conclusion in 1–3 lines, the details in the documentation, not in the chat.

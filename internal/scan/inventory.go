@@ -9,18 +9,18 @@ import (
 	"strings"
 )
 
-// Entry e un fișier găsit în inventar.
+// Entry is a file found in the inventory.
 type Entry struct {
-	Path   string `json:"cale"`
-	Size   int64  `json:"octeti"`
-	Class  Class  `json:"clasa"`
-	Secret string `json:"secret,omitempty"` // motivul, dacă e secret
+	Path   string `json:"path"`
+	Size   int64  `json:"size"`
+	Class  Class  `json:"class"`
+	Secret string `json:"secret,omitempty"` // the reason, if it is a secret
 }
 
-// Bucket adună câte fișiere și câți octeți sunt într-o categorie.
+// Bucket counts how many files and how many bytes are in a category.
 type Bucket struct {
-	Files int64 `json:"fisiere"`
-	Bytes int64 `json:"octeti"`
+	Files int64 `json:"files"`
+	Bytes int64 `json:"bytes"`
 }
 
 func (b *Bucket) add(size int64) {
@@ -28,46 +28,46 @@ func (b *Bucket) add(size int64) {
 	b.Bytes += size
 }
 
-// Skipped e ce a sărit o regulă de excludere.
+// Skipped is what an exclusion rule skipped.
 type Skipped struct {
 	Rule   Rule   `json:"-"`
-	Dir    string `json:"director"`
-	Reason string `json:"motiv"`
+	Dir    string `json:"dir"`
+	Reason string `json:"reason"`
 	Bucket
 }
 
-// Options configurează parcurgerea.
+// Options configures the walk.
 type Options struct {
-	// Roots sunt rădăcinile de parcurs.
+	// Roots are the roots to walk.
 	Roots []string
-	// Excluder decide ce directoare se sar. Nil înseamnă regulile implicite.
+	// Excluder decides which directories are skipped. Nil means the default rules.
 	Excluder *Excluder
-	// IncludeSecrets aduce secretele în inventarul principal. Implicit sunt doar numărate separat.
+	// IncludeSecrets brings secrets into the main inventory. By default they are only counted separately.
 	IncludeSecrets bool
-	// TopN e câte dintre cele mai mari fișiere se rețin, ca utilizatorul să vadă ce ocupă spațiul.
+	// TopN is how many of the largest files are kept, so the user can see what takes up the space.
 	TopN int
-	// OnEntry, dacă e dat, primește fiecare fișier inclus. Permite fazelor următoare (hash,
-	// deduplicare) să lucreze în flux, fără ca inventarul să țină totul în memorie.
+	// OnEntry, if given, receives every included file. It lets the following phases (hashing,
+	// deduplication) work in a stream, without the inventory holding everything in memory.
 	OnEntry func(Entry)
-	// OnProgress e chemat din când în când, cu numărul de fișiere văzute până acum.
+	// OnProgress is called now and then, with the number of files seen so far.
 	OnProgress func(files int64, bytes int64)
 }
 
-// Result e inventarul agregat.
+// Result is the aggregated inventory.
 type Result struct {
-	Roots    []string         `json:"radacini"`
-	Files    int64            `json:"fisiere"`
-	Bytes    int64            `json:"octeti"`
-	Dirs     int64            `json:"directoare"`
-	ByClass  map[Class]Bucket `json:"pe_clasa"`
-	Skipped  []Skipped        `json:"excluse"`
-	Secrets  Bucket           `json:"secrete"`
-	Largest  []Entry          `json:"cele_mai_mari"`
-	Errors   []string         `json:"erori,omitempty"`
-	Symlinks int64            `json:"legaturi"`
+	Roots    []string         `json:"roots"`
+	Files    int64            `json:"files"`
+	Bytes    int64            `json:"bytes"`
+	Dirs     int64            `json:"dirs"`
+	ByClass  map[Class]Bucket `json:"by_class"`
+	Skipped  []Skipped        `json:"skipped"`
+	Secrets  Bucket           `json:"secrets"`
+	Largest  []Entry          `json:"largest"`
+	Errors   []string         `json:"errors,omitempty"`
+	Symlinks int64            `json:"symlinks"`
 }
 
-// SkippedBytes e totalul exclus de reguli.
+// SkippedBytes is the total excluded by the rules.
 func (r *Result) SkippedBytes() int64 {
 	var n int64
 	for _, s := range r.Skipped {
@@ -78,14 +78,14 @@ func (r *Result) SkippedBytes() int64 {
 
 const progressEvery = 2000
 
-// Walk parcurge rădăcinile și întoarce inventarul. Nu deschide niciun fișier: se uită doar la
-// nume și la dimensiune, ca un scan pe sute de mii de fișiere să dureze secunde.
+// Walk walks the roots and returns the inventory. It opens no file: it looks only at names and
+// sizes, so that a scan over hundreds of thousands of files takes seconds.
 //
-// Legăturile simbolice nu se urmăresc niciodată — altfel un link către „/" ar duce la un ciclu
-// infinit, iar unul către un director deja inclus ar dubla datele.
+// Symbolic links are never followed -- otherwise a link to "/" would lead to an infinite cycle,
+// and one to an already-included directory would double the data.
 func Walk(opts Options) (*Result, error) {
 	if len(opts.Roots) == 0 {
-		return nil, errors.New("scan: nicio rădăcină de parcurs")
+		return nil, errors.New("scan: no roots to walk")
 	}
 	ex := opts.Excluder
 	if ex == nil {
@@ -110,7 +110,7 @@ func Walk(opts Options) (*Result, error) {
 			res.Errors = append(res.Errors, err.Error())
 			continue
 		}
-		// Un fișier dat direct ca rădăcină e inclus fără discuție: utilizatorul l-a cerut anume.
+		// A file given directly as a root is included without question: the user asked for it specifically.
 		if st, err := os.Lstat(abs); err == nil && !st.IsDir() {
 			addFile(res, &largest, topN, opts, abs, st.Size())
 			continue
@@ -118,7 +118,7 @@ func Walk(opts Options) (*Result, error) {
 
 		err = filepath.WalkDir(abs, func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
-				// Un director fără drepturi de citire nu oprește tot scanul.
+				// A directory without read permission does not stop the whole scan.
 				res.Errors = append(res.Errors, err.Error())
 				if d != nil && d.IsDir() {
 					return fs.SkipDir
@@ -144,7 +144,7 @@ func Walk(opts Options) (*Result, error) {
 				return nil
 			}
 
-			// Nici legături simbolice, nici socketuri, nici fișiere speciale.
+			// No symbolic links, no sockets, no special files.
 			if d.Type()&fs.ModeSymlink != 0 {
 				res.Symlinks++
 				return nil
@@ -205,8 +205,8 @@ func addFile(res *Result, largest *[]Entry, topN int, opts Options, path string,
 	}
 }
 
-// keepLargest ține sortată o listă scurtă cu cele mai mari fișiere. La topN mic (15), inserția
-// directă e mai rapidă decât un heap și păstrează lista gata sortată.
+// keepLargest keeps a short list of the largest files sorted. For a small topN (15), direct
+// insertion is faster than a heap and keeps the list ready-sorted.
 func keepLargest(largest *[]Entry, topN int, e Entry) {
 	l := *largest
 	if len(l) == topN && e.Size <= l[len(l)-1].Size {
@@ -222,11 +222,11 @@ func keepLargest(largest *[]Entry, topN int, e Entry) {
 	*largest = l
 }
 
-// measure adună dimensiunea unui subarbore exclus, ca să putem spune cât s-a sărit și de ce.
+// measure adds up the size of an excluded subtree, so we can say how much was skipped and why.
 func measure(root string) (files, bytes int64) {
 	_ = filepath.WalkDir(root, func(_ string, d fs.DirEntry, err error) error {
 		if err != nil || d.IsDir() || !d.Type().IsRegular() {
-			return nil //nolint:nilerr // un subarbore ilizibil se raportează ca zero, nu oprește scanul
+			return nil //nolint:nilerr // an unreadable subtree is reported as zero, it does not stop the scan
 		}
 		if info, err := d.Info(); err == nil {
 			files++
@@ -237,7 +237,7 @@ func measure(root string) (files, bytes int64) {
 	return files, bytes
 }
 
-// HomeRoots întoarce rădăcinile pornite implicit dintr-un profil: locurile standard care există.
+// HomeRoots returns the roots enabled by default from a profile: the standard places that exist.
 func HomeRoots(paths []string) []string {
 	out := make([]string, 0, len(paths))
 	seen := make(map[string]bool, len(paths))
@@ -249,7 +249,7 @@ func HomeRoots(paths []string) []string {
 		if st, err := os.Stat(clean); err != nil || !st.IsDir() {
 			continue
 		}
-		// Sărim un director care e deja sub altă rădăcină aleasă.
+		// Skip a directory that is already under another chosen root.
 		nested := false
 		for existing := range seen {
 			if strings.HasPrefix(clean+string(filepath.Separator), existing+string(filepath.Separator)) {

@@ -10,53 +10,54 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Necta14/dhs/internal/i18n"
 	"github.com/Necta14/dhs/internal/report"
 	"github.com/Necta14/dhs/internal/scan"
 	"github.com/Necta14/dhs/internal/system"
 )
 
-const scanUsage = `dhs scan — arată ce s-ar salva și cât ar ocupa, fără să scrie nimic
+const scanUsage = `dhs scan — show what would be saved and how much it takes, without writing anything
 
-Utilizare
-  dhs scan [cale...] [opțiuni]
+Usage
+  dhs scan [path...] [options]
 
-Fără căi, scanează locurile standard din profil: documente, imagini, video, muzică,
-descărcări, desktop și configurări.
+Without paths, scans the standard places in the profile: documents, pictures, videos, music,
+downloads, desktop and configuration.
 
-Opțiuni
-  --dest <cale>    destinația pachetului; verifică dacă încape și ce sistem de fișiere are
-  --nivel <1|2|3>  nivelul de compresie: 1 compatibil, 2 echilibrat (implicit), 3 maxim
-  --secrete        include chei, parole și fișiere .env (implicit sunt doar numărate)
-  --tot            nu exclude nimic; arată și cache-urile, jocurile, mașinile virtuale
-  --json           ieșire JSON, pentru interfețe grafice și scripturi
+Options
+  --dest <path>    package destination; checks whether it fits and which filesystem it has
+  --level <1|2|3>  compression level: 1 compatible, 2 balanced (default), 3 maximum
+  --secrets        include keys, passwords and .env files (by default they are only counted)
+  --all            exclude nothing; also show caches, games, virtual machines
+  --json           JSON output, for graphical interfaces and scripts
   --help
 `
 
 type scanOutput struct {
-	System    system.Info    `json:"sistem"`
-	Inventory *scan.Result   `json:"inventar"`
-	Estimate  scan.Estimate  `json:"estimare"`
-	Dest      *system.Volume `json:"destinatie,omitempty"`
-	Fits      *bool          `json:"incape,omitempty"`
+	System    system.Info    `json:"system"`
+	Inventory *scan.Result   `json:"inventory"`
+	Estimate  scan.Estimate  `json:"estimate"`
+	Dest      *system.Volume `json:"destination,omitempty"`
+	Fits      *bool          `json:"fits,omitempty"`
 }
 
 func runScan(args []string) error {
 	fs := flag.NewFlagSet("scan", flag.ContinueOnError)
 	fs.SetOutput(os.Stderr)
-	fs.Usage = func() { fmt.Fprint(os.Stderr, scanUsage) }
+	fs.Usage = func() { fmt.Fprint(os.Stderr, i18n.T(scanUsage)) }
 
-	dest := fs.String("dest", "", "destinația pachetului")
-	level := fs.Int("nivel", int(scan.LevelBalanced), "nivelul de compresie (1–3)")
-	secrets := fs.Bool("secrete", false, "include secretele")
-	all := fs.Bool("tot", false, "nu exclude nimic")
-	asJSON := fs.Bool("json", false, "ieșire JSON")
+	dest := fs.String("dest", "", "package destination")
+	level := fs.Int("level", int(scan.LevelBalanced), "compression level (1-3)")
+	secrets := fs.Bool("secrets", false, "include secrets")
+	all := fs.Bool("all", false, "exclude nothing")
+	asJSON := fs.Bool("json", false, "JSON output")
 
-	// Pachetul flag se oprește la prima cale, deci „dhs scan ~/Documente --json" ar lua „--json"
-	// drept cale. Parsăm în bucle, culegând căile pe măsură ce apar, ca ordinea să nu conteze.
+	// The flag package stops at the first path, so "dhs scan ~/Documents --json" would take
+	// "--json" as a path. Parse in a loop, collecting paths as they appear, so order does not matter.
 	var explicitRoots []string
 	for rest := args; ; {
 		if err := fs.Parse(rest); err != nil {
-			return nil // flag a scris deja mesajul
+			return nil // flag already printed the message
 		}
 		rest = fs.Args()
 		if len(rest) == 0 {
@@ -68,12 +69,12 @@ func runScan(args []string) error {
 
 	lvl := scan.Level(*level)
 	if !lvl.Valid() {
-		return fmt.Errorf("nivelul %d nu există; alege 1, 2 sau 3", *level)
+		return fmt.Errorf(i18n.T("level %d does not exist; choose 1, 2 or 3"), *level)
 	}
 
 	info, err := system.Detect()
 	if err != nil {
-		return fmt.Errorf("nu pot detecta sistemul: %w", err)
+		return fmt.Errorf(i18n.T("cannot detect the system: %w"), err)
 	}
 
 	roots := explicitRoots
@@ -86,7 +87,7 @@ func runScan(args []string) error {
 		}
 		roots = scan.HomeRoots(paths)
 		if len(roots) == 0 {
-			return fmt.Errorf("n-am găsit niciun loc standard în %s; dă căile explicit", info.Home)
+			return fmt.Errorf(i18n.T("no standard place found in %s; give the paths explicitly"), info.Home)
 		}
 	}
 
@@ -94,7 +95,7 @@ func runScan(args []string) error {
 	if *all {
 		opts.Excluder = scan.NewExcluder(nil)
 	}
-	// Progresul se scrie doar către un terminal: redirecționat, ar umple fișierul cu coduri ANSI.
+	// Progress is written only to a terminal: redirected, it would fill the file with ANSI codes.
 	live := !*asJSON && isTerminal(os.Stderr)
 	if live {
 		opts.OnProgress = progressWriter()
@@ -115,7 +116,7 @@ func runScan(args []string) error {
 	if *dest != "" {
 		v, err := system.SpaceOf(*dest)
 		if err != nil {
-			return fmt.Errorf("nu pot citi destinația %s: %w", *dest, err)
+			return fmt.Errorf(i18n.T("cannot read the destination %s: %w"), *dest, err)
 		}
 		fits, _ := est.Fits(v.Free)
 		out.Dest, out.Fits = &v, &fits
@@ -132,7 +133,7 @@ func runScan(args []string) error {
 
 func progressWriter() func(files, bytes int64) {
 	return func(files, bytes int64) {
-		fmt.Fprintf(os.Stderr, "\r\033[K  citesc… %s fișiere, %s", report.Count(files), report.Bytes(bytes))
+		fmt.Fprintf(os.Stderr, i18n.T("\r\033[K  reading… %s files, %s"), report.Count(files), report.Bytes(bytes))
 	}
 }
 
@@ -140,34 +141,34 @@ func printScan(o scanOutput, elapsed time.Duration) {
 	inv, est := o.Inventory, o.Estimate
 	const w = 14
 
-	fmt.Printf("%s%s\n", report.Pad("Sistem", w), o.System)
-	fmt.Printf("%s%s\n", report.Pad("Rădăcini", w), strings.Join(inv.Roots, "\n"+report.Pad("", w)))
+	fmt.Printf("%s%s\n", report.Pad(i18n.T("System"), w), o.System)
+	fmt.Printf("%s%s\n", report.Pad(i18n.T("Roots"), w), strings.Join(inv.Roots, "\n"+report.Pad("", w)))
 	fmt.Println()
 
-	fmt.Printf("%s%s în %s fișiere   %s\n",
-		report.Pad("De inclus", w), report.Bytes(inv.Bytes), report.Count(inv.Files),
-		dim(fmt.Sprintf("(scanat în %s)", report.Duration(elapsed))))
+	fmt.Printf(i18n.T("%s%s in %s files   %s\n"),
+		report.Pad(i18n.T("To include"), w), report.Bytes(inv.Bytes), report.Count(inv.Files),
+		dim(i18n.Tf("(scanned in %s)", report.Duration(elapsed))))
 
-	// Ce s-a exclus și de ce — utilizatorul trebuie să poată contesta fiecare gigaoctet lipsă.
+	// What was excluded and why — the user must be able to contest every missing gigabyte.
 	if n := inv.SkippedBytes(); n > 0 {
-		fmt.Printf("%s%s   %s\n", report.Pad("Excluse", w), report.Bytes(n), dim("--tot le include înapoi"))
+		fmt.Printf("%s%s   %s\n", report.Pad(i18n.T("Excluded"), w), report.Bytes(n), dim(i18n.T("--all brings them back")))
 		for i, s := range inv.Skipped {
 			if i == 4 {
-				fmt.Printf("%s%s\n", report.Pad("", w+2), dim(fmt.Sprintf("… și încă %d reguli", len(inv.Skipped)-4)))
+				fmt.Printf("%s%s\n", report.Pad("", w+2), dim(i18n.Tf("… and %d more rules", len(inv.Skipped)-4)))
 				break
 			}
 			fmt.Printf("%s%s %s\n", report.Pad("", w+2),
-				report.Pad(s.Dir, 22), dim(fmt.Sprintf("%s · %s", report.Bytes(s.Bytes), s.Reason)))
+				report.Pad(s.Dir, 22), dim(fmt.Sprintf("%s · %s", report.Bytes(s.Bytes), i18n.T(s.Reason))))
 		}
 	}
 	if inv.Secrets.Files > 0 {
-		fmt.Printf("%s%s în %s fișiere   %s\n", report.Pad("Secrete", w),
+		fmt.Printf(i18n.T("%s%s in %s files   %s\n"), report.Pad(i18n.T("Secrets"), w),
 			report.Bytes(inv.Secrets.Bytes), report.Count(inv.Secrets.Files),
-			dim("excluse implicit; --secrete le include"))
+			dim(i18n.T("excluded by default; --secrets includes them")))
 	}
 	fmt.Println()
 
-	// Compoziția contează: dacă totul e deja comprimat, nivelul 3 nu are ce câștiga.
+	// Composition matters: if everything is already compressed, level 3 has nothing to gain.
 	classes := make([]scan.Class, 0, len(inv.ByClass))
 	for c := range inv.ByClass {
 		classes = append(classes, c)
@@ -175,7 +176,7 @@ func printScan(o scanOutput, elapsed time.Duration) {
 	sort.Slice(classes, func(i, j int) bool {
 		return inv.ByClass[classes[i]].Bytes > inv.ByClass[classes[j]].Bytes
 	})
-	fmt.Println("Compoziție")
+	fmt.Println(i18n.T("Composition"))
 	for _, c := range classes {
 		b := inv.ByClass[c]
 		pct := 0.0
@@ -185,51 +186,51 @@ func printScan(o scanOutput, elapsed time.Duration) {
 		note := ""
 		switch c {
 		case scan.Incompressible:
-			note = dim("se stochează, nu se comprimă")
+			note = dim(i18n.T("stored, not compressed"))
 		case scan.Unknown:
-			note = dim("se lămurește prin test de entropie la împachetare")
+			note = dim(i18n.T("settled by an entropy test while packing"))
 		}
-		fmt.Printf("%s%s %s  %s %s\n", report.Pad("", w+2), report.Pad(c.String(), 16),
+		fmt.Printf("%s%s %s  %s %s\n", report.Pad("", w+2), report.Pad(i18n.T(c.String()), 16),
 			report.Pad(report.Bytes(b.Bytes), 11),
 			report.Pad(fmt.Sprintf("%.0f%%", pct), 5), note)
 	}
 	fmt.Println()
 
-	fmt.Printf("%s%s\n", report.Pad("Nivel", w), est.Level)
-	fmt.Printf("%s%s   %s\n", report.Pad("Estimare", w),
-		report.Range(est.Min, est.Max), dim(report.Duration(est.Duration)+" pe "+fmt.Sprint(runtime.NumCPU())+" nuclee"))
+	fmt.Printf("%s%s\n", report.Pad(i18n.T("Level"), w), i18n.T(est.Level.String()))
+	fmt.Printf("%s%s   %s\n", report.Pad(i18n.T("Estimate"), w),
+		report.Range(est.Min, est.Max), dim(i18n.Tf("%s on %d cores", report.Duration(est.Duration), runtime.NumCPU())))
 	if !est.Sampled {
-		fmt.Printf("%s%s\n", report.Pad("", w), dim("estimare din tabel; --precis o va măsura prin eșantionare"))
+		fmt.Printf("%s%s\n", report.Pad("", w), dim(i18n.T("estimate from table; --precise would measure it by sampling")))
 	}
 	if est.Volumes > 0 {
-		fmt.Printf("%s%d × %s\n", report.Pad("Volume", w), est.Volumes, report.Bytes(scan.VolumeSize))
+		fmt.Printf("%s%d × %s\n", report.Pad(i18n.T("Volumes"), w), est.Volumes, report.Bytes(scan.VolumeSize))
 	}
 
 	if o.Dest != nil {
 		fmt.Println()
-		fmt.Printf("%s%s   %s liberi din %s   %s\n", report.Pad("Destinație", w), o.Dest.Path,
-			report.Bytes(o.Dest.Free), report.Bytes(o.Dest.Total), dim(string(o.Dest.FS)))
+		fmt.Printf(i18n.T("%s%s   %s free of %s   %s\n"), report.Pad(i18n.T("Destination"), w), o.Dest.Path,
+			report.Bytes(o.Dest.Free), report.Bytes(o.Dest.Total), dim(i18n.T(string(o.Dest.FS))))
 		if limit := o.Dest.FS.MaxFileSize(); limit > 0 {
 			fmt.Printf("%s%s\n", report.Pad("", w),
-				dim(fmt.Sprintf("%s limitează fișierele la %s — volumele de %s sunt sub limită",
+				dim(i18n.Tf("%s limits files to %s — the %s volumes are under the limit",
 					o.Dest.FS, report.Bytes(limit), report.Bytes(scan.VolumeSize))))
 		}
 		fmt.Println()
 		if o.Fits != nil && *o.Fits {
 			_, left := est.Fits(o.Dest.Free)
 			fmt.Printf("%s%s\n", report.Pad("", w),
-				green(fmt.Sprintf("✓ Încape, cu %s de rezervă.", report.Bytes(left))))
+				green(i18n.Tf("✓ Fits, with %s to spare.", report.Bytes(left))))
 		} else {
-			lipsa := est.Max - o.Dest.Free
+			missing := est.Max - o.Dest.Free
 			fmt.Printf("%s%s\n", report.Pad("", w),
-				red(fmt.Sprintf("✗ Nu încape: lipsesc %s.", report.Bytes(lipsa))))
-			fmt.Printf("%s%s\n", report.Pad("", w), dim("exclude din ce e mai mare, urcă nivelul de compresie, sau împarte pachetul pe mai multe medii"))
+				red(i18n.Tf("✗ Does not fit: %s missing.", report.Bytes(missing))))
+			fmt.Printf("%s%s\n", report.Pad("", w), dim(i18n.T("exclude some of the largest items, raise the compression level, or split the package across several drives")))
 		}
 	}
 
 	if len(inv.Largest) > 0 {
 		fmt.Println()
-		fmt.Println("Cele mai mari")
+		fmt.Println(i18n.T("Largest"))
 		for i, e := range inv.Largest {
 			if i == 5 {
 				break
@@ -240,11 +241,11 @@ func printScan(o scanOutput, elapsed time.Duration) {
 
 	if n := len(inv.Errors); n > 0 {
 		fmt.Println()
-		fmt.Printf("%s%s\n", report.Pad("Inaccesibile", w), dim(fmt.Sprintf("%d locuri sărite (drepturi lipsă)", n)))
+		fmt.Printf("%s%s\n", report.Pad(i18n.T("Inaccessible"), w), dim(i18n.Tf("%d places skipped (missing permissions)", n)))
 	}
 }
 
-// Culorile se aplică doar la terminal; într-o conductă ies caractere curate.
+// Colors apply only on a terminal; in a pipe, plain characters come out.
 var useColor = os.Getenv("NO_COLOR") == "" && isTerminal(os.Stdout)
 
 func paint(code, s string) string {

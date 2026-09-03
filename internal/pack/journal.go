@@ -17,25 +17,25 @@ import (
 const (
 	manifestName = "dhs.json"
 	indexName    = "index.dhsi"
-	sumsName     = "SUME.txt"
-	journalName  = "jurnal.jsonl"
-	volumeDir    = "volume"
+	sumsName     = "SHA256SUMS"
+	journalName  = "journal.jsonl"
+	volumeDir    = "volumes"
 )
 
 func volumeName(n uint32) string { return fmt.Sprintf("%04d.dhsv", n) }
 
-// JournalLine e o intrare din jurnal. Jurnalul e necriptat, deci nu conține nume de fișiere —
-// doar ce volum s-a încheiat și când.
+// JournalLine is an entry in the journal. The journal is unencrypted, so it contains no file
+// names — only which volume finished and when.
 type JournalLine struct {
-	Type   string    `json:"t"` // „volum" | „complet"
+	Type   string    `json:"t"` // "volume" | "complete"
 	Volume uint32    `json:"n,omitempty"`
-	Bytes  int64     `json:"octeti,omitempty"`
+	Bytes  int64     `json:"bytes,omitempty"`
 	SHA256 *Hash     `json:"sha256,omitempty"`
-	When   time.Time `json:"cand"`
+	When   time.Time `json:"at"`
 }
 
-// appendJournal adaugă o linie și o forțează pe disc: jurnalul e ce citim la reluare, deci nu are
-// voie să rămână în cache-ul sistemului când se smulge cablul.
+// appendJournal adds a line and forces it to disk: the journal is what we read when resuming, so
+// it must not be left sitting in the system cache when the cable gets yanked.
 func appendJournal(dir string, line JournalLine) error {
 	f, err := os.OpenFile(filepath.Join(dir, journalName), os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o644)
 	if err != nil {
@@ -52,7 +52,7 @@ func appendJournal(dir string, line JournalLine) error {
 	return f.Sync()
 }
 
-// readJournal întoarce liniile existente; un jurnal lipsă e o listă goală, nu o eroare.
+// readJournal returns the existing lines; a missing journal is an empty list, not an error.
 func readJournal(dir string) ([]JournalLine, error) {
 	f, err := os.Open(filepath.Join(dir, journalName))
 	if err != nil {
@@ -70,7 +70,8 @@ func readJournal(dir string) ([]JournalLine, error) {
 		}
 		var l JournalLine
 		if err := json.Unmarshal(sc.Bytes(), &l); err != nil {
-			// O linie ruptă la final e exact urma unei întreruperi; o ignorăm, restul e valid.
+			// A line torn off at the end is exactly the trace of an interruption; we ignore it,
+			// the rest is valid.
 			break
 		}
 		out = append(out, l)
@@ -78,8 +79,8 @@ func readJournal(dir string) ([]JournalLine, error) {
 	return out, sc.Err()
 }
 
-// writeAtomic scrie un fișier prin nume temporar + redenumire, cu fsync. Fie fișierul vechi
-// întreg, fie cel nou întreg — niciodată o versiune pe jumătate.
+// writeAtomic writes a file via a temporary name + rename, with fsync. Either the old file whole
+// or the new one whole — never a half-written version.
 func writeAtomic(path string, data []byte, perm os.FileMode) error {
 	tmp := path + ".tmp"
 	f, err := os.OpenFile(tmp, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, perm)
@@ -107,8 +108,8 @@ func writeAtomic(path string, data []byte, perm os.FileMode) error {
 	return syncDir(filepath.Dir(path))
 }
 
-// syncDir forțează pe disc intrarea de director — redenumirea în sine. Pe Windows nu se poate
-// deschide un director așa; acolo redenumirea e oricum durabilă la închidere.
+// syncDir forces the directory entry to disk — the rename itself. On Windows a directory cannot
+// be opened this way; there the rename is durable on close anyway.
 func syncDir(dir string) error {
 	d, err := os.Open(dir)
 	if err != nil {
@@ -119,7 +120,7 @@ func syncDir(dir string) error {
 	return nil
 }
 
-// Sums e conținutul lui SUME.txt: sha256 → cale relativă, în formatul `sha256sum -c`.
+// Sums is the content of SHA256SUMS: the sha256 of every relative path, in `sha256sum -c` format.
 type Sums map[string]Hash
 
 func (s Sums) encode() []byte {
@@ -154,7 +155,7 @@ func readSums(dir string) (Sums, error) {
 		}
 		hex, name, ok := strings.Cut(line, "  ")
 		if !ok {
-			return nil, fmt.Errorf("%w: linie invalidă în %s", ErrCorrupt, sumsName)
+			return nil, fmt.Errorf("%w: invalid line in %s", ErrCorrupt, sumsName)
 		}
 		var h Hash
 		if err := h.UnmarshalText([]byte(hex)); err != nil {
@@ -165,7 +166,7 @@ func readSums(dir string) (Sums, error) {
 	return out, sc.Err()
 }
 
-// hashFile calculează SHA-256 al unui fișier de pe disc.
+// hashFile computes the SHA-256 of a file on disk.
 func hashFile(path string) (Hash, int64, error) {
 	var h Hash
 	f, err := os.Open(path)
@@ -182,7 +183,7 @@ func hashFile(path string) (Hash, int64, error) {
 	return h, n, nil
 }
 
-// hashWriter numără și hash-uiește ce trece prin el — pentru fișierul de volum, pe disc.
+// hashWriter counts and hashes whatever passes through it — for the volume file, on disk.
 type hashWriter struct {
 	w io.Writer
 	h [32]byte

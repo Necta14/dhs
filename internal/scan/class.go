@@ -1,5 +1,5 @@
-// Package scan face inventarul a ce s-ar salva: parcurge arborele, clasifică fișierele și
-// estimează cât ar ocupa pachetul, fără să scrie nimic pe disc.
+// Package scan takes inventory of what would be saved: it walks the tree, classifies the files
+// and estimates how much the package would take up, without writing anything to disk.
 package scan
 
 import (
@@ -7,38 +7,38 @@ import (
 	"strings"
 )
 
-// Class spune cât de comprimabil e un fișier. De ea depinde și dacă îl comprimăm deloc:
-// a comprima un JPEG e timp pierdut pentru un procent.
+// Class says how compressible a file is. It also decides whether we compress it at all:
+// compressing a JPEG is time wasted for a single percent.
 type Class uint8
 
 const (
-	// Unknown — extensie necunoscută. Se decide printr-un test de entropie la împachetare.
+	// Unknown -- unknown extension. Decided by an entropy test at packing time.
 	Unknown Class = iota
-	// Incompressible — deja comprimat: media, arhive. Se stochează ca atare.
+	// Incompressible -- already compressed: media, archives. Stored as-is.
 	Incompressible
-	// Binary — executabile, biblioteci, imagini de disc. Se comprimă moderat.
+	// Binary -- executables, libraries, disk images. Compresses moderately.
 	Binary
-	// Text — text, cod, date structurate. Se comprimă foarte bine.
+	// Text -- text, code, structured data. Compresses very well.
 	Text
 )
 
 func (c Class) String() string {
 	switch c {
 	case Incompressible:
-		return "incompresibil"
+		return "incompressible"
 	case Binary:
-		return "binar"
+		return "binary"
 	case Text:
 		return "text"
 	default:
-		return "necunoscut"
+		return "unknown"
 	}
 }
 
-// Compressible spune dacă merită să încercăm compresia pe clasa asta.
+// Compressible says whether it is worth trying compression on this class.
 func (c Class) Compressible() bool { return c == Text || c == Binary }
 
-// classByExt e tabelul de clasificare. Extensiile sunt scrise fără punct, cu litere mici.
+// classByExt is the classification table. Extensions are written without the dot, in lowercase.
 var classByExt = map[string]Class{}
 
 func register(c Class, exts ...string) {
@@ -48,25 +48,25 @@ func register(c Class, exts ...string) {
 }
 
 func init() {
-	// Deja comprimate — orice efort suplimentar e risipă.
+	// Already compressed -- any further effort is waste.
 	register(Incompressible,
-		// imagini
+		// images
 		"jpg", "jpeg", "jpe", "jfif", "png", "gif", "webp", "heic", "heif", "avif", "jxl",
 		// video
 		"mp4", "m4v", "mkv", "avi", "mov", "wmv", "flv", "webm", "mpg", "mpeg", "ts", "m2ts", "3gp",
 		// audio
 		"mp3", "aac", "m4a", "ogg", "oga", "opus", "flac", "wma", "ape", "mka",
-		// arhive și pachete
+		// archives and packages
 		"zip", "7z", "rar", "gz", "bz2", "xz", "zst", "lz4", "lzma", "br", "cab", "arj",
 		"tgz", "tbz2", "txz", "apk", "jar", "war", "deb", "rpm", "pkg", "snap", "flatpak",
 		"appimage", "dmg", "crx", "xpi", "nupkg", "whl", "egg",
-		// documente care sunt containere ZIP
+		// documents that are ZIP containers
 		"docx", "xlsx", "pptx", "docm", "xlsm", "pptm", "odt", "ods", "odp", "odg", "epub",
-		// altele deja comprimate
+		// other already-compressed formats
 		"pdf", "swf", "woff", "woff2",
 	)
 
-	// Se comprimă moderat.
+	// Compresses moderately.
 	register(Binary,
 		"exe", "dll", "sys", "msi", "msix", "appx", "so", "dylib", "a", "lib", "o", "obj",
 		"bin", "dat", "db", "sqlite", "sqlite3", "mdb", "accdb", "pdb", "class", "pyc", "pyo",
@@ -75,7 +75,7 @@ func init() {
 		"ttf", "otf", "eot", "icns", "ico", "cur",
 	)
 
-	// Se comprimă foarte bine — aici e câștigul real.
+	// Compresses very well -- this is where the real gain is.
 	register(Text,
 		"txt", "md", "markdown", "rst", "adoc", "org", "tex", "log", "csv", "tsv",
 		"json", "jsonl", "ndjson", "xml", "yaml", "yml", "toml", "ini", "cfg", "conf", "properties",
@@ -90,20 +90,20 @@ func init() {
 	)
 }
 
-// noExtName clasifică fișiere fără extensie, după numele lor uzual.
+// noExtName classifies files without an extension, by their customary name.
 var noExtName = map[string]Class{
 	"makefile": Text, "dockerfile": Text, "readme": Text, "license": Text, "licence": Text,
 	"changelog": Text, "authors": Text, "contributing": Text, "notice": Text, "copying": Text,
 	"gemfile": Text, "rakefile": Text, "procfile": Text, "vagrantfile": Text, "justfile": Text,
 }
 
-// ClassOf clasifică un fișier după nume. Nu deschide fișierul — inventarul trebuie să rămână
-// rapid; ce iese Unknown se lămurește mai târziu, prin eșantionare.
+// ClassOf classifies a file by its name. It does not open the file -- the inventory must stay
+// fast; whatever comes out Unknown is settled later, by sampling.
 func ClassOf(name string) Class {
 	base := strings.ToLower(baseName(name))
 
-	// Fișierele ascunse fără altă extensie (.bashrc, .gitignore) sunt configurări, deci text.
-	// Atenție: filepath.Ext(".bashrc") întoarce „.bashrc", nu șirul gol — de aceea verificăm întâi.
+	// Hidden files with no other extension (.bashrc, .gitignore) are configuration, hence text.
+	// Careful: filepath.Ext(".bashrc") returns ".bashrc", not the empty string -- that is why we check first.
 	if rest, hidden := strings.CutPrefix(base, "."); hidden && rest != "" {
 		if !strings.Contains(rest, ".") {
 			if c, ok := classByExt[rest]; ok {
@@ -126,7 +126,7 @@ func ClassOf(name string) Class {
 	if c, ok := noExtName[base]; ok {
 		return c
 	}
-	// „.tar.gz" ajunge aici ca „gz" și e deja prins mai sus; rămân cazuri ca „.bak.json".
+	// ".tar.gz" arrives here as "gz" and is already caught above; what remains are cases like ".json.bak".
 	if trimmed := strings.TrimSuffix(base, "."+ext); strings.Contains(trimmed, ".") {
 		if c, ok := classByExt[strings.TrimPrefix(filepath.Ext(trimmed), ".")]; ok {
 			return c

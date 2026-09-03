@@ -1,8 +1,9 @@
-// Package passphrase învelește criptarea pachetului. Nu inventăm criptografie: folosim age
-// (filippo.io/age) cu destinatar scrypt, proiectat și auditat exact pentru „un fișier, o parolă".
+// Package passphrase wraps the package encryption. We do not invent cryptography: we use age
+// (filippo.io/age) with an scrypt recipient, designed and audited precisely for "one file, one
+// passphrase".
 //
-// Fraza goală înseamnă „fără criptare" și e o alegere explicită a utilizatorului (D4): fluxul trece
-// neschimbat, iar antetul volumului spune Cipher none.
+// An empty passphrase means "no encryption" and is an explicit choice of the user (D4): the
+// stream passes through unchanged, and the volume header says Cipher none.
 package passphrase
 
 import (
@@ -14,23 +15,24 @@ import (
 	"filippo.io/age"
 )
 
-// WorkFactor e exponentul scrypt: 2^18 ≈ o secundă și 256 MiB pe un laptop obișnuit, la fiecare
-// deschidere. Destul ca o parolă slabă să nu se spargă ieftin, puțin destul ca utilizatorul să nu
-// aștepte. E variabilă doar ca testele să-l poată coborî — o suită cu zeci de volume mici ar dura
-// minute întregi altfel. Produsul nu-l schimbă niciodată. La citire nu contează: age ia factorul
-// din antetul fișierului.
+// WorkFactor is the scrypt exponent: 2^18 is roughly one second and 256 MiB on an ordinary
+// laptop, at every open. Enough that a weak passphrase cannot be cracked cheaply, little enough
+// that the user does not wait. It is a variable only so tests can lower it — a suite with dozens
+// of small volumes would otherwise take whole minutes. The product never changes it. On read it
+// does not matter: age takes the factor from the file header.
 var WorkFactor = 18
 
-// MinLength e lungimea minimă acceptată. Nu suplinește o parolă bună, dar taie greșelile evidente.
+// MinLength is the minimum accepted length. It is no substitute for a good passphrase, but it
+// cuts off the obvious mistakes.
 const MinLength = 8
 
 var (
-	ErrTooShort = fmt.Errorf("passphrase: fraza de acces are sub %d caractere", MinLength)
-	ErrWrong    = errors.New("passphrase: fraza de acces e greșită sau datele sunt corupte")
+	ErrTooShort = fmt.Errorf("passphrase: passphrase is shorter than %d characters", MinLength)
+	ErrWrong    = errors.New("passphrase: wrong passphrase or corrupt data")
 )
 
-// Check validează o frază înainte să o folosim la scriere. La citire nu validăm: acceptăm ce a
-// funcționat la scriere, oricât ar fi.
+// Check validates a passphrase before we use it for writing. On read we do not validate: we
+// accept whatever worked at write time, however long it is.
 func Check(pass string) error {
 	if len([]rune(strings.TrimSpace(pass))) < MinLength {
 		return ErrTooShort
@@ -38,8 +40,8 @@ func Check(pass string) error {
 	return nil
 }
 
-// Encrypt învelește dst într-un scriitor criptat. Trebuie închis (Close) ca ultimul bloc age să
-// ajungă pe disc; fără Close, fluxul e trunchiat și nedecriptabil.
+// Encrypt wraps dst in an encrypting writer. It must be closed (Close) for the last age block to
+// reach the disk; without Close the stream is truncated and undecryptable.
 func Encrypt(dst io.Writer, pass string) (io.WriteCloser, error) {
 	if pass == "" {
 		return nopCloser{dst}, nil
@@ -56,7 +58,7 @@ func Encrypt(dst io.Writer, pass string) (io.WriteCloser, error) {
 	return w, nil
 }
 
-// Decrypt învelește src într-un cititor care decriptează. O frază greșită iese ca ErrWrong.
+// Decrypt wraps src in a decrypting reader. A wrong passphrase surfaces as ErrWrong.
 func Decrypt(src io.Reader, pass string) (io.Reader, error) {
 	if pass == "" {
 		return src, nil

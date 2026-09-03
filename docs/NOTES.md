@@ -1,47 +1,63 @@
 # NOTES — DHS
 
-Jurnal de sesiuni. Cel mai nou sus. Deciziile stau în `CLAUDE.md`; aici e *ce s-a întâmplat*.
+Session journal. Newest at the top. Decisions live in `CLAUDE.md`; this is *what happened*.
 
-## 03.09.2026 — prima sesiune de teste pe Codespaces: verde (Claude Fable 5.1)
+## 2026-09-03 — English becomes the primary language (Claude Fable 5.1)
 
-**Rezultat.** Pe `3a39aef`: gofmt, vet, build linux/windows/arm64, `go test` (2 s), `go test
--race` (11 s), fluxul e2e (11 s) — **0 eșecuri**. Pe `6a55e1d`, `e2e-distro.sh`: backup pe Ubuntu,
-restaurare în **Arch, Fedora, Debian, openSUSE, Alpine** — 5/5 identice bit cu bit, cu binarul
-static de 4,3 MiB și nicio dependență în container.
+**What changed.** Code, comments, documentation and the CLI are now in English; Romanian stays as
+a translation (`README.ro.md`, `docs/ro/`, and the CLI catalog `internal/i18n/ro.go`, selected with
+`DHS_LANG=ro` or from the locale). The English docs are the reference: `docs/ARCHITECTURE.md`,
+`docs/COMPRESSION.md`, `docs/LICENSE-CHOICE.md`, `docs/TESTING.md`; the old Romanian paths are
+stubs that point both ways. Package layout and CLI flags were renamed to English at the same time
+(`SHA256SUMS`, `journal.jsonl`, `volumes/`, `--passphrase-file`, `--yes`, `--conflicts keep-both|skip|overwrite`,
+`~/DHS-restored/`), and the test script became `scripts/codespace-tests.sh`, publishing to
+`tests/<codespace>` in `test-results/SUMMARY.md`. Personal data (machine names, paths, accounts)
+was scrubbed from the docs. The `NOTICE` holder is settled: Necta (https://github.com/Necta14).
 
-**Ce au găsit rundele, în ordine.**
-1. `NewWriter` scria manifestul înainte să existe emițătorul → nil pointer; bloca toate testele.
-2. Patru curse de date: emițătorul serializa intrări în timp ce `Add` le adăuga părți (un bloc
-   solid ține coada unui fișier terminat până se umple). Acum `addPart` sub lacăt, emițătorul
-   serializează copii.
-3. `octeti_stocati` dublat la închiderea volumului — contor, nu disc. Real: 12,9 → 8,6 MiB.
-4. „Blocaj" de 10 minute sub `-race`: scrypt 2^18 apelat de sute de ori. `passphrase.WorkFactor`
-   e variabilă; testele o coboară la 2^10, produsul rămâne la 2^18.
-5. Încă două curse pe `progress`. Plus trei defecte în scripturile de test: `tee /dev/stderr`
-   trunchia jurnalul, `pipefail` pica testul cu fraza greșită, `grep` fără rezultate omora scriptul.
+**Also.** A Linux GUI prototype, `gui/linux/dhs-gui.py` (GTK4 + libadwaita through PyGObject),
+drives the CLI over `--json` — the D9 architecture, tried by hand. Brand assets in `assets/`.
 
-**Infrastructură.** `gh` de pe laptop are două conturi: atelierul (**activ**, îl folosesc ceilalți
-agenți — nu se schimbă) și Necta14 (scope `codespace`). Comenzile către Codespaces:
-`GH_TOKEN=$(gh auth token -u Necta14) gh codespace ssh -c <nume> -- '<comandă>'`. Docker e în
-imaginea implicită, `/dev/kvm` există, `sudo` fără parolă. Distrobox nu e necesar: containere
-Docker simple fac exact ce trebuie.
+## 2026-09-03 — first test session on Codespaces: green (Claude Fable 5.1)
 
-**Următorul pas.** Partea de aplicații: `internal/appdb` (TOML + `go:embed`), detectarea
-aplicațiilor instalate, `dhs plan`. De răspuns de user: numele din `NOTICE`.
+**Result.** On `3a39aef`: gofmt, vet, linux/windows/arm64 builds, `go test` (2 s), `go test
+-race` (11 s), the e2e flow (11 s) — **0 failures**. On `6a55e1d`, `e2e-distro.sh`: backup on
+Ubuntu, restore in **Arch, Fedora, Debian, openSUSE, Alpine** — 5/5 identical bit for bit, with the
+4.3 MiB static binary and no dependency in the container.
 
-## 02.09.2026 — definirea produsului și nucleul pentru fișiere (Claude Fable 5.1 / Opus 5)
+**What the rounds found, in order.**
+1. `NewWriter` wrote the manifest before the emitter existed → nil pointer; blocked every test.
+2. Four data races: the emitter serialised entries while `Add` was still appending parts to them (a
+   solid block holds the tail of a finished file until it fills up). Now `addPart` runs under the
+   lock and the emitter serialises copies.
+3. `stored_bytes` doubled when a volume closed — a counter, not the disk. Real: 12.9 → 8.6 MiB.
+4. A 10-minute "hang" under `-race`: scrypt 2^18 called hundreds of times. `passphrase.WorkFactor`
+   is a variable; the tests lower it to 2^10, the product stays at 2^18.
+5. Two more races on `progress`. Plus three defects in the test scripts: `tee /dev/stderr`
+   truncated the log, `pipefail` failed the wrong-passphrase test, `grep` with no matches killed
+   the script.
 
-**Dimineața.** S-a construit întâi unealta internă de memorie (RAG), apoi userul a definit
-produsul. Deciziile D1–D7 s-au închis în aceeași zi: Go, fără AI în produs, fișiere + manifest +
-listă mică de aplicații în v1, criptat implicit cu secrete opt-in, restaurare prin plan aprobat,
-Apache-2.0 cu politică de marcă în loc de clauză etică. Research pe compresia „extremă" (FitGirl):
-partea utilă e precomp, amânată (D8); Regula #3, nimic cu pierderi.
+**Infrastructure.** `gh` on the maintainer's machine holds two accounts; the one that owns the
+Codespaces has the `codespace` scope and is used per command, without switching the active
+account: `GH_TOKEN=$(gh auth token -u <user>) gh codespace ssh -c <codespace> -- '<command>'`.
+Docker is in the default image, `/dev/kvm` exists, `sudo` needs no password. Distrobox is not
+needed: plain Docker containers do exactly what is required.
 
-**După-amiaza.** Unealta RAG s-a mutat în `~/dhs-memory`. S-au scris `internal/system`,
-`internal/scan`, `cmd/dhs scan` — rulat pe profilul real: 68 463 fișiere, 43,7 GiB, ~1 s. Apoi
-`internal/pack` (formatul), `internal/passphrase`, `internal/restore`, comenzile `backup`,
-`verify`, `list`, `restore` — **scrise, compilate, netestate**, conform regulii că testele
-rulează doar pe Codespaces. Repo-ul a devenit public: github.com/Necta14/dhs.
+**Next step.** The apps side: `internal/appdb` (TOML + `go:embed`), detection of installed apps,
+`dhs plan`.
 
-**Bug găsit înainte de prima rulare.** Detectarea lua directorul acasă din `/etc/passwd`, nu din
-`$HOME`; ar fi făcut imposibil testul pe profil sintetic.
+## 2026-09-02 — product definition and the file core (Claude Fable 5.1 / Opus 5)
+
+**Morning.** The internal memory tool (RAG) was built first, then the maintainer defined the
+product. Decisions D1–D7 were closed the same day: Go, no AI in the product, files + manifest + a
+small list of apps in v1, encrypted by default with opt-in secrets, restore through an approved
+plan, Apache-2.0 with a trademark policy instead of an ethical clause. Research on "extreme"
+compression (FitGirl): the useful part is precomp, postponed (D8); Rule #3, nothing lossy.
+
+**Afternoon.** The RAG tool moved to `~/dhs-memory`. `internal/system`, `internal/scan`,
+`cmd/dhs scan` were written — run on a real profile: about 68 000 files, 44 GiB, ~1 s. Then
+`internal/pack` (the format), `internal/passphrase`, `internal/restore`, the commands `backup`,
+`verify`, `list`, `restore` — **written, compiled, untested**, following the rule that tests run
+only on Codespaces. The repo went public: github.com/Necta14/dhs.
+
+**Bug found before the first run.** Detection took the home directory from `/etc/passwd`, not from
+`$HOME`; it would have made the test on a synthetic profile impossible.

@@ -10,20 +10,21 @@ import (
 	"strings"
 	"syscall"
 
+	"github.com/Necta14/dhs/internal/i18n"
 	"github.com/Necta14/dhs/internal/pack"
 	"github.com/Necta14/dhs/internal/report"
 )
 
-const verifyUsage = `dhs verify — verifică un pachet, fără să extragă nimic
+const verifyUsage = `dhs verify — verify a package, without extracting anything
 
-Utilizare
-  dhs verify <pachet> [opțiuni]
+Usage
+  dhs verify <package> [options]
 
-Verifică sumele fiecărui fișier din pachet, apoi decriptează fiecare volum și verifică fiecare bloc
-față de suma lui de control. Dacă trece, pachetul se poate restaura integral.
+Checks the checksum of every file in the package, then decrypts every volume and checks every
+block against its checksum. If it passes, the package can be restored in full.
 
-Opțiuni
-  --parola-fisier <cale>   citește fraza de acces din fișier; altfel o cere
+Options
+  --passphrase-file <path>   read the passphrase from a file; otherwise it is asked
   --json
   --help
 `
@@ -31,8 +32,8 @@ Opțiuni
 func runVerify(args []string) error {
 	fs := flag.NewFlagSet("verify", flag.ContinueOnError)
 	fs.SetOutput(os.Stderr)
-	fs.Usage = func() { fmt.Fprint(os.Stderr, verifyUsage) }
-	passFile := fs.String("parola-fisier", "", "")
+	fs.Usage = func() { fmt.Fprint(os.Stderr, i18n.T(verifyUsage)) }
+	passFile := fs.String("passphrase-file", "", "")
 	asJSON := fs.Bool("json", false, "")
 
 	var positional []string
@@ -48,7 +49,7 @@ func runVerify(args []string) error {
 		rest = rest[1:]
 	}
 	if len(positional) != 1 {
-		return errors.New("verify: dă exact un pachet")
+		return errors.New(i18n.T("verify: give exactly one package"))
 	}
 	dir := positional[0]
 	live := !*asJSON && isTerminal(os.Stderr)
@@ -68,30 +69,30 @@ func runVerify(args []string) error {
 	if *asJSON {
 		return writeJSON(struct {
 			Manifest pack.Manifest      `json:"manifest"`
-			Report   *pack.VerifyReport `json:"verificare"`
+			Report   *pack.VerifyReport `json:"verification"`
 		}{r.Manifest, rep})
 	}
 
 	m := r.Manifest
-	fmt.Printf("%s%s\n", report.Pad("Pachet", 14), dir)
-	fmt.Printf("%s%s %s (%s) · creat %s · %s\n", report.Pad("Sursă", 14), m.Source.Name, m.Source.Version, m.Source.Arch,
+	fmt.Printf("%s%s\n", report.Pad(i18n.T("Package"), 14), dir)
+	fmt.Printf(i18n.T("%s%s %s (%s) · created %s · %s\n"), report.Pad(i18n.T("Source"), 14), m.Source.Name, m.Source.Version, m.Source.Arch,
 		m.Created.Local().Format("2006-01-02 15:04"), dim(m.Tool))
-	fmt.Printf("%s%s fișiere · %s → %s · %d volume · nivel %v · cifru %s\n", report.Pad("Conținut", 14),
-		report.Count(m.Files), report.Bytes(m.Raw), report.Bytes(m.Stored), m.Volumes, m.Level, m.Cipher)
-	fmt.Printf("%s%d fișiere de pachet, %d volume, %d blocuri, %s bruți\n", report.Pad("Verificat", 14),
+	fmt.Printf(i18n.T("%s%s files · %s → %s · %d volumes · level %s · cipher %s\n"), report.Pad(i18n.T("Contents"), 14),
+		report.Count(m.Files), report.Bytes(m.Raw), report.Bytes(m.Stored), m.Volumes, i18n.T(m.Level.String()), m.Cipher)
+	fmt.Printf(i18n.T("%s%d package files, %d volumes, %d blocks, %s raw\n"), report.Pad(i18n.T("Verified"), 14),
 		rep.Files, rep.Volumes, rep.Blocks, report.Bytes(rep.Bytes))
 	if rep.OK() {
-		fmt.Printf("%s%s\n", report.Pad("", 14), green("✓ Pachetul e întreg."))
+		fmt.Printf("%s%s\n", report.Pad("", 14), green(i18n.T("✓ The package is intact.")))
 		return nil
 	}
-	fmt.Printf("%s%s\n", report.Pad("", 14), red(fmt.Sprintf("✗ %d probleme:", len(rep.Problems))))
+	fmt.Printf("%s%s\n", report.Pad("", 14), red(i18n.Tf("✗ %d problems:", len(rep.Problems))))
 	for _, p := range rep.Problems {
 		fmt.Printf("%s%s\n", report.Pad("", 16), p)
 	}
-	return errors.New("pachetul nu a trecut verificarea")
+	return errors.New(i18n.T("the package did not pass verification"))
 }
 
-// openPackage deschide un pachet, cerând fraza de acces doar dacă trebuie.
+// openPackage opens a package, asking for the passphrase only when needed.
 func openPackage(dir, passFile string, noPrompt bool) (*pack.Reader, error) {
 	m, err := pack.Peek(dir)
 	if err != nil {
@@ -103,13 +104,13 @@ func openPackage(dir, passFile string, noPrompt bool) (*pack.Reader, error) {
 		case passFile != "":
 			b, err := os.ReadFile(passFile)
 			if err != nil {
-				return nil, fmt.Errorf("nu pot citi fraza din %s: %w", passFile, err)
+				return nil, fmt.Errorf(i18n.T("cannot read the passphrase from %s: %w"), passFile, err)
 			}
 			pass = strings.TrimRight(string(b), "\r\n")
 		case noPrompt:
-			return nil, errors.New("pachetul e criptat; cu --json trebuie --parola-fisier")
+			return nil, errors.New(i18n.T("the package is encrypted; with --json you need --passphrase-file"))
 		default:
-			pass, err = askPassphrase("Fraza de acces a pachetului: ")
+			pass, err = askPassphrase(i18n.T("Package passphrase: "))
 			if err != nil {
 				return nil, err
 			}
@@ -117,7 +118,7 @@ func openPackage(dir, passFile string, noPrompt bool) (*pack.Reader, error) {
 	}
 	r, err := pack.Open(dir, pass)
 	if errors.Is(err, pack.ErrBadPassphrase) {
-		return nil, errors.New("fraza de acces e greșită")
+		return nil, errors.New(i18n.T("wrong passphrase"))
 	}
 	return r, err
 }

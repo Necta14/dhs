@@ -13,8 +13,8 @@ import (
 func detect() (Info, error) {
 	i := Info{OS: Linux, Arch: Arch(), Name: "Linux"}
 
-	// $HOME are prioritate față de /etc/passwd: așa se comportă orice unealtă de sistem, și așa
-	// se poate rula DHS pe un profil sintetic, în teste, fără să atingă profilul real.
+	// $HOME takes precedence over /etc/passwd: that is how every system tool behaves, and it is
+	// how DHS can be run against a synthetic profile in tests without touching the real one.
 	i.Home, _ = os.UserHomeDir()
 	if u, err := user.Current(); err == nil {
 		i.User = u.Username
@@ -26,12 +26,12 @@ func detect() (Info, error) {
 		i.Hostname = h
 	}
 
-	// /etc/os-release e standardul freedesktop; îl are orice distribuție modernă.
+	// /etc/os-release is the freedesktop standard; every modern distribution has it.
 	if rel, err := parseOSRelease("/etc/os-release"); err == nil {
 		if n := rel["NAME"]; n != "" {
 			i.Name = n
 		}
-		// Arch și derivatele n-au VERSION_ID; VERSION lipsește și el. Rămâne gol, e în regulă.
+		// Arch and its derivatives have no VERSION_ID; VERSION is missing too. It stays empty, which is fine.
 		if v := rel["VERSION_ID"]; v != "" {
 			i.Version = v
 		} else if v := rel["VERSION"]; v != "" {
@@ -41,7 +41,7 @@ func detect() (Info, error) {
 	return i, nil
 }
 
-// parseOSRelease citește formatul cheie=valoare din os-release, cu ghilimele opționale.
+// parseOSRelease reads the key=value format of os-release, with optional quotes.
 func parseOSRelease(path string) (map[string]string, error) {
 	f, err := os.Open(path)
 	if err != nil {
@@ -65,7 +65,7 @@ func parseOSRelease(path string) (map[string]string, error) {
 	return out, sc.Err()
 }
 
-// xdgFallback e numele implicit al fiecărui loc, când user-dirs.dirs lipsește.
+// xdgFallback is the default name of each location, used when user-dirs.dirs is missing.
 var xdgFallback = map[Kind]string{
 	Documents: "Documents",
 	Pictures:  "Pictures",
@@ -75,7 +75,7 @@ var xdgFallback = map[Kind]string{
 	Desktop:   "Desktop",
 }
 
-// xdgVar e numele variabilei din ~/.config/user-dirs.dirs pentru fiecare loc.
+// xdgVar is the name of the variable in ~/.config/user-dirs.dirs for each location.
 var xdgVar = map[Kind]string{
 	Documents: "XDG_DOCUMENTS_DIR",
 	Pictures:  "XDG_PICTURES_DIR",
@@ -112,8 +112,8 @@ func configHome(home string) string {
 	return filepath.Join(home, ".config")
 }
 
-// readUserDirs citește ~/.config/user-dirs.dirs, unde locurile sunt localizate
-// („Documente", „Imagini" pe un sistem în română). Fără el am rata jumătate din profil.
+// readUserDirs reads ~/.config/user-dirs.dirs, where the locations are localised
+// ("Documente", "Imagini" on a Romanian system). Without it we would miss half the profile.
 func readUserDirs(path, home string) map[Kind]string {
 	out := make(map[Kind]string, len(xdgVar))
 	f, err := os.Open(path)
@@ -142,7 +142,7 @@ func readUserDirs(path, home string) map[Kind]string {
 			continue
 		}
 		value = strings.Trim(strings.TrimSpace(value), `"`)
-		// Formatul folosește „$HOME/Documents"; îl rezolvăm noi, nu shell-ul.
+		// The format uses "$HOME/Documents"; we resolve it ourselves, not the shell.
 		if after, found := strings.CutPrefix(value, "$HOME/"); found {
 			value = filepath.Join(home, after)
 		} else if value == "$HOME" {

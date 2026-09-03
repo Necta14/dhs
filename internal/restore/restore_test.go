@@ -1,6 +1,6 @@
 package restore
 
-// NU se rulează pe laptopul userului (AGENTS.md, regula 7) — doar pe Codespaces.
+// NOT run on the user's laptop (AGENTS.md, rule 7) — only on GitHub Codespaces.
 
 import (
 	"bytes"
@@ -19,21 +19,21 @@ import (
 
 func TestSanitizeWindows(t *testing.T) {
 	cases := map[string]string{
-		"raport: final.docx":   "raport_ final.docx",
-		"a/b<c>d.txt":          "a/b_c_d.txt",
-		"con.txt":              "_con.txt",
-		"CON":                  "_CON",
-		"lpt1.log":             "_lpt1.log",
-		"nume.":                "nume",
-		"nume  ":               "nume",
-		"normal/fisier.txt":    "normal/fisier.txt",
-		"cu diacritice ăîș.md": "cu diacritice ăîș.md",
-		"../evadare":           "_../evadare",
+		"report: final.docx": "report_ final.docx",
+		"a/b<c>d.txt":        "a/b_c_d.txt",
+		"con.txt":            "_con.txt",
+		"CON":                "_CON",
+		"lpt1.log":           "_lpt1.log",
+		"name.":              "name",
+		"name  ":             "name",
+		"normal/file.txt":    "normal/file.txt",
+		"diacritics ăîș.md":  "diacritics ăîș.md",
+		"../escape":          "_../escape",
 	}
 	for in, want := range cases {
 		got, changed := Sanitize(in, system.Windows)
 		if got != want {
-			t.Errorf("Sanitize(%q, windows) = %q, aștept %q", in, got, want)
+			t.Errorf("Sanitize(%q, windows) = %q, want %q", in, got, want)
 		}
 		if changed != (in != want) {
 			t.Errorf("Sanitize(%q): changed=%v", in, changed)
@@ -42,54 +42,54 @@ func TestSanitizeWindows(t *testing.T) {
 }
 
 func TestSanitizeLinuxTouchesAlmostNothing(t *testing.T) {
-	for _, in := range []string{"raport: final.docx", "a<b>c", "con.txt", "nume.", "CON"} {
+	for _, in := range []string{"report: final.docx", "a<b>c", "con.txt", "name.", "CON"} {
 		if got, changed := Sanitize(in, system.Linux); got != in || changed {
-			t.Errorf("pe Linux %q nu trebuie schimbat, am %q", in, got)
+			t.Errorf("on Linux %q must not be changed, got %q", in, got)
 		}
 	}
 	if got, _ := Sanitize("a\x00b", system.Linux); got != "a_b" {
-		t.Errorf("NUL trebuie înlocuit și pe Linux: %q", got)
+		t.Errorf("NUL must be replaced on Linux too: %q", got)
 	}
 }
 
 func TestWithSuffix(t *testing.T) {
 	cases := map[string]string{
-		"raport.docx":     "raport (DHS).docx",
-		"dir/raport.docx": "dir/raport (DHS).docx",
-		"fara-extensie":   "fara-extensie (DHS)",
+		"report.docx":     "report (DHS).docx",
+		"dir/report.docx": "dir/report (DHS).docx",
+		"no-extension":    "no-extension (DHS)",
 		".bashrc":         ".bashrc (DHS)",
-		"arhiva.tar.gz":   "arhiva.tar (DHS).gz",
+		"archive.tar.gz":  "archive.tar (DHS).gz",
 	}
 	for in, want := range cases {
 		if got := WithSuffix(in, " (DHS)"); got != want {
-			t.Errorf("WithSuffix(%q) = %q, aștept %q", in, got, want)
+			t.Errorf("WithSuffix(%q) = %q, want %q", in, got, want)
 		}
 	}
 }
 
 func TestFoldKey(t *testing.T) {
 	if FoldKey("A.txt", system.Windows) != FoldKey("a.txt", system.Windows) {
-		t.Error("pe Windows A.txt și a.txt sunt același fișier")
+		t.Error("on Windows A.txt and a.txt are the same file")
 	}
 	if FoldKey("A.txt", system.Linux) == FoldKey("a.txt", system.Linux) {
-		t.Error("pe Linux A.txt și a.txt sunt fișiere diferite")
+		t.Error("on Linux A.txt and a.txt are different files")
 	}
 }
 
-// pkg scrie un pachet mic cu intrările date și îl deschide.
+// pkg writes a small package with the given entries and opens it.
 func pkg(t *testing.T, files map[string][]byte) (*pack.Reader, map[string][]byte) {
 	t.Helper()
 	dir := filepath.Join(t.TempDir(), "p.dhs")
 	w, err := pack.NewWriter(pack.Options{
 		Dir: dir, Level: scan.LevelBalanced, Passphrase: "",
-		Source:     system.Info{OS: system.Linux, Name: "Sursă"},
+		Source:     system.Info{OS: system.Linux, Name: "Source"},
 		VolumeSize: 200 << 10, BlockSize: 64 << 10, Workers: 2,
 	})
 	if err != nil {
 		t.Fatal(err)
 	}
 	for path, data := range files {
-		root, rel := pack.Root("documente"), path
+		root, rel := pack.Root("documents"), path
 		if i := bytes.IndexByte([]byte(path), '/'); i > 0 {
 			root, rel = pack.Root(path[:i]), path[i+1:]
 		}
@@ -131,17 +131,17 @@ func roots(t *testing.T) (*pack.RootMap, string) {
 
 func TestPlanAndExecute(t *testing.T) {
 	r, files := pkg(t, map[string][]byte{
-		"documente/raport.txt":     []byte("raport"),
-		"documente/sub/note.md":    []byte("note"),
-		"imagini/poza.jpg":         []byte("nu e chiar jpg"),
-		"descarcari/instalator.sh": []byte("echo salut"), // rădăcină inexistentă pe destinație
-		"alt/etc/hosts":            []byte("127.0.0.1 localhost"),
+		"documents/report.txt":   []byte("report"),
+		"documents/sub/notes.md": []byte("notes"),
+		"pictures/photo.jpg":     []byte("not really a jpg"),
+		"downloads/installer.sh": []byte("echo hello"), // root that does not exist on the destination
+		"other/etc/hosts":        []byte("127.0.0.1 localhost"),
 	})
 	rm, home := roots(t)
 
-	// Un conflict: raport.txt există deja, cu alt conținut.
-	existing := filepath.Join(home, "Documents", "raport.txt")
-	if err := os.WriteFile(existing, []byte("VECHI"), 0o644); err != nil {
+	// One conflict: report.txt already exists, with different content.
+	existing := filepath.Join(home, "Documents", "report.txt")
+	if err := os.WriteFile(existing, []byte("OLD"), 0o644); err != nil {
 		t.Fatal(err)
 	}
 
@@ -150,10 +150,10 @@ func TestPlanAndExecute(t *testing.T) {
 		t.Fatal(err)
 	}
 	if plan.Files != 5 || plan.Conflicts != 1 || plan.Skipped != 0 {
-		t.Errorf("plan: %d fișiere, %d conflicte, %d sărite", plan.Files, plan.Conflicts, plan.Skipped)
+		t.Errorf("plan: %d files, %d conflicts, %d skipped", plan.Files, plan.Conflicts, plan.Skipped)
 	}
-	if len(plan.Unknown) != 1 || plan.Unknown[0] != "descarcari" {
-		t.Errorf("rădăcini necunoscute = %v, aștept [descarcari]", plan.Unknown)
+	if len(plan.Unknown) != 1 || plan.Unknown[0] != "downloads" {
+		t.Errorf("unknown roots = %v, want [downloads]", plan.Unknown)
 	}
 
 	rep, err := plan.Execute(context.Background(), ExecOptions{})
@@ -161,7 +161,7 @@ func TestPlanAndExecute(t *testing.T) {
 		t.Fatal(err)
 	}
 	if len(rep.Failed) != 0 || rep.Files != 5 {
-		t.Fatalf("eșuate %+v, fișiere %d", rep.Failed, rep.Files)
+		t.Fatalf("failed %+v, files %d", rep.Failed, rep.Files)
 	}
 
 	check := func(path string, want []byte) {
@@ -172,74 +172,74 @@ func TestPlanAndExecute(t *testing.T) {
 			return
 		}
 		if !bytes.Equal(got, want) {
-			t.Errorf("%s: %q, aștept %q", path, got, want)
+			t.Errorf("%s: %q, want %q", path, got, want)
 		}
 	}
-	// Existentul e neatins; restauratul e alături.
-	check(existing, []byte("VECHI"))
-	check(filepath.Join(home, "Documents", "raport (DHS).txt"), files["documente/raport.txt"])
-	check(filepath.Join(home, "Documents", "sub", "note.md"), files["documente/sub/note.md"])
-	check(filepath.Join(home, "Pictures", "poza.jpg"), files["imagini/poza.jpg"])
-	// Rădăcina inexistentă și „alt" merg sub DHS-restaurat, nu în căi absolute.
-	check(filepath.Join(home, "DHS-restaurat", "descarcari", "instalator.sh"), files["descarcari/instalator.sh"])
-	check(filepath.Join(home, "DHS-restaurat", "etc", "hosts"), files["alt/etc/hosts"])
+	// The existing file is untouched; the restored one sits beside it.
+	check(existing, []byte("OLD"))
+	check(filepath.Join(home, "Documents", "report (DHS).txt"), files["documents/report.txt"])
+	check(filepath.Join(home, "Documents", "sub", "notes.md"), files["documents/sub/notes.md"])
+	check(filepath.Join(home, "Pictures", "photo.jpg"), files["pictures/photo.jpg"])
+	// The missing root and "other" go under DHS-restored, not to absolute paths.
+	check(filepath.Join(home, "DHS-restored", "downloads", "installer.sh"), files["downloads/installer.sh"])
+	check(filepath.Join(home, "DHS-restored", "etc", "hosts"), files["other/etc/hosts"])
 
-	// Metadate.
-	st, err := os.Stat(filepath.Join(home, "Documents", "sub", "note.md"))
+	// Metadata.
+	st, err := os.Stat(filepath.Join(home, "Documents", "sub", "notes.md"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	if runtime.GOOS != "windows" && st.Mode().Perm() != 0o640 {
-		t.Errorf("mod = %o, aștept 640", st.Mode().Perm())
+		t.Errorf("mode = %o, want 640", st.Mode().Perm())
 	}
 	if !st.ModTime().Equal(time.Unix(1_600_000_000, 0)) {
-		t.Errorf("mtime = %v, aștept 1600000000", st.ModTime())
+		t.Errorf("mtime = %v, want 1600000000", st.ModTime())
 	}
 
-	// Niciun temporar rămas.
+	// No temporary left behind.
 	filepath.WalkDir(home, func(p string, d os.DirEntry, _ error) error {
 		if d != nil && filepath.Ext(d.Name()) == ".dhs-tmp" {
-			t.Errorf("temporar rămas: %s", p)
+			t.Errorf("temporary left behind: %s", p)
 		}
 		return nil
 	})
 }
 
 func TestPlanConflictPolicies(t *testing.T) {
-	r, files := pkg(t, map[string][]byte{"documente/a.txt": []byte("nou")})
+	r, files := pkg(t, map[string][]byte{"documents/a.txt": []byte("new")})
 	rm, home := roots(t)
 	dest := filepath.Join(home, "Documents", "a.txt")
-	if err := os.WriteFile(dest, []byte("vechi"), 0o644); err != nil {
+	if err := os.WriteFile(dest, []byte("old"), 0o644); err != nil {
 		t.Fatal(err)
 	}
 
 	skip, _ := Build(Options{Reader: r, Roots: rm, Target: system.Linux, Conflict: Skip})
 	if skip.Files != 0 || skip.Skipped != 1 || skip.Items[0].Action != SkipIt {
-		t.Errorf("sari: %+v", skip.Items[0])
+		t.Errorf("skip: %+v", skip.Items[0])
 	}
 	if _, err := skip.Execute(context.Background(), ExecOptions{}); err != nil {
 		t.Fatal(err)
 	}
-	if b, _ := os.ReadFile(dest); string(b) != "vechi" {
-		t.Error("„sari” a atins fișierul existent")
+	if b, _ := os.ReadFile(dest); string(b) != "old" {
+		t.Error("\"skip\" touched the existing file")
 	}
 
 	over, _ := Build(Options{Reader: r, Roots: rm, Target: system.Linux, Conflict: Overwrite})
 	if over.Items[0].Action != Replace || over.Items[0].Dest != dest {
-		t.Errorf("suprascrie: %+v", over.Items[0])
+		t.Errorf("overwrite: %+v", over.Items[0])
 	}
 	if _, err := over.Execute(context.Background(), ExecOptions{}); err != nil {
 		t.Fatal(err)
 	}
-	if b, _ := os.ReadFile(dest); !bytes.Equal(b, files["documente/a.txt"]) {
-		t.Error("„suprascrie” nu a înlocuit fișierul")
+	if b, _ := os.ReadFile(dest); !bytes.Equal(b, files["documents/a.txt"]) {
+		t.Error("\"overwrite\" did not replace the file")
 	}
 }
 
 func TestPlanCaseCollisionOnWindows(t *testing.T) {
 	r, _ := pkg(t, map[string][]byte{
-		"documente/Raport.txt": []byte("1"),
-		"documente/raport.txt": []byte("2"),
+		"documents/Report.txt": []byte("1"),
+		"documents/report.txt": []byte("2"),
 	})
 	rm, _ := roots(t)
 	plan, err := Build(Options{Reader: r, Roots: rm, Target: system.Windows})
@@ -251,33 +251,33 @@ func TestPlanCaseCollisionOnWindows(t *testing.T) {
 		dests[FoldKey(it.Dest, system.Windows)] = true
 	}
 	if len(dests) != 2 {
-		t.Errorf("două intrări care se ciocnesc pe Windows trebuie să ajungă în două fișiere: %+v", plan.Items)
+		t.Errorf("two entries that collide on Windows must end up in two files: %+v", plan.Items)
 	}
 	if plan.Renamed != 1 {
-		t.Errorf("redenumite = %d, aștept 1", plan.Renamed)
+		t.Errorf("renamed = %d, want 1", plan.Renamed)
 	}
 }
 
 func TestPlanFilter(t *testing.T) {
-	r, _ := pkg(t, map[string][]byte{"documente/a.txt": []byte("a"), "imagini/b.jpg": []byte("b")})
+	r, _ := pkg(t, map[string][]byte{"documents/a.txt": []byte("a"), "pictures/b.jpg": []byte("b")})
 	rm, _ := roots(t)
-	plan, err := Build(Options{Reader: r, Roots: rm, Target: system.Linux, Filter: func(e *pack.Entry) bool { return e.Root == "imagini" }})
+	plan, err := Build(Options{Reader: r, Roots: rm, Target: system.Linux, Filter: func(e *pack.Entry) bool { return e.Root == "pictures" }})
 	if err != nil {
 		t.Fatal(err)
 	}
-	if plan.Files != 1 || plan.Items[0].Entry.Root != "imagini" {
-		t.Errorf("filtru: %+v", plan.Items)
+	if plan.Files != 1 || plan.Items[0].Entry.Root != "pictures" {
+		t.Errorf("filter: %+v", plan.Items)
 	}
 }
 
 func TestParseConflict(t *testing.T) {
-	for in, want := range map[string]Conflict{"": KeepBoth, "alaturi": KeepBoth, "sari": Skip, "suprascrie": Overwrite} {
+	for in, want := range map[string]Conflict{"": KeepBoth, "keep-both": KeepBoth, "skip": Skip, "overwrite": Overwrite} {
 		got, err := ParseConflict(in)
 		if err != nil || got != want {
 			t.Errorf("ParseConflict(%q) = %v, %v", in, got, err)
 		}
 	}
-	if _, err := ParseConflict("altceva"); err == nil {
-		t.Error("politica necunoscută trebuie refuzată")
+	if _, err := ParseConflict("something-else"); err == nil {
+		t.Error("an unknown policy must be refused")
 	}
 }

@@ -7,95 +7,95 @@ import (
 	"github.com/Necta14/dhs/internal/system"
 )
 
-// Root e locul standard din profil de care ține un fișier. Se stochează în loc de calea absolută
-// ca restaurarea să funcționeze între sisteme: „documente/raport.docx" ajunge în ~/Documents pe
-// Linux și în C:\Users\X\Documents pe Windows, oriunde ar fi ele configurate.
+// Root is the standard profile location a file belongs to. It is stored instead of the absolute
+// path so that restoring works across systems: "documents/report.docx" lands in ~/Documents on
+// Linux and in C:\Users\X\Documents on Windows, wherever those happen to be configured.
 type Root string
 
-// RootOther e pentru fișiere din afara locurilor standard; ele păstrează calea originală.
-const RootOther Root = "alt"
+// RootOther is for files outside the standard locations; they keep their original path.
+const RootOther Root = "other"
 
-// Manifest e dhs.json — necriptat, deci strict fără nume de fișiere, căi sau utilizator.
+// Manifest is dhs.json — unencrypted, hence strictly without file names, paths or user.
 type Manifest struct {
 	Format   uint16     `json:"format"`
 	ID       ID         `json:"id"`
-	Created  time.Time  `json:"creat"`
-	Source   SourceInfo `json:"sursa"`
-	Cipher   string     `json:"cifru"`
-	Level    scan.Level `json:"nivel"`
-	Volumes  int        `json:"volume"`
-	Files    int64      `json:"fisiere"`
-	Raw      int64      `json:"octeti_brut"`
-	Stored   int64      `json:"octeti_stocati"`
-	Secrets  bool       `json:"secrete_incluse"`
-	Complete bool       `json:"complet"`
-	Tool     string     `json:"unealta"`
+	Created  time.Time  `json:"created"`
+	Source   SourceInfo `json:"source"`
+	Cipher   string     `json:"cipher"`
+	Level    scan.Level `json:"level"`
+	Volumes  int        `json:"volumes"`
+	Files    int64      `json:"files"`
+	Raw      int64      `json:"raw_bytes"`
+	Stored   int64      `json:"stored_bytes"`
+	Secrets  bool       `json:"secrets_included"`
+	Complete bool       `json:"complete"`
+	Tool     string     `json:"tool"`
 }
 
-// SourceInfo e ce spunem despre sistemul de origine — fără utilizator și fără nume de gazdă.
+// SourceInfo is what we say about the system of origin — no user and no host name.
 type SourceInfo struct {
 	OS      system.OS `json:"os"`
-	Name    string    `json:"nume"`
-	Version string    `json:"versiune"`
-	Arch    string    `json:"arh"`
+	Name    string    `json:"name"`
+	Version string    `json:"version"`
+	Arch    string    `json:"arch"`
 }
 
 func sourceFrom(i system.Info) SourceInfo {
 	return SourceInfo{OS: i.OS, Name: i.Name, Version: i.Version, Arch: i.Arch}
 }
 
-// Index e conținutul lui index.dhsi și al blocului de index din fiecare volum.
+// Index is the content of index.dhsi and of the index block in every volume.
 type Index struct {
 	Format   uint16       `json:"format"`
 	ID       ID           `json:"id"`
-	Complete bool         `json:"complet"`
-	Volumes  []VolumeInfo `json:"volume"`
-	Blocks   []BlockRef   `json:"blocuri"`
-	Entries  []*Entry     `json:"intrari"`
+	Complete bool         `json:"complete"`
+	Volumes  []VolumeInfo `json:"volumes"`
+	Blocks   []BlockRef   `json:"blocks"`
+	Entries  []*Entry     `json:"entries"`
 }
 
-// VolumeInfo descrie un volum încheiat.
+// VolumeInfo describes a finished volume.
 type VolumeInfo struct {
 	Number uint32 `json:"n"`
-	Bytes  int64  `json:"octeti"` // dimensiunea fișierului pe disc, criptat
-	Blocks int    `json:"blocuri"`
-	SHA256 Hash   `json:"sha256"` // a fișierului de pe disc
+	Bytes  int64  `json:"bytes"` // size of the file on disk, encrypted
+	Blocks int    `json:"blocks"`
+	SHA256 Hash   `json:"sha256"` // of the file on disk
 }
 
-// BlockRef spune unde e un bloc și ce e în el. Indexul în Index.Blocks e identitatea blocului.
+// BlockRef says where a block is and what is in it. The index into Index.Blocks is the block's identity.
 type BlockRef struct {
 	Volume uint32    `json:"v"`
-	Pos    int64     `json:"poz"` // offset al antetului, în fluxul decriptat al volumului
-	Kind   BlockKind `json:"tip"`
-	Raw    int64     `json:"brut"`
-	Stored int64     `json:"stocat"`
+	Pos    int64     `json:"pos"` // offset of the header, in the volume's decrypted stream
+	Kind   BlockKind `json:"kind"`
+	Raw    int64     `json:"raw"`
+	Stored int64     `json:"stored"`
 	SHA256 Hash      `json:"sha256"`
 }
 
-// Entry e un fișier din pachet.
+// Entry is a file in the package.
 type Entry struct {
-	Root    Root       `json:"rad"`
-	Path    string     `json:"cale"`           // relativ la Root, cu „/"
-	Orig    string     `json:"orig,omitempty"` // calea originală absolută, pentru raport și pentru RootOther
-	Size    int64      `json:"octeti"`
-	Mode    uint32     `json:"mod"`
-	ModTime int64      `json:"mtime"` // Unix, nanosecunde
+	Root    Root       `json:"root"`
+	Path    string     `json:"path"`           // relative to Root, with "/"
+	Orig    string     `json:"orig,omitempty"` // original absolute path, for the report and for RootOther
+	Size    int64      `json:"size"`
+	Mode    uint32     `json:"mode"`
+	ModTime int64      `json:"mtime"` // Unix, nanoseconds
 	SHA256  Hash       `json:"sha256"`
-	Class   scan.Class `json:"clasa"`
+	Class   scan.Class `json:"class"`
 	Secret  bool       `json:"secret,omitempty"`
-	// Dup marchează un fișier identic cu altul din pachet: părțile lui trimit la aceleași blocuri.
+	// Dup marks a file identical to another one in the package: its parts point at the same blocks.
 	Dup   bool   `json:"dup,omitempty"`
-	Parts []Part `json:"parti"`
+	Parts []Part `json:"parts"`
 }
 
-// Part e o bucată de fișier: un interval dintr-un bloc decomprimat.
+// Part is a piece of a file: a range within a decompressed block.
 type Part struct {
 	Block  int   `json:"b"`
-	Offset int64 `json:"poz"`
-	Length int64 `json:"lung"`
+	Offset int64 `json:"off"`
+	Length int64 `json:"len"`
 }
 
-// Placed spune dacă toate părțile intrării au blocul scris într-un volum încheiat.
+// Placed says whether every part of the entry has its block written in a finished volume.
 func (e *Entry) Placed(blocks []BlockRef) bool {
 	for _, p := range e.Parts {
 		if p.Block < 0 || p.Block >= len(blocks) || blocks[p.Block].Volume == 0 {
@@ -105,11 +105,12 @@ func (e *Entry) Placed(blocks []BlockRef) bool {
 	return true
 }
 
-// Key identifică unic o intrare în cadrul pachetului.
+// Key uniquely identifies an entry within the package.
 func (e *Entry) Key() string { return string(e.Root) + "\x00" + e.Path }
 
-// clone copiază intrarea cu tot cu părți. Scriitorul o folosește ca să serializeze indexul
-// dintr-un alt goroutine decât cel care încă adaugă părți, fără să țină lacătul cât durează JSON-ul.
+// clone copies the entry together with its parts. The writer uses it to serialize the index from
+// a goroutine other than the one still adding parts, without holding the lock for as long as the
+// JSON takes.
 func (e *Entry) clone() *Entry {
 	c := *e
 	c.Parts = append([]Part(nil), e.Parts...)

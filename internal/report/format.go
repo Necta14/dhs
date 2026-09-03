@@ -1,4 +1,7 @@
-// Package report formatează cifrele pentru ochi de om, în română.
+// Package report formats numbers for human eyes.
+//
+// The decimal comma and the space as thousands separator are deliberate and stay: they are
+// neutral enough across locales, and the CLI layer will own localisation later.
 package report
 
 import (
@@ -10,7 +13,7 @@ import (
 
 var units = []string{"B", "KiB", "MiB", "GiB", "TiB", "PiB"}
 
-// Bytes formatează o dimensiune cu virgulă zecimală, cum se scrie în română.
+// Bytes formats a size with a decimal comma.
 func Bytes(n int64) string {
 	if n < 0 {
 		return "−" + Bytes(-n)
@@ -31,7 +34,7 @@ func Bytes(n int64) string {
 	return strings.Replace(fmt.Sprintf("%.*f %s", digits, value, units[i]), ".", ",", 1)
 }
 
-// Range formatează un interval, comprimând „3,0 – 3,0 GiB" la „3,0 GiB" când capetele coincid.
+// Range formats an interval, collapsing "3,0 – 3,0 GiB" to "3,0 GiB" when the ends coincide.
 func Range(lo, hi int64) string {
 	if lo == hi {
 		return Bytes(lo)
@@ -39,11 +42,11 @@ func Range(lo, hi int64) string {
 	return Bytes(lo) + " – " + Bytes(hi)
 }
 
-// Duration formatează un timp estimat, rotunjit cât să nu pretindă o precizie pe care n-o are.
+// Duration formats an estimated time, rounded so it does not claim a precision it does not have.
 func Duration(d time.Duration) string {
 	switch {
 	case d < time.Second:
-		return "sub o secundă"
+		return "under a second"
 	case d < time.Minute:
 		return fmt.Sprintf("~%d sec", int(math.Round(d.Seconds())))
 	case d < time.Hour:
@@ -58,7 +61,7 @@ func Duration(d time.Duration) string {
 	}
 }
 
-// Count formatează un număr mare cu separator de mii, ca în română: 412 883.
+// Count formats a large number with a space as thousands separator: 412 883.
 func Count(n int64) string {
 	s := fmt.Sprintf("%d", n)
 	if n < 0 {
@@ -74,8 +77,8 @@ func Count(n int64) string {
 	return b.String()
 }
 
-// Pad completează un text la lățimea dată, numărând caractere, nu octeți — altfel diacriticele
-// strică alinierea coloanelor.
+// Pad pads a text to the given width, counting characters, not bytes — otherwise non-ASCII
+// letters break column alignment.
 func Pad(s string, width int) string {
 	n := len([]rune(s))
 	if n >= width {

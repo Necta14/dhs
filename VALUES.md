@@ -1,44 +1,44 @@
-# Ce crede proiectul ăsta
+# What this project believes
 
-Documentul nu are forță juridică. E o declarație de intenție, ca să știi cu cine ai de-a face.
-Ce se poate apăra legal e în [`TRADEMARK.md`](TRADEMARK.md).
+This document has no legal force. It is a statement of intent, so you know who you are dealing
+with. What can be defended legally is in [`TRADEMARK.md`](TRADEMARK.md).
 
-## Datele sunt ale tale
+## The data is yours
 
-DHS nu trimite nimic nicăieri. Fără telemetrie, fără „statistici anonime de utilizare", fără
-verificare de licență, fără cont, fără cloud obligatoriu. Pachetul tău de migrare stă pe discul tău
-extern și nu îl vede nimeni în afară de tine.
+DHS sends nothing anywhere. No telemetry, no "anonymous usage statistics", no licence check, no
+account, no mandatory cloud. Your migration package sits on your external drive and nobody sees it
+but you.
 
-Nu e o setare care se poate schimba pe furiș într-o versiune viitoare. E motivul pentru care
-produsul nu are cod de rețea deloc.
+This is not a setting that can be quietly flipped in a future version. It is the reason the product
+has no network code at all.
 
-## Fără AI în produs
+## No AI in the product
 
-DHS e determinist. Face exact ce spune că face, de fiecare dată. Potrivirea aplicațiilor între
-platforme vine dintr-o bază de date scrisă de oameni, cu identificatori exacți. Când nu știe ceva,
-îți spune că nu știe — nu inventează.
+DHS is deterministic. It does exactly what it says it does, every time. Matching applications
+across platforms comes from a database written by people, with exact identifiers. When it does not
+know something, it tells you it does not know — it does not invent.
 
-## Împotriva verificării obligatorii a vârstei
+## Against mandatory age verification
 
-Verificarea vârstei impusă la nivel de sistem înseamnă, în practică, identificarea tuturor. Ca să
-demonstrezi că **nu** ești copil, trebuie să arăți cine ești. Anonimatul dispare pentru toți, ca să
-fie protejați câțiva — iar bazele de date rezultate se sparg, mai devreme sau mai târziu.
+Age verification imposed at the system level means, in practice, identifying everyone. To prove that
+you are **not** a child, you have to show who you are. Anonymity disappears for all, so that a few
+are protected — and the resulting databases get breached, sooner or later.
 
-DHS e o unealtă care mută întreaga viață digitală a cuiva dintr-un loc în altul. Nu are ce căuta
-într-un produs construit pe premisa opusă. De aceea politica de marcă interzice folosirea numelui
-DHS într-un produs care implementează verificarea vârstei.
+DHS is a tool that moves someone's entire digital life from one place to another. It has no
+business in a product built on the opposite premise. That is why the trademark policy forbids
+using the DHS name in a product that implements age verification.
 
-Codul rămâne liber — inclusiv pentru cine nu e de acord cu noi. Aici nu facem compromisuri asupra
-libertății software-ului. Dar numele proiectului nu se împrumută.
+The code stays free — including for those who disagree with us. Here we make no compromise on
+software freedom. But the project's name is not for lending.
 
-## Fără balast
+## No bloat
 
-Un binar, câțiva megaocteți, fără servicii care rulează în fundal, fără actualizator automat, fără
-runtime de instalat. Pornește instant și face ce i-ai cerut. Vezi Regula #4 din
-[`CLAUDE.md`](CLAUDE.md) pentru bugetele concrete.
+One binary, a few megabytes, no services running in the background, no auto-updater, no runtime to
+install. It starts instantly and does what you asked. See Rule #4 in [`CLAUDE.md`](CLAUDE.md) for
+the concrete budgets.
 
-## Nimic nu se pierde în tăcere
+## Nothing is lost in silence
 
-Dacă un fișier nu poate fi salvat, restaurat sau reconstruit exact, DHS o spune. Nu scrie niciodată
-pe disc un fișier despre care nu poate dovedi că e identic cu originalul. Un backup în care nu poți
-avea încredere e mai rău decât niciun backup, fiindcă te face să nu-ți mai faci altul.
+If a file cannot be saved, restored or rebuilt exactly, DHS says so. It never writes to disk a file
+it cannot prove identical to the original. A backup you cannot trust is worse than no backup,
+because it stops you from making another one.

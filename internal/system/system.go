@@ -1,8 +1,8 @@
-// Package system detectează sistemul de operare și locurile standard din profilul utilizatorului.
+// Package system detects the operating system and the standard locations in the user's profile.
 //
-// Codul specific unui sistem de operare stă exclusiv în fișierele cu sufix _linux.go și
-// _windows.go. Datorită etichetelor de build, binarul pentru Linux nu conține niciun octet din
-// codul de Windows, și invers — asta ține produsul mic, așa cum cere Regula #4.
+// Code specific to one operating system lives exclusively in the files suffixed _linux.go and
+// _windows.go. Thanks to build tags, the Linux binary contains not a single byte of the Windows
+// code, and vice versa — that keeps the product small, as Rule #4 demands.
 package system
 
 import (
@@ -10,7 +10,7 @@ import (
 	"runtime"
 )
 
-// OS e sistemul de operare pe care rulăm sau din care provine un pachet.
+// OS is the operating system we are running on, or the one a package came from.
 type OS string
 
 const (
@@ -18,15 +18,15 @@ const (
 	Windows OS = "windows"
 )
 
-// Info descrie sistemul curent, atât cât ne trebuie pentru manifest și pentru planul de restaurare.
+// Info describes the current system, as much as the manifest and the restore plan need.
 type Info struct {
 	OS       OS     `json:"os"`
-	Name     string `json:"nume"`     // „Arch Linux", „Windows 11 Pro"
-	Version  string `json:"versiune"` // „rolling", „23H2"
-	Arch     string `json:"arh"`      // amd64, arm64
+	Name     string `json:"name"`    // "Arch Linux", "Windows 11 Pro"
+	Version  string `json:"version"` // "rolling", "23H2"
+	Arch     string `json:"arch"`    // amd64, arm64
 	User     string `json:"user"`
-	Home     string `json:"acasa"`
-	Hostname string `json:"gazda"`
+	Home     string `json:"home"`
+	Hostname string `json:"hostname"`
 }
 
 func (i Info) String() string {
@@ -37,36 +37,36 @@ func (i Info) String() string {
 	return fmt.Sprintf("%s (%s)", v, i.Arch)
 }
 
-// Kind numește tipul unui loc standard din profil.
+// Kind names the type of a standard location in the profile.
 type Kind string
 
 const (
-	Documents Kind = "documente"
-	Pictures  Kind = "imagini"
-	Videos    Kind = "video"
-	Music     Kind = "muzica"
-	Downloads Kind = "descarcari"
+	Documents Kind = "documents"
+	Pictures  Kind = "pictures"
+	Videos    Kind = "videos"
+	Music     Kind = "music"
+	Downloads Kind = "downloads"
 	Desktop   Kind = "desktop"
 	Config    Kind = "config"
 )
 
-// KindOrder e ordinea în care locurile se arată utilizatorului — de la cel mai probabil dorit.
+// KindOrder is the order in which locations are shown to the user — most likely wanted first.
 var KindOrder = []Kind{Documents, Pictures, Videos, Music, Downloads, Desktop, Config}
 
-// Location e un loc standard din profil, rezolvat la o cale concretă.
+// Location is a standard location in the profile, resolved to a concrete path.
 type Location struct {
-	Kind Kind   `json:"tip"`
-	Path string `json:"cale"`
-	// Exists spune dacă directorul chiar există pe disc. Un profil proaspăt nu le are pe toate.
-	Exists bool `json:"exista"`
+	Kind Kind   `json:"kind"`
+	Path string `json:"path"`
+	// Exists says whether the directory actually exists on disk. A fresh profile does not have them all.
+	Exists bool `json:"exists"`
 }
 
-// Detect află pe ce rulăm. Implementarea e per sistem de operare.
+// Detect finds out what we are running on. The implementation is per operating system.
 func Detect() (Info, error) { return detect() }
 
-// Locations întoarce locurile standard din profilul utilizatorului, în ordinea din KindOrder.
-// Locurile inexistente sunt incluse, cu Exists fals, ca interfața să le poată arăta cenușiu.
+// Locations returns the standard locations in the user's profile, in KindOrder.
+// Missing locations are included, with Exists false, so the interface can grey them out.
 func Locations(i Info) []Location { return locations(i) }
 
-// Arch normalizează arhitectura la forma folosită în manifest.
+// Arch normalises the architecture to the form used in the manifest.
 func Arch() string { return runtime.GOARCH }

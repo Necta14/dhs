@@ -5,103 +5,103 @@ import (
 	"strings"
 )
 
-// Rule e o regulă de excludere, cu motivul afișabil. Motivul contează: lista implicită se arată
-// utilizatorului, iar el trebuie să înțeleagă de ce lipsesc 18 GiB din total.
+// Rule is an exclusion rule, with a displayable reason. The reason matters: the default list is
+// shown to the user, and they must understand why 18 GiB are missing from the total.
 type Rule struct {
-	// Dir exclude un director cu acest nume, oriunde în arbore.
+	// Dir excludes a directory with this name, anywhere in the tree.
 	Dir string
-	// Reason e explicația arătată utilizatorului.
+	// Reason is the explanation shown to the user.
 	Reason string
-	// Heavy marchează regulile care taie de obicei mult — se arată primele în raport.
+	// Heavy marks the rules that usually cut a lot -- they are shown first in the report.
 	Heavy bool
 }
 
-// DefaultRules sunt excluderile pornite implicit. Sunt vizibile și se pot dezactiva:
-// nimic nu dispare din backup fără ca utilizatorul să poată afla de ce.
+// DefaultRules are the exclusions enabled by default. They are visible and can be disabled:
+// nothing disappears from the backup without the user being able to find out why.
 var DefaultRules = []Rule{
-	// Se refac dintr-o comandă; a le căra e risipă curată.
-	{Dir: "node_modules", Reason: "dependențe, se refac cu npm install"},
-	{Dir: "vendor", Reason: "dependențe vandorizate"},
-	{Dir: "__pycache__", Reason: "cache Python"},
-	{Dir: ".venv", Reason: "mediu virtual Python, se reface"},
-	{Dir: "venv", Reason: "mediu virtual Python, se reface"},
-	{Dir: ".tox", Reason: "cache de testare"},
-	{Dir: "target", Reason: "artefacte de build"},
-	{Dir: ".gradle", Reason: "cache Gradle"},
-	{Dir: ".m2", Reason: "cache Maven"},
-	{Dir: ".cargo", Reason: "cache Cargo"},
-	{Dir: ".rustup", Reason: "toolchain Rust, se reinstalează"},
-	{Dir: ".npm", Reason: "cache npm"},
-	{Dir: ".pnpm-store", Reason: "cache pnpm"},
-	{Dir: ".yarn", Reason: "cache Yarn"},
-	{Dir: ".nuget", Reason: "cache NuGet"},
-	{Dir: ".stack", Reason: "cache Haskell Stack"},
-	{Dir: ".ccache", Reason: "cache de compilare"},
+	// Rebuilt from a single command; carrying them around is pure waste.
+	{Dir: "node_modules", Reason: "dependencies, restored by npm install"},
+	{Dir: "vendor", Reason: "vendored dependencies"},
+	{Dir: "__pycache__", Reason: "Python cache"},
+	{Dir: ".venv", Reason: "Python virtual environment, recreated"},
+	{Dir: "venv", Reason: "Python virtual environment, recreated"},
+	{Dir: ".tox", Reason: "test cache"},
+	{Dir: "target", Reason: "build artifacts"},
+	{Dir: ".gradle", Reason: "Gradle cache"},
+	{Dir: ".m2", Reason: "Maven cache"},
+	{Dir: ".cargo", Reason: "Cargo cache"},
+	{Dir: ".rustup", Reason: "Rust toolchain, reinstalled"},
+	{Dir: ".npm", Reason: "npm cache"},
+	{Dir: ".pnpm-store", Reason: "pnpm cache"},
+	{Dir: ".yarn", Reason: "Yarn cache"},
+	{Dir: ".nuget", Reason: "NuGet cache"},
+	{Dir: ".stack", Reason: "Haskell Stack cache"},
+	{Dir: ".ccache", Reason: "compiler cache"},
 
-	// Cache-uri de sistem și de aplicații.
-	{Dir: ".cache", Reason: "cache, se reface singur", Heavy: true},
-	{Dir: "Temp", Reason: "fișiere temporare"},
-	{Dir: "Temporary Internet Files", Reason: "cache de browser"},
-	{Dir: ".thumbnails", Reason: "miniaturi, se refac"},
-	{Dir: "thumbnails", Reason: "miniaturi, se refac"},
-	{Dir: "CrashDumps", Reason: "rapoarte de eroare"},
+	// System and application caches.
+	{Dir: ".cache", Reason: "cache, rebuilt on its own", Heavy: true},
+	{Dir: "Temp", Reason: "temporary files"},
+	{Dir: "Temporary Internet Files", Reason: "browser cache"},
+	{Dir: ".thumbnails", Reason: "thumbnails, regenerated"},
+	{Dir: "thumbnails", Reason: "thumbnails, regenerated"},
+	{Dir: "CrashDumps", Reason: "crash reports"},
 
-	// Gunoi și fișiere de sistem.
-	{Dir: ".Trash", Reason: "coș de gunoi"},
-	{Dir: "Trash", Reason: "coș de gunoi"},
-	{Dir: "$RECYCLE.BIN", Reason: "coș de gunoi"},
-	{Dir: "System Volume Information", Reason: "date interne de sistem"},
-	{Dir: "lost+found", Reason: "recuperare de sistem de fișiere"},
+	// Trash and system files.
+	{Dir: ".Trash", Reason: "trash"},
+	{Dir: "Trash", Reason: "trash"},
+	{Dir: "$RECYCLE.BIN", Reason: "trash"},
+	{Dir: "System Volume Information", Reason: "internal system data"},
+	{Dir: "lost+found", Reason: "filesystem recovery"},
 
-	// Enorme și reinstalabile — sursa clasică de „de ce are backupul 400 GiB".
-	{Dir: "steamapps", Reason: "jocuri Steam, se redescarcă", Heavy: true},
-	{Dir: "Steam", Reason: "bibliotecă Steam, se redescarcă", Heavy: true},
-	{Dir: "EpicGamesLauncher", Reason: "jocuri Epic, se redescarcă", Heavy: true},
-	{Dir: "VirtualBox VMs", Reason: "mașini virtuale, foarte mari", Heavy: true},
-	{Dir: "libvirt", Reason: "mașini virtuale, foarte mari", Heavy: true},
-	{Dir: ".vagrant", Reason: "mașini virtuale"},
-	{Dir: "wine", Reason: "prefixe Wine, se recreează"},
-	{Dir: ".wine", Reason: "prefixe Wine, se recreează"},
+	// Huge and reinstallable -- the classic source of "why is the backup 400 GiB".
+	{Dir: "steamapps", Reason: "Steam games, re-downloadable", Heavy: true},
+	{Dir: "Steam", Reason: "Steam library, re-downloadable", Heavy: true},
+	{Dir: "EpicGamesLauncher", Reason: "Epic games, re-downloadable", Heavy: true},
+	{Dir: "VirtualBox VMs", Reason: "virtual machines, very large", Heavy: true},
+	{Dir: "libvirt", Reason: "virtual machines, very large", Heavy: true},
+	{Dir: ".vagrant", Reason: "virtual machines"},
+	{Dir: "wine", Reason: "Wine prefixes, recreated"},
+	{Dir: ".wine", Reason: "Wine prefixes, recreated"},
 
-	// Controlul versiunilor: istoricul e la distanță, iar .git poate fi uriaș.
-	{Dir: ".git", Reason: "istoric git, e pe server"},
-	{Dir: ".svn", Reason: "metadate SVN"},
-	{Dir: ".hg", Reason: "metadate Mercurial"},
+	// Version control: the history lives remotely, and .git can be huge.
+	{Dir: ".git", Reason: "git history, lives on the server"},
+	{Dir: ".svn", Reason: "SVN metadata"},
+	{Dir: ".hg", Reason: "Mercurial metadata"},
 }
 
-// secretPatterns nu sunt excluderi obișnuite: sunt fișiere care nu intră în pachet decât cu
-// acordul explicit al utilizatorului (D4). Vezi IsSecret.
+// secretDirs, secretExts and secretNames are not ordinary exclusions: they are files that do not
+// enter the package except with the user's explicit consent (D4). See IsSecret.
 var secretDirs = map[string]string{
-	".ssh":     "chei SSH",
-	".gnupg":   "chei GPG",
-	".aws":     "credențiale AWS",
-	".azure":   "credențiale Azure",
-	".kube":    "acces la clustere Kubernetes",
-	".docker":  "credențiale de registry",
-	"keyrings": "inele de chei",
+	".ssh":     "SSH keys",
+	".gnupg":   "GPG keys",
+	".aws":     "AWS credentials",
+	".azure":   "Azure credentials",
+	".kube":    "Kubernetes cluster access",
+	".docker":  "registry credentials",
+	"keyrings": "keyrings",
 }
 
 var secretExts = map[string]string{
-	"pem": "cheie privată", "key": "cheie privată", "p12": "certificat cu cheie",
-	"pfx": "certificat cu cheie", "jks": "depozit de chei Java", "keystore": "depozit de chei",
-	"kdbx": "bază de parole KeePass", "gpg": "date cifrate GPG", "asc": "cheie sau semnătură",
+	"pem": "private key", "key": "private key", "p12": "certificate with key",
+	"pfx": "certificate with key", "jks": "Java keystore", "keystore": "keystore",
+	"kdbx": "KeePass password database", "gpg": "GPG-encrypted data", "asc": "key or signature",
 }
 
 var secretNames = map[string]string{
-	"id_rsa": "cheie SSH", "id_dsa": "cheie SSH", "id_ecdsa": "cheie SSH",
-	"id_ed25519": "cheie SSH", "identity": "cheie SSH",
-	"credentials": "credențiale", ".netrc": "credențiale de rețea", ".pgpass": "parole PostgreSQL",
-	".htpasswd": "parole HTTP",
+	"id_rsa": "SSH key", "id_dsa": "SSH key", "id_ecdsa": "SSH key",
+	"id_ed25519": "SSH key", "identity": "SSH key",
+	"credentials": "credentials", ".netrc": "network credentials", ".pgpass": "PostgreSQL passwords",
+	".htpasswd": "HTTP passwords",
 }
 
-// Excluder decide ce intră în inventar și ce nu.
+// Excluder decides what enters the inventory and what does not.
 type Excluder struct {
 	dirs map[string]Rule
-	// SkipHidden sare peste fișierele și directoarele ascunse din rădăcina profilului.
+	// SkipHidden skips the hidden files and directories in the profile root.
 	SkipHidden bool
 }
 
-// NewExcluder construiește un excluder din regulile date.
+// NewExcluder builds an excluder from the given rules.
 func NewExcluder(rules []Rule) *Excluder {
 	e := &Excluder{dirs: make(map[string]Rule, len(rules))}
 	for _, r := range rules {
@@ -110,20 +110,21 @@ func NewExcluder(rules []Rule) *Excluder {
 	return e
 }
 
-// DefaultExcluder e excluderul cu regulile implicite.
+// DefaultExcluder is the excluder with the default rules.
 func DefaultExcluder() *Excluder { return NewExcluder(DefaultRules) }
 
-// Dir spune dacă un director se sare, și de ce.
+// Dir says whether a directory is skipped, and why.
 func (e *Excluder) Dir(name string) (Rule, bool) {
 	r, ok := e.dirs[strings.ToLower(name)]
 	return r, ok
 }
 
-// Allow scoate o regulă din excluder — utilizatorul a cerut explicit directorul înapoi.
+// Allow removes a rule from the excluder -- the user has explicitly asked for the directory back.
 func (e *Excluder) Allow(name string) { delete(e.dirs, strings.ToLower(name)) }
 
-// baseName ia ultimul segment al unei căi, indiferent de separator. Nu folosim filepath.Base
-// singur, fiindcă pe Linux el nu recunoaște „\" — iar noi citim și manifeste venite de pe Windows.
+// baseName takes the last segment of a path, whatever the separator. We do not rely on
+// filepath.Base alone, because on Linux it does not recognise "\" -- and we also read manifests
+// that come from Windows.
 func baseName(path string) string {
 	if i := strings.LastIndexAny(path, `/\`); i >= 0 {
 		return path[i+1:]
@@ -131,13 +132,13 @@ func baseName(path string) string {
 	return path
 }
 
-// pathParts sparge o cale în segmente, acceptând ambii separatori, din același motiv.
+// pathParts splits a path into segments, accepting both separators, for the same reason.
 func pathParts(path string) []string {
 	return strings.FieldsFunc(path, func(r rune) bool { return r == '/' || r == '\\' })
 }
 
-// IsSecret spune dacă o cale conține un secret și ce fel. Secretele nu intră în pachet fără
-// opt-in explicit; vezi decizia D4.
+// IsSecret says whether a path holds a secret, and of what kind. Secrets do not enter the package
+// without explicit opt-in; see decision D4.
 func IsSecret(path string) (string, bool) {
 	base := baseName(path)
 	lower := strings.ToLower(base)
@@ -150,9 +151,9 @@ func IsSecret(path string) (string, bool) {
 			return reason, true
 		}
 	}
-	// „.env", „.env.local", „.env.production" — Regula #1 din CLAUDE.md.
+	// ".env", ".env.local", ".env.production" -- Rule #1 in CLAUDE.md.
 	if lower == ".env" || strings.HasPrefix(lower, ".env.") {
-		return "variabile de mediu, pot conține secrete", true
+		return "environment variables, may contain secrets", true
 	}
 	for _, part := range pathParts(path) {
 		if reason, ok := secretDirs[strings.ToLower(part)]; ok {

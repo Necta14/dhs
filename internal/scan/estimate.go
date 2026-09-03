@@ -5,42 +5,42 @@ import (
 	"time"
 )
 
-// Level e nivelul de compresie ales de utilizator.
+// Level is the compression level chosen by the user.
 type Level uint8
 
 const (
-	// LevelCompatible — ZIP/deflate. Rapid, iar pachetul necriptat se deschide pe orice calculator.
+	// LevelCompatible -- ZIP/deflate. Fast, and an unencrypted package opens on any computer.
 	LevelCompatible Level = 1
-	// LevelBalanced — zstd cu fereastră lungă. Implicit: raport bun, timp rezonabil.
+	// LevelBalanced -- zstd with a long window. The default: good ratio, reasonable time.
 	LevelBalanced Level = 2
-	// LevelMax — LZMA2, echivalentul „7-Zip Ultra". Lent; merită doar pe date comprimabile.
+	// LevelMax -- LZMA2, the equivalent of "7-Zip Ultra". Slow; worth it only on compressible data.
 	LevelMax Level = 3
 )
 
 func (l Level) String() string {
 	switch l {
 	case LevelCompatible:
-		return "1 · Compatibil"
+		return "1 · Compatible"
 	case LevelBalanced:
-		return "2 · Echilibrat"
+		return "2 · Balanced"
 	case LevelMax:
-		return "3 · Maxim"
+		return "3 · Maximum"
 	default:
-		return fmt.Sprintf("necunoscut(%d)", uint8(l))
+		return fmt.Sprintf("unknown(%d)", uint8(l))
 	}
 }
 
-// Valid spune dacă nivelul e unul dintre cele trei.
+// Valid says whether the level is one of the three.
 func (l Level) Valid() bool { return l >= LevelCompatible && l <= LevelMax }
 
-// ratio e intervalul de compresie așteptat: octeți rezultați / octeți inițiali.
+// ratio is the expected compression range: output bytes / input bytes.
 type ratio struct{ min, max float64 }
 
-// ratios sunt estimările pornite din tabel, înainte de orice eșantionare. Sunt intenționat
-// prudente: e mai bine să spunem „încape la limită" și să iasă mai bine, decât invers.
+// ratios are the estimates taken from the table, before any sampling. They are deliberately
+// cautious: better to say "it barely fits" and have it come out better, than the other way round.
 //
-// Clasa Incompressible are raport 1.0 fiindcă acele fișiere se stochează, nu se comprimă —
-// vezi decizia despre blocuri solide pe clasă din docs/COMPRESIE.md.
+// The Incompressible class has a ratio of 1.0 because those files are stored, not compressed --
+// see the decision on per-class solid blocks in docs/COMPRESIE.md.
 var ratios = map[Level]map[Class]ratio{
 	LevelCompatible: {
 		Incompressible: {1.00, 1.00},
@@ -62,48 +62,49 @@ var ratios = map[Level]map[Class]ratio{
 	},
 }
 
-// throughput e viteza de compresie pe un nucleu, în octeți pe secundă. Cifrele sunt de ordin de
-// mărime, nu promisiuni; servesc ca utilizatorul să știe dacă așteaptă minute sau ore.
+// throughput is the compression speed on one core, in bytes per second. The figures are orders
+// of magnitude, not promises; they serve so the user knows whether to expect minutes or hours.
 var throughput = map[Level]float64{
 	LevelCompatible: 80 << 20,
 	LevelBalanced:   18 << 20,
 	LevelMax:        2 << 20,
 }
 
-// storedThroughput e viteza pentru datele care nu se comprimă: le limitează discul, nu procesorul.
+// storedThroughput is the speed for data that is not compressed: the disk limits it, not the CPU.
 const storedThroughput float64 = 150 << 20
 
-// VolumeSize e dimensiunea implicită a unui volum: sub limita FAT32 de 4 GiB.
-const VolumeSize int64 = 3584 << 20 // 3,5 GiB
+// VolumeSize is the default size of a volume: under the FAT32 limit of 4 GiB.
+const VolumeSize int64 = 3584 << 20 // 3.5 GiB
 
-// Estimate e răspunsul la „cât ocupă și cât durează", înainte să scriem ceva pe disc.
+// Estimate is the answer to "how much does it take up and how long does it take", before we
+// write anything to disk.
 type Estimate struct {
-	Level Level `json:"nivel"`
-	// Raw e totalul brut al fișierelor incluse.
-	Raw int64 `json:"brut"`
-	// Min și Max mărginesc dimensiunea pachetului. Raportăm interval, nu o cifră falsă precisă.
-	Min int64 `json:"minim"`
-	Max int64 `json:"maxim"`
-	// Volumes e numărul de volume în cazul cel mai defavorabil (Max).
-	Volumes int `json:"volume"`
-	// Duration e timpul estimat de compresie, cu paralelizare pe nucleele disponibile.
-	Duration time.Duration `json:"durata_ns"`
-	// Sampled spune dacă rapoartele au fost măsurate prin eșantionare sau doar presupuse din tabel.
-	Sampled bool `json:"esantionat"`
+	Level Level `json:"level"`
+	// Raw is the raw total of the included files.
+	Raw int64 `json:"raw"`
+	// Min and Max bound the package size. We report a range, not a falsely precise figure.
+	Min int64 `json:"min"`
+	Max int64 `json:"max"`
+	// Volumes is the number of volumes in the worst case (Max).
+	Volumes int `json:"volumes"`
+	// Duration is the estimated compression time, parallelised over the available cores.
+	Duration time.Duration `json:"duration_ns"`
+	// Sampled says whether the ratios were measured by sampling or merely assumed from the table.
+	Sampled bool `json:"sampled"`
 }
 
-// Estimator calculează estimarea pentru un inventar dat.
+// Estimator computes the estimate for a given inventory.
 type Estimator struct {
-	// Workers e numărul de nuclee folosite la compresie.
+	// Workers is the number of cores used for compression.
 	Workers int
-	// VolumeSize permite schimbarea dimensiunii volumului (implicit 3,5 GiB).
+	// VolumeSize allows changing the volume size (default 3.5 GiB).
 	VolumeSize int64
-	// Override, dacă e completat, înlocuiește raportul din tabel pentru o clasă — aici intră
-	// rezultatele eșantionării.
+	// Override, if filled in, replaces the table ratio for a class -- this is where the sampling
+	// results go.
 	Override map[Class]float64
 }
 
-// Estimate calculează dimensiunea și timpul pentru inventarul dat, la nivelul cerut.
+// Estimate computes the size and time for the given inventory, at the requested level.
 func (e Estimator) Estimate(r *Result, level Level) Estimate {
 	workers := max(e.Workers, 1)
 	volume := e.VolumeSize
@@ -126,7 +127,7 @@ func (e Estimator) Estimate(r *Result, level Level) Estimate {
 		}
 		lo, hi := rt.min, rt.max
 		if measured, ok := e.Override[class]; ok {
-			// Un raport măsurat înlocuiește presupunerea, cu o marjă mică în ambele sensuri.
+			// A measured ratio replaces the assumption, with a small margin in both directions.
 			lo, hi = measured*0.92, measured*1.08
 		}
 		size := float64(bucket.Bytes)
@@ -140,8 +141,8 @@ func (e Estimator) Estimate(r *Result, level Level) Estimate {
 		seconds += size / speed
 	}
 
-	// Compresia merge în paralel pe nuclee, dar scrierea pe disc rămâne în serie: nu promitem
-	// o accelerare perfectă.
+	// Compression runs in parallel across cores, but writing to disk stays serial: we do not
+	// promise a perfect speed-up.
 	out.Duration = time.Duration(seconds / float64(workers) * 1.15 * float64(time.Second))
 	out.Volumes = int((out.Max + volume - 1) / volume)
 	if out.Volumes == 0 && out.Max > 0 {
@@ -150,8 +151,8 @@ func (e Estimator) Estimate(r *Result, level Level) Estimate {
 	return out
 }
 
-// Fits spune dacă pachetul încape în spațiul disponibil, în cazul cel mai defavorabil,
-// și cât ar rămâne liber.
+// Fits says whether the package fits in the available space, in the worst case,
+// and how much would remain free.
 func (e Estimate) Fits(available int64) (bool, int64) {
 	return e.Max <= available, available - e.Max
 }

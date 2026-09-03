@@ -8,10 +8,10 @@ import (
 	"github.com/Necta14/dhs/internal/system"
 )
 
-// RootMap leagă locurile standard ale unui sistem de căile lor concrete, în ambele sensuri.
+// RootMap ties a system's standard locations to their concrete paths, in both directions.
 type RootMap struct {
-	// byLen e sortat descrescător după lungimea căii, ca prefixul cel mai lung să câștige:
-	// ~/Documente/Poze trebuie să bată ~/Documente dacă ambele sunt locuri standard.
+	// byLen is sorted by descending path length, so that the longest prefix wins:
+	// ~/Documents/Photos must beat ~/Documents if both are standard locations.
 	byLen  []rootPath
 	byRoot map[Root]string
 	home   string
@@ -19,10 +19,10 @@ type RootMap struct {
 
 type rootPath struct {
 	root Root
-	path string // curat, fără separator final
+	path string // clean, without a trailing separator
 }
 
-// NewRootMap construiește harta din locurile detectate pe sistemul curent.
+// NewRootMap builds the map from the locations detected on the current system.
 func NewRootMap(home string, locs []system.Location) *RootMap {
 	m := &RootMap{byRoot: make(map[Root]string, len(locs)), home: filepath.Clean(home)}
 	for _, l := range locs {
@@ -34,8 +34,8 @@ func NewRootMap(home string, locs []system.Location) *RootMap {
 	return m
 }
 
-// Split împarte o cale absolută în (rădăcină, cale relativă cu „/"). Ce nu e sub niciun loc
-// standard primește RootOther și își păstrează calea absolută, normalizată la „/".
+// Split breaks an absolute path into (root, relative path with "/"). Whatever is not under any
+// standard location gets RootOther and keeps its absolute path, normalized to "/".
 func (m *RootMap) Split(abs string) (Root, string) {
 	clean := filepath.Clean(abs)
 	for _, rp := range m.byLen {
@@ -49,12 +49,12 @@ func (m *RootMap) Split(abs string) (Root, string) {
 	return RootOther, otherKey(clean)
 }
 
-// Join face inversul: (rădăcină, relativ) → cale absolută pe sistemul curent. Pentru RootOther,
-// fișierele ajung sub <acasă>/DHS-restaurat/<cale originală>, ca să nu scriem niciodată orbește
-// într-o cale absolută venită de pe alt sistem.
+// Join does the reverse: (root, relative) → absolute path on the current system. For RootOther,
+// files land under <home>/DHS-restored/<original path>, so that we never blindly write into an
+// absolute path that came from another system.
 func (m *RootMap) Join(root Root, rel string) (string, bool) {
 	if root == RootOther {
-		return filepath.Join(m.home, "DHS-restaurat", filepath.FromSlash(rel)), true
+		return filepath.Join(m.home, "DHS-restored", filepath.FromSlash(rel)), true
 	}
 	base, ok := m.byRoot[root]
 	if !ok {
@@ -66,10 +66,10 @@ func (m *RootMap) Join(root Root, rel string) (string, bool) {
 	return filepath.Join(base, filepath.FromSlash(rel)), true
 }
 
-// otherKey transformă o cale absolută de pe orice sistem într-o cale relativă portabilă:
+// otherKey turns an absolute path from any system into a portable relative path:
 //
-//	/home/necta/proiect/a.txt   → home/necta/proiect/a.txt
-//	C:\Users\necta\a.txt        → C/Users/necta/a.txt
+//	/home/you/project/a.txt   → home/you/project/a.txt
+//	C:\Users\you\a.txt          → C/Users/you/a.txt
 func otherKey(abs string) string {
 	s := filepath.ToSlash(abs)
 	if vol := filepath.VolumeName(abs); vol != "" {

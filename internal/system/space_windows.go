@@ -29,7 +29,7 @@ func spaceOf(path string) (Volume, error) {
 	v.Total = int64(total)
 	v.Free = int64(free)
 
-	// Numele sistemului de fișiere vine ca text: „NTFS", „FAT32", „exFAT".
+	// The file system name comes as text: "NTFS", "FAT32", "exFAT".
 	nameBuf := make([]uint16, 256)
 	fsBuf := make([]uint16, 256)
 	var serial, maxComponent, flags uint32

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 256" width="1200" height="256" role="img" aria-label="DHS — Direct Handoff Suite">
+  <title>DHS — Direct Handoff Suite</title>
+  <defs>
+    <clipPath id="body">
+      <rect x="48" y="92" width="160" height="116" rx="20"/>
+    </clipPath>
+  </defs>
+
+  <!-- icon -->
+  <rect width="256" height="256" rx="56" fill="#1E293B"/>
+  <path d="M96 92 V76 a12 12 0 0 1 12 -12 h40 a12 12 0 0 1 12 12 V92"
+        fill="none" stroke="#F8FAFC" stroke-width="14" stroke-linecap="round"/>
+  <rect x="48" y="92" width="160" height="116" rx="20" fill="#F8FAFC"/>
+  <g clip-path="url(#body)">
+    <path d="M70 150 H165" stroke="#1E293B" stroke-width="22" stroke-linecap="round"/>
+    <path d="M141 116 L175 150 L141 184" fill="none" stroke="#1E293B" stroke-width="22"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <circle cx="175" cy="150" r="11" fill="#22C55E"/>
+
+  <!-- wordmark -->
+  <text x="312" y="128" font-family="Inter, 'Segoe UI', Roboto, Ubuntu, Cantarell, sans-serif"
+        font-size="112" font-weight="800" fill="#1E293B" letter-spacing="-4">DHS</text>
+  <text x="312" y="200" font-family="Inter, 'Segoe UI', Roboto, Ubuntu, Cantarell, sans-serif"
+        font-size="48" font-weight="500" fill="#475569">Direct Handoff Suite</text>
+</svg>

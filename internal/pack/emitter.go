@@ -11,13 +11,13 @@ import (
 	"github.com/Necta14/dhs/internal/passphrase"
 )
 
-// emitter e singurul care scrie pe disc. Primește blocurile comprimate în orice ordine, le
-// reordonează după id și le scrie secvențial, rotind volumele când se umplu. Rulează într-un
-// singur goroutine, deci nu are nevoie de lacăte pentru starea proprie.
+// emitter is the only one that writes to disk. It receives the compressed blocks in any order,
+// reorders them by id and writes them sequentially, rotating volumes when they fill up. It runs
+// in a single goroutine, so it needs no locks for its own state.
 type emitter struct {
 	w *Writer
 
-	mu      sync.Mutex // volumes, stored, current — citite din alt goroutine la raportare
+	mu      sync.Mutex // volumes, stored, current — read from another goroutine when reporting
 	volumes []VolumeInfo
 	stored  int64
 	current uint32
@@ -27,16 +27,16 @@ type emitter struct {
 	vol     *volume
 }
 
-// volume e volumul în curs de scriere.
+// volume is the volume currently being written.
 type volume struct {
 	number uint32
 	path   string
 	tmp    string
 	f      *os.File
-	hw     *hashWriter    // ce ajunge pe disc: criptat
-	enc    io.WriteCloser // fluxul în clar intră aici
-	pos    int64          // offset în fluxul în clar
-	blocks []int          // id-urile blocurilor din volum, în ordine
+	hw     *hashWriter    // what reaches the disk: encrypted
+	enc    io.WriteCloser // the plaintext stream goes in here
+	pos    int64          // offset in the plaintext stream
+	blocks []int          // ids of the blocks in the volume, in order
 	touch  map[*Entry]struct{}
 }
 
@@ -78,7 +78,8 @@ func (em *emitter) run() {
 			ready.raw, ready.stored = nil, nil
 		}
 	}
-	// Coada s-a închis: fie Close, fie Abort. Încheiem volumul curent doar dacă totul a mers.
+	// The queue has closed: either Close or Abort. We finish the current volume only if
+	// everything went well.
 	if em.vol != nil {
 		if em.w.Err() == nil {
 			if err := em.finish(); err != nil {
@@ -90,7 +91,7 @@ func (em *emitter) run() {
 	}
 }
 
-// write pune un bloc în volumul curent, sau deschide unul nou dacă nu mai încape.
+// write puts a block into the current volume, or opens a new one if it no longer fits.
 func (em *emitter) write(j *job) error {
 	stored := j.stored
 	if j.kind == KindStored {
@@ -153,10 +154,10 @@ func (em *emitter) storedSoFar() int64 {
 	return n
 }
 
-// fits spune dacă mai încape un bloc, lăsând loc pentru indexul volumului, trailer și pentru
-// overhead-ul cifrului: age adaugă 16 octeți la fiecare 64 KiB, adică ~900 KB pe un volum de
-// 3,5 GiB. Rezerva de 4 MiB acoperă asta cu marjă și ține volumul sub limita FAT32 de 4 GiB.
-// Un volum gol primește orice bloc: altfel un bloc mare ar roti volumele la infinit.
+// fits says whether one more block fits, leaving room for the volume index, the trailer and the
+// cipher's overhead: age adds 16 bytes for every 64 KiB, i.e. ~900 KB on a 3.5 GiB volume. The
+// 4 MiB reserve covers that with margin and keeps the volume under the FAT32 limit of 4 GiB.
+// An empty volume accepts any block: otherwise a large block would rotate volumes forever.
 func (em *emitter) fits(need int64) bool {
 	if len(em.vol.blocks) == 0 {
 		return true
@@ -195,13 +196,13 @@ func (v *volume) write(b []byte) error {
 	return err
 }
 
-// finish scrie indexul volumului și trailerul, închide cifrul, forțează pe disc, redenumește,
-// apoi actualizează index.dhsi, manifestul, sumele și jurnalul — în ordinea asta, ca la orice
-// întrerupere pachetul să fie fie „volumul N încheiat", fie „volumul N nu există".
+// finish writes the volume index and the trailer, closes the cipher, forces to disk, renames,
+// then updates index.dhsi, the manifest, the sums and the journal — in that order, so that at any
+// interruption the package is either "volume N finished" or "volume N does not exist".
 func (em *emitter) finish() error {
 	v := em.vol
-	// Indexul propriu al volumului: blocurile lui și intrările înregistrate care au măcar o parte
-	// în ele. Copii, nu pointeri — serializăm după ce dăm drumul lacătului.
+	// The volume's own index: its blocks and the registered entries that have at least one part
+	// in them. Copies, not pointers — we serialize after letting go of the lock.
 	em.w.mu.Lock()
 	idx := &Index{Format: FormatVersion, ID: em.w.id, Complete: false}
 	inVolume := make(map[int]struct{}, len(v.blocks))
@@ -260,8 +261,8 @@ func (em *emitter) finish() error {
 	}
 
 	info := VolumeInfo{Number: v.number, Bytes: v.hw.n, Blocks: len(v.blocks), SHA256: v.hw.Sum()}
-	// Volumul iese din „curent" ÎNAINTE să recalculăm totalul — altfel îl numărăm de două ori,
-	// o dată în lista volumelor încheiate și o dată ca volum în curs.
+	// The volume leaves "current" BEFORE we recompute the total — otherwise we count it twice,
+	// once in the list of finished volumes and once as the volume in progress.
 	em.vol = nil
 	em.mu.Lock()
 	em.volumes = append(em.volumes, info)
@@ -269,7 +270,7 @@ func (em *emitter) finish() error {
 	em.stored = em.storedSoFar()
 	em.mu.Unlock()
 
-	// Starea reluabilă: indexul cu ce e complet, manifestul, sumele, apoi jurnalul.
+	// The resumable state: the index with what is complete, the manifest, the sums, then the journal.
 	em.w.mu.Lock()
 	partial := em.w.snapshotIndex(false)
 	em.w.mu.Unlock()
@@ -283,7 +284,7 @@ func (em *emitter) finish() error {
 		return err
 	}
 	sha := info.SHA256
-	if err := appendJournal(em.w.o.Dir, JournalLine{Type: "volum", Volume: v.number, Bytes: v.hw.n, SHA256: &sha, When: em.w.o.Now().UTC()}); err != nil {
+	if err := appendJournal(em.w.o.Dir, JournalLine{Type: "volume", Volume: v.number, Bytes: v.hw.n, SHA256: &sha, When: em.w.o.Now().UTC()}); err != nil {
 		return err
 	}
 	if em.w.o.OnProgress != nil {
@@ -292,8 +293,8 @@ func (em *emitter) finish() error {
 	return nil
 }
 
-// discard aruncă volumul în curs după o eroare. Fișierul temporar rămâne cu sufixul .tmp — vizibil
-// că e incomplet, și niciodată confundabil cu un volum valid.
+// discard throws away the volume in progress after an error. The temporary file keeps its .tmp
+// suffix — visibly incomplete, and never mistakable for a valid volume.
 func (em *emitter) discard() {
 	if em.vol == nil {
 		return
@@ -302,7 +303,7 @@ func (em *emitter) discard() {
 	em.vol = nil
 }
 
-// volumeFile întoarce calea unui volum din pachet.
+// volumeFile returns the path of a volume in the package.
 func volumeFile(dir string, n uint32) string {
 	return filepath.Join(dir, volumeDir, volumeName(n))
 }

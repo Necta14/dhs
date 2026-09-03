@@ -1,11 +1,11 @@
 package system
 
-// FSKind e familia sistemului de fișiere al destinației. Ne interesează mai ales dacă e FAT32,
-// fiindcă acolo limita de 4 GiB pe fișier nu e negociabilă.
+// FSKind is the family of the destination's file system. We mostly care whether it is FAT32,
+// because there the 4 GiB per-file limit is not negotiable.
 type FSKind string
 
 const (
-	FSUnknown FSKind = "necunoscut"
+	FSUnknown FSKind = "unknown"
 	FSFAT32   FSKind = "FAT32"
 	FSExFAT   FSKind = "exFAT"
 	FSNTFS    FSKind = "NTFS"
@@ -17,22 +17,22 @@ const (
 	FSTmpfs   FSKind = "tmpfs"
 )
 
-// MaxFileSize e cea mai mare dimensiune de fișier acceptată de sistemul de fișiere,
-// sau 0 dacă nu e o limită relevantă în practică.
+// MaxFileSize is the largest file size the file system accepts,
+// or 0 if there is no limit that matters in practice.
 func (k FSKind) MaxFileSize() int64 {
 	if k == FSFAT32 {
-		return 4<<30 - 1 // 4 GiB minus un octet
+		return 4<<30 - 1 // 4 GiB minus one byte
 	}
 	return 0
 }
 
-// Volume descrie destinația unui pachet.
+// Volume describes the destination of a package.
 type Volume struct {
-	Path  string `json:"cale"`
-	FS    FSKind `json:"sistem_fisiere"`
+	Path  string `json:"path"`
+	FS    FSKind `json:"fs"`
 	Total int64  `json:"total"`
-	Free  int64  `json:"liber"`
+	Free  int64  `json:"free"`
 }
 
-// SpaceOf întoarce spațiul și tipul sistemului de fișiere pentru calea dată.
+// SpaceOf returns the space and the file system type for the given path.
 func SpaceOf(path string) (Volume, error) { return spaceOf(path) }

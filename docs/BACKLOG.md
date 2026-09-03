@@ -1,50 +1,50 @@
 # BACKLOG — DHS
 
-Ce nu intră în v1. Ordinea în fiecare secțiune e o propunere, nu un angajament.
+What does not go into v1. The order within each section is a proposal, not a commitment.
 
-## v1 — ce mai lipsește din nucleu
+## v1 — what the core still lacks
 
-- [x] `dhs scan` — inventar, clasificare, excluderi, estimare, verificarea destinației
-- [ ] `--precis` — eșantionare pentru raport măsurat + hash pentru deduplicare
-- [x] `internal/pack` — formatul: volume de 3,5 GiB, blocuri solide pe clasă, dedup pe fișier, jurnal, sume, index criptat, index redundant per volum — **scris, netestat** (vezi `TESTARE.md`)
-- [x] `internal/passphrase` — `age` cu frază de acces — **scris, netestat**
-- [ ] Secțiune separată pentru secrete, cu parolă proprie (D4) — formatul o permite, neimplementat
-- [ ] Reluarea unui backup întrerupt din jurnal + `index.dhsi` parțial — formatul o permite, comanda nu există
-- [x] `dhs backup` — scrierea pachetului — **scris, netestat**
-- [x] `dhs verify` — verificarea integrală, fără extragere — **scris, netestat**
-- [x] `dhs list` — conținutul pachetului, rezumat sau complet — **scris, netestat**
-- [x] `dhs restore` — plan (destinații, conflicte, nume adaptate, coliziuni de majuscule) → confirmare → scriere prin temporar + verificare hash + rename — **scris, netestat**
-- [ ] `internal/appdb` — baza de aplicații (TOML + `go:embed`) și interogarea ei
-- [ ] Detectarea aplicațiilor instalate: `pacman`/`dpkg`/`rpm`/`flatpak`/`snap` pe Linux, registry + `winget` pe Windows
-- [ ] `dhs plan` — manifest + appdb → plan de restaurare, fără să atingă nimic
-- [ ] `dhs raport` — ce a rămas necunoscut sau netradus
-- [ ] Cele 10–15 aplicații cu configurații portabile (D3)
-- [ ] Împărțirea pachetului pe mai multe medii
+- [x] `dhs scan` — inventory, classification, exclusions, estimate, destination check
+- [ ] `--precise` — sampling for a measured report + hashing for deduplication
+- [x] `internal/pack` — the format: 3.5 GiB volumes, solid blocks per class, file-level dedup, journal, checksums, encrypted index, redundant index per volume — **green on Codespaces** (see `TESTING.md`)
+- [x] `internal/passphrase` — `age` with a passphrase — **green on Codespaces**
+- [ ] Separate section for secrets, with its own passphrase (D4) — the format allows it, not implemented
+- [ ] Resuming an interrupted backup from the journal + partial `index.dhsi` — the format allows it, the command does not exist
+- [x] `dhs backup` — writing the package — **green on Codespaces**
+- [x] `dhs verify` — full verification, without extraction — **green on Codespaces**
+- [x] `dhs list` — package contents, summary or full — **green on Codespaces**
+- [x] `dhs restore` — plan (destinations, conflicts, adapted names, case collisions) → confirmation → write through a temporary file + hash check + rename — **green on Codespaces**
+- [ ] `internal/appdb` — the app database (TOML + `go:embed`) and its queries
+- [ ] Detection of installed apps: `pacman`/`dpkg`/`rpm`/`flatpak`/`snap` on Linux, registry + `winget` on Windows
+- [ ] `dhs plan` — manifest + appdb → restore plan, without touching anything
+- [ ] `dhs report` — what stayed unknown or untranslated
+- [ ] The 10–15 apps with portable configurations (D3)
+- [ ] Splitting the package across several media
 
-## Calitate și infrastructură
+## Quality and infrastructure
 
-- [ ] CI: `go vet`, `go test`, build pentru linux/amd64, linux/arm64, windows/amd64, windows/arm64
-- [ ] Buget de dimensiune verificat în CI (Regula #4: binar ≤ 15 MiB)
-- [ ] Teste de integrare pe VM-uri: o migrare Windows → Linux dusă până la capăt
-- [ ] `CONTRIBUTING.md` cu regula DCO și cum se adaugă o aplicație în bază
-- [ ] Completarea numelui în `NOTICE` — blochează prima publicare
+- [ ] CI: `go vet`, `go test`, builds for linux/amd64, linux/arm64, windows/amd64, windows/arm64
+- [ ] Size budget checked in CI (Rule #4: binary ≤ 15 MiB)
+- [ ] Integration tests on VMs: a Windows → Linux migration carried through to the end
+- [ ] `CONTRIBUTING.md` with the DCO rule and how to add an app to the database
+- [x] The name in `NOTICE` — settled 2026-09-03: Necta (https://github.com/Necta14)
 
-## După v1
+## After v1
 
-- [ ] **GUI** — proces separat, vorbește JSON cu CLI-ul (D9). Linux: GTK4 + libadwaita prin `gotk4`. Windows: Win32 nativ sau WinUI
-- [ ] **Preprocesare tip preflate** pentru nivelul 3 (D8): docx/xlsx/pptx, PDF, instalatoare. Doar cu verificare bit-identică per flux
-- [ ] Recompresie JPEG fără pierderi (~20% pe o colecție de poze) — evaluat și amânat, vezi `COMPRESIE.md`
-- [ ] Deduplicare pe blocuri, în stil `srep`
-- [ ] Backup incremental peste un pachet existent
-- [ ] `dhs watch` — pachet ținut la zi
-- [ ] Traducerea configurațiilor complexe, registry Windows → fișiere Linux
-- [ ] Sincronizare între dispozitive
-- [ ] Suport enterprise, implementare în masă
-- [ ] Integrare cu instalatoarele de distribuții („ai un pachet DHS? îl restaurez acum")
+- [ ] **GUI** — separate process, speaks JSON with the CLI (D9). Linux: GTK4 + libadwaita; a PyGObject prototype exists in `gui/linux/dhs-gui.py`, the production version may be rewritten with `gotk4`. Windows: native Win32 or WinUI
+- [ ] **preflate-style preprocessing** for level 3 (D8): docx/xlsx/pptx, PDF, installers. Only with bit-identical verification per stream
+- [ ] Lossless JPEG recompression (~20% on a photo collection) — evaluated and postponed, see `COMPRESSION.md`
+- [ ] Block-level deduplication, `srep` style
+- [ ] Incremental backup on top of an existing package
+- [ ] `dhs watch` — a package kept up to date
+- [ ] Translation of complex configurations, Windows registry → Linux files
+- [ ] Sync between devices
+- [ ] Enterprise support, mass deployment
+- [ ] Integration with distribution installers ("have a DHS package? I'll restore it now")
 
-## Puncte deschise
+## Open points
 
-- Cum comunicăm că parola pierdută înseamnă pachet pierdut, fără să speriem un utilizator obișnuit
-- Fișiere mai mari decât un volum: tăierea între volume (proiectat, neimplementat)
-- KeePassXC: baza de parole intră la „secrete", deci opt-in
-- Steam: configurația da, biblioteca de jocuri nu — exclusă implicit
+- How we communicate that a lost passphrase means a lost package, without scaring an ordinary user
+- Files larger than a volume: cutting across volumes (designed, implemented in `pack`; not yet exercised on a real multi-volume package)
+- KeePassXC: the password database falls under "secrets", so opt-in
+- Steam: the configuration yes, the game library no — excluded by default

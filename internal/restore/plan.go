@@ -13,20 +13,20 @@ import (
 	"github.com/Necta14/dhs/internal/system"
 )
 
-// Conflict spune ce facem când destinația există deja.
+// Conflict says what we do when the destination already exists.
 type Conflict string
 
 const (
-	// KeepBoth păstrează fișierul existent neatins și scrie pe cel restaurat alături, cu sufix.
-	// E implicitul: nu pierdem niciodată ceva ce era deja pe disc.
-	KeepBoth Conflict = "alaturi"
-	// Skip nu scrie fișierul restaurat dacă destinația există.
-	Skip Conflict = "sari"
-	// Overwrite înlocuiește fișierul existent. Doar la cerere explicită.
-	Overwrite Conflict = "suprascrie"
+	// KeepBoth leaves the existing file untouched and writes the restored one beside it, with a
+	// suffix. It is the default: we never lose something that was already on disk.
+	KeepBoth Conflict = "keep-both"
+	// Skip does not write the restored file if the destination exists.
+	Skip Conflict = "skip"
+	// Overwrite replaces the existing file. Only on explicit request.
+	Overwrite Conflict = "overwrite"
 )
 
-// ParseConflict citește politica din text.
+// ParseConflict reads the policy from text.
 func ParseConflict(s string) (Conflict, error) {
 	switch Conflict(s) {
 	case KeepBoth, Skip, Overwrite:
@@ -34,30 +34,30 @@ func ParseConflict(s string) (Conflict, error) {
 	case "":
 		return KeepBoth, nil
 	}
-	return "", fmt.Errorf("politică de conflict necunoscută %q (alaturi | sari | suprascrie)", s)
+	return "", fmt.Errorf("unknown conflict policy %q (keep-both | skip | overwrite)", s)
 }
 
-// Action e ce va face planul cu o intrare.
+// Action is what the plan will do with an entry.
 type Action string
 
 const (
-	Write     Action = "scrie"
-	WriteNext Action = "scrie-alaturi"
-	SkipIt    Action = "sare"
-	Replace   Action = "suprascrie"
+	Write     Action = "write"
+	WriteNext Action = "write-beside"
+	SkipIt    Action = "skip"
+	Replace   Action = "overwrite"
 )
 
-// Item e o intrare din pachet cu destinația ei rezolvată.
+// Item is a package entry with its destination resolved.
 type Item struct {
 	Entry   *pack.Entry
-	Dest    string // calea absolută finală
+	Dest    string // the final absolute path
 	Action  Action
-	Renamed bool   // numele a fost adaptat sistemului destinație
-	Exists  bool   // destinația exista înainte
-	Note    string // de ce s-a redenumit sau s-a mutat
+	Renamed bool   // the name was adapted to the target system
+	Exists  bool   // the destination existed beforehand
+	Note    string // why it was renamed or moved
 }
 
-// RootSummary e ce merge unde, pe scurt, pentru afișare.
+// RootSummary is what goes where, in short, for display.
 type RootSummary struct {
 	Root  pack.Root
 	Dest  string
@@ -65,38 +65,38 @@ type RootSummary struct {
 	Bytes int64
 }
 
-// Plan e tot ce urmează să se întâmple, calculat înainte de orice scriere.
+// Plan is everything that is about to happen, computed before any write.
 type Plan struct {
 	Items     []Item
 	Files     int
-	Bytes     int64 // ce se va scrie efectiv (fără cele sărite)
+	Bytes     int64 // what will actually be written (skipped entries excluded)
 	Roots     []RootSummary
 	Conflicts int
 	Renamed   int
 	Skipped   int
-	Unknown   []pack.Root // rădăcini din pachet care nu există pe sistemul ăsta
+	Unknown   []pack.Root // roots from the package that do not exist on this system
 	Policy    Conflict
 
 	rd *pack.Reader
 	os system.OS
 }
 
-// Options configurează planul.
+// Options configures the plan.
 type Options struct {
 	Reader *pack.Reader
 	Roots  *pack.RootMap
 	Target system.OS
-	// Filter alege ce se restaurează; nil = tot.
+	// Filter chooses what gets restored; nil = everything.
 	Filter   func(*pack.Entry) bool
 	Conflict Conflict
-	// Suffix e ce se adaugă numelui când păstrăm ambele. Implicit „ (DHS)".
+	// Suffix is what gets added to the name when we keep both. Defaults to " (DHS)".
 	Suffix string
 }
 
-// Build calculează planul. Nu atinge discul decât pentru a verifica ce există deja.
+// Build computes the plan. It touches the disk only to check what already exists.
 func Build(o Options) (*Plan, error) {
 	if o.Reader == nil || o.Roots == nil {
-		return nil, errors.New("restore: lipsesc cititorul sau harta rădăcinilor")
+		return nil, errors.New("restore: reader or root map missing")
 	}
 	if o.Conflict == "" {
 		o.Conflict = KeepBoth
@@ -107,7 +107,7 @@ func Build(o Options) (*Plan, error) {
 	p := &Plan{Policy: o.Conflict, rd: o.Reader, os: o.Target}
 	byRoot := map[pack.Root]*RootSummary{}
 	unknown := map[pack.Root]bool{}
-	// Cheile deja folosite în plan, ca două intrări să nu ajungă în același fișier pe Windows.
+	// Keys already used in the plan, so two entries never end up in the same file on Windows.
 	taken := map[string]bool{}
 
 	entries := make([]*pack.Entry, 0, len(o.Reader.Index.Entries))
@@ -128,21 +128,21 @@ func Build(o Options) (*Plan, error) {
 		root := e.Root
 		rel := e.Path
 
-		// Rădăcina nu există pe sistemul ăsta (ex. „desktop" pe un server): merge sub DHS-restaurat.
+		// The root does not exist on this system (e.g. "desktop" on a server): it goes under DHS-restored.
 		if _, ok := o.Roots.Join(root, "."); !ok && root != pack.RootOther {
 			unknown[root] = true
 			rel = string(root) + "/" + rel
 			root = pack.RootOther
-			item.Note = "loc standard inexistent aici"
+			item.Note = "standard location does not exist here"
 		}
 
 		clean, renamed := Sanitize(rel, o.Target)
 		if renamed {
 			item.Renamed = true
-			item.Note = "nume adaptat sistemului"
+			item.Note = "name adapted to this system"
 		}
 
-		// Coliziune de majuscule cu altă intrare din același plan.
+		// Case collision with another entry in the same plan.
 		key := string(root) + "\x00" + FoldKey(clean, o.Target)
 		if taken[key] {
 			clean = WithSuffix(clean, " (2)")
@@ -152,13 +152,13 @@ func Build(o Options) (*Plan, error) {
 				key = string(root) + "\x00" + FoldKey(clean, o.Target)
 			}
 			item.Renamed = true
-			item.Note = "se ciocnea cu alt fișier din pachet"
+			item.Note = "collided with another file in the package"
 		}
 		taken[key] = true
 
 		dest, ok := o.Roots.Join(root, clean)
 		if !ok {
-			return nil, fmt.Errorf("restore: nu pot rezolva %s/%s", root, clean)
+			return nil, fmt.Errorf("restore: cannot resolve %s/%s", root, clean)
 		}
 		item.Dest = dest
 		item.Action = Write
@@ -168,7 +168,7 @@ func Build(o Options) (*Plan, error) {
 			p.Conflicts++
 			switch {
 			case st.IsDir():
-				// Un director cu numele fișierului nostru: nu ne batem cu el.
+				// A directory with our file's name: we do not fight it.
 				item.Action = WriteNext
 				item.Dest, _ = o.Roots.Join(root, WithSuffix(clean, o.Suffix))
 			case o.Conflict == Skip:
@@ -212,17 +212,17 @@ func Build(o Options) (*Plan, error) {
 	return p, nil
 }
 
-// ExecOptions configurează execuția planului.
+// ExecOptions configures the execution of the plan.
 type ExecOptions struct {
-	// OnFile e chemat după fiecare fișier, cu eroarea lui dacă a fost.
+	// OnFile is called after each file, with its error if there was one.
 	OnFile func(Item, error)
-	// OnProgress primește octeții scriși și totalul planificat.
+	// OnProgress receives the bytes written and the planned total.
 	OnProgress func(done, total int64)
 }
 
-// Execute scrie planul. Fiecare fișier merge într-un temporar din același director, se verifică
-// față de hash-ul din index și abia apoi e redenumit la locul lui. Un fișier care nu trece nu
-// ajunge niciodată la destinație.
+// Execute writes the plan. Each file goes into a temporary in the same directory, is verified
+// against the hash in the index, and only then is renamed into place. A file that fails the
+// check never reaches its destination.
 func (p *Plan) Execute(ctx context.Context, o ExecOptions) (*pack.ExtractReport, error) {
 	byEntry := make(map[*pack.Entry]Item, len(p.Items))
 	for _, it := range p.Items {
@@ -246,12 +246,12 @@ func (p *Plan) Execute(ctx context.Context, o ExecOptions) (*pack.ExtractReport,
 	})
 }
 
-// reader și target sunt setate de Build prin opțiuni; le păstrăm pe plan ca Execute să nu le
-// ceară din nou.
+// reader and target are set by Build through the options; we keep them on the plan so Execute
+// does not have to ask for them again.
 func (p *Plan) reader() *pack.Reader { return p.rd }
 func (p *Plan) target() system.OS    { return p.os }
 
-// fileSink e destinația unui fișier: temporar lângă locul final, redenumit doar după Commit.
+// fileSink is a file's destination: a temporary next to the final place, renamed only after Commit.
 type fileSink struct {
 	item   Item
 	target system.OS
@@ -264,8 +264,8 @@ func newFileSink(it Item, target system.OS) (pack.Sink, error) {
 	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return nil, err
 	}
-	// Numele temporar începe cu punct și are sufix propriu: vizibil că e în lucru, imposibil de
-	// confundat cu fișierul final.
+	// The temporary name starts with a dot and has its own suffix: visibly in progress, impossible
+	// to mistake for the final file.
 	tmp := filepath.Join(dir, "."+filepath.Base(it.Dest)+".dhs-tmp")
 	f, err := os.OpenFile(tmp, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0o600)
 	if err != nil {
@@ -291,7 +291,7 @@ func (s *fileSink) Commit() error {
 		}
 	}
 	if s.item.Action == Replace {
-		// Pe Windows, Rename nu suprascrie; scoatem întâi ținta. Pe Linux, Rename e atomic oricum.
+		// On Windows, Rename does not overwrite; we remove the target first. On Linux, Rename is atomic anyway.
 		if s.target == system.Windows {
 			_ = os.Remove(s.item.Dest)
 		}

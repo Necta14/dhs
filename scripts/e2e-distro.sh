@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Migrare între distribuții, cu Docker: backup pe gazdă (Ubuntu), restaurare în containere de Arch,
-# Fedora, Debian, openSUSE și Alpine (musl — testul cel mai dur pentru un binar static), apoi
-# comparare sha256 pe căi relative. Fiecare container e un „sistem proaspăt instalat": doar
-# binarul dhs și pachetul de pe „SSD", nimic altceva.
+# Migration across distributions, with Docker: backup on the host (Ubuntu), restore inside containers
+# of Arch, Fedora, Debian, openSUSE and Alpine (musl — the hardest test for a static binary), then
+# sha256 comparison on relative paths. Every container is a "freshly installed system": only the dhs
+# binary and the package from the "SSD", nothing else.
 #
-#   bash scripts/e2e-distro.sh              # toate distribuțiile
-#   bash scripts/e2e-distro.sh archlinux    # doar una
+#   bash scripts/e2e-distro.sh              # all distributions
+#   bash scripts/e2e-distro.sh archlinux    # just one
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
@@ -13,40 +13,40 @@ IMAGES=("$@")
 [ ${#IMAGES[@]} -gt 0 ] || IMAGES=(archlinux:latest fedora:latest debian:stable-slim opensuse/tumbleweed alpine:latest)
 
 BASE=$(mktemp -d /tmp/dhs-distro.XXXXXX)
-SRC="$BASE/sursa"; MEDIA="$BASE/ssd"
+SRC="$BASE/source"; MEDIA="$BASE/ssd"
 mkdir -p "$SRC/Documents/sub" "$SRC/Pictures" "$SRC/Downloads" "$MEDIA"
-trap 'echo; echo "(fișierele testului rămân în $BASE)"' EXIT
+trap 'echo; echo "(test files remain in $BASE)"' EXIT
 
-echo "══ binar static (CGO_ENABLED=0) ══"
+echo "══ static binary (CGO_ENABLED=0) ══"
 CGO_ENABLED=0 go build -ldflags="-s -w" -o "$BASE/dhs" ./cmd/dhs
 file "$BASE/dhs" 2>/dev/null || true
 ls -l "$BASE/dhs" | awk '{printf "%.1f MiB\n", $5/1048576}'
 
-echo; echo "══ profil sintetic + backup pe gazdă ══"
-head -c 2M /dev/urandom > "$SRC/Pictures/poza.jpg"
-cp "$SRC/Pictures/poza.jpg" "$SRC/Downloads/copie.jpg"
-seq 1 200000 > "$SRC/Documents/numere.txt"
-printf 'notă cu diacritice ăîșțâ și „ghilimele”\n' > "$SRC/Documents/sub/nota.md"
-printf 'nume cu spații și : două puncte\n' > "$SRC/Documents/raport: final.txt"   # ilegal pe Windows, legal aici
-head -c 3M /dev/urandom > "$SRC/Downloads/mare.bin"
-: > "$SRC/Documents/gol.txt"
-echo 'fraza-de-test-intre-distributii' > "$MEDIA/parola"
+echo; echo "══ synthetic profile + backup on the host ══"
+head -c 2M /dev/urandom > "$SRC/Pictures/photo.jpg"
+cp "$SRC/Pictures/photo.jpg" "$SRC/Downloads/copy.jpg"
+seq 1 200000 > "$SRC/Documents/numbers.txt"
+printf 'note with diacritics ăîșțâ and “quotes”\n' > "$SRC/Documents/sub/note.md"
+printf 'name with spaces and : a colon\n' > "$SRC/Documents/report: final.txt"   # illegal on Windows, fine here
+head -c 3M /dev/urandom > "$SRC/Downloads/big.bin"
+: > "$SRC/Documents/empty.txt"
+echo 'test-passphrase-across-distributions' > "$MEDIA/passphrase"
 
 HOME="$SRC" "$BASE/dhs" version
-HOME="$SRC" "$BASE/dhs" backup --dest "$MEDIA" --nume test --parola-fisier "$MEDIA/parola" --da --verifica | tail -4
-(cd "$SRC" && find Documents Pictures Downloads -type f -exec sha256sum {} + | sort) > "$BASE/sursa.sha"
-echo "sursă: $(wc -l < "$BASE/sursa.sha") fișiere"
+HOME="$SRC" "$BASE/dhs" backup --dest "$MEDIA" --name test --passphrase-file "$MEDIA/passphrase" --yes --verify | tail -4
+(cd "$SRC" && find Documents Pictures Downloads -type f -exec sha256sum {} + | sort) > "$BASE/source.sha"
+echo "source: $(wc -l < "$BASE/source.sha") files"
 
 FAILS=0
 for IMG in "${IMAGES[@]}"; do
   TAG=$(echo "$IMG" | tr '/:' '__')
   echo; echo "══════════ $IMG ══════════"
-  # Un pull eșuat (registry, limită de rată) e un eșec al acelei distribuții, nu al întregului test.
+  # A failed pull (registry, rate limit) is a failure of that distribution, not of the whole test.
   if ! docker pull -q "$IMG" > "$BASE/$TAG.pull" 2>&1; then
-    echo "❌ $IMG — imaginea nu s-a putut descărca:"; tail -3 "$BASE/$TAG.pull"; FAILS=$((FAILS+1)); continue
+    echo "❌ $IMG — image could not be pulled:"; tail -3 "$BASE/$TAG.pull"; FAILS=$((FAILS+1)); continue
   fi
-  # Containerul e curat: are doar dhs (read-only) și pachetul (read-only). HOME e /root, montat de
-  # pe gazdă, ca sumele să se calculeze aici — imaginile minimale n-au nici măcar `find`.
+  # The container is clean: it has only dhs (read-only) and the package (read-only). HOME is /root,
+  # mounted from the host so the checksums are computed here — minimal images lack even `find`.
   DEST="$BASE/$TAG-home"; mkdir -p "$DEST"
   if docker run --rm \
       -v "$BASE/dhs:/usr/local/bin/dhs:ro" \
@@ -56,26 +56,26 @@ for IMG in "${IMAGES[@]}"; do
       "$IMG" sh -c '
         set -e
         dhs version
-        dhs restore /ssd/test.dhs --parola-fisier /ssd/parola --dry-run | grep -E "Migrare|De scris|Redenumite" || true
-        dhs restore /ssd/test.dhs --parola-fisier /ssd/parola --da | tail -2
+        dhs restore /ssd/test.dhs --passphrase-file /ssd/passphrase --dry-run | grep -E "Migration|To write|Renamed" || true
+        dhs restore /ssd/test.dhs --passphrase-file /ssd/passphrase --yes | tail -2
       ' > "$BASE/$TAG.out" 2>&1
   then
-    sudo chown -R "$(id -u):$(id -g)" "$DEST" 2>/dev/null || true   # scrise ca root în container
+    sudo chown -R "$(id -u):$(id -g)" "$DEST" 2>/dev/null || true   # written as root inside the container
     (cd "$DEST" && find Documents Pictures Downloads -type f -exec sha256sum {} + 2>/dev/null | sort) > "$BASE/$TAG.sha" || true
-    if diff "$BASE/sursa.sha" "$BASE/$TAG.sha" > "$BASE/$TAG.diff"; then
-      echo "✅ $IMG — $(wc -l < "$BASE/$TAG.sha") fișiere identice bit cu bit"
-      grep -E "^sistem:" "$BASE/$TAG.out" | head -1
+    if diff "$BASE/source.sha" "$BASE/$TAG.sha" > "$BASE/$TAG.diff"; then
+      echo "✅ $IMG — $(wc -l < "$BASE/$TAG.sha") files identical bit for bit"
+      grep -E "^system:" "$BASE/$TAG.out" | head -1
     else
-      echo "❌ $IMG — fișierele diferă:"; cat "$BASE/$TAG.diff"; FAILS=$((FAILS+1))
+      echo "❌ $IMG — files differ:"; cat "$BASE/$TAG.diff"; FAILS=$((FAILS+1))
     fi
   else
-    echo "❌ $IMG — restaurarea a eșuat:"; tail -20 "$BASE/$TAG.out"; FAILS=$((FAILS+1))
+    echo "❌ $IMG — restore failed:"; tail -20 "$BASE/$TAG.out"; FAILS=$((FAILS+1))
   fi
 done
 
 echo
 if [ "$FAILS" -eq 0 ]; then
-  echo "DISTRO E2E: toate distribuțiile au trecut (${#IMAGES[@]})"
+  echo "DISTRO E2E: all distributions passed (${#IMAGES[@]})"
 else
-  echo "DISTRO E2E: $FAILS distribuții au picat"; exit 1
+  echo "DISTRO E2E: $FAILS distributions failed"; exit 1
 fi

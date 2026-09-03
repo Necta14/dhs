@@ -7,18 +7,19 @@ import (
 	"os"
 	"sort"
 
+	"github.com/Necta14/dhs/internal/i18n"
 	"github.com/Necta14/dhs/internal/pack"
 	"github.com/Necta14/dhs/internal/report"
 )
 
-const listUsage = `dhs list — arată ce e într-un pachet, fără să extragă nimic
+const listUsage = `dhs list — show what is inside a package, without extracting anything
 
-Utilizare
-  dhs list <pachet> [opțiuni]
+Usage
+  dhs list <package> [options]
 
-Opțiuni
-  --parola-fisier <cale>   citește fraza de acces din fișier; altfel o cere
-  --tot                    listează fiecare fișier, nu doar rezumatul
+Options
+  --passphrase-file <path>   read the passphrase from a file; otherwise it is asked
+  --all                      list every file, not just the summary
   --json
   --help
 `
@@ -26,9 +27,9 @@ Opțiuni
 func runList(args []string) error {
 	fs := flag.NewFlagSet("list", flag.ContinueOnError)
 	fs.SetOutput(os.Stderr)
-	fs.Usage = func() { fmt.Fprint(os.Stderr, listUsage) }
-	passFile := fs.String("parola-fisier", "", "")
-	all := fs.Bool("tot", false, "")
+	fs.Usage = func() { fmt.Fprint(os.Stderr, i18n.T(listUsage)) }
+	passFile := fs.String("passphrase-file", "", "")
+	all := fs.Bool("all", false, "")
 	asJSON := fs.Bool("json", false, "")
 
 	var positional []string
@@ -44,10 +45,10 @@ func runList(args []string) error {
 		rest = rest[1:]
 	}
 	if len(positional) != 1 {
-		return errors.New("list: dă exact un pachet")
+		return errors.New(i18n.T("list: give exactly one package"))
 	}
 
-	// Fără frază, arătăm ce se poate vedea fără ea: manifestul.
+	// Without a passphrase, show what can be seen without it: the manifest.
 	m, err := pack.Peek(positional[0])
 	if err != nil {
 		return err
@@ -70,16 +71,16 @@ func runList(args []string) error {
 	}
 
 	const w = 14
-	fmt.Printf("%s%s %s (%s) · creat %s · %s\n", report.Pad("Sursă", w), m.Source.Name, m.Source.Version, m.Source.Arch,
+	fmt.Printf(i18n.T("%s%s %s (%s) · created %s · %s\n"), report.Pad(i18n.T("Source"), w), m.Source.Name, m.Source.Version, m.Source.Arch,
 		m.Created.Local().Format("2006-01-02 15:04"), dim(m.Tool))
-	state := green("complet")
+	state := green(i18n.T("complete"))
 	if !r.Complete() {
-		state = red("INCOMPLET")
+		state = red(i18n.T("INCOMPLETE"))
 	}
-	fmt.Printf("%s%s fișiere · %s → %s pe disc · %d volume · nivel %v · cifru %s · %s\n", report.Pad("Conținut", w),
-		report.Count(m.Files), report.Bytes(m.Raw), report.Bytes(m.Stored), m.Volumes, m.Level, m.Cipher, state)
+	fmt.Printf(i18n.T("%s%s files · %s → %s on disk · %d volumes · level %s · cipher %s · %s\n"), report.Pad(i18n.T("Contents"), w),
+		report.Count(m.Files), report.Bytes(m.Raw), report.Bytes(m.Stored), m.Volumes, i18n.T(m.Level.String()), m.Cipher, state)
 	if m.Secrets {
-		fmt.Printf("%s%s\n", report.Pad("", w), warn("conține secrete (chei, parole)"))
+		fmt.Printf("%s%s\n", report.Pad("", w), warn(i18n.T("contains secrets (keys, passwords)")))
 	}
 
 	type agg struct {
@@ -108,10 +109,10 @@ func runList(args []string) error {
 	fmt.Println()
 	for _, root := range roots {
 		a := byRoot[root]
-		fmt.Printf("%s%s %s fișiere  %s\n", report.Pad("", 2), report.Pad(string(root), 12), report.Pad(report.Count(int64(a.files)), 9), report.Bytes(a.bytes))
+		fmt.Printf(i18n.T("%s%s %s files  %s\n"), report.Pad("", 2), report.Pad(string(root), 12), report.Pad(report.Count(int64(a.files)), 9), report.Bytes(a.bytes))
 	}
 	if dups > 0 {
-		fmt.Printf("%s%s\n", report.Pad("", 2), dim(fmt.Sprintf("%d fișiere sunt duplicate ale altora și ocupă loc o singură dată", dups)))
+		fmt.Printf("%s%s\n", report.Pad("", 2), dim(i18n.Tf("%d files are duplicates of others and take up space only once", dups)))
 	}
 
 	if *all {
@@ -129,7 +130,7 @@ func runList(args []string) error {
 				mark = dim(" (dup)")
 			}
 			if e.Secret {
-				mark += warn(" (secret)")
+				mark += warn(i18n.T(" (secret)"))
 			}
 			fmt.Printf("%s %s/%s%s\n", report.Pad(report.Bytes(e.Size), 11), e.Root, e.Path, mark)
 		}

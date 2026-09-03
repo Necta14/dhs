@@ -15,10 +15,10 @@ import (
 func detect() (Info, error) {
 	i := Info{OS: Windows, Arch: Arch(), Name: "Windows"}
 
-	// %USERPROFILE% are prioritate, din același motiv ca $HOME pe Linux.
+	// %USERPROFILE% takes precedence, for the same reason as $HOME on Linux.
 	i.Home, _ = os.UserHomeDir()
 	if u, err := user.Current(); err == nil {
-		// Username vine ca „DOMENIU\\user"; ne interesează doar partea de user.
+		// Username comes as "DOMAIN\\user"; we only care about the user part.
 		i.User = u.Username
 		if _, after, ok := strings.Cut(u.Username, `\`); ok {
 			i.User = after
@@ -31,7 +31,7 @@ func detect() (Info, error) {
 		i.Hostname = h
 	}
 
-	// Numele comercial și versiunea stau în registry. Dacă lipsesc, rămânem cu „Windows".
+	// The marketing name and the version live in the registry. If they are missing, we keep "Windows".
 	if k, err := registry.OpenKey(
 		registry.LOCAL_MACHINE,
 		`SOFTWARE\Microsoft\Windows NT\CurrentVersion`,
@@ -41,13 +41,13 @@ func detect() (Info, error) {
 		if v, _, err := k.GetStringValue("ProductName"); err == nil && v != "" {
 			i.Name = v
 		}
-		// DisplayVersion e „23H2"; ReleaseId e forma veche, „2009".
+		// DisplayVersion is "23H2"; ReleaseId is the old form, "2009".
 		if v, _, err := k.GetStringValue("DisplayVersion"); err == nil && v != "" {
 			i.Version = v
 		} else if v, _, err := k.GetStringValue("ReleaseId"); err == nil && v != "" {
 			i.Version = v
 		}
-		// Windows 11 se raportează tot ca „Windows 10" în ProductName; build ≥ 22000 îl trădează.
+		// Windows 11 still reports itself as "Windows 10" in ProductName; build >= 22000 gives it away.
 		if b, _, err := k.GetStringValue("CurrentBuildNumber"); err == nil {
 			if buildAtLeast(b, 22000) && strings.Contains(i.Name, "Windows 10") {
 				i.Name = strings.Replace(i.Name, "Windows 10", "Windows 11", 1)
@@ -68,8 +68,8 @@ func buildAtLeast(build string, min int) bool {
 	return n >= min
 }
 
-// knownFolder leagă fiecare loc standard de GUID-ul lui din Windows. Nu presupunem niciodată
-// „C:\Users\X\Documents": folderele pot fi redirecționate către OneDrive sau altă partiție.
+// knownFolder ties each standard location to its Windows GUID. We never assume
+// "C:\Users\X\Documents": the folders may be redirected to OneDrive or to another partition.
 var knownFolder = map[Kind]*windows.KNOWNFOLDERID{
 	Documents: windows.FOLDERID_Documents,
 	Pictures:  windows.FOLDERID_Pictures,
@@ -80,7 +80,7 @@ var knownFolder = map[Kind]*windows.KNOWNFOLDERID{
 	Config:    windows.FOLDERID_RoamingAppData,
 }
 
-// fallbackName e folosit doar dacă apelul de sistem eșuează.
+// fallbackName is used only if the system call fails.
 var fallbackName = map[Kind]string{
 	Documents: "Documents",
 	Pictures:  "Pictures",

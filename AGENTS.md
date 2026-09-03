@@ -1,35 +1,40 @@
 # AGENTS.md — DHS
 
-Reguli pentru orice agent care lucrează pe acest repo. Ce e produsul și ce s-a decis:
-[`CLAUDE.md`](CLAUDE.md). Nu începe fără să-l citești.
+Rules for any agent working on this repo. What the product is and what has been decided:
+[`CLAUDE.md`](CLAUDE.md). Do not start without reading it.
 
-1. **Datele utilizatorului sunt sacre.** Unealta umblă la documentele, pozele și cheile cuiva. O
-   greșeală nu e un bug, sunt date pierdute. Nimic nu se suprascrie fără confirmare, orice pas
-   distructiv are `--dry-run`, iar ce nu poate fi verificat nu se scrie.
-2. **Fără rețea în produs.** Zero apeluri HTTP, zero dependențe care fac apeluri, zero telemetrie.
-   Dacă un pachet Go pe care vrei să-l adaugi deschide un socket, nu intră.
-3. **Fără AI în produs.** Fără embeddings, fără modele, fără „potrivire inteligentă". Baza de
-   aplicații e scrisă de om, cu identificatori exacți.
-4. **Fără balast.** Fiecare dependență nouă se justifică. Bugetele din Regula #4 (CLAUDE.md) sunt
-   praguri, nu sugestii: binarul CLI rămâne sub 15 MiB.
-5. **Codul specific unui OS stă doar** în fișiere `_linux.go` / `_windows.go`. Restul e comun și
-   trebuie să se compileze pe orice mașină. Verifică mereu amândouă platformele, static:
+1. **The user's data is sacred.** The tool handles someone's documents, photos and keys. A mistake
+   is not a bug, it is lost data. Nothing is overwritten without confirmation, every destructive
+   step has `--dry-run`, and whatever cannot be verified is not written.
+2. **No network in the product.** Zero HTTP calls, zero dependencies that make calls, zero
+   telemetry. If a Go package you want to add opens a socket, it does not go in.
+3. **No AI in the product.** No embeddings, no models, no "smart matching". The app database is
+   written by people, with exact identifiers.
+4. **No bloat.** Every new dependency is justified. The budgets in Rule #4 (CLAUDE.md) are
+   thresholds, not suggestions: the CLI binary stays under 15 MiB.
+5. **OS-specific code lives only** in `_linux.go` / `_windows.go` files. The rest is shared and must
+   compile on any machine. Always check both platforms, statically:
    ```bash
    gofmt -l . && go vet ./... && go build ./... && GOOS=windows go build ./...
    ```
-   `go test` — doar pe Codespaces, vezi regula 7.
-6. **Nimic cu pierderi.** Orice transformare de date trebuie să fie reversibilă bit cu bit, și
-   trebuie **dovedit** prin verificare, nu presupus.
-7. **Testele NU se rulează pe laptopul userului.** Nici `go test`, nici binarul `dhs` pe datele lui.
-   Testele se scriu aici, dar se rulează **doar în sesiunea dedicată, pe cele două GitHub
-   Codespaces**. Local sunt permise doar verificările statice: `gofmt`, `go vet`, `go build` pentru
-   ambele platforme. Testele, când rulează, nu ating rețeaua și nu scriu în afara `t.TempDir()`.
-8. **Limba.** Documentație, mesaje de interfață și comentarii în **română**; identificatorii și
-   numele de pachete în **engleză**. Proiectul e open source, codul trebuie să fie citibil de
-   oricine.
-9. **`gofmt` și `go vet` curate** înainte de commit. Fără excepții.
-10. **Ce nu e în v1 nu se implementează.** Domeniul e în CLAUDE.md; restul se scrie în
+   `go test` — only on Codespaces, see rule 7.
+6. **Nothing lossy.** Every data transformation must be reversible bit for bit, and that must be
+   **proven** by verification, not assumed.
+7. **Tests are NOT run on the maintainer's machine.** Neither `go test` nor the `dhs` binary on
+   their data. Tests are written here, but they run **only in the dedicated session, on the two
+   GitHub Codespaces** — `scripts/codespace-tests.sh`, following
+   [`docs/TESTING.md`](docs/TESTING.md). Locally only the static checks are allowed: `gofmt`,
+   `go vet`, `go build` for both platforms. The tests, when they run, do not touch the network and
+   do not write outside `t.TempDir()`.
+8. **Language.** Code, comments, documentation and the CLI are in **English**. Romanian is
+   maintained as a translation: [`README.ro.md`](README.ro.md), [`docs/ro/`](docs/ro/), and the CLI
+   catalog `internal/i18n/ro.go` (selected with `DHS_LANG=ro` or from the locale). Discussion with
+   the maintainer may happen in Romanian. The project is open source; the code must be readable by
+   anyone.
+9. **`gofmt` and `go vet` clean** before every commit. No exceptions.
+10. **What is not in v1 is not implemented.** The scope is in CLAUDE.md; everything else goes in
     [`docs/BACKLOG.md`](docs/BACKLOG.md).
-11. **Sincronizare.** La început de sesiune citește `CLAUDE.md`, `docs/BACKLOG.md` și jurnalul de
-    decizii. La final, notează ce ai schimbat și de ce.
-12. **Ramura de lucru e `main`.** Commit după fiecare fază, cu mesaj care spune *ce* și *de ce*.
+11. **Sync.** At the start of a session read `CLAUDE.md`, `docs/BACKLOG.md` and the decision log.
+    At the end, write down what you changed and why.
+12. **The working branch is `main`.** Commit after every phase, with a message that says *what*
+    and *why*.

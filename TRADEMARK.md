@@ -1,39 +1,40 @@
-# Politica de marcă
+# Trademark policy
 
-> Stare: **schiță**, 02.09.2026. Numele deținătorului rămâne de completat.
-> Contextul deciziei: [`docs/LICENTA.md`](docs/LICENTA.md).
+> State: **draft**, 2026-09-02; holder settled 2026-09-03 — Necta (https://github.com/Necta14).
+> The context of the decision: [`docs/LICENSE-CHOICE.md`](docs/LICENSE-CHOICE.md).
 
-## Ce e liber
+## What is free
 
-**Codul** e sub [Apache License 2.0](LICENSE). Îl poți folosi, modifica, redistribui, încorpora în
-produse comerciale și vinde. Nu-ți cerem voie și nu-ți cerem bani.
+**The code** is under the [Apache License 2.0](LICENSE). You may use it, modify it, redistribute
+it, embed it in commercial products and sell it. We do not ask your permission and we do not ask
+for money.
 
-## Ce nu e liber
+## What is not free
 
-**Numele** „DHS", „Direct Handoff Suite" și sigla proiectului. Apache 2.0 secțiunea 6 spune explicit
-că licența **nu acordă** drepturi asupra mărcilor, iar noi ni le rezervăm.
+**The names** "DHS", "Direct Handoff Suite" and the project logo. Apache 2.0 section 6 says
+explicitly that the licence does **not** grant trademark rights, and we reserve them.
 
-Poți folosi numele:
+You may use the name:
 
-- ca să te referi la proiect („o unealtă bazată pe DHS", „compatibil cu formatul DHS");
-- pentru **versiuni nemodificate**, când redistribui exact ce am publicat noi.
+- to refer to the project ("a tool based on DHS", "compatible with the DHS format");
+- for **unmodified versions**, when you redistribute exactly what we published.
 
-Nu poți folosi numele, sigla, sau formulări ca „powered by DHS":
+You may not use the name, the logo, or phrasings such as "powered by DHS":
 
-- pentru o versiune modificată — redenumeşte-o;
-- ca să sugerezi că proiectul susține, aprobă sau garantează produsul tău;
-- într-un produs care implementează **verificarea vârstei** a utilizatorilor.
+- for a modified version — rename it;
+- to suggest that the project endorses, approves or guarantees your product;
+- in a product that implements **age verification** of its users.
 
-## De ce ultima condiție
+## Why the last condition
 
-Fiindcă proiectul are o poziție, scrisă în [`VALUES.md`](VALUES.md), iar numele lui e singurul lucru
-pe care îl putem apăra fără să stricăm libertatea codului.
+Because the project has a position, written in [`VALUES.md`](VALUES.md), and its name is the only
+thing we can defend without breaking the freedom of the code.
 
-Am ales deliberat **să nu** punem o restricție de utilizare în licență. O astfel de clauză ar scoate
-DHS din definiția open source și l-ar face nepublicabil în Debian, Fedora, Arch, openSUSE și
-nixpkgs — adică exact acolo unde trăiesc oamenii pe care încercăm să-i ajutăm. Codul rămâne deci
-liber pentru oricine, inclusiv pentru cei cu care nu suntem de acord. Numele, nu.
+We deliberately chose **not** to put a usage restriction into the licence. Such a clause would take
+DHS out of the open source definition and make it unpublishable in Debian, Fedora, Arch, openSUSE
+and nixpkgs — exactly where the people we are trying to help live. So the code stays free for
+everyone, including those we disagree with. The name does not.
 
-## Dacă ai o întrebare
+## If you have a question
 
-Deschide un issue. Preferăm să discutăm înainte, nu după.
+Open an issue. We prefer to talk before, not after.

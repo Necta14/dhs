@@ -7,7 +7,7 @@ func TestClassOf(t *testing.T) {
 		name string
 		want Class
 	}{
-		// Deja comprimate — nu le atingem.
+		// Already compressed -- we leave them alone.
 		{"poza.jpg", Incompressible},
 		{"POZA.JPEG", Incompressible},
 		{"/home/x/Videos/film.mkv", Incompressible},
@@ -17,7 +17,7 @@ func TestClassOf(t *testing.T) {
 		{"carte.epub", Incompressible},
 		{"manual.pdf", Incompressible},
 
-		// Moderat.
+		// Moderate.
 		{"program.exe", Binary},
 		{"libc.so", Binary},
 		{"disc.iso", Binary},
@@ -25,7 +25,7 @@ func TestClassOf(t *testing.T) {
 		{"vechi.doc", Binary},
 		{"font.ttf", Binary},
 
-		// Foarte comprimabile.
+		// Highly compressible.
 		{"note.txt", Text},
 		{"main.go", Text},
 		{"date.json", Text},
@@ -35,7 +35,7 @@ func TestClassOf(t *testing.T) {
 		{"captura.bmp", Text},
 		{"sunet.wav", Text},
 
-		// Fără extensie.
+		// No extension.
 		{"Makefile", Text},
 		{"README", Text},
 		{"/home/x/.bashrc", Text},
@@ -45,30 +45,30 @@ func TestClassOf(t *testing.T) {
 	}
 	for _, c := range cases {
 		if got := ClassOf(c.name); got != c.want {
-			t.Errorf("ClassOf(%q) = %v, aștept %v", c.name, got, c.want)
+			t.Errorf("ClassOf(%q) = %v, want %v", c.name, got, c.want)
 		}
 	}
 }
 
 func TestClassOfDoubleExtension(t *testing.T) {
-	// „.bak" nu e cunoscut, dar extensia dinaintea lui spune ce e de fapt.
+	// ".bak" is not known, but the extension before it says what the file really is.
 	if got := ClassOf("config.json.bak"); got != Text {
-		t.Errorf("config.json.bak = %v, aștept Text", got)
+		t.Errorf("config.json.bak = %v, want Text", got)
 	}
 	if got := ClassOf("poza.jpg.orig"); got != Incompressible {
-		t.Errorf("poza.jpg.orig = %v, aștept Incompressible", got)
+		t.Errorf("poza.jpg.orig = %v, want Incompressible", got)
 	}
 }
 
 func TestClassCompressible(t *testing.T) {
 	if Incompressible.Compressible() {
-		t.Error("clasa incompresibilă nu trebuie comprimată")
+		t.Error("the incompressible class must not be compressed")
 	}
 	if !Text.Compressible() || !Binary.Compressible() {
-		t.Error("text și binar trebuie comprimate")
+		t.Error("text and binary must be compressed")
 	}
 	if Unknown.Compressible() {
-		t.Error("necunoscutul se decide prin entropie, nu implicit")
+		t.Error("unknown is decided by entropy, not by default")
 	}
 }
 
@@ -88,7 +88,7 @@ func TestIsSecret(t *testing.T) {
 	}
 	for _, p := range secrets {
 		if _, ok := IsSecret(p); !ok {
-			t.Errorf("IsSecret(%q) = false, aștept true", p)
+			t.Errorf("IsSecret(%q) = false, want true", p)
 		}
 	}
 
@@ -101,7 +101,7 @@ func TestIsSecret(t *testing.T) {
 	}
 	for _, p := range safe {
 		if reason, ok := IsSecret(p); ok {
-			t.Errorf("IsSecret(%q) = true (%s), aștept false", p, reason)
+			t.Errorf("IsSecret(%q) = true (%s), want false", p, reason)
 		}
 	}
 }
@@ -110,15 +110,15 @@ func TestExcluder(t *testing.T) {
 	ex := DefaultExcluder()
 	for _, dir := range []string{"node_modules", "NODE_MODULES", ".cache", "steamapps", ".git"} {
 		if _, ok := ex.Dir(dir); !ok {
-			t.Errorf("%q ar trebui exclus implicit", dir)
+			t.Errorf("%q should be excluded by default", dir)
 		}
 	}
 	if _, ok := ex.Dir("Documents"); ok {
-		t.Error("Documents nu trebuie exclus")
+		t.Error("Documents must not be excluded")
 	}
 
 	ex.Allow("node_modules")
 	if _, ok := ex.Dir("node_modules"); ok {
-		t.Error("Allow nu a scos regula")
+		t.Error("Allow did not remove the rule")
 	}
 }

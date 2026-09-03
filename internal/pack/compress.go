@@ -13,7 +13,7 @@ import (
 	"github.com/Necta14/dhs/internal/scan"
 )
 
-// kindFor leagă nivelul ales de utilizator de codificarea blocurilor solide.
+// kindFor ties the level chosen by the user to the encoding of solid blocks.
 func kindFor(level scan.Level) BlockKind {
 	switch level {
 	case scan.LevelCompatible:
@@ -25,7 +25,7 @@ func kindFor(level scan.Level) BlockKind {
 	}
 }
 
-// Encoderele zstd sunt scumpe de construit; le refolosim.
+// zstd encoders are expensive to build; we reuse them.
 var (
 	zstdBest  *zstd.Encoder
 	zstdFast  *zstd.Encoder
@@ -36,7 +36,7 @@ var (
 
 func initZstd() {
 	zstdOnce.Do(func() {
-		// Concurrency 1: paralelizăm noi, pe blocuri, nu în interiorul unui bloc.
+		// Concurrency 1: we parallelize ourselves, across blocks, not inside a block.
 		zstdBest, zstdError = zstd.NewWriter(nil,
 			zstd.WithEncoderLevel(zstd.SpeedBestCompression),
 			zstd.WithEncoderConcurrency(1),
@@ -60,7 +60,7 @@ func initZstd() {
 	})
 }
 
-// compress codifică un bloc. Pentru KindStored întoarce datele neschimbate.
+// compress encodes a block. For KindStored it returns the data unchanged.
 func compress(kind BlockKind, raw []byte) ([]byte, error) {
 	switch kind {
 	case KindStored:
@@ -101,19 +101,19 @@ func compress(kind BlockKind, raw []byte) ([]byte, error) {
 		}
 		return buf.Bytes(), nil
 	default:
-		return nil, fmt.Errorf("pack: nu știu să codific blocuri de tip %s", kind)
+		return nil, fmt.Errorf("pack: don't know how to encode blocks of kind %s", kind)
 	}
 }
 
-// decompress decodifică un bloc. rawSize e ce spune antetul; refuzăm să depășim.
+// decompress decodes a block. rawSize is what the header says; we refuse to exceed it.
 func decompress(kind BlockKind, stored []byte, rawSize int64) ([]byte, error) {
 	if rawSize < 0 || rawSize > MaxBlockSize {
-		return nil, fmt.Errorf("%w: bloc de %d octeți", ErrCorrupt, rawSize)
+		return nil, fmt.Errorf("%w: block of %d bytes", ErrCorrupt, rawSize)
 	}
 	switch kind {
 	case KindStored:
 		if int64(len(stored)) != rawSize {
-			return nil, fmt.Errorf("%w: bloc stocat cu %d octeți în loc de %d", ErrCorrupt, len(stored), rawSize)
+			return nil, fmt.Errorf("%w: stored block has %d bytes instead of %d", ErrCorrupt, len(stored), rawSize)
 		}
 		return stored, nil
 	case KindZstd, KindIndex:
@@ -135,35 +135,35 @@ func decompress(kind BlockKind, stored []byte, rawSize int64) ([]byte, error) {
 		}
 		return readAllLimited(r, rawSize)
 	default:
-		return nil, fmt.Errorf("%w: bloc de tip necunoscut %d", ErrNewerFormat, uint8(kind))
+		return nil, fmt.Errorf("%w: unknown block kind %d", ErrNewerFormat, uint8(kind))
 	}
 }
 
 func readAllLimited(r io.Reader, rawSize int64) ([]byte, error) {
 	out := make([]byte, rawSize)
 	if _, err := io.ReadFull(r, out); err != nil {
-		return nil, fmt.Errorf("%w: decompresie: %v", ErrCorrupt, err)
+		return nil, fmt.Errorf("%w: decompression: %v", ErrCorrupt, err)
 	}
-	// Dacă mai urmează ceva, dimensiunea din antet a mințit.
+	// If anything else follows, the size in the header lied.
 	var extra [1]byte
 	if n, _ := r.Read(extra[:]); n != 0 {
-		return nil, fmt.Errorf("%w: blocul decomprimat e mai mare decât spune antetul", ErrCorrupt)
+		return nil, fmt.Errorf("%w: decompressed block is larger than the header says", ErrCorrupt)
 	}
 	return out, nil
 }
 
 func checkLen(out []byte, rawSize int64) ([]byte, error) {
 	if int64(len(out)) != rawSize {
-		return nil, fmt.Errorf("%w: blocul decomprimat are %d octeți în loc de %d", ErrCorrupt, len(out), rawSize)
+		return nil, fmt.Errorf("%w: decompressed block has %d bytes instead of %d", ErrCorrupt, len(out), rawSize)
 	}
 	return out, nil
 }
 
-// looksCompressible face testul de entropie pentru clasa Unknown: comprimă rapid o mostră și se
-// uită dacă a scăzut măcar cu o zecime. Ieftin, și corect în marea majoritate a cazurilor.
+// looksCompressible is the entropy test for the Unknown class: it quickly compresses a sample and
+// checks whether it shrank by at least a tenth. Cheap, and right in the vast majority of cases.
 func looksCompressible(sample []byte) bool {
 	if len(sample) < 512 {
-		return true // prea mic ca să conteze; îl punem la comprimabile, costă nimic
+		return true // too small to matter; we count it as compressible, it costs nothing
 	}
 	initZstd()
 	if zstdError != nil {
@@ -173,5 +173,5 @@ func looksCompressible(sample []byte) bool {
 	return len(out) < len(sample)*9/10
 }
 
-// sampleSize e cât citim din un fișier necunoscut pentru testul de entropie.
+// sampleSize is how much we read from an unknown file for the entropy test.
 const sampleSize = 256 << 10

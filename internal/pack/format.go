@@ -1,22 +1,22 @@
-// Package pack definește formatul pachetului de migrare și îl scrie / citește.
+// Package pack defines the migration package format and writes / reads it.
 //
-// Pachetul e un director:
+// The package is a directory:
 //
-//	nume.dhs/
-//	  dhs.json        manifest rădăcină, NECRIPTAT și fără nume de fișiere — doar ce e pachetul
-//	  index.dhsi      indexul complet (fișiere, blocuri, plasare), CRIPTAT; mic, se citește primul
-//	  volume/
-//	    0001.dhsv     date: antet, blocuri, index propriu, trailer — CRIPTAT, ≤ 3,5 GiB
+//	name.dhs/
+//	  dhs.json        root manifest, UNENCRYPTED and without file names — only what the package is
+//	  index.dhsi      the complete index (files, blocks, placement), ENCRYPTED; small, read first
+//	  volumes/
+//	    0001.dhsv     data: header, blocks, own index, trailer — ENCRYPTED, ≤ 3.5 GiB
 //	    0002.dhsv
-//	  SUME.txt        SHA-256 pentru fiecare fișier din pachet
-//	  jurnal.jsonl    o linie per volum încheiat, pentru reluare după întrerupere
+//	  SHA256SUMS      SHA-256 of every file in the package
+//	  journal.jsonl   one line per finished volume, for resuming after an interruption
 //
-// Fiecare volum e un flux scris o singură dată, secvențial, prin cifrul age. În interiorul fluxului
-// stau blocuri: fie „stocate" (fișiere deja comprimate, copiate ca atare), fie „solide" (multe
-// fișiere comprimabile împachetate împreună, apoi comprimate). La finalul fiecărui volum stă un
-// index al volumului — redundanță pentru cazul în care index.dhsi se pierde — și un trailer fix.
+// Every volume is a stream written once, sequentially, through the age cipher. Inside the stream
+// sit blocks: either "stored" (already-compressed files, copied as they are) or "solid" (many
+// compressible files packed together, then compressed). At the end of every volume sits an index
+// of that volume — redundancy for the case where index.dhsi gets lost — and a fixed trailer.
 //
-// Toate numerele sunt little-endian. Toate căile din index folosesc „/" indiferent de sistem.
+// All numbers are little-endian. All paths in the index use "/" regardless of the system.
 package pack
 
 import (
@@ -28,7 +28,7 @@ import (
 	"io"
 )
 
-// FormatVersion crește doar la schimbări incompatibile ale formatului binar sau ale indexului.
+// FormatVersion is bumped only on incompatible changes to the binary format or to the index.
 const FormatVersion uint16 = 1
 
 const (
@@ -36,22 +36,22 @@ const (
 	blockMagic   = "DHSB"
 	trailerMagic = "DHST"
 
-	// DefaultVolumeSize e 3,5 GiB: sub limita FAT32 de 4 GiB, uniform pe orice mediu.
+	// DefaultVolumeSize is 3.5 GiB: below the FAT32 limit of 4 GiB, uniform on any medium.
 	DefaultVolumeSize int64 = 3584 << 20
-	// DefaultBlockSize e cât adunăm într-un bloc solid înainte să-l comprimăm. Mai mare = compresie
-	// puțin mai bună, dar mai multă memorie: la N lucrători avem ~2N blocuri în zbor.
+	// DefaultBlockSize is how much we gather into a solid block before compressing it. Larger =
+	// slightly better compression, but more memory: with N workers we have ~2N blocks in flight.
 	DefaultBlockSize = 32 << 20
-	// MaxBlockSize e limita dură pe care o acceptă cititorul, ca un pachet stricat sau ostil să nu
-	// ne facă să alocăm gigaocteți.
+	// MaxBlockSize is the hard limit the reader accepts, so that a broken or hostile package cannot
+	// make us allocate gigabytes.
 	MaxBlockSize = 256 << 20
 
-	// volumeHeaderSize, blockHeaderSize și trailerSize sunt fixe; cititorul se bazează pe asta.
+	// volumeHeaderSize, blockHeaderSize and trailerSize are fixed; the reader relies on that.
 	volumeHeaderSize = 32
 	blockHeaderSize  = 56
 	trailerSize      = 32
 )
 
-// Cipher spune cum e protejat fluxul unui volum.
+// Cipher says how a volume's stream is protected.
 type Cipher uint8
 
 const (
@@ -62,15 +62,15 @@ const (
 func (c Cipher) String() string {
 	switch c {
 	case CipherNone:
-		return "niciunul"
+		return "none"
 	case CipherAgeScrypt:
 		return "age-scrypt"
 	default:
-		return fmt.Sprintf("necunoscut(%d)", uint8(c))
+		return fmt.Sprintf("unknown(%d)", uint8(c))
 	}
 }
 
-// BlockKind spune cum e codificat conținutul unui bloc.
+// BlockKind says how the content of a block is encoded.
 type BlockKind uint8
 
 const (
@@ -78,14 +78,14 @@ const (
 	KindDeflate BlockKind = 1
 	KindZstd    BlockKind = 2
 	KindXZ      BlockKind = 3
-	// KindIndex marchează indexul de la finalul volumului. Conținutul e JSON comprimat cu zstd.
+	// KindIndex marks the index at the end of the volume. The content is JSON compressed with zstd.
 	KindIndex BlockKind = 255
 )
 
 func (k BlockKind) String() string {
 	switch k {
 	case KindStored:
-		return "stocat"
+		return "stored"
 	case KindDeflate:
 		return "deflate"
 	case KindZstd:
@@ -95,35 +95,35 @@ func (k BlockKind) String() string {
 	case KindIndex:
 		return "index"
 	default:
-		return fmt.Sprintf("necunoscut(%d)", uint8(k))
+		return fmt.Sprintf("unknown(%d)", uint8(k))
 	}
 }
 
-// ID identifică un pachet. Toate volumele îl poartă, ca să nu amestecăm volume din pachete diferite.
+// ID identifies a package. Every volume carries it, so that volumes of different packages never get mixed up.
 type ID [16]byte
 
 func NewID() (ID, error) {
 	var id ID
 	if _, err := rand.Read(id[:]); err != nil {
-		return id, fmt.Errorf("pack: nu pot genera id: %w", err)
+		return id, fmt.Errorf("pack: cannot generate id: %w", err)
 	}
 	return id, nil
 }
 
 func (id ID) String() string { return hex.EncodeToString(id[:]) }
 
-// ParseID citește forma hex.
+// ParseID reads the hex form.
 func ParseID(s string) (ID, error) {
 	var id ID
 	b, err := hex.DecodeString(s)
 	if err != nil || len(b) != len(id) {
-		return id, fmt.Errorf("pack: id invalid %q", s)
+		return id, fmt.Errorf("pack: invalid id %q", s)
 	}
 	copy(id[:], b)
 	return id, nil
 }
 
-// MarshalText și UnmarshalText fac ID-ul să apară în JSON ca șir hex.
+// MarshalText and UnmarshalText make the ID appear in JSON as a hex string.
 func (id ID) MarshalText() ([]byte, error) { return []byte(id.String()), nil }
 func (id *ID) UnmarshalText(b []byte) error {
 	parsed, err := ParseID(string(b))
@@ -134,7 +134,7 @@ func (id *ID) UnmarshalText(b []byte) error {
 	return nil
 }
 
-// Hash e un SHA-256, serializat hex în JSON.
+// Hash is a SHA-256, serialized as hex in JSON.
 type Hash [32]byte
 
 func (h Hash) String() string               { return hex.EncodeToString(h[:]) }
@@ -142,21 +142,21 @@ func (h Hash) MarshalText() ([]byte, error) { return []byte(h.String()), nil }
 func (h *Hash) UnmarshalText(b []byte) error {
 	d, err := hex.DecodeString(string(b))
 	if err != nil || len(d) != len(h) {
-		return fmt.Errorf("pack: hash invalid %q", string(b))
+		return fmt.Errorf("pack: invalid hash %q", string(b))
 	}
 	copy(h[:], d)
 	return nil
 }
 
-// volumeHeader deschide fiecare volum: 32 de octeți.
+// volumeHeader opens every volume: 32 bytes.
 //
 //	0   magic "DHSV"      4
-//	4   versiune format   2
-//	6   număr volum       4
-//	10  id pachet         16
-//	26  nivel compresie   1
-//	27  cifru             1
-//	28  rezervat          4
+//	4   format version    2
+//	6   volume number     4
+//	10  package id        16
+//	26  compression level 1
+//	27  cipher            1
+//	28  reserved          4
 type volumeHeader struct {
 	Version uint16
 	Volume  uint32
@@ -183,7 +183,7 @@ func decodeVolumeHeader(b []byte) (volumeHeader, error) {
 	}
 	h.Version = binary.LittleEndian.Uint16(b[4:6])
 	if h.Version > FormatVersion {
-		return h, fmt.Errorf("%w: volumul e în formatul %d, eu știu până la %d", ErrNewerFormat, h.Version, FormatVersion)
+		return h, fmt.Errorf("%w: volume is in format %d, this build understands up to %d", ErrNewerFormat, h.Version, FormatVersion)
 	}
 	h.Volume = binary.LittleEndian.Uint32(b[6:10])
 	copy(h.ID[:], b[10:26])
@@ -192,15 +192,15 @@ func decodeVolumeHeader(b []byte) (volumeHeader, error) {
 	return h, nil
 }
 
-// blockHeader precede fiecare bloc: 56 de octeți.
+// blockHeader precedes every block: 56 bytes.
 //
 //	0   magic "DHSB"      4
-//	4   tip               1
+//	4   kind              1
 //	5   flags             1
-//	6   rezervat          2
-//	8   dimensiune brută  8   (înainte de compresie)
-//	16  dimensiune stocată 8  (cât urmează în flux)
-//	24  sha256 brut       32
+//	6   reserved          2
+//	8   raw size          8   (before compression)
+//	16  stored size       8   (how much follows in the stream)
+//	24  raw sha256        32
 type blockHeader struct {
 	Kind   BlockKind
 	Raw    int64
@@ -228,18 +228,18 @@ func decodeBlockHeader(b []byte) (blockHeader, error) {
 	h.Stored = int64(binary.LittleEndian.Uint64(b[16:24]))
 	copy(h.SHA256[:], b[24:56])
 	if h.Raw < 0 || h.Stored < 0 || h.Raw > MaxBlockSize || h.Stored > MaxBlockSize+1<<20 {
-		return h, fmt.Errorf("%w: bloc cu dimensiuni imposibile (%d / %d)", ErrCorrupt, h.Raw, h.Stored)
+		return h, fmt.Errorf("%w: block with impossible sizes (%d / %d)", ErrCorrupt, h.Raw, h.Stored)
 	}
 	return h, nil
 }
 
-// trailer închide fiecare volum: 32 de octeți.
+// trailer closes every volume: 32 bytes.
 //
 //	0   magic "DHST"        4
-//	4   număr blocuri       4   (fără blocul de index)
-//	8   poziție bloc index  8   (offset în fluxul decriptat)
-//	16  dimensiune volum    8   (octeți de flux decriptat, fără trailer)
-//	24  rezervat            8
+//	4   block count         4   (without the index block)
+//	8   index block pos     8   (offset in the decrypted stream)
+//	16  volume size         8   (bytes of decrypted stream, without the trailer)
+//	24  reserved            8
 type trailer struct {
 	Blocks    uint32
 	IndexPos  int64
@@ -258,7 +258,7 @@ func (t trailer) encode() []byte {
 func decodeTrailer(b []byte) (trailer, error) {
 	var t trailer
 	if len(b) < trailerSize || string(b[0:4]) != trailerMagic {
-		return t, fmt.Errorf("%w: trailer lipsă sau stricat", ErrCorrupt)
+		return t, fmt.Errorf("%w: trailer missing or damaged", ErrCorrupt)
 	}
 	t.Blocks = binary.LittleEndian.Uint32(b[4:8])
 	t.IndexPos = int64(binary.LittleEndian.Uint64(b[8:16]))
@@ -266,24 +266,24 @@ func decodeTrailer(b []byte) (trailer, error) {
 	return t, nil
 }
 
-// Erorile pe care le pot întâlni apelanții.
+// Errors that callers may run into.
 var (
-	ErrNotVolume      = errors.New("pack: nu e un volum DHS")
-	ErrNotPackage     = errors.New("pack: nu e un pachet DHS")
-	ErrNewerFormat    = errors.New("pack: pachetul cere o versiune mai nouă de DHS")
-	ErrCorrupt        = errors.New("pack: date corupte")
-	ErrNeedPassphrase = errors.New("pack: pachetul e criptat; trebuie fraza de acces")
-	ErrBadPassphrase  = errors.New("pack: fraza de acces e greșită")
-	ErrIncomplete     = errors.New("pack: pachetul nu e complet")
-	ErrWrongPackage   = errors.New("pack: volumul aparține altui pachet")
+	ErrNotVolume      = errors.New("pack: not a DHS volume")
+	ErrNotPackage     = errors.New("pack: not a DHS package")
+	ErrNewerFormat    = errors.New("pack: package requires a newer DHS")
+	ErrCorrupt        = errors.New("pack: corrupt data")
+	ErrNeedPassphrase = errors.New("pack: package is encrypted; passphrase required")
+	ErrBadPassphrase  = errors.New("pack: wrong passphrase")
+	ErrIncomplete     = errors.New("pack: package is incomplete")
+	ErrWrongPackage   = errors.New("pack: volume belongs to another package")
 )
 
-// readFull citește exact n octeți sau întoarce eroare — fără citiri parțiale tăcute.
+// readFull reads exactly n bytes or returns an error — no silent partial reads.
 func readFull(r io.Reader, n int) ([]byte, error) {
 	b := make([]byte, n)
 	if _, err := io.ReadFull(r, b); err != nil {
 		if errors.Is(err, io.ErrUnexpectedEOF) || errors.Is(err, io.EOF) {
-			return nil, fmt.Errorf("%w: flux trunchiat", ErrCorrupt)
+			return nil, fmt.Errorf("%w: truncated stream", ErrCorrupt)
 		}
 		return nil, err
 	}

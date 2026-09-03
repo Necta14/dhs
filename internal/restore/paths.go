@@ -1,9 +1,10 @@
-// Package restore pune fișierele dintr-un pachet la locul lor pe sistemul curent.
+// Package restore puts the files from a package back in their place on the current system.
 //
-// Aici se întâlnesc două sisteme de fișiere care nu se cunosc: numele venite de pe Linux pot fi
-// ilegale pe Windows (`raport: final.docx`), două fișiere care pe Linux diferă (`A.txt`, `a.txt`)
-// pe Windows sunt același fișier, iar o cale absolută de pe alt sistem nu înseamnă nimic aici.
-// Planul rezolvă toate astea ÎNAINTE să scriem un singur octet, și le arată utilizatorului.
+// This is where two file systems that know nothing of each other meet: names that came from
+// Linux may be illegal on Windows (`report: final.docx`), two files that differ on Linux
+// (`A.txt`, `a.txt`) are the same file on Windows, and an absolute path from another system
+// means nothing here. The plan resolves all of that BEFORE we write a single byte, and shows it
+// to the user.
 package restore
 
 import (
@@ -13,16 +14,16 @@ import (
 	"github.com/Necta14/dhs/internal/system"
 )
 
-// windowsReserved sunt numele pe care Windows le refuză indiferent de extensie.
+// windowsReserved are the names Windows refuses regardless of extension.
 var windowsReserved = map[string]bool{
 	"con": true, "prn": true, "aux": true, "nul": true,
 	"com1": true, "com2": true, "com3": true, "com4": true, "com5": true, "com6": true, "com7": true, "com8": true, "com9": true,
 	"lpt1": true, "lpt2": true, "lpt3": true, "lpt4": true, "lpt5": true, "lpt6": true, "lpt7": true, "lpt8": true, "lpt9": true,
 }
 
-// Sanitize adaptează o cale relativă (cu „/") la sistemul destinație. Întoarce calea și dacă a
-// fost schimbată. Nu inventează: doar înlocuiește ce ar face sistemul să refuze fișierul, cu „_",
-// ca utilizatorul să-l recunoască.
+// Sanitize adapts a relative path (with "/") to the target system. It returns the path and
+// whether it was changed. It does not invent anything: it only replaces what would make the
+// system refuse the file, with "_", so the user can still recognise it.
 func Sanitize(rel string, target system.OS) (string, bool) {
 	parts := strings.Split(rel, "/")
 	changed := false
@@ -40,7 +41,7 @@ func sanitizeSegment(s string, target system.OS) string {
 	if s == "" || s == "." {
 		return s
 	}
-	// „.." nu are ce căuta într-un pachet; dacă totuși apare, devine inofensiv.
+	// ".." has no business in a package; if it shows up anyway, it becomes harmless.
 	if s == ".." {
 		return "_.."
 	}
@@ -60,7 +61,7 @@ func sanitizeSegment(s string, target system.OS) string {
 	}
 	out := b.String()
 	if target == system.Windows {
-		// Windows taie punctele și spațiile de la final, deci „a." și „a" ar fi același fișier.
+		// Windows strips trailing dots and spaces, so "a." and "a" would be the same file.
 		trimmed := strings.TrimRight(out, ". ")
 		if trimmed == "" {
 			trimmed = "_"
@@ -77,8 +78,8 @@ func sanitizeSegment(s string, target system.OS) string {
 	return out
 }
 
-// FoldKey e cheia după care două nume se ciocnesc pe un sistem de fișiere care nu ține cont de
-// majuscule. Pe Linux e numele însuși; pe Windows, forma cu litere mici.
+// FoldKey is the key on which two names collide on a file system that ignores case. On Linux
+// it is the name itself; on Windows, the lower-case form.
 func FoldKey(rel string, target system.OS) string {
 	if target == system.Windows {
 		return strings.ToLower(rel)
@@ -86,7 +87,7 @@ func FoldKey(rel string, target system.OS) string {
 	return rel
 }
 
-// WithSuffix inserează un sufix înaintea extensiei: raport.docx → raport (DHS).docx.
+// WithSuffix inserts a suffix before the extension: report.docx → report (DHS).docx.
 func WithSuffix(rel, suffix string) string {
 	dir, name := "", rel
 	if i := strings.LastIndexByte(rel, '/'); i >= 0 {

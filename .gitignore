@@ -14,5 +14,5 @@
 *.out
 *.prof
 
-# Jurnalele sesiunii de teste (se publică doar pe ramuri teste/*)
-/rezultate-teste/
+# Test-session logs (published only on tests/* branches)
+/test-results/

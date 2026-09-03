@@ -1,37 +1,39 @@
-// Comanda dhs — Direct Handoff Suite.
+// Command dhs — Direct Handoff Suite.
 //
-// Migrează mediul de lucru al unui utilizator între sisteme de operare, printr-un pachet portabil
-// pe mediu extern. Fără cloud, fără rețea, fără AI: o unealtă deterministă de sistem.
+// Migrates a user's working environment between operating systems through a portable package on
+// an external drive. No cloud, no network, no AI: a deterministic system tool.
 package main
 
 import (
 	"fmt"
 	"os"
+
+	"github.com/Necta14/dhs/internal/i18n"
 )
 
-// version se completează la build cu -ldflags "-X main.version=...".
+// version is filled in at build time with -ldflags "-X main.version=...".
 var version = "dev"
 
-const usage = `dhs — Direct Handoff Suite · migrarea mediului de lucru între sisteme de operare
+const usage = `dhs — Direct Handoff Suite · migrate your working environment between operating systems
 
-Utilizare
-  dhs <comandă> [opțiuni]
+Usage
+  dhs <command> [options]
 
-Comenzi
-  scan       arată ce s-ar salva, cât ar ocupa și dacă încape pe destinație
-  backup     creează pachetul de migrare pe mediul extern
-  verify     verifică un pachet, bloc cu bloc, fără să extragă nimic
-  list       arată ce e într-un pachet
-  restore    pune fișierele la locul lor pe sistemul curent, după un plan aprobat
-  version    versiunea și sistemul detectat
+Commands
+  scan       show what would be saved, how much it takes and whether it fits the destination
+  backup     create the migration package on the external drive
+  verify     verify a package, block by block, without extracting anything
+  list       show what is inside a package
+  restore    put the files back in place on the current system, following an approved plan
+  version    version and detected system
 
-Ajutor pentru o comandă
-  dhs <comandă> --help
+Help for a command
+  dhs <command> --help
 `
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Fprint(os.Stderr, usage)
+		fmt.Fprint(os.Stderr, i18n.T(usage))
 		os.Exit(2)
 	}
 
@@ -50,9 +52,9 @@ func main() {
 	case "version", "--version", "-v":
 		err = runVersion()
 	case "help", "--help", "-h":
-		fmt.Print(usage)
+		fmt.Print(i18n.T(usage))
 	default:
-		fmt.Fprintf(os.Stderr, "dhs: comandă necunoscută %q\n\n%s", cmd, usage)
+		fmt.Fprintf(os.Stderr, i18n.T("dhs: unknown command %q\n\n%s"), cmd, i18n.T(usage))
 		os.Exit(2)
 	}
 

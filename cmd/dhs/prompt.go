@@ -10,12 +10,14 @@ import (
 
 	"golang.org/x/term"
 
+	"github.com/Necta14/dhs/internal/i18n"
 	"github.com/Necta14/dhs/internal/passphrase"
 )
 
-// confirm pune o întrebare da/nu. Implicitul e „nu": tăcerea nu aprobă nimic.
+// confirm asks a yes/no question. The default is "no": silence approves nothing.
+// Both the English and the Romanian answers are accepted, whatever the display language.
 func confirm(question string) bool {
-	fmt.Fprintf(os.Stderr, "%s [d/N] ", question)
+	fmt.Fprintf(os.Stderr, i18n.T("%s [y/N] "), question)
 	line, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 	switch strings.ToLower(strings.TrimSpace(line)) {
 	case "d", "da", "y", "yes":
@@ -24,7 +26,7 @@ func confirm(question string) bool {
 	return false
 }
 
-// askPassphrase citește fraza fără ecou. Fără terminal, citește o linie de la stdin.
+// askPassphrase reads the passphrase without echo. Without a terminal, it reads a line from stdin.
 func askPassphrase(prompt string) (string, error) {
 	fmt.Fprint(os.Stderr, prompt)
 	if !isTerminal(os.Stdin) {
@@ -42,14 +44,14 @@ func askPassphrase(prompt string) (string, error) {
 	return string(b), nil
 }
 
-// askNewPassphrase cere fraza de două ori și spune clar ce înseamnă să o pierzi.
+// askNewPassphrase asks for the passphrase twice and says clearly what losing it means.
 func askNewPassphrase() (string, error) {
 	fmt.Fprintln(os.Stderr)
-	fmt.Fprintln(os.Stderr, bold("Alege o frază de acces pentru pachet."))
-	fmt.Fprintln(os.Stderr, warn("Dacă o pierzi, pachetul e pierdut definitiv. Nu există recuperare, nu există „am uitat parola”."))
-	fmt.Fprintln(os.Stderr, dim("Cel puțin 8 caractere. O propoziție lungă pe care o ții minte bate un șir scurt și complicat."))
+	fmt.Fprintln(os.Stderr, bold(i18n.T("Choose a passphrase for the package.")))
+	fmt.Fprintln(os.Stderr, warn(i18n.T("If you lose it, the package is lost for good. There is no recovery, no \"I forgot my password\".")))
+	fmt.Fprintln(os.Stderr, dim(i18n.T("At least 8 characters. A long sentence you remember beats a short, complicated string.")))
 	for attempt := 0; attempt < 3; attempt++ {
-		p1, err := askPassphrase("Fraza de acces: ")
+		p1, err := askPassphrase(i18n.T("Passphrase: "))
 		if err != nil {
 			return "", err
 		}
@@ -57,17 +59,17 @@ func askNewPassphrase() (string, error) {
 			fmt.Fprintln(os.Stderr, red(err.Error()))
 			continue
 		}
-		p2, err := askPassphrase("Încă o dată:    ")
+		p2, err := askPassphrase(i18n.T("Once more:  "))
 		if err != nil {
 			return "", err
 		}
 		if p1 != p2 {
-			fmt.Fprintln(os.Stderr, red("Nu se potrivesc."))
+			fmt.Fprintln(os.Stderr, red(i18n.T("They do not match.")))
 			continue
 		}
 		return p1, nil
 	}
-	return "", errors.New("prea multe încercări")
+	return "", errors.New(i18n.T("too many attempts"))
 }
 
 func writeJSON(v any) error {

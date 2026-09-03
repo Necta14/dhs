@@ -4,9 +4,9 @@ package system
 
 import "golang.org/x/sys/unix"
 
-// Numerele magice vin din include/uapi/linux/magic.h din nucleu.
+// The magic numbers come from include/uapi/linux/magic.h in the kernel.
 var fsMagic = map[int64]FSKind{
-	0x4d44:     FSFAT32, // MSDOS_SUPER_MAGIC — acoperă și FAT16/FAT32
+	0x4d44:     FSFAT32, // MSDOS_SUPER_MAGIC — also covers FAT16/FAT32
 	0x2011BAB0: FSExFAT,
 	0x5346544e: FSNTFS,
 	0xEF53:     FSExt,
@@ -26,7 +26,7 @@ func spaceOf(path string) (Volume, error) {
 		Path:  path,
 		FS:    FSUnknown,
 		Total: int64(st.Blocks) * st.Bsize,
-		// Bavail, nu Bfree: blocurile rezervate pentru root nu ne sunt disponibile.
+		// Bavail, not Bfree: the blocks reserved for root are not available to us.
 		Free: int64(st.Bavail) * st.Bsize,
 	}
 	if k, ok := fsMagic[int64(st.Type)]; ok {
