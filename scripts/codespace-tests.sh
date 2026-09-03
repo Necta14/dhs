@@ -108,7 +108,7 @@ publish() {
   git worktree remove -f "$wt" >/dev/null 2>&1 || rm -rf "$wt"
   git branch -q -D "$BRANCH" >/dev/null 2>&1 || true
   if [ "$rc" -eq 0 ]; then
-    echo "Results are on branch $BRANCH:  git fetch origin $BRANCH && git show origin/$BRANCH:SUMMARY.md"
+    echo "Results are on branch $BRANCH:  git fetch origin $BRANCH && git show origin/$BRANCH:test-results/SUMMARY.md"
   else
     echo "Not published (no GitHub credentials in this session — see $OUT/publish.log)."
     echo "The results are still in $OUT/. To publish, run from the Codespace terminal, or pass a token:"
