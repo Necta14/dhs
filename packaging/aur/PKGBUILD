@@ -1,0 +1,36 @@
+# Maintainer: Necta <179446771+Necta14@users.noreply.github.com>
+pkgname=dhs
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Migrate a working environment between operating systems through a portable, encrypted package"
+arch=('x86_64' 'aarch64')
+url="https://dhs-suite.vercel.app"
+license=('Apache-2.0')
+makedepends=('go')
+source=("$pkgname-$pkgver.tar.gz::https://github.com/Necta14/dhs/releases/download/v$pkgver/dhs-$pkgver-source.tar.gz")
+sha256sums=('SKIP')
+
+prepare() {
+  cd "$pkgname-$pkgver"
+  go mod download
+}
+
+build() {
+  cd "$pkgname-$pkgver"
+  export CGO_ENABLED=0
+  export GOFLAGS="-trimpath -mod=readonly -modcacherw"
+  go build -ldflags "-s -w -X main.version=$pkgver" -o dhs ./cmd/dhs
+}
+
+check() {
+  cd "$pkgname-$pkgver"
+  go test ./...
+}
+
+package() {
+  cd "$pkgname-$pkgver"
+  install -Dm755 dhs "$pkgdir/usr/bin/dhs"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 NOTICE "$pkgdir/usr/share/licenses/$pkgname/NOTICE"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+}

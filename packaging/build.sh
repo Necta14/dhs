@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# Builds every release artifact into dist/: the binaries, their archives, the source tarball and
+# SHA256SUMS. Reproducible from a clean checkout; needs nothing but the Go toolchain.
+#
+#   bash packaging/build.sh 0.1.0
+#
+# The version reaches the binary through -ldflags "-X main.version=…", so `dhs version` reports it.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+VERSION="${1:-${DHS_VERSION:-$(git describe --tags --always 2>/dev/null || echo dev)}}"
+VERSION="${VERSION#v}"
+DIST="dist"
+LDFLAGS="-s -w -X main.version=${VERSION}"
+DOCS=(LICENSE NOTICE README.md README.ro.md)
+
+rm -rf "$DIST"
+mkdir -p "$DIST/build"
+
+echo "── dhs ${VERSION} · $(go version | awk '{print $3}')"
+
+# one <os> <arch>: a static binary plus the documents that must travel with it
+one() {
+  local os="$1" arch="$2" ext="" dir="$DIST/build/${os}_${arch}"
+  [ "$os" = windows ] && ext=".exe"
+  mkdir -p "$dir"
+  CGO_ENABLED=0 GOOS="$os" GOARCH="$arch" \
+    go build -trimpath -ldflags "$LDFLAGS" -o "$dir/dhs${ext}" ./cmd/dhs
+  cp "${DOCS[@]}" "$dir/"
+
+  local base="dhs_${VERSION}_${os}_${arch}"
+  if [ "$os" = windows ]; then
+    ( cd "$dir" && zip -q -9 "../../${base}.zip" "dhs${ext}" "${DOCS[@]}" )
+  else
+    tar -czf "$DIST/${base}.tar.gz" -C "$dir" "dhs${ext}" "${DOCS[@]}"
+  fi
+  printf '   %-22s %s\n' "${os}/${arch}" "$(du -h "$dir/dhs${ext}" | cut -f1)"
+}
+
+one linux   amd64
+one linux   arm64
+one windows amd64
+one windows arm64
+
+# The source tarball: what AUR and anyone rebuilding from scratch consumes.
+git archive --format=tar.gz --prefix="dhs-${VERSION}/" \
+  -o "$DIST/dhs-${VERSION}-source.tar.gz" HEAD
+printf '   %-22s %s\n' "source" "$(du -h "$DIST/dhs-${VERSION}-source.tar.gz" | cut -f1)"
+
+# Checksums over every artifact, the binaries inside their archives included.
+( cd "$DIST" && sha256sum ./*.tar.gz ./*.zip > SHA256SUMS )
+
+echo "── artifacts in $DIST/"
+ls -1 "$DIST" | sed 's/^/   /'
