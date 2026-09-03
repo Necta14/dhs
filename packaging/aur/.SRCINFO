@@ -20,6 +20,7 @@ pkgname = dhs-gui
 	depends = dhs-cli
 	depends = python
 	depends = python-gobject
+	depends = glib2
 	depends = gtk4
 	depends = libadwaita
 	depends = hicolor-icon-theme

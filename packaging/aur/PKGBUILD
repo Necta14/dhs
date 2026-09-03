@@ -49,7 +49,7 @@ package_dhs-cli() {
 package_dhs-gui() {
   pkgdesc="GTK4 front end for DHS, the migration tool between operating systems"
   arch=('any')
-  depends=('dhs-cli' 'python' 'python-gobject' 'gtk4' 'libadwaita' 'hicolor-icon-theme')
+  depends=('dhs-cli' 'python' 'python-gobject' 'glib2' 'gtk4' 'libadwaita' 'hicolor-icon-theme')
   cd "$pkgbase-$pkgver"
   # The script carries its own shebang and finds the binary on PATH, so it needs no wrapper.
   install -Dm755 gui/linux/dhs-gui.py "$pkgdir/usr/bin/dhs-gui"
