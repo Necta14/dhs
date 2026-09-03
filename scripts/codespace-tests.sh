@@ -46,9 +46,15 @@ step() {
 
 step gofmt          bash -c 'out=$(gofmt -l .); [ -z "$out" ] || { echo "$out"; exit 1; }'
 step vet            go vet ./...
+# The Windows interface lives behind a build tag, so `go vet ./...` on Linux never looks at it.
+# Without these two steps it could break and nothing here would notice.
+step vet-windows    env GOOS=windows go vet ./...
 step build-linux    go build -ldflags="-s -w" -o /tmp/dhs ./cmd/dhs
 step build-windows  env GOOS=windows go build -ldflags="-s -w" -o /tmp/dhs.exe ./cmd/dhs
 step build-arm64    env GOARCH=arm64 go build -o /dev/null ./cmd/dhs
+step build-gui-win  env GOOS=windows go build -ldflags="-s -w -H windowsgui" -o /tmp/dhs-gui.exe ./gui/windows
+step build-gui-arm  env GOOS=windows GOARCH=arm64 go build -ldflags="-s -w -H windowsgui" -o /dev/null ./gui/windows
+step gui-linux-syntax python3 -m py_compile gui/linux/dhs-gui.py
 step test           go test ./... -count=1 -v -timeout 10m
 step race           go test ./... -race -count=1 -timeout 20m
 step cli-version    /tmp/dhs version
