@@ -492,3 +492,77 @@ func TestSizeMismatchIsRecorded(t *testing.T) {
 		t.Errorf("Size = %d, want %d (what was actually read)", r.Index.Entries[0].Size, len(data))
 	}
 }
+
+// A duplicate of a file whose bytes are still sitting in an open solid block used to be written
+// with no parts at all: the dedup branch copied the original's parts before the block was flushed,
+// and every part that arrived afterwards reached the original alone. Restoring such a file failed
+// with "empty file with a nonzero hash", so the copy was lost from the package while the rest of
+// it verified perfectly.
+//
+// The fixtures above never caught it, because their duplicate is Incompressible and stored
+// directly, receiving its part immediately. Anything compressible goes through a solid block.
+// Found by running the Windows binary under Wine, where two identical binary-class files took
+// exactly this path.
+func TestDuplicateInSolidBlockKeepsItsParts(t *testing.T) {
+	body := text(120 << 10)
+	fx := []fixture{
+		{name: "documents/original.txt", root: "documents", class: scan.Text, data: body},
+		{name: "documents/copy.txt", root: "documents", class: scan.Text, data: body, dup: true},
+		{name: "documents/filler.txt", root: "documents", class: scan.Text, data: text(3 << 10)},
+		{name: "config/app.bin", root: "config", class: scan.Binary, data: append(text(30<<10), random(10<<10)...)},
+		{name: "config/app-copy.bin", root: "config", class: scan.Binary, data: append(text(30<<10), random(10<<10)...), dup: true},
+	}
+	// The two config files must be byte-identical for the second to deduplicate at all.
+	fx[4].data = fx[3].data
+
+	dir := filepath.Join(t.TempDir(), "p.dhs")
+	w := writePackage(t, dir, testPass, scan.LevelBalanced, fx)
+	if err := w.Close(); err != nil {
+		t.Fatalf("Close: %v", err)
+	}
+
+	r, err := Open(dir, testPass)
+	if err != nil {
+		t.Fatalf("Open: %v", err)
+	}
+
+	dups := 0
+	for _, e := range r.Index.Entries {
+		if !e.Dup {
+			continue
+		}
+		dups++
+		if len(e.Parts) == 0 {
+			t.Errorf("%s: duplicate entry carries no parts, so it cannot be restored", e.Path)
+		}
+	}
+	if dups != 2 {
+		t.Fatalf("entries marked as duplicates = %d, want 2", dups)
+	}
+
+	rep, err := r.Verify(context.Background(), nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !rep.OK() {
+		t.Fatalf("Verify: %v", rep.Problems)
+	}
+
+	sinks, xrep := extractAll(t, r, nil)
+	if len(xrep.Failed) != 0 {
+		t.Fatalf("failed to restore: %+v", xrep.Failed)
+	}
+	if xrep.Files != len(fx) {
+		t.Errorf("restored %d files, want %d", xrep.Files, len(fx))
+	}
+	for _, f := range fx {
+		s := sinks[filepath.ToSlash(f.name)]
+		if s == nil {
+			t.Errorf("%s: was not restored", f.name)
+			continue
+		}
+		if !bytes.Equal(s.buf.Bytes(), f.data) {
+			t.Errorf("%s: content differs (%d bytes restored, %d expected)", f.name, s.buf.Len(), len(f.data))
+		}
+	}
+}

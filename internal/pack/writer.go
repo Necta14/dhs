@@ -72,8 +72,11 @@ type Writer struct {
 	blocks       []BlockRef
 	blockEntries map[int][]*Entry
 	dedup        map[Hash]*Entry
-	solid        map[BlockKind]*solidBuf
-	storedBuf    []byte // the stored block currently being filled
+	// dups maps an original entry to the deduplicated entries that share its blocks. They must
+	// receive every part the original receives later, when its solid block is finally written.
+	dups      map[*Entry][]*Entry
+	solid     map[BlockKind]*solidBuf
+	storedBuf []byte // the stored block currently being filled
 
 	jobs    chan *job
 	results chan *job
@@ -156,6 +159,7 @@ func NewWriter(o Options) (*Writer, error) {
 		keys:         make(map[string]struct{}),
 		blockEntries: make(map[int][]*Entry),
 		dedup:        make(map[Hash]*Entry),
+		dups:         make(map[*Entry][]*Entry),
 		solid:        make(map[BlockKind]*solidBuf),
 		jobs:         make(chan *job, o.Workers*2),
 		results:      make(chan *job, o.Workers*2),
@@ -257,9 +261,14 @@ func (w *Writer) Add(ctx context.Context, f File) error {
 			e.SHA256 = h
 			e.Size = n
 			e.Dup = true
-			// The original's parts may still receive the last piece of a solid block; read them under the lock.
+			// The original may still be waiting for the tail of an open solid block. Copying its
+			// parts here is not enough: whatever arrives afterwards would reach the original only,
+			// and the duplicate would be written with no parts at all — a file the reader then
+			// rejects as "empty file with a nonzero hash". So, under one lock, take the parts it
+			// has and subscribe to the ones it has yet to get.
 			w.mu.Lock()
 			e.Parts = append([]Part(nil), orig.Parts...)
+			w.dups[orig] = append(w.dups[orig], e)
 			w.mu.Unlock()
 			w.commitEntry(e)
 			w.mu.Lock()
@@ -301,11 +310,21 @@ func (w *Writer) commitEntry(e *Entry) {
 // the emitter may serialize the entry exactly then.
 func (w *Writer) addPart(e *Entry, p Part) {
 	w.mu.Lock()
+	w.addPartLocked(e, p)
+	// Deduplicated copies point at the same bytes, so they get the same part.
+	for _, d := range w.dups[e] {
+		w.addPartLocked(d, p)
+	}
+	w.mu.Unlock()
+}
+
+// addPartLocked appends one part and, if the entry is already visible to the emitter, makes sure
+// the block's index lists it. The caller holds w.mu.
+func (w *Writer) addPartLocked(e *Entry, p Part) {
 	e.Parts = append(e.Parts, p)
 	if _, committed := w.keys[e.Key()]; committed {
 		w.blockEntries[p.Block] = append(w.blockEntries[p.Block], e)
 	}
-	w.mu.Unlock()
 }
 
 func (w *Writer) report() {
