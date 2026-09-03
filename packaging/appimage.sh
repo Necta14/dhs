@@ -45,7 +45,7 @@ Comment=Migrate a working environment between operating systems
 Exec=dhs
 Icon=dhs
 Terminal=true
-Categories=System;Utility;Archiving;
+Categories=Utility;Archiving;
 Keywords=migration;backup;restore;
 EOF
 install -Dm644 "$APPDIR/dhs.desktop" "$APPDIR/usr/share/applications/dhs.desktop"

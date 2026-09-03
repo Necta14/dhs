@@ -9,6 +9,6 @@ Exec=dhs-gui
 Icon=io.github.necta14.dhs
 Terminal=false
 StartupNotify=true
-Categories=System;Utility;Archiving;
+Categories=Utility;Archiving;
 Keywords=migration;backup;restore;handoff;package;
 Keywords[ro]=migrare;backup;restaurare;pachet;
