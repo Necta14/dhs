@@ -13,7 +13,7 @@ makedepends=('go')
 # gdb-add-index complains about the missing symbols. Go binaries are conventionally built this way.
 options=('!debug')
 source=("$pkgbase-$pkgver.tar.gz::https://github.com/Necta14/dhs/releases/download/v$pkgver/dhs-$pkgver-source.tar.gz")
-sha256sums=('SKIP')
+sha256sums=('5642230a58c3c6081796ae2058ff687e6dc045399c057fdb7c4eba53be33bd16')
 
 prepare() {
   cd "$pkgbase-$pkgver"
