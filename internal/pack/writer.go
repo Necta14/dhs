@@ -257,7 +257,10 @@ func (w *Writer) Add(ctx context.Context, f File) error {
 			e.SHA256 = h
 			e.Size = n
 			e.Dup = true
+			// Părțile originalului pot încă primi ultima bucată dintr-un bloc solid; le citim sub lacăt.
+			w.mu.Lock()
 			e.Parts = append([]Part(nil), orig.Parts...)
+			w.mu.Unlock()
 			w.commitEntry(e)
 			w.progress.Dedup += n
 			w.report()
@@ -276,6 +279,8 @@ func (w *Writer) Add(ctx context.Context, f File) error {
 	return nil
 }
 
+// commitEntry face intrarea vizibilă emițătorului. De aici încolo, orice modificare a ei trece
+// prin addPart, sub lacăt — emițătorul o poate serializa oricând.
 func (w *Writer) commitEntry(e *Entry) {
 	w.mu.Lock()
 	w.entries = append(w.entries, e)
@@ -286,6 +291,18 @@ func (w *Writer) commitEntry(e *Entry) {
 	w.mu.Unlock()
 	w.progress.Files++
 	w.progress.Bytes += e.Size
+}
+
+// addPart adaugă o parte unei intrări. Sub lacăt, fiindcă intrarea poate fi deja înregistrată:
+// un bloc solid ține coada unui fișier terminat până se umple cu următoarele, iar emițătorul
+// poate serializa intrarea exact atunci.
+func (w *Writer) addPart(e *Entry, p Part) {
+	w.mu.Lock()
+	e.Parts = append(e.Parts, p)
+	if _, committed := w.keys[e.Key()]; committed {
+		w.blockEntries[p.Block] = append(w.blockEntries[p.Block], e)
+	}
+	w.mu.Unlock()
 }
 
 func (w *Writer) report() {
@@ -358,8 +375,12 @@ func (w *Writer) pack(ctx context.Context, f File, e *Entry) error {
 		w.flushStored(e)
 	}
 
+	// Intrarea nu e încă înregistrată, deci n-o citește nimeni; lacătul e totuși ieftin și ține
+	// invariantul simplu: orice câmp pe care îl serializează emițătorul se scrie sub lacăt.
+	w.mu.Lock()
 	copy(e.SHA256[:], hasher.Sum(nil))
 	e.Size = total
+	w.mu.Unlock()
 	return nil
 }
 
@@ -388,7 +409,7 @@ func (w *Writer) flushStored(e *Entry) {
 		return
 	}
 	id := w.emit(KindStored, w.storedBuf)
-	e.Parts = append(e.Parts, Part{Block: id, Offset: 0, Length: int64(len(w.storedBuf))})
+	w.addPart(e, Part{Block: id, Offset: 0, Length: int64(len(w.storedBuf))})
 	w.storedBuf = nil
 }
 
@@ -428,7 +449,7 @@ func (w *Writer) flushSolid(sb *solidBuf) {
 	}
 	id := w.emit(sb.kind, sb.buf)
 	for _, m := range sb.members {
-		m.e.Parts = append(m.e.Parts, Part{Block: id, Offset: m.off, Length: m.n})
+		w.addPart(m.e, Part{Block: id, Offset: m.off, Length: m.n})
 	}
 	sb.buf = make([]byte, 0, w.o.BlockSize)
 	sb.members = sb.members[:0]
@@ -523,19 +544,21 @@ func (w *Writer) Abort(cause error) {
 	}
 }
 
-// snapshotIndex construiește indexul din starea curentă. Cu final=false, intră doar intrările ale
-// căror blocuri sunt toate în volume încheiate — exact ce poate fi reluat.
+// snapshotIndex construiește indexul din starea curentă, cu COPII ale intrărilor: apelantul îl
+// serializează după ce a eliberat lacătul, iar între timp Add poate adăuga părți. Se cheamă sub
+// w.mu. Cu final=false, intră doar intrările ale căror blocuri sunt toate în volume încheiate —
+// exact ce poate fi reluat.
 func (w *Writer) snapshotIndex(final bool) *Index {
 	idx := &Index{
 		Format:   FormatVersion,
 		ID:       w.id,
 		Complete: final,
-		Volumes:  append([]VolumeInfo(nil), w.em.volumes...),
+		Volumes:  w.em.volumesSnapshot(),
 		Blocks:   append([]BlockRef(nil), w.blocks...),
 	}
 	for _, e := range w.entries {
 		if final || e.Placed(w.blocks) {
-			idx.Entries = append(idx.Entries, e)
+			idx.Entries = append(idx.Entries, e.clone())
 		}
 	}
 	return idx

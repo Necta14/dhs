@@ -14,9 +14,12 @@ import (
 	"filippo.io/age"
 )
 
-// WorkFactor e exponentul scrypt: 2^18 ≈ o secundă pe un laptop obișnuit la deschidere. Destul ca
-// o parolă slabă să nu se spargă ieftin, puțin destul ca utilizatorul să nu aștepte.
-const WorkFactor = 18
+// WorkFactor e exponentul scrypt: 2^18 ≈ o secundă și 256 MiB pe un laptop obișnuit, la fiecare
+// deschidere. Destul ca o parolă slabă să nu se spargă ieftin, puțin destul ca utilizatorul să nu
+// aștepte. E variabilă doar ca testele să-l poată coborî — o suită cu zeci de volume mici ar dura
+// minute întregi altfel. Produsul nu-l schimbă niciodată. La citire nu contează: age ia factorul
+// din antetul fișierului.
+var WorkFactor = 18
 
 // MinLength e lungimea minimă acceptată. Nu suplinește o parolă bună, dar taie greșelile evidente.
 const MinLength = 8

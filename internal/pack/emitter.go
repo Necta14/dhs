@@ -200,13 +200,22 @@ func (v *volume) write(b []byte) error {
 // întrerupere pachetul să fie fie „volumul N încheiat", fie „volumul N nu există".
 func (em *emitter) finish() error {
 	v := em.vol
+	// Indexul propriu al volumului: blocurile lui și intrările înregistrate care au măcar o parte
+	// în ele. Copii, nu pointeri — serializăm după ce dăm drumul lacătului.
 	em.w.mu.Lock()
 	idx := &Index{Format: FormatVersion, ID: em.w.id, Complete: false}
+	inVolume := make(map[int]struct{}, len(v.blocks))
 	for _, id := range v.blocks {
 		idx.Blocks = append(idx.Blocks, em.w.blocks[id])
+		inVolume[id] = struct{}{}
 	}
-	for e := range v.touch {
-		idx.Entries = append(idx.Entries, e)
+	for _, e := range em.w.entries {
+		for _, p := range e.Parts {
+			if _, ok := inVolume[p.Block]; ok {
+				idx.Entries = append(idx.Entries, e.clone())
+				break
+			}
+		}
 	}
 	em.w.mu.Unlock()
 
@@ -251,12 +260,14 @@ func (em *emitter) finish() error {
 	}
 
 	info := VolumeInfo{Number: v.number, Bytes: v.hw.n, Blocks: len(v.blocks), SHA256: v.hw.Sum()}
+	// Volumul iese din „curent" ÎNAINTE să recalculăm totalul — altfel îl numărăm de două ori,
+	// o dată în lista volumelor încheiate și o dată ca volum în curs.
+	em.vol = nil
 	em.mu.Lock()
 	em.volumes = append(em.volumes, info)
 	em.current = v.number + 1
 	em.stored = em.storedSoFar()
 	em.mu.Unlock()
-	em.vol = nil
 
 	// Starea reluabilă: indexul cu ce e complet, manifestul, sumele, apoi jurnalul.
 	em.w.mu.Lock()

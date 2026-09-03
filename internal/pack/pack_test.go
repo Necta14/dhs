@@ -14,9 +14,15 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Necta14/dhs/internal/passphrase"
 	"github.com/Necta14/dhs/internal/scan"
 	"github.com/Necta14/dhs/internal/system"
 )
+
+// scrypt cu factorul de producție (2^18) costă ~1 s și 256 MiB la fiecare volum; sub detectorul
+// de curse, de 20× mai mult. Suita deschide zeci de volume mici, deci coborâm factorul la 2^10 —
+// aici testăm formatul, nu rezistența parolei. Produsul nu-l schimbă niciodată.
+func init() { passphrase.WorkFactor = 10 }
 
 const testPass = "o-fraza-de-test-suficient-de-lunga"
 

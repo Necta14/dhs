@@ -26,11 +26,18 @@ export HOME="$SRC"; unset XDG_CONFIG_HOME
 "$DHS" backup --dest "$MEDIA" --nume test --parola-fisier "$BASE/parola" --da --verifica
 echo; echo "── dhs.json (nu trebuie să conțină nume de fișiere sau user) ──"
 cat "$MEDIA/test.dhs/dhs.json"
-if grep -qE 'numere|poza|sursa|codespace' "$MEDIA/test.dhs/dhs.json"; then
-  echo "EROARE: manifestul scurge nume"; exit 1
-fi
+# Căutăm valori sensibile reale (nume de fișiere, calea HOME, userul), nu cuvinte din schema JSON.
+for leak in numere poza nota "mare.bin" "$SRC" "$(id -un)"; do
+  if grep -qF -- "$leak" "$MEDIA/test.dhs/dhs.json" "$MEDIA/test.dhs/SUME.txt" "$MEDIA/test.dhs/jurnal.jsonl"; then
+    echo "EROARE: fișierele necriptate conțin „$leak”"; exit 1
+  fi
+done
 echo; ls -l "$MEDIA/test.dhs" "$MEDIA/test.dhs/volume"
 if ls "$MEDIA/test.dhs/volume"/*.tmp >/dev/null 2>&1; then echo "EROARE: volum .tmp rămas"; exit 1; fi
+# Cu un duplicat de 3 MiB și 2 MiB de text comprimabil, pachetul trebuie să fie mai mic decât sursa.
+RAW=$(du -sb "$SRC" | cut -f1); PKG=$(du -sb "$MEDIA/test.dhs" | cut -f1)
+echo "sursă: $RAW octeți · pachet pe disc: $PKG octeți"
+if [ "$PKG" -ge "$RAW" ]; then echo "EROARE: pachetul e mai mare decât sursa — dedup sau compresia nu funcționează"; exit 1; fi
 
 echo; echo "══ verify + list ══"
 "$DHS" verify "$MEDIA/test.dhs" --parola-fisier "$BASE/parola"

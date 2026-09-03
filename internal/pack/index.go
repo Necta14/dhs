@@ -107,3 +107,11 @@ func (e *Entry) Placed(blocks []BlockRef) bool {
 
 // Key identifică unic o intrare în cadrul pachetului.
 func (e *Entry) Key() string { return string(e.Root) + "\x00" + e.Path }
+
+// clone copiază intrarea cu tot cu părți. Scriitorul o folosește ca să serializeze indexul
+// dintr-un alt goroutine decât cel care încă adaugă părți, fără să țină lacătul cât durează JSON-ul.
+func (e *Entry) clone() *Entry {
+	c := *e
+	c.Parts = append([]Part(nil), e.Parts...)
+	return &c
+}

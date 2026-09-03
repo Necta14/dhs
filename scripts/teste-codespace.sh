@@ -44,8 +44,8 @@ step vet            go vet ./...
 step build-linux    go build -ldflags="-s -w" -o /tmp/dhs ./cmd/dhs
 step build-windows  env GOOS=windows go build -ldflags="-s -w" -o /tmp/dhs.exe ./cmd/dhs
 step build-arm64    env GOARCH=arm64 go build -o /dev/null ./cmd/dhs
-step test           go test ./... -count=1 -v
-step race           go test ./... -race -count=1
+step test           go test ./... -count=1 -v -timeout 10m
+step race           go test ./... -race -count=1 -timeout 20m
 step cli-version    /tmp/dhs version
 step e2e            bash scripts/e2e.sh /tmp/dhs
 
