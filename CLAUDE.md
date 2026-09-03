@@ -222,7 +222,7 @@ reconstruction is outside the product, however much it would gain in size.
 | # | Decision | State |
 |---|---|---|
 | **D8** | How we implement preflate-style preprocessing, when we get there: a reimplementation in Go (clean binary, a few weeks) or `preflate-rs` through cgo (fast, but needs `mingw` for Windows). **Not decided now** — v1 ships level 3 as LZMA2 without preprocessing, and the format leaves room for it. | postponed until that stage |
-| **D9** | Which GUI toolkit on each platform. Candidates: on Linux **GTK4 + libadwaita** (a PyGObject prototype exists in `gui/linux/dhs-gui.py`; `gotk4` would be the Go route, native on GNOME, linking to system libraries that are already installed); on Windows **native Win32** or WinUI. Since the GUI is a separate process that speaks JSON with the CLI, the decision **blocks nothing** and is made when we get there. | postponed, the GUI comes after v1 |
+| **D9** | Which GUI toolkit on each platform. **Settled for Windows on 2026-09-03: hand-drawn Win32.** A portable single `.exe` that looks current ruled out the alternatives: WinUI needs the Windows App SDK, web-based front ends drag in a runtime, and themed Win32 controls look like a 2009 utility. So the window is Win32 and the contents are drawn, with the libadwaita palette and metrics, so both interfaces read as one program: `gui/windows/`, about 2.9 MiB, no cgo. On Linux **GTK4 + libadwaita** stands (`gui/linux/dhs-gui.py`); `gotk4` remains the Go route if the prototype is ever rewritten. | Windows done, Linux prototype stands |
 
 ## Conventions
 

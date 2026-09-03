@@ -31,12 +31,17 @@ one() {
   mkdir -p "$dir"
   CGO_ENABLED=0 GOOS="$os" GOARCH="$arch" \
     go build -trimpath -ldflags "$LDFLAGS" -o "$dir/dhs${ext}" ./cmd/dhs
+  # Windows also gets the graphical front end, which is a separate process over the same binary.
+  if [ "$os" = windows ]; then
+    CGO_ENABLED=0 GOOS="$os" GOARCH="$arch" \
+      go build -trimpath -ldflags "$LDFLAGS -H windowsgui" -o "$dir/dhs-gui.exe" ./gui/windows
+  fi
   cp "${DOCS[@]}" "$dir/"
 
   local base="dhs_${VERSION}_${os}_${arch}"
   if [ "$os" = windows ]; then
     if command -v zip >/dev/null 2>&1; then
-      ( cd "$dir" && zip -q -9 "../../${base}.zip" "dhs${ext}" "${DOCS[@]}" )
+      ( cd "$dir" && zip -q -9 "../../${base}.zip" "dhs${ext}" dhs-gui.exe "${DOCS[@]}" )
     else
       # No zip on the host: Python's zipfile writes the same archive.
       ( cd "$dir" && python3 -c "
@@ -44,12 +49,16 @@ import sys, zipfile
 with zipfile.ZipFile(sys.argv[1], 'w', zipfile.ZIP_DEFLATED, compresslevel=9) as z:
     for name in sys.argv[2:]:
         z.write(name)
-" "../../${base}.zip" "dhs${ext}" "${DOCS[@]}" )
+" "../../${base}.zip" "dhs${ext}" dhs-gui.exe "${DOCS[@]}" )
     fi
   else
     tar -czf "$DIST/${base}.tar.gz" -C "$dir" "dhs${ext}" "${DOCS[@]}"
   fi
-  printf '   %-22s %s\n' "${os}/${arch}" "$(du -h "$dir/dhs${ext}" | cut -f1)"
+  if [ "$os" = windows ]; then
+    printf '   %-22s %s + gui %s\n' "${os}/${arch}" "$(du -h "$dir/dhs${ext}" | cut -f1)" "$(du -h "$dir/dhs-gui.exe" | cut -f1)"
+  else
+    printf '   %-22s %s\n' "${os}/${arch}" "$(du -h "$dir/dhs${ext}" | cut -f1)"
+  fi
 }
 
 one linux   amd64
