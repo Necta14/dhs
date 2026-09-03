@@ -8,6 +8,11 @@
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
+# In a `gh codespace ssh` session the Codespace environment is not loaded; the name is still on disk.
+if [ -z "${CODESPACE_NAME:-}" ] && [ -r /workspaces/.codespaces/shared/environment-variables.json ]; then
+  CODESPACE_NAME="$(sed -n 's/.*"CODESPACE_NAME": *"\([^"]*\)".*/\1/p' \
+    /workspaces/.codespaces/shared/environment-variables.json | head -1)"
+fi
 NAME="${CODESPACE_NAME:-$(hostname)}"
 OUT="test-results"
 FAILS=0
@@ -72,19 +77,49 @@ step e2e            bash scripts/e2e.sh /tmp/dhs
 
 echo
 echo "══ publish ══"
-# In a `gh codespace ssh` session git has no credentials; gh has them (GITHUB_TOKEN) and can lend them.
-command -v gh >/dev/null 2>&1 && gh auth setup-git >/dev/null 2>&1 || true
+# The results go on the orphan branch tests/<name>, built in a separate worktree: the main checkout
+# is never touched and test-results/ stays where it is whatever happens below.
+# Credentials: an interactive Codespace shell has GITHUB_TOKEN; a `gh codespace ssh` session does
+# not, so pass one in (GH_TOKEN=… or on stdin) or accept that the results stay local.
 BRANCH="tests/$NAME"
-git stash -q --include-untracked 2>/dev/null || true
-git checkout -q -B "$BRANCH"
-git stash pop -q 2>/dev/null || true
-git add -f "$OUT"
-git -c user.name="codespace $NAME" -c user.email="codespace@dhs.local" \
-    commit -q -m "tests: $NAME · $(git rev-parse --short HEAD) · $FAILS failures" && \
-git push -q -f -u origin "$BRANCH" && echo "Results are on branch $BRANCH"
-git checkout -q main
-git stash pop -q 2>/dev/null || true
+publish() {
+  export GIT_TERMINAL_PROMPT=0
+  if [ -z "${GH_TOKEN:-}" ] && [ -z "${GITHUB_TOKEN:-}" ] && [ ! -t 0 ] && read -r -t 1 GH_TOKEN 2>/dev/null; then
+    export GH_TOKEN
+  fi
+  command -v gh >/dev/null 2>&1 && gh auth setup-git >/dev/null 2>&1 || true
+
+  local wt; wt="$(mktemp -d)"; rmdir "$wt"
+  git branch -q -D "$BRANCH" >/dev/null 2>&1 || true
+  git worktree add -q --detach "$wt" >/dev/null 2>&1 || { echo "Not published: could not create a worktree."; return 1; }
+  local rc=0
+  (
+    set -e
+    cd "$wt"
+    git checkout -q --orphan "$BRANCH"
+    git rm -rfq --cached . >/dev/null 2>&1 || true
+    find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+    cp -r "$OLDPWD/$OUT" .
+    git add -A
+    git -c user.name="codespace $NAME" -c user.email="codespace@dhs.local" \
+        commit -q -m "tests: $NAME · $(git -C "$OLDPWD" rev-parse --short HEAD) · $FAILS failures"
+    git push -q -f -u origin "$BRANCH" 2>"$OLDPWD/$OUT/publish.log"
+  ) || rc=$?
+  git worktree remove -f "$wt" >/dev/null 2>&1 || rm -rf "$wt"
+  git branch -q -D "$BRANCH" >/dev/null 2>&1 || true
+  if [ "$rc" -eq 0 ]; then
+    echo "Results are on branch $BRANCH:  git fetch origin $BRANCH && git show origin/$BRANCH:SUMMARY.md"
+  else
+    echo "Not published (no GitHub credentials in this session — see $OUT/publish.log)."
+    echo "The results are still in $OUT/. To publish, run from the Codespace terminal, or pass a token:"
+    echo "  gh auth token | gh codespace ssh -c <name> -- 'cd /workspaces/dhs && bash scripts/codespace-tests.sh'"
+  fi
+  return "$rc"
+}
+publish || true
 
 echo
 echo "Done: $FAILS failures. Summary: $OUT/SUMMARY.md"
+echo
+cat "$OUT/SUMMARY.md"
 exit "$FAILS"

@@ -23,9 +23,14 @@ What it does not cover: Windows (Codespaces has no Windows VMs) and localised XD
 ## The shortest route: from your machine, through `gh`
 
 ```bash
-GH_TOKEN=$(gh auth token -u <user>) gh codespace ssh -c <codespace> -- \
+gh auth token -u <user> | GH_TOKEN=$(gh auth token -u <user>) gh codespace ssh -c <codespace> -- \
   'cd /workspaces/dhs && git pull -q && bash scripts/codespace-tests.sh'
 ```
+
+The first `gh auth token` is piped in for the Codespace side: an SSH session does not load the
+Codespace environment, so git there has no credentials, and the script reads a token from stdin
+to publish the results. Without it the run still completes; the results just stay in
+`test-results/` on the Codespace and the summary is printed at the end.
 
 `gh` needs the `codespace` scope (`gh auth refresh -s codespace`). If `gh` holds several accounts,
 pick the one that owns the Codespaces per command, through `GH_TOKEN=$(gh auth token -u <user>)`,

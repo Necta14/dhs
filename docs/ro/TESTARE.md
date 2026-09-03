@@ -24,9 +24,14 @@ containerele folosesc numele implicite.
 ## Cel mai scurt drum: de pe mașina ta, prin `gh`
 
 ```bash
-GH_TOKEN=$(gh auth token -u <user>) gh codespace ssh -c <codespace> -- \
+gh auth token -u <user> | GH_TOKEN=$(gh auth token -u <user>) gh codespace ssh -c <codespace> -- \
   'cd /workspaces/dhs && git pull -q && bash scripts/codespace-tests.sh'
 ```
+
+Primul `gh auth token` e trimis prin pipe pentru partea din Codespace: o sesiune SSH nu încarcă
+mediul Codespace-ului, deci git-ul de acolo n-are credențiale, iar scriptul citește un token de pe
+stdin ca să publice rezultatele. Fără el rularea se termină oricum; rezultatele rămân doar în
+`test-results/` pe Codespace, iar rezumatul e afișat la final.
 
 `gh` are nevoie de scope-ul `codespace` (`gh auth refresh -s codespace`). Dacă `gh` ține mai multe
 conturi, alege-l pe cel care deține Codespaces-urile per comandă, prin
