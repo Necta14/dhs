@@ -4,9 +4,11 @@
 > [`AGENTS.md`](AGENTS.md), jurnalul în [`docs/NOTES.md`](docs/NOTES.md), sarcinile în
 > [`docs/BACKLOG.md`](docs/BACKLOG.md).
 >
-> ⚠️ **Implementarea NU a început.** Proiectul e definit, dar userul a cerut explicit să stabilim
-> întâi deciziile din secțiunea [Decizii deschise](#decizii-deschise). Nu scrie cod de produs până
-> nu sunt închise D1–D3.
+> **Stare la 03.09.2026.** Nucleul pentru fișiere e implementat și **verde pe Codespaces**:
+> `scan`, `backup`, `verify`, `list`, `restore` — teste unitare, detector de curse și un flux
+> complet backup → restore cu comparare bit cu bit. Lipsesc baza de aplicații, detectarea
+> aplicațiilor și `plan`. Testele se rulează **doar** pe Codespaces (AGENTS.md, regula 7);
+> cum: [`docs/TESTARE.md`](docs/TESTARE.md).
 
 ## Ce este DHS
 

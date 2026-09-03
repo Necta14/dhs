@@ -3,6 +3,21 @@
 > Regulă (AGENTS.md, 7): testele **nu** se rulează pe laptopul userului. Nici `go test`, nici
 > binarul `dhs` pe datele lui. Se rulează pe două Codespaces, într-o sesiune separată. Documentul
 > ăsta e ce trebuie făcut acolo, în ordine, ca sesiunea să fie scurtă și completă.
+>
+> **Prima rundă verde: 03.09.2026, commit `3a39aef`**, pe Codespace-ul cu 4 nuclee — tot ce e în
+> `scripts/teste-codespace.sh`, inclusiv `-race` și fluxul e2e. Rundele anterioare au găsit și
+> reparat: un nil pointer la creare, patru curse de date la serializarea indexului, un contor
+> dublat și scrypt de producție care făcea suita să dureze 10 minute.
+
+## Cel mai scurt drum: de pe laptop, prin `gh`
+
+```bash
+GH_TOKEN=$(gh auth token -u Necta14) gh codespace ssh -c <nume> -- \
+  'cd /workspaces/dhs && git pull -q && bash scripts/teste-codespace.sh'
+```
+
+`gh` are nevoie de scope-ul `codespace` (`gh auth refresh -s codespace`). Testele rulează în
+Codespace; laptopul doar trimite comanda.
 
 ## De ce două Codespaces
 

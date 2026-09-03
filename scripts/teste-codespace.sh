@@ -72,6 +72,8 @@ step e2e            bash scripts/e2e.sh /tmp/dhs
 
 echo
 echo "══ publicare ══"
+# Într-o sesiune `gh codespace ssh`, git n-are credențiale; gh le are (GITHUB_TOKEN) și le poate da.
+command -v gh >/dev/null 2>&1 && gh auth setup-git >/dev/null 2>&1 || true
 BRANCH="teste/$NAME"
 git stash -q --include-untracked 2>/dev/null || true
 git checkout -q -B "$BRANCH"
