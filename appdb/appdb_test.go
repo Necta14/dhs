@@ -55,7 +55,7 @@ func TestQueries(t *testing.T) {
 		{"Mozilla Firefox (x64 en-US)", "firefox"},
 		{"mozilla firefox", "firefox"},
 		{"Git", "git"},
-		{"GitHub Desktop", ""}, // a prefix inside a word does not count
+		{"Gitter Widget 2.0", ""}, // a prefix inside a word does not count
 		{"Microsoft Visual Studio Code (User)", "vscode"},
 		{"Notepad++ (64-bit x64)", "notepad-plus-plus"},
 	}
