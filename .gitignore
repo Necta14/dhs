@@ -27,3 +27,6 @@
 /packaging/aur/pkg/
 /packaging/aur/*.pkg.tar.*
 /packaging/aur/*.tar.gz
+
+# Python bytecode from the GTK prototype
+__pycache__/

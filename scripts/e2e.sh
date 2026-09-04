@@ -108,7 +108,8 @@ import json,sys
 d=json.load(sys.stdin); m=d["apps"]
 ids=sorted(a["id"] for a in m["apps"])
 assert "git" in ids and "vscode" in ids, ids
-assert all(a["config_only"] for a in m["apps"] if a["id"] in ("git","vscode")), m["apps"]
+# Git is installed on every Codespace, so it may well be a real detection; VS Code never is.
+assert [a for a in m["apps"] if a["id"]=="vscode"][0].get("config_only"), m["apps"]
 print("manifest ok:", ids)'
 
 echo; echo "── plan on this system ──"
