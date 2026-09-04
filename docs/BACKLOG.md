@@ -20,7 +20,8 @@ What does not go into v1. The order within each section is a proposal, not a com
 - [x] `dhs install` — the approved plan's commands, batch with one-by-one retry — written 2026-09-04
 - [x] `dhs report` — folded into `dhs plan`: its unknown / no-source / kept-aside sections are the report
 - [x] Application configuration under `apps/<id>/<key>` roots, placed by key on the target — written 2026-09-04
-- [ ] Filling the database: hundreds of entries in progress; every entry needs a second pair of eyes on its identifiers
+- [x] Filling the database: 759 entries on 2026-09-04, every seed application covered
+- [ ] A second pair of eyes on the database: identifiers were checked against Repology where doubtful, not one by one; a wrong name is found only by someone who has the application installed
 - [ ] Windows detection and `dhs install` exercised on the real Windows VM (the Linux side runs in `scripts/e2e.sh`)
 - [ ] Splitting the package across several media
 

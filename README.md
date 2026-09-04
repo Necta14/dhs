@@ -66,7 +66,8 @@ not exist on the new system go under `~/DHS-restored/`. Every command takes `--j
 
 **Applications.** `scan` and `backup` also look at what is installed — through the package
 managers on Linux, through *Apps & features*, winget, scoop and choco on Windows — and match it
-against DHS's own [application database](appdb/README.md): one JSON file per application, saying
+against DHS's own [application database](appdb/README.md) — 759 applications at the time of
+writing — one JSON file per application, saying
 how each platform's managers know it, where it keeps its configuration, and what stands in for it
 where it does not exist. Configuration travels with the package, filed by application rather than
 by path, so a Firefox profile from `%APPDATA%` lands in `~/.mozilla/firefox` on Linux. On the new

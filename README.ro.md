@@ -64,7 +64,8 @@ rădăcină nu există pe sistemul nou ajung sub `~/DHS-restored/`. Fiecare coma
 
 **Aplicații.** `scan` și `backup` se uită și la ce e instalat — prin managerele de pachete pe
 Linux, prin *Aplicații și caracteristici*, winget, scoop și choco pe Windows — și potrivesc
-rezultatul cu [baza de aplicații](appdb/README.md) proprie a DHS: un fișier JSON per aplicație,
+rezultatul cu [baza de aplicații](appdb/README.md) proprie a DHS — 759 de aplicații la data
+scrierii — un fișier JSON per aplicație,
 care spune sub ce nume o cunosc managerele fiecărei platforme, unde își ține configurările și ce
 îi ține locul acolo unde nu există. Configurările călătoresc cu pachetul, îndosariate după
 aplicație, nu după cale, așa că un profil Firefox din `%APPDATA%` ajunge în `~/.mozilla/firefox`

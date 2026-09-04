@@ -272,7 +272,8 @@ appdb/                    the app database: JSON entries (CC-BY-4.0), loader, qu
 
 OS-specific code lives **only** in files with the `_linux.go` and `_windows.go` suffix. Thanks to
 build tags, the Linux binary contains not a single byte of the Windows code — hence the sizes:
-4.9 MiB on Linux, 5.2 MiB on Windows, database included.
+5.4 MiB on Linux, 5.6 MiB on Windows, the 759-entry database included (3 MB of JSON, which the
+Go linker stores uncompressed; a binary that lists 759 applications for 1.2 MiB is a fair trade).
 
 The rule: the `_linux.go` / `_windows.go` files in `internal/system` and `internal/apps` are the
 only places with OS-specific code. The rest is shared and testable on any machine; the parsers of

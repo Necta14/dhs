@@ -113,7 +113,7 @@ DHS is not allowed to become bloatware. The budgets are thresholds, not suggesti
 
 | | Budget | Now |
 |---|---|---|
-| CLI binary, stripped (`-ldflags "-s -w"`) | ≤ 15 MiB | **4.2 MiB** Linux · **4.5 MiB** Windows (with age, zstd, xz) |
+| CLI binary, stripped (`-ldflags "-s -w"`) | ≤ 15 MiB | **5.4 MiB** Linux · **5.6 MiB** Windows (with age, zstd, xz and the 759-entry database) |
 | Background processes, services, daemons | **zero** | zero |
 | Telemetry, "anonymous statistics", auto-updater | **zero** | zero |
 | Network calls at runtime | **zero** | zero |

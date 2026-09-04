@@ -26,10 +26,20 @@ knows by a leftover configuration directory, and it never places a `translatable
 the other operating system, however tempting a VLC `vlcrc` looks. Both are the honest reading of
 D3.
 
-The database itself is being filled by six writers working from a shared brief
-(`appdb/README.md` is the contract), a few hundred entries across browsers, development, office,
-media, system tools and gaming, with identifiers checked against Repology where doubtful. Every
-entry needs a second pair of eyes before 1.0; that is the backlog item.
+The database was filled by six writers working in parallel from a shared brief
+(`appdb/README.md` is the contract), one group each: internet and communication, development,
+office and knowledge, media and creative, system and utilities, gaming and emulation. **759
+entries** by the end of the day: 474 on both platforms, 87 Windows-only and 198 Linux-only, 933
+configuration locations, 1 591 equivalence links. Identifiers were checked against Repology, the
+winget-pkgs tree, Flathub and the Snap store where doubtful, and omitted where they could not be
+confirmed; the writers' own reports name the corrections that check produced (`bottom` is `btm`
+on Debian, `hardinfo` is `hardinfo2` on Arch, `pandoc` is `pandoc-cli`…). Four of the six were cut
+off by a session limit while writing their final reports; their files were complete and validated.
+Every entry still needs a second pair of eyes before 1.0; that is the backlog item.
+
+First run on a real profile, the Codespace's Ubuntu: 579 "unknown applications", because dpkg
+lists every library. Since then only packages that ship a desktop entry are reported as unknown,
+and on Windows the redistributables and runtimes are left out; everything is still matched.
 
 ## 2026-09-03 - 0.1.3, and a native interface on Windows
 
