@@ -67,6 +67,7 @@ const (
 	wNavScan = iota + 1
 	wNavBackup
 	wNavRestore
+	wNavApps
 
 	wScanDest
 	wScanPick
@@ -93,6 +94,12 @@ const (
 	wRestList
 	wRestPlan
 	wRestGo
+
+	wAppPkg
+	wAppPick
+	wAppPass
+	wAppPlan
+	wAppGo
 
 	wOutput
 )
@@ -384,6 +391,7 @@ func build() {
 	addWidget(&widget{id: wNavScan, kind: kNav, page: -1, title: "Scan", sub: "See what would be saved"})
 	addWidget(&widget{id: wNavBackup, kind: kNav, page: -1, title: "Create a package", sub: "Write it to a drive"})
 	addWidget(&widget{id: wNavRestore, kind: kNav, page: -1, title: "Restore", sub: "Put the files back"})
+	addWidget(&widget{id: wNavApps, kind: kNav, page: -1, title: "Applications", sub: "Install what you had"})
 
 	levels := []string{"Compatible, opens anywhere", "Balanced", "Maximum"}
 
@@ -419,6 +427,12 @@ func build() {
 	addWidget(&widget{id: wRestPlan, kind: kButton, page: 2, title: "Show the plan", style: btnPrimary})
 	addWidget(&widget{id: wRestGo, kind: kButton, page: 2, title: "Restore now"})
 
+	field(wAppPkg, 3, "Package", false, false, "")
+	addWidget(&widget{id: wAppPick, kind: kButton, page: 3, title: "Choose"})
+	field(wAppPass, 3, "Passphrase", true, false, "")
+	addWidget(&widget{id: wAppPlan, kind: kButton, page: 3, title: "What would be installed", style: btnPrimary})
+	addWidget(&widget{id: wAppGo, kind: kButton, page: 3, title: "Install now"})
+
 	field(wOutput, -1, "", false, true, welcome())
 	makeFonts()
 }
@@ -429,6 +443,8 @@ func welcome() string {
 		"Everything below comes from that program; this interface decides nothing.\r\n\r\n" +
 		"Start with Scan. It reads your profile and says how large the package would be and\r\n" +
 		"whether it fits the drive you pick, without writing a single byte.\r\n\r\n" +
+		"Applications shows which programs from a package would be installed here, through which\r\n" +
+		"package manager, and where their settings go. Nothing runs until you say so.\r\n\r\n" +
 		"This is a pre-release. Do not migrate anything you cannot afford to lose yet.\r\n"
 }
 
@@ -456,7 +472,7 @@ func layout() {
 
 	navH := s(mNavH + 16)
 	navY := head + s(mPad)
-	for i, id := range []int{wNavScan, wNavBackup, wNavRestore} {
+	for i, id := range []int{wNavScan, wNavBackup, wNavRestore, wNavApps} {
 		top := navY + int32(i)*(navH+s(4))
 		a.w[id].r = rect{s(8), top, side - s(16), top + navH}
 	}
@@ -540,6 +556,10 @@ func layout() {
 		group("PASSPHRASE", []int{wRestPass}, nil)
 		group("CONFLICTS", []int{wRestConflict}, nil)
 		buttonsRow(wRestList, wRestPlan, wRestGo)
+	case 3:
+		group("THE PACKAGE", []int{wAppPkg}, map[int]int{wAppPkg: wAppPick})
+		group("PASSPHRASE", []int{wAppPass}, nil)
+		buttonsRow(wAppPlan, wAppGo)
 	}
 
 	statusH := s(20)
@@ -757,8 +777,8 @@ func setHover(id int) {
 }
 
 func setBusy(busy bool) {
-	for _, id := range []int{wScanGo, wBackGo, wRestGo, wRestPlan, wRestList,
-		wScanPick, wBackPick, wRestPick, wNavScan, wNavBackup, wNavRestore} {
+	for _, id := range []int{wScanGo, wBackGo, wRestGo, wRestPlan, wRestList, wAppPlan, wAppGo,
+		wScanPick, wBackPick, wRestPick, wAppPick, wNavScan, wNavBackup, wNavRestore, wNavApps} {
 		a.w[id].enabled = !busy
 	}
 	invalidate()
@@ -790,6 +810,8 @@ func activate(id int) {
 		selectPage(1)
 	case wNavRestore:
 		selectPage(2)
+	case wNavApps:
+		selectPage(3)
 	case wScanPick, wBackPick:
 		if p := pickFolder(a.hwnd, "Where should the package go?"); p != "" {
 			setText(a.w[wScanDest].edit, p)
@@ -797,6 +819,12 @@ func activate(id int) {
 		}
 	case wRestPick:
 		if p := pickFolder(a.hwnd, "Pick the package folder, the one ending in .dhs"); p != "" {
+			setText(a.w[wRestPkg].edit, p)
+			setText(a.w[wAppPkg].edit, p)
+		}
+	case wAppPick:
+		if p := pickFolder(a.hwnd, "Pick the package folder, the one ending in .dhs"); p != "" {
+			setText(a.w[wAppPkg].edit, p)
 			setText(a.w[wRestPkg].edit, p)
 		}
 	case wScanGo:
@@ -809,6 +837,10 @@ func activate(id int) {
 		doRestore(false)
 	case wRestGo:
 		doRestore(true)
+	case wAppPlan:
+		doApps(false)
+	case wAppGo:
+		doApps(true)
 	}
 }
 
@@ -994,6 +1026,43 @@ func doRestore(write bool) {
 			return "", err
 		}
 		return formatPlan(v, write), nil
+	})
+}
+
+// doApps shows the application plan, or runs it. The plan is the same text either way, so the
+// person has seen every command before "Install now" runs one (D5).
+func doApps(install bool) {
+	pkg := strings.TrimSpace(getText(a.w[wAppPkg].edit))
+	if pkg == "" {
+		warn("Pick the package folder first.")
+		return
+	}
+	if install && messageBox(a.hwnd,
+		"About to install applications from:\n\n"+filepath.Base(pkg)+
+			"\n\nThe commands are the ones \"What would be installed\" shows. Windows may ask for permission for each one. Go on?",
+		"DHS", mbYesNo|mbIconWarning) != idYes {
+		return
+	}
+	pf, cleanup, err := passFile(getText(a.w[wAppPass].edit))
+	if err != nil {
+		warn(err.Error())
+		return
+	}
+	args := []string{"plan", pkg, "--json"}
+	msg := "Reading the package and looking at this system..."
+	if install {
+		args = []string{"install", pkg, "--json", "--yes"}
+		msg = "Installing..."
+	}
+	if pf != "" {
+		args = append(args, "--passphrase-file", pf)
+	}
+	startCleanup(msg, args, cleanup, func(out []byte) (string, error) {
+		v, err := parse[appsOut](out)
+		if err != nil {
+			return "", err
+		}
+		return formatApps(v, install), nil
 	})
 }
 

@@ -217,6 +217,12 @@ exist — curated, never guessed.
 - **Windows**: the three `Uninstall` registry keys (both architectures, machine and user), minus
   system components and updates — what the Settings app shows; then `winget export`, which is
   JSON and complete where `winget list` truncates; then the `scoop` and `choco` directories.
+- Every package found is matched against the database, but only the ones that ship a **desktop
+  entry** (`/usr/share/applications/*.desktop`, read from the package's file list) are reported as
+  unknown when they do not match. A Linux system holds a thousand libraries and command-line
+  packages; listing them as "unknown applications" would bury the report. Flatpaks, snaps and
+  everything Windows shows in *Apps & features* are applications by definition and are always
+  reported.
 - Then, for every application the database knows on this platform, whether its configuration
   locations exist — natively, and inside the sandbox homes of the Flatpak or Snap builds it was
   seen in (`~/.var/app/<id>/config/…`, `~/snap/<name>/current/.config/…`).

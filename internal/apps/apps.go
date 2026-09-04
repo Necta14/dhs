@@ -22,6 +22,20 @@ type Source struct {
 	Package string        `json:"package"` // the identifier under that manager, as found
 	Version string        `json:"version,omitempty"`
 	Name    string        `json:"name,omitempty"` // display name, when the manager has one
+	// Desktop says the package ships a desktop entry, so it is an application a person launches
+	// rather than a library or a command-line tool. On Linux a package manager lists thousands of
+	// packages; only the ones with a desktop entry are worth reporting as unknown applications.
+	// Every package is still matched against the database, desktop entry or not.
+	Desktop bool `json:"-"`
+}
+
+// reportable says whether an unmatched sighting is worth telling the user about.
+func (s Source) reportable() bool {
+	switch s.Manager {
+	case appdb.Pacman, appdb.Apt, appdb.Dnf, appdb.Zypper, appdb.Apk:
+		return s.Desktop
+	}
+	return true
 }
 
 // Location is one configuration location of an application that exists on this system.
@@ -212,7 +226,9 @@ func (d *Detector) Run() (*Inventory, error) {
 	for _, s := range sources {
 		app := d.match(s)
 		if app == nil {
-			inv.Unknown = append(inv.Unknown, s)
+			if s.reportable() {
+				inv.Unknown = append(inv.Unknown, s)
+			}
 			continue
 		}
 		f := byID[app.ID]

@@ -467,6 +467,115 @@ class RestorePage(Adw.PreferencesPage):
             add(self.results, row(f.get("path", ""), f.get("error", "")))
 
 
+class AppsPage(Adw.PreferencesPage):
+    """dhs plan: which applications a package would install here, and where their configuration
+    goes. Read-only by design — installing needs root, so the page hands the exact commands to a
+    terminal instead of running them itself (D5: the user sees every command before it runs)."""
+
+    def __init__(self, win):
+        super().__init__()
+        self.win = win
+        self.pkg: str | None = None
+        self.commands: list[str] = []
+
+        g = Adw.PreferencesGroup(title=T("Applications"), description=T("What dhs install would do on this system. Nothing runs from here."))
+        self.pkg_row = row(T("Package folder"), T("Not chosen"))
+        b = Gtk.Button(label=T("Choose…"), valign=Gtk.Align.CENTER)
+        b.connect("clicked", lambda *_: pick_folder(win, self._set_pkg))
+        self.pkg_row.add_suffix(b)
+        g.add(self.pkg_row)
+        self.pw = Adw.PasswordEntryRow(title=T("Passphrase"))
+        g.add(self.pw)
+
+        self.plan_btn = Gtk.Button(label=T("Show plan"))
+        self.plan_btn.connect("clicked", lambda *_: self._run())
+        self.copy_btn = Gtk.Button(label=T("Copy commands"))
+        self.copy_btn.set_sensitive(False)
+        self.copy_btn.connect("clicked", lambda *_: self._copy())
+        self.spinner = Gtk.Spinner()
+        box = Gtk.Box(spacing=12, halign=Gtk.Align.END)
+        for w in (self.spinner, self.plan_btn, self.copy_btn):
+            box.append(w)
+        g.set_header_suffix(box)
+        self.add(g)
+
+        self.install = Adw.PreferencesGroup(title=T("Install"))
+        self.present = Adw.PreferencesGroup(title=T("Already here"))
+        self.missing = Adw.PreferencesGroup(title=T("Not available here"))
+        self.unknown = Adw.PreferencesGroup(title=T("Unknown"), description=T("Not in the database; nothing is installed for them."))
+        self.configs = Adw.PreferencesGroup(title=T("Configuration"))
+        self.cmds = Adw.PreferencesGroup(title=T("Commands"), description=T("Run dhs install <package> in a terminal, or paste these."))
+        for grp in (self.install, self.present, self.missing, self.unknown, self.configs, self.cmds):
+            self.add(grp)
+
+    def _set_pkg(self, path):
+        self.pkg = path
+        self.pkg_row.set_subtitle(path)
+
+    def _run(self):
+        if not self.pkg:
+            alert(self.win, T("Error"), T("Choose a package folder first"))
+            return
+        self.plan_btn.set_sensitive(False)
+        self.spinner.start()
+        in_thread(lambda: run_dhs(["plan", self.pkg], self.pw.get_text() or None), self._show, self._fail)
+
+    def _fail(self, msg):
+        self.spinner.stop()
+        self.plan_btn.set_sensitive(True)
+        alert(self.win, T("Error"), msg)
+
+    def _copy(self):
+        self.get_clipboard().set("\n".join(self.commands) + "\n")
+
+    def _show(self, d):
+        self.spinner.stop()
+        self.plan_btn.set_sensitive(True)
+        p = d.get("plan") or {}
+        m = d.get("manifest") or {}
+        names = {a["id"]: a.get("name", a["id"]) for a in m.get("apps") or []}
+        for grp in (self.install, self.present, self.missing, self.unknown, self.configs, self.cmds):
+            clear(grp)
+        for it in p.get("install") or []:
+            sub = f'{it.get("manager", "")}  {it.get("package", "")}'
+            if it.get("for"):
+                sub += "  ·  " + T("stands in for ") + ", ".join(names.get(x, x) for x in it["for"])
+            add(self.install, row(it.get("name", it["id"]), sub))
+        if not p.get("install"):
+            add(self.install, row(T("Nothing to install"), ""))
+        for it in p.get("present") or []:
+            sub = it.get("via", "")
+            if it.get("for"):
+                sub += "  ·  " + T("stands in for ") + ", ".join(names.get(x, x) for x in it["for"])
+            add(self.present, row(it.get("name", it["id"]), sub))
+        for it in p.get("no_source") or []:
+            needs = ", ".join(it.get("needs") or [])
+            add(self.missing, row(it.get("name", it["id"]), T("needs one of: ") + needs if needs else T("no known way to install it on this platform")))
+        for it in p.get("missing") or []:
+            add(self.missing, row(it.get("name", it["id"]), T(it.get("reason", ""))))
+        self.missing.set_visible(bool(p.get("no_source") or p.get("missing")))
+        unknown = p.get("unknown") or []
+        for u in unknown[:20]:
+            add(self.unknown, row(u.get("name") or u.get("package", ""), f'{u.get("via", "")} {u.get("version", "")}'.strip()))
+        if len(unknown) > 20:
+            add(self.unknown, row(T("… and {} more").format(len(unknown) - 20), ""))
+        self.unknown.set_visible(bool(unknown))
+        for c in p.get("configs") or []:
+            title = f'{c["id"]}/{c["key"]}' + (f'@{c["variant"]}' if c.get("variant") else "")
+            if c.get("action") == "place":
+                add(self.configs, row(title, "→ " + c.get("destination", "")))
+            else:
+                add(self.configs, row(title, T("kept aside: ") + T(c.get("reason", ""))))
+        self.configs.set_visible(bool(p.get("configs")))
+        self.commands = [" ".join(c.get("argv") or []) for c in p.get("commands") or []]
+        for c in self.commands:
+            r = Adw.ActionRow(title=GLib.markup_escape_text(c))
+            r.add_css_class("monospace")
+            add(self.cmds, r)
+        self.cmds.set_visible(bool(self.commands))
+        self.copy_btn.set_sensitive(bool(self.commands))
+
+
 # ─────────────────────────── app ───────────────────────────
 
 class Window(Adw.ApplicationWindow):
@@ -479,6 +588,7 @@ class Window(Adw.ApplicationWindow):
         stack.add_titled_with_icon(scan, "scan", T("Scan"), "system-search-symbolic")
         stack.add_titled_with_icon(BackupPage(self, scan), "backup", T("Backup"), "document-save-symbolic")
         stack.add_titled_with_icon(RestorePage(self), "restore", T("Restore"), "document-revert-symbolic")
+        stack.add_titled_with_icon(AppsPage(self), "apps", T("Applications"), "view-grid-symbolic")
         switcher = Adw.ViewSwitcher(stack=stack, policy=Adw.ViewSwitcherPolicy.WIDE)
         header.set_title_widget(switcher)
         view.add_top_bar(header)

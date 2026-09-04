@@ -44,7 +44,26 @@ func rpmManager(info system.Info) appdb.Manager {
 	return appdb.Dnf
 }
 
-// readPacman reads /var/lib/pacman/local/<pkg>/desc: %NAME% and %VERSION% blocks.
+// desktopEntry says whether a path from a package's file list is a desktop entry.
+func desktopEntry(path string) bool {
+	path = strings.TrimPrefix(path, "/")
+	return strings.HasPrefix(path, "usr/share/applications/") && strings.HasSuffix(path, ".desktop")
+}
+
+// listHasDesktop scans a file list, one path per line, for a desktop entry.
+func listHasDesktop(b []byte) bool {
+	sc := bufio.NewScanner(bytes.NewReader(b))
+	sc.Buffer(make([]byte, 0, 64*1024), 8*1024*1024)
+	for sc.Scan() {
+		if desktopEntry(strings.TrimSpace(sc.Text())) {
+			return true
+		}
+	}
+	return false
+}
+
+// readPacman reads /var/lib/pacman/local/<pkg>/desc: %NAME% and %VERSION% blocks. The files
+// list next to it says whether the package ships a desktop entry.
 func readPacman(dir string) ([]Source, error) {
 	entries, err := os.ReadDir(dir)
 	if err != nil {
@@ -63,9 +82,13 @@ func readPacman(dir string) ([]Source, error) {
 			continue
 		}
 		s := parsePacmanDesc(b)
-		if s.Package != "" {
-			out = append(out, s)
+		if s.Package == "" {
+			continue
 		}
+		if fl, err := os.ReadFile(filepath.Join(dir, e.Name(), "files")); err == nil {
+			s.Desktop = listHasDesktop(fl)
+		}
+		out = append(out, s)
 	}
 	return out, nil
 }
@@ -90,7 +113,8 @@ func parsePacmanDesc(b []byte) Source {
 	return s
 }
 
-// readDpkg parses /var/lib/dpkg/status: stanzas separated by blank lines, one package each.
+// readDpkg parses /var/lib/dpkg/status: stanzas separated by blank lines, one package each. The
+// file lists in /var/lib/dpkg/info/<pkg>.list say which packages ship a desktop entry.
 func readDpkg(path string) ([]Source, error) {
 	f, err := os.Open(path)
 	if err != nil {
@@ -100,7 +124,23 @@ func readDpkg(path string) ([]Source, error) {
 		return nil, err
 	}
 	defer f.Close()
-	return parseDpkgStatus(f), nil
+	out := parseDpkgStatus(f)
+	info := filepath.Join(filepath.Dir(path), "info")
+	for i := range out {
+		out[i].Desktop = dpkgHasDesktop(info, out[i].Package)
+	}
+	return out, nil
+}
+
+// dpkgHasDesktop reads <info>/<pkg>.list, trying the architecture-qualified name that
+// multi-arch packages use when the plain one is missing.
+func dpkgHasDesktop(info, pkg string) bool {
+	for _, name := range []string{pkg + ".list", pkg + ":amd64.list", pkg + ":arm64.list", pkg + ":i386.list", pkg + ":all.list"} {
+		if b, err := os.ReadFile(filepath.Join(info, name)); err == nil {
+			return listHasDesktop(b)
+		}
+	}
+	return false
 }
 
 func parseDpkgStatus(r *os.File) []Source {
@@ -141,6 +181,7 @@ func parseDpkgStatus(r *os.File) []Source {
 }
 
 // runRPM queries the rpm database, which is binary (SQLite or BerkeleyDB) and not worth parsing.
+// A second query names the owners of the desktop entries.
 func runRPM(m appdb.Manager) ([]Source, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 	defer cancel()
@@ -149,11 +190,22 @@ func runRPM(m appdb.Manager) ([]Source, error) {
 	if err != nil {
 		return nil, err
 	}
+	desktop := map[string]bool{}
+	if entries, _ := filepath.Glob("/usr/share/applications/*.desktop"); len(entries) > 0 {
+		args := append([]string{"-qf", "--qf", "%{NAME}\n"}, entries...)
+		if o, err := exec.CommandContext(ctx, "rpm", args...).Output(); err == nil {
+			for _, line := range strings.Split(string(o), "\n") {
+				if line = strings.TrimSpace(line); line != "" {
+					desktop[line] = true
+				}
+			}
+		}
+	}
 	var out []Source
 	for _, line := range strings.Split(string(b), "\n") {
 		name, ver, _ := strings.Cut(line, "\t")
 		if name = strings.TrimSpace(name); name != "" {
-			out = append(out, Source{Manager: m, Package: name, Version: strings.TrimSpace(ver)})
+			out = append(out, Source{Manager: m, Package: name, Version: strings.TrimSpace(ver), Desktop: desktop[name]})
 		}
 	}
 	return out, nil
@@ -171,15 +223,18 @@ func readApk(path string) ([]Source, error) {
 	return parseApkInstalled(b), nil
 }
 
+// parseApkInstalled reads the stanzas; F: is a directory the package owns, R: a file inside the
+// last F:, which is how a desktop entry shows up.
 func parseApkInstalled(b []byte) []Source {
 	var out []Source
 	var cur Source
+	dir := ""
 	flush := func() {
 		if cur.Package != "" {
 			cur.Manager = appdb.Apk
 			out = append(out, cur)
 		}
-		cur = Source{}
+		cur, dir = Source{}, ""
 	}
 	sc := bufio.NewScanner(bytes.NewReader(b))
 	sc.Buffer(make([]byte, 0, 64*1024), 4*1024*1024)
@@ -197,6 +252,12 @@ func parseApkInstalled(b []byte) []Source {
 			cur.Package = line[2:]
 		case 'V':
 			cur.Version = line[2:]
+		case 'F':
+			dir = line[2:]
+		case 'R':
+			if desktopEntry(dir + "/" + line[2:]) {
+				cur.Desktop = true
+			}
 		}
 	}
 	flush()

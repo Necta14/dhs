@@ -82,7 +82,7 @@ echo; echo "══ unencrypted package, level 1 ══"
 export HOME="$SRC"
 "$DHS" backup --dest "$MEDIA" --name plain --level 1 --no-encrypt --yes
 "$DHS" verify "$MEDIA/plain.dhs"
-"$DHS" list "$MEDIA/plain.dhs" | head -5
+"$DHS" list "$MEDIA/plain.dhs" > "$BASE/plain-list.txt"; head -5 "$BASE/plain-list.txt"
 
 echo; echo "══ applications: configuration travels under its own roots ══"
 # A synthetic profile with the configuration of two applications the database knows: Git (a single

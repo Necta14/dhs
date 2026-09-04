@@ -206,6 +206,69 @@ type listOut struct {
 	} `json:"index"`
 }
 
+// appsOut is the output of dhs plan and dhs install.
+type appsOut struct {
+	Package  string  `json:"package"`
+	Target   sysInfo `json:"target"`
+	Manifest struct {
+		OS   string `json:"os"`
+		Apps []struct {
+			ID   string `json:"id"`
+			Name string `json:"name"`
+		} `json:"apps"`
+		Unknown []struct {
+			Via     string `json:"via"`
+			Package string `json:"package"`
+			Name    string `json:"name"`
+			Version string `json:"version"`
+		} `json:"unknown"`
+	} `json:"manifest"`
+	Plan struct {
+		Install []struct {
+			ID      string   `json:"id"`
+			Name    string   `json:"name"`
+			Manager string   `json:"manager"`
+			Package string   `json:"package"`
+			For     []string `json:"for"`
+		} `json:"install"`
+		Present []struct {
+			ID   string   `json:"id"`
+			Name string   `json:"name"`
+			Via  string   `json:"via"`
+			For  []string `json:"for"`
+		} `json:"present"`
+		NoSource []struct {
+			ID    string   `json:"id"`
+			Name  string   `json:"name"`
+			Needs []string `json:"needs"`
+		} `json:"no_source"`
+		Missing []struct {
+			ID     string `json:"id"`
+			Name   string `json:"name"`
+			Reason string `json:"reason"`
+		} `json:"missing"`
+		Configs []struct {
+			ID      string `json:"id"`
+			Key     string `json:"key"`
+			Variant string `json:"variant"`
+			Dest    string `json:"destination"`
+			Action  string `json:"action"`
+			Reason  string `json:"reason"`
+		} `json:"configs"`
+		Commands []struct {
+			Argv []string `json:"argv"`
+		} `json:"commands"`
+	} `json:"plan"`
+	Results []struct {
+		Command struct {
+			Argv []string `json:"argv"`
+		} `json:"command"`
+		OK     bool     `json:"ok"`
+		Error  string   `json:"error"`
+		Failed []string `json:"failed_packages"`
+	} `json:"results"`
+}
+
 // ---- presentation -----------------------------------------------------------------------------
 
 func human(n int64) string {
@@ -388,6 +451,121 @@ func formatPlan(o restoreOut, done bool) string {
 	if !done {
 		p("")
 		p("Nothing has been written yet.")
+	}
+	return b.String()
+}
+
+func formatApps(o appsOut, installed bool) string {
+	var b strings.Builder
+	p := func(f string, a ...any) { fmt.Fprintf(&b, f+"\r\n", a...) }
+	names := map[string]string{}
+	for _, a := range o.Manifest.Apps {
+		names[a.ID] = a.Name
+	}
+	forList := func(ids []string) string {
+		if len(ids) == 0 {
+			return ""
+		}
+		out := make([]string, len(ids))
+		for i, id := range ids {
+			if n := names[id]; n != "" {
+				out[i] = n
+			} else {
+				out[i] = id
+			}
+		}
+		return "   stands in for " + strings.Join(out, ", ")
+	}
+	pl := o.Plan
+	p("Package       %s", filepath.Base(o.Package))
+	p("Migration     %s -> %s", o.Manifest.OS, o.Target)
+	p("Applications  %d in the package - %d recognised - %d unknown", len(o.Manifest.Apps)+len(o.Manifest.Unknown), len(o.Manifest.Apps), len(o.Manifest.Unknown))
+	if len(pl.Install) > 0 {
+		p("")
+		p("Install (%d)", len(pl.Install))
+		for _, it := range pl.Install {
+			p("    %-28s %-8s %s%s", it.Name, it.Manager, it.Package, forList(it.For))
+		}
+	}
+	if len(pl.Present) > 0 {
+		p("")
+		p("Already here (%d)", len(pl.Present))
+		for _, it := range pl.Present {
+			p("    %-28s %s%s", it.Name, it.Via, forList(it.For))
+		}
+	}
+	if len(pl.NoSource) > 0 {
+		p("")
+		p("No way to install here (%d)", len(pl.NoSource))
+		for _, it := range pl.NoSource {
+			if len(it.Needs) > 0 {
+				p("    %-28s needs one of: %s", it.Name, strings.Join(it.Needs, ", "))
+			} else {
+				p("    %-28s no known way to install it on this platform", it.Name)
+			}
+		}
+	}
+	if len(pl.Missing) > 0 {
+		p("")
+		p("Not available on this platform (%d)", len(pl.Missing))
+		for _, it := range pl.Missing {
+			p("    %-28s %s", it.Name, it.Reason)
+		}
+	}
+	if n := len(o.Manifest.Unknown); n > 0 {
+		p("")
+		p("Unknown (%d) - not in the database; nothing is installed for them", n)
+		for i, u := range o.Manifest.Unknown {
+			if i >= 12 {
+				p("    ... and %d more", n-i)
+				break
+			}
+			name := u.Name
+			if name == "" {
+				name = u.Package
+			}
+			p("    %-40s %s %s", name, u.Via, u.Version)
+		}
+	}
+	if len(pl.Configs) > 0 {
+		p("")
+		p("Configuration")
+		for _, c := range pl.Configs {
+			key := c.ID + "/" + c.Key
+			if c.Variant != "" {
+				key += "@" + c.Variant
+			}
+			if c.Action == "place" {
+				p("    %-32s -> %s", key, c.Dest)
+			} else {
+				p("    %-32s aside: %s", key, c.Reason)
+			}
+		}
+	}
+	if len(pl.Commands) > 0 {
+		p("")
+		p("Commands")
+		for _, c := range pl.Commands {
+			p("    %s", strings.Join(c.Argv, " "))
+		}
+	}
+	if installed {
+		p("")
+		var failed []string
+		for _, r := range o.Results {
+			failed = append(failed, r.Failed...)
+		}
+		if len(failed) == 0 {
+			p("Installed     %d applications.", len(pl.Install))
+		} else {
+			p("Failed        %d packages did not install: %s", len(failed), strings.Join(failed, ", "))
+		}
+	} else if len(pl.Commands) > 0 {
+		p("")
+		p("Nothing has been run. \"Install now\" runs exactly these commands.")
+	} else {
+		p("")
+		p("Nothing to install.")
 	}
 	return b.String()
 }

@@ -62,8 +62,10 @@ func TestResolve(t *testing.T) {
 	}
 	for p, want := range wcases {
 		got, ok := Resolve(p, win, Native, "")
-		// On a Linux test host filepath.Join uses "/", so compare after normalising both.
-		if !ok || filepath.ToSlash(got) != strings.ReplaceAll(want, `\`, "/") {
+		// On a Linux test host filepath.Join uses "/" and keeps the backslashes of the fake
+		// Windows home as ordinary characters; on Windows the result is all backslashes. Compare
+		// with every separator folded to "/".
+		if !ok || strings.ReplaceAll(got, `\`, "/") != strings.ReplaceAll(want, `\`, "/") {
 			t.Errorf("Resolve(%q) = %q, %v", p, got, ok)
 		}
 	}
@@ -117,10 +119,41 @@ Version: 1:2.45.2-1
 }
 
 func TestApkInstalled(t *testing.T) {
-	db := "C:Q1abc\nP:firefox\nV:130.0-r0\nA:x86_64\n\nP:git\nV:2.45.2-r0\n"
+	db := "C:Q1abc\nP:firefox\nV:130.0-r0\nA:x86_64\nF:usr/bin\nR:firefox\nF:usr/share/applications\nR:firefox.desktop\n\nP:git\nV:2.45.2-r0\nF:usr/bin\nR:git\n"
 	got := parseApkInstalled([]byte(db))
 	if len(got) != 2 || got[0].Package != "firefox" || got[0].Version != "130.0-r0" || got[1].Package != "git" {
-		t.Errorf("got %+v", got)
+		t.Fatalf("got %+v", got)
+	}
+	if !got[0].Desktop || got[1].Desktop {
+		t.Errorf("desktop flags: firefox=%v git=%v", got[0].Desktop, got[1].Desktop)
+	}
+}
+
+func TestDesktopEntries(t *testing.T) {
+	list := "/.\n/usr\n/usr/bin\n/usr/bin/firefox\n/usr/share/applications\n/usr/share/applications/firefox.desktop\n"
+	if !listHasDesktop([]byte(list)) {
+		t.Error("a desktop entry in the list was not seen")
+	}
+	if listHasDesktop([]byte("/usr/lib/x86_64-linux-gnu/libfoo.so.1\n/usr/share/doc/libfoo/copyright\n")) {
+		t.Error("a library has no desktop entry")
+	}
+	dir := t.TempDir()
+	os.MkdirAll(filepath.Join(dir, "info"), 0o755)
+	os.WriteFile(filepath.Join(dir, "info", "firefox.list"), []byte(list), 0o644)
+	os.WriteFile(filepath.Join(dir, "info", "libfoo:amd64.list"), []byte("/usr/lib/libfoo.so\n"), 0o644)
+	os.WriteFile(filepath.Join(dir, "status"), []byte("Package: firefox\nStatus: install ok installed\nVersion: 1\n\nPackage: libfoo\nStatus: install ok installed\nVersion: 2\n"), 0o644)
+	got, err := readDpkg(filepath.Join(dir, "status"))
+	if err != nil || len(got) != 2 {
+		t.Fatalf("%v %+v", err, got)
+	}
+	if !got[0].Desktop || got[1].Desktop {
+		t.Errorf("dpkg desktop flags: %+v", got)
+	}
+	// Unknown reporting: the library is matched but never reported; the application is.
+	lib := Source{Manager: appdb.Apt, Package: "libfoo"}
+	app := Source{Manager: appdb.Apt, Package: "some-gui", Desktop: true}
+	if lib.reportable() || !app.reportable() || !(Source{Manager: appdb.Flatpak, Package: "x.y"}).reportable() {
+		t.Error("reportable is wrong")
 	}
 }
 
@@ -199,6 +232,7 @@ func TestDetectorMatchesAndFindsConfig(t *testing.T) {
 				{Manager: appdb.Pacman, Package: "firefox", Version: "142.0-1"},
 				{Manager: appdb.Flatpak, Package: "org.mozilla.firefox"},
 				{Manager: appdb.Pacman, Package: "some-lib", Version: "1"},
+				{Manager: appdb.Pacman, Package: "some-gui", Version: "2", Desktop: true},
 				{Manager: appdb.Pacman, Package: "vlc"},
 			}, []appdb.Manager{appdb.Pacman, appdb.Flatpak}, nil
 		},
@@ -213,7 +247,8 @@ func TestDetectorMatchesAndFindsConfig(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(inv.Unknown) != 1 || inv.Unknown[0].Package != "some-lib" {
+	// The library without a desktop entry is not reported; the application is.
+	if len(inv.Unknown) != 1 || inv.Unknown[0].Package != "some-gui" {
 		t.Errorf("unknown = %+v", inv.Unknown)
 	}
 	ff := inv.Get("firefox")
@@ -401,7 +436,8 @@ func TestPlanPrefersFlatpakLocationWhenInstalledThatWay(t *testing.T) {
 	// Same OS, translatable config: goes in place all the same.
 	m2 := &Manifest{Inventory: Inventory{OS: appdb.Linux, Apps: []Found{{ID: "vlc", Name: "VLC",
 		Sources: []Source{{Manager: appdb.Apt, Package: "vlc"}}, Config: []Location{{Key: "config", Path: "/home/a/.config/vlc"}}}}}}
-	p2 := BuildPlan(m2, Target{OS: appdb.Linux, Managers: []appdb.Manager{appdb.Dnf}, Env: linuxEnv(nil), Installed: map[string]*Found{}}, db)
+	// The test database knows VLC through pacman and apt only, so the target must offer one of them.
+	p2 := BuildPlan(m2, Target{OS: appdb.Linux, Managers: []appdb.Manager{appdb.Apt}, Env: linuxEnv(nil), Installed: map[string]*Found{}}, db)
 	if len(p2.Install) != 1 || p2.Install[0].Package != "vlc" {
 		t.Errorf("install = %+v", p2.Install)
 	}
