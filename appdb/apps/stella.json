@@ -1,0 +1,31 @@
+{
+  "id": "stella",
+  "name": "Stella",
+  "summary": "Atari 2600 emulator",
+  "category": "emulator",
+  "homepage": "https://stella-emu.github.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["TheStellaTeam.Stella"],
+    "choco": ["stella"],
+    "scoop": ["games/stella"],
+    "registry": ["Stella"],
+    "paths": {
+      "config": "%APPDATA%/Stella"
+    }
+  },
+  "linux": {
+    "pacman": ["stella"],
+    "apt": ["stella"],
+    "flatpak": ["io.github.stella_emu.Stella"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/stella"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache", "snapshots"],
+    "notes": "stellarc and the per-cartridge properties travel; the ROM directory recorded in the settings is an absolute path."
+  },
+  "equivalents": ["retroarch", "mame"]
+}

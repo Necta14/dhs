@@ -1,0 +1,30 @@
+{
+  "id": "logseq",
+  "name": "Logseq",
+  "summary": "Outliner knowledge base over local Markdown files",
+  "category": "notes",
+  "homepage": "https://logseq.com/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["Logseq.Logseq"],
+    "choco": ["logseq"],
+    "scoop": ["extras/logseq"],
+    "registry": ["Logseq"],
+    "paths": {
+      "config": "%APPDATA%/Logseq"
+    }
+  },
+  "linux": {
+    "aur": ["logseq-desktop-bin", "logseq-desktop"],
+    "flatpak": ["com.logseq.Logseq"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Logseq"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "The graph is a folder of Markdown files the user chose; only the application settings are here. The graph path is recorded and has to be reopened after a migration."
+  },
+  "equivalents": ["obsidian", "joplin"]
+}

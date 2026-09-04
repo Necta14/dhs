@@ -1,0 +1,23 @@
+{
+  "id": "gpick",
+  "name": "Gpick",
+  "summary": "Colour picker and palette builder",
+  "category": "graphics",
+  "homepage": "https://www.gpick.org/",
+  "license": "BSD-3-Clause",
+  "linux": {
+    "pacman": ["gpick"],
+    "apt": ["gpick"],
+    "dnf": ["gpick"],
+    "zypper": ["gpick"],
+    "apk": ["gpick"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/gpick"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The configuration directory keeps the settings and the saved palettes, which are the part worth carrying."
+  },
+  "equivalents": ["gimp", "inkscape"]
+}

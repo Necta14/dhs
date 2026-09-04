@@ -1,0 +1,30 @@
+{
+  "id": "rocketchat",
+  "name": "Rocket.Chat",
+  "summary": "Desktop client for Rocket.Chat servers",
+  "category": "chat",
+  "homepage": "https://www.rocket.chat/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["RocketChat.RocketChat"],
+    "choco": ["rocketchat"],
+    "registry": ["Rocket.Chat"],
+    "paths": {
+      "config": "%APPDATA%/Rocket.Chat"
+    }
+  },
+  "linux": {
+    "aur": ["rocketchat-client-bin"],
+    "flatpak": ["chat.rocket.RocketChat"],
+    "snap": ["rocketchat-desktop"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Rocket.Chat"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker"],
+    "notes": "An Electron application: the settings files are JSON and read the same on both platforms. The server list carries over; the sign-in is done again."
+  },
+  "equivalents": ["mattermost", "slack", "element"]
+}

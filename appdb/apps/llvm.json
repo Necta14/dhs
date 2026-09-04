@@ -1,0 +1,48 @@
+{
+  "id": "llvm",
+  "name": "LLVM and Clang",
+  "summary": "LLVM toolchain with the Clang compiler",
+  "category": "devtool",
+  "homepage": "https://llvm.org/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "LLVM.LLVM"
+    ],
+    "choco": [
+      "llvm"
+    ],
+    "scoop": [
+      "llvm"
+    ],
+    "registry": [
+      "LLVM"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "clang",
+      "llvm"
+    ],
+    "apt": [
+      "clang",
+      "llvm"
+    ],
+    "dnf": [
+      "clang",
+      "llvm"
+    ],
+    "zypper": [
+      "clang",
+      "llvm"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The compiler keeps no user configuration; .clang-format and .clang-tidy live in the projects."
+  },
+  "equivalents": [
+    "gcc",
+    "mingw-w64"
+  ]
+}

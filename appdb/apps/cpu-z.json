@@ -1,0 +1,18 @@
+{
+  "id": "cpu-z",
+  "name": "CPU-Z",
+  "summary": "Reports processor, board and memory details",
+  "category": "system",
+  "homepage": "https://www.cpuid.com/softwares/cpu-z.html",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["CPUID.CPU-Z"],
+    "choco": ["cpu-z"],
+    "registry": ["CPUID CPU-Z"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only."
+  },
+  "equivalents": ["cpu-x", "hardinfo"]
+}

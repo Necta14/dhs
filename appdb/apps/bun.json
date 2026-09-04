@@ -1,0 +1,35 @@
+{
+  "id": "bun",
+  "name": "Bun",
+  "summary": "JavaScript runtime, bundler and package manager",
+  "category": "devtool",
+  "homepage": "https://bun.com/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "Oven-sh.Bun"
+    ],
+    "choco": [
+      "bun"
+    ],
+    "scoop": [
+      "bun"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "bun"
+    ],
+    "aur": [
+      "bun-bin"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Configuration lives in each project's bunfig.toml; the install cache is rebuilt."
+  },
+  "equivalents": [
+    "nodejs",
+    "deno"
+  ]
+}

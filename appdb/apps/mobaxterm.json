@@ -1,0 +1,18 @@
+{
+  "id": "mobaxterm",
+  "name": "MobaXterm",
+  "summary": "Terminal with SSH, X server and file transfer for Windows",
+  "category": "remote-desktop",
+  "homepage": "https://mobaxterm.mobatek.net/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Mobatek.MobaXterm"],
+    "choco": ["mobaxterm"],
+    "registry": ["MobaXterm"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. MobaXterm.ini sits beside the executable or in the user's Documents, and its sessions describe Windows paths."
+  },
+  "equivalents": ["remmina", "termius", "putty", "openssh"]
+}

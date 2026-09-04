@@ -1,0 +1,31 @@
+{
+  "id": "mame",
+  "name": "MAME",
+  "summary": "Arcade and console machine emulator",
+  "category": "emulator",
+  "homepage": "https://www.mamedev.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["MAMEdev.MAME"],
+    "choco": ["mame"],
+    "scoop": ["games/mame"],
+    "registry": ["MAME"]
+  },
+  "linux": {
+    "pacman": ["mame"],
+    "apt": ["mame"],
+    "dnf": ["mame"],
+    "zypper": ["mame"],
+    "apk": ["mame"],
+    "flatpak": ["org.mamedev.MAME"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/mame"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.log", "snap", "diff", "comments"],
+    "notes": "mame.ini, the per-machine cfg files, the NVRAM and the input maps are in the configuration directory on Linux; the Windows build reads them from its own folder. Every rompath in mame.ini is absolute. ROM sets are the user's own and stay where they are."
+  },
+  "equivalents": ["retroarch"]
+}

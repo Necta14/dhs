@@ -1,0 +1,30 @@
+{
+  "id": "caprine",
+  "name": "Caprine",
+  "summary": "Desktop client for Facebook Messenger",
+  "category": "chat",
+  "homepage": "https://sindresorhus.com/caprine",
+  "license": "MIT",
+  "windows": {
+    "winget": ["Caprine.Caprine"],
+    "choco": ["caprine"],
+    "scoop": ["extras/caprine"],
+    "registry": ["Caprine"],
+    "paths": {
+      "config": "%APPDATA%/Caprine"
+    }
+  },
+  "linux": {
+    "aur": ["caprine-bin", "caprine"],
+    "flatpak": ["com.sindresorhus.Caprine"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Caprine"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker"],
+    "notes": "An Electron application: the settings files are JSON and read the same on both platforms. config.json holds the appearance and notification preferences; the conversation itself is on Facebook."
+  },
+  "equivalents": ["ferdium"]
+}

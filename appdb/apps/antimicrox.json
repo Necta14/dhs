@@ -1,0 +1,29 @@
+{
+  "id": "antimicrox",
+  "name": "AntiMicroX",
+  "summary": "Maps gamepad buttons to keyboard and mouse input",
+  "category": "utility",
+  "homepage": "https://github.com/AntiMicroX/antimicrox",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["AntiMicroX.antimicrox"],
+    "scoop": ["extras/antimicrox"],
+    "registry": ["AntiMicroX"]
+  },
+  "linux": {
+    "pacman": ["antimicrox"],
+    "dnf": ["antimicrox"],
+    "zypper": ["antimicrox"],
+    "apk": ["antimicrox"],
+    "flatpak": ["io.github.antimicrox.antimicrox"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/antimicrox"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log"],
+    "notes": "The button profiles are XML and describe the same mapping everywhere, but the key names and the controller identifiers differ between the Linux and the Windows input stacks."
+  },
+  "equivalents": ["sc-controller", "ds4windows"]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "zotero",
+  "name": "Zotero",
+  "summary": "Reference manager for citations, PDFs and bibliographies",
+  "category": "science",
+  "homepage": "https://www.zotero.org/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["DigitalScholar.Zotero"],
+    "choco": ["zotero"],
+    "scoop": ["extras/zotero"],
+    "registry": ["Zotero"],
+    "paths": {
+      "profile": "%APPDATA%/Zotero/Zotero",
+      "data": "%USERPROFILE%/Zotero"
+    }
+  },
+  "linux": {
+    "aur": ["zotero-bin", "zotero"],
+    "apk": ["zotero"],
+    "flatpak": ["org.zotero.Zotero"],
+    "paths": {
+      "profile": "~/.zotero/zotero",
+      "data": "~/Zotero"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache", "cache2", "startupCache", "locate", "*.log", "logs", "*.lock", "parent.lock"],
+    "notes": "The data directory holds zotero.sqlite and the storage folder with the attached PDFs; the profile holds the installed plugins and the interface settings. Both have the same layout on every platform. If the user moved the data directory elsewhere, that path is recorded in the profile."
+  },
+  "equivalents": ["jabref", "mendeley"]
+}

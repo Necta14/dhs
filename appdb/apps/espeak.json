@@ -1,0 +1,20 @@
+{
+  "id": "espeak",
+  "name": "eSpeak NG",
+  "summary": "Compact speech synthesiser",
+  "category": "accessibility",
+  "homepage": "https://github.com/espeak-ng/espeak-ng",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["espeak-ng"],
+    "apt": ["espeak-ng"],
+    "dnf": ["espeak-ng"],
+    "zypper": ["espeak-ng"],
+    "apk": ["espeak-ng"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Voices and dictionaries are installed with the package."
+  },
+  "equivalents": ["orca"]
+}

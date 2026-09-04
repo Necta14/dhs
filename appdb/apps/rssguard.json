@@ -1,0 +1,33 @@
+{
+  "id": "rssguard",
+  "name": "RSS Guard",
+  "summary": "Qt feed reader with support for sync services",
+  "category": "feed-reader",
+  "homepage": "https://github.com/martinrotter/rssguard",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["martinrotter.RSSGuard"],
+    "choco": ["rssguard"],
+    "scoop": ["extras/rssguard"],
+    "registry": ["RSS Guard"],
+    "paths": {
+      "config": "%APPDATA%/RSS Guard 4"
+    }
+  },
+  "linux": {
+    "pacman": ["rssguard"],
+    "apt": ["rssguard"],
+    "dnf": ["rssguard"],
+    "zypper": ["rssguard"],
+    "flatpak": ["io.github.martinrotter.rssguard"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/RSS Guard 4"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.lock", "*.log"],
+    "notes": "config.ini is a Qt settings file and holds absolute paths, so the directory is kept aside. RSS Guard can also run fully portable, with the same data next to the executable."
+  },
+  "equivalents": ["akregator", "liferea", "fluent-reader"]
+}

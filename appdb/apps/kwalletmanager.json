@@ -1,0 +1,21 @@
+{
+  "id": "kwalletmanager",
+  "name": "KWalletManager",
+  "summary": "Manager for the KDE wallet",
+  "category": "password-manager",
+  "homepage": "https://apps.kde.org/kwalletmanager5/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["kwalletmanager"],
+    "apt": ["kwalletmanager"],
+    "dnf": ["kwalletmanager", "kwalletmanager5"],
+    "zypper": ["kwalletmanager"],
+    "apk": ["kwalletmanager"],
+    "flatpak": ["org.kde.kwalletmanager"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The wallets themselves are .kwl files under the KDE wallet daemon's data directory; they hold the user's stored passwords, so they are secrets and are handled separately by DHS."
+  },
+  "equivalents": ["seahorse", "keepassxc"]
+}

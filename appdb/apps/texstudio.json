@@ -1,0 +1,33 @@
+{
+  "id": "texstudio",
+  "name": "TeXstudio",
+  "summary": "LaTeX editor with a built-in viewer and build tools",
+  "category": "office",
+  "homepage": "https://www.texstudio.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["TeXstudio.TeXstudio"],
+    "choco": ["texstudio"],
+    "scoop": ["extras/texstudio"],
+    "registry": ["TeXstudio"],
+    "paths": {
+      "config": "%APPDATA%/texstudio"
+    }
+  },
+  "linux": {
+    "pacman": ["texstudio"],
+    "apt": ["texstudio"],
+    "dnf": ["texstudio"],
+    "zypper": ["texstudio"],
+    "flatpak": ["org.texstudio.TeXstudio"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/texstudio"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "logs"],
+    "notes": "The macros, user snippets and the dictionary are portable, but texstudio.ini records the absolute commands of the TeX distribution and of the PDF viewer, so the directory is kept aside on the other platform."
+  },
+  "equivalents": ["texmaker", "kile", "lyx"]
+}

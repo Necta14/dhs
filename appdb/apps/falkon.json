@@ -1,0 +1,34 @@
+{
+  "id": "falkon",
+  "name": "Falkon",
+  "summary": "Lightweight Qt web browser by KDE",
+  "category": "browser",
+  "homepage": "https://www.falkon.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["KDE.Falkon"],
+    "choco": ["falkon"],
+    "scoop": ["extras/falkon"],
+    "registry": ["Falkon"],
+    "paths": {
+      "config": "%APPDATA%/falkon"
+    }
+  },
+  "linux": {
+    "pacman": ["falkon"],
+    "apt": ["falkon"],
+    "dnf": ["falkon"],
+    "zypper": ["falkon"],
+    "apk": ["falkon"],
+    "flatpak": ["org.kde.falkon"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/falkon"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["profiles/*/Cache", "*.lock", "*.log"],
+    "notes": "The profile holds bookmarks and history in SQLite, which travels, but settings.ini stores absolute download and profile paths, so the directory is kept aside rather than dropped in place."
+  },
+  "equivalents": ["qutebrowser", "epiphany", "chromium"]
+}

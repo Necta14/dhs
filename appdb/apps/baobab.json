@@ -1,0 +1,20 @@
+{
+  "id": "baobab",
+  "name": "Disk Usage Analyzer",
+  "summary": "Shows what fills a disk, as rings",
+  "category": "utility",
+  "homepage": "https://apps.gnome.org/Baobab/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["baobab"],
+    "apt": ["baobab"],
+    "dnf": ["baobab"],
+    "zypper": ["baobab"],
+    "apk": ["baobab"],
+    "flatpak": ["org.gnome.baobab"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["filelight", "qdirstat", "ncdu"]
+}

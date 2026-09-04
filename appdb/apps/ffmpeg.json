@@ -1,0 +1,25 @@
+{
+  "id": "ffmpeg",
+  "name": "FFmpeg",
+  "summary": "Command-line audio and video converter",
+  "category": "utility",
+  "homepage": "https://ffmpeg.org/",
+  "license": "LGPL-2.1",
+  "windows": {
+    "winget": ["Gyan.FFmpeg"],
+    "choco": ["ffmpeg"],
+    "scoop": ["ffmpeg"]
+  },
+  "linux": {
+    "pacman": ["ffmpeg"],
+    "apt": ["ffmpeg"],
+    "dnf": ["ffmpeg-free"],
+    "zypper": ["ffmpeg"],
+    "apk": ["ffmpeg"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "A command-line tool with no user configuration: everything is arguments. Fedora's official repositories ship ffmpeg-free, built without the patent-encumbered encoders; the full build comes from RPM Fusion."
+  },
+  "equivalents": ["handbrake", "losslesscut"]
+}

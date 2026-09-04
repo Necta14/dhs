@@ -1,0 +1,20 @@
+{
+  "id": "gnome-screenshot",
+  "name": "GNOME Screenshot",
+  "summary": "The standalone GNOME screenshot tool",
+  "category": "screenshot",
+  "homepage": "https://gitlab.gnome.org/GNOME/gnome-screenshot",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["gnome-screenshot"],
+    "apt": ["gnome-screenshot"],
+    "dnf": ["gnome-screenshot"],
+    "zypper": ["gnome-screenshot"],
+    "apk": ["gnome-screenshot"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only. The handful of options it has are dconf keys; newer GNOME releases take screenshots from the shell itself and no longer install it."
+  },
+  "equivalents": ["flameshot", "spectacle", "ksnip"]
+}

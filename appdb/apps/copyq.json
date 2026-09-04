@@ -1,0 +1,32 @@
+{
+  "id": "copyq",
+  "name": "CopyQ",
+  "summary": "Clipboard manager with a searchable history",
+  "category": "utility",
+  "homepage": "https://hluk.github.io/CopyQ/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["hluk.CopyQ"],
+    "choco": ["copyq"],
+    "scoop": ["extras/copyq"],
+    "registry": ["CopyQ"],
+    "paths": {
+      "config": "%APPDATA%/copyq"
+    }
+  },
+  "linux": {
+    "pacman": ["copyq"],
+    "apt": ["copyq"],
+    "dnf": ["copyq"],
+    "flatpak": ["com.github.hluk.copyq"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/copyq"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "copyq_tab_*.dat"],
+    "notes": "copyq.conf keeps the same keys everywhere, but the custom commands are shell one-liners and the shortcuts use platform key names."
+  },
+  "equivalents": ["ditto", "gpaste", "diodon"]
+}

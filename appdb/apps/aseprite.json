@@ -1,0 +1,26 @@
+{
+  "id": "aseprite",
+  "name": "Aseprite",
+  "summary": "Pixel-art editor and sprite animator",
+  "category": "graphics",
+  "homepage": "https://www.aseprite.org/",
+  "license": "proprietary",
+  "windows": {
+    "registry": ["Aseprite"],
+    "paths": {
+      "config": "%APPDATA%/Aseprite"
+    }
+  },
+  "linux": {
+    "aur": ["aseprite"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/aseprite"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache", "*.log", "sessions"],
+    "notes": "aseprite.ini, the palettes, the extensions and the custom key bindings are the same files on both platforms. The binaries are sold rather than packaged, so no package manager carries them; the AUR recipe builds from the published source."
+  },
+  "equivalents": ["libresprite", "krita", "gimp"]
+}

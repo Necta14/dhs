@@ -1,0 +1,38 @@
+{
+  "id": "php",
+  "name": "PHP",
+  "summary": "PHP interpreter",
+  "category": "devtool",
+  "homepage": "https://www.php.net/",
+  "license": "PHP-3.01",
+  "windows": {
+    "winget": [
+      "PHP.PHP.8.4"
+    ],
+    "choco": [
+      "php"
+    ],
+    "scoop": [
+      "php"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "php"
+    ],
+    "apt": [
+      "php"
+    ],
+    "dnf": [
+      "php"
+    ],
+    "apk": [
+      "php84"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "php.ini lives beside the interpreter, not in the user's home; it is a system file and is not carried."
+  },
+  "equivalents": []
+}

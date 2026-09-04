@@ -1,0 +1,55 @@
+{
+  "id": "godot",
+  "name": "Godot Engine",
+  "summary": "Game engine with a built-in editor",
+  "category": "ide",
+  "homepage": "https://godotengine.org/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "GodotEngine.GodotEngine"
+    ],
+    "choco": [
+      "godot"
+    ],
+    "scoop": [
+      "extras/godot"
+    ],
+    "registry": [
+      "Godot Engine"
+    ],
+    "paths": {
+      "config": "%APPDATA%/Godot"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "godot"
+    ],
+    "dnf": [
+      "godot"
+    ],
+    "zypper": [
+      "godot"
+    ],
+    "flatpak": [
+      "org.godotengine.Godot"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/godot"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "shader_cache",
+      "export_templates",
+      "*.log",
+      "logs"
+    ],
+    "notes": "editor_settings-*.tres carries absolute paths to the external editor, the Android SDK and the export templates, so it is kept aside rather than restored on the other platform."
+  },
+  "equivalents": [
+    "unity-hub"
+  ]
+}

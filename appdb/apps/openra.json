@@ -1,0 +1,30 @@
+{
+  "id": "openra",
+  "name": "OpenRA",
+  "summary": "Open source engine for Command & Conquer, Red Alert and Dune 2000",
+  "category": "gaming",
+  "homepage": "https://www.openra.net/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["OpenRA.OpenRA"],
+    "choco": ["openra"],
+    "scoop": ["games/openra"],
+    "registry": ["OpenRA"],
+    "paths": {
+      "config": "%APPDATA%/OpenRA"
+    }
+  },
+  "linux": {
+    "pacman": ["openra"],
+    "flatpak": ["net.openra.OpenRA"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/openra"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Logs", "logs", "*.log", "Content", "Screenshots", "cache"],
+    "notes": "settings.yaml, the replays and the maps have the same layout on both platforms. The original game assets under Content are re-downloaded by OpenRA."
+  },
+  "equivalents": []
+}

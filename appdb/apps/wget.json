@@ -1,0 +1,47 @@
+{
+  "id": "wget",
+  "name": "GNU Wget",
+  "summary": "Non-interactive network downloader",
+  "category": "devtool",
+  "homepage": "https://www.gnu.org/software/wget/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": [
+      "JernejSimoncic.Wget"
+    ],
+    "scoop": [
+      "wget"
+    ],
+    "paths": {
+      "wgetrc": "%USERPROFILE%/wget.ini"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "wget"
+    ],
+    "apt": [
+      "wget"
+    ],
+    "dnf": [
+      "wget"
+    ],
+    "zypper": [
+      "wget"
+    ],
+    "apk": [
+      "wget"
+    ],
+    "paths": {
+      "wgetrc": "~/.wgetrc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The same key=value settings; the Windows build reads wget.ini next to the user profile."
+  },
+  "equivalents": [
+    "curl",
+    "aria2"
+  ]
+}

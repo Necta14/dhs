@@ -1,0 +1,19 @@
+{
+  "id": "fdupes",
+  "name": "fdupes",
+  "summary": "Finds duplicate files from the command line",
+  "category": "utility",
+  "homepage": "https://github.com/adrianlopezroche/fdupes",
+  "license": "MIT",
+  "linux": {
+    "pacman": ["fdupes"],
+    "apt": ["fdupes"],
+    "dnf": ["fdupes"],
+    "zypper": ["fdupes"],
+    "apk": ["fdupes"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["rmlint", "czkawka", "dupeguru"]
+}

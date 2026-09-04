@@ -1,0 +1,17 @@
+{
+  "id": "internet-download-manager",
+  "name": "Internet Download Manager",
+  "summary": "Windows download accelerator with browser integration",
+  "category": "download",
+  "homepage": "https://www.internetdownloadmanager.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Tonec.InternetDownloadManager"],
+    "registry": ["Internet Download Manager"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, and the settings and the download queue live in the registry under HKCU\\Software\\DownloadManager, not in files, so there is nothing under a user path to carry."
+  },
+  "equivalents": ["motrix", "persepolis", "uget", "aria2"]
+}

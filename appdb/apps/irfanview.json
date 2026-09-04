@@ -1,0 +1,23 @@
+{
+  "id": "irfanview",
+  "name": "IrfanView",
+  "summary": "Small and fast Windows image viewer",
+  "category": "photo",
+  "homepage": "https://www.irfanview.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["IrfanSkiljan.IrfanView"],
+    "choco": ["irfanview"],
+    "scoop": ["extras/irfanview"],
+    "registry": ["IrfanView"],
+    "paths": {
+      "config": "%APPDATA%/IrfanView"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "Thumbs"],
+    "notes": "Windows only. i_view64.ini holds every preference, the toolbar layout and the file associations, and means nothing to another viewer."
+  },
+  "equivalents": ["nomacs", "xnview-mp", "gwenview"]
+}

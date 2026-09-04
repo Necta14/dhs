@@ -1,0 +1,49 @@
+{
+  "id": "zed",
+  "name": "Zed",
+  "summary": "Fast collaborative code editor",
+  "category": "editor",
+  "homepage": "https://zed.dev/",
+  "license": "GPL-3.0",
+  "windows": {
+    "choco": [
+      "zed-editor"
+    ],
+    "scoop": [
+      "extras/zed"
+    ],
+    "registry": [
+      "Zed"
+    ],
+    "paths": {
+      "config": "%APPDATA%/Zed"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "zed"
+    ],
+    "aur": [
+      "zed-bin"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/zed"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "logs",
+      "*.log",
+      "db",
+      "conversations",
+      "embeddings"
+    ],
+    "notes": "settings.json, keymap.json and the themes are the same files on both platforms."
+  },
+  "equivalents": [
+    "vscodium",
+    "vscode",
+    "sublime-text"
+  ]
+}

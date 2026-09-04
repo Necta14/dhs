@@ -1,0 +1,52 @@
+{
+  "id": "virtualbox",
+  "name": "Oracle VirtualBox",
+  "summary": "Desktop virtual machine host",
+  "category": "virtualization",
+  "homepage": "https://www.virtualbox.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": [
+      "Oracle.VirtualBox"
+    ],
+    "choco": [
+      "virtualbox"
+    ],
+    "scoop": [
+      "nonportable/virtualbox-np"
+    ],
+    "registry": [
+      "Oracle VirtualBox",
+      "Oracle VM VirtualBox"
+    ],
+    "paths": {
+      "config": "%USERPROFILE%/.VirtualBox"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "virtualbox",
+      "virtualbox-host-dkms"
+    ],
+    "zypper": [
+      "virtualbox"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/VirtualBox"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "*.log",
+      "VBoxSVC.log*",
+      "selectorwindow.log*"
+    ],
+    "notes": "VirtualBox.xml lists every machine by absolute path to its .vbox file, and the disks themselves live outside the configuration. Fedora has no VirtualBox package in its own repositories, and Debian 13 dropped it."
+  },
+  "equivalents": [
+    "virt-manager",
+    "gnome-boxes",
+    "vmware-workstation"
+  ]
+}

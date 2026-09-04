@@ -1,0 +1,44 @@
+{
+  "id": "meson",
+  "name": "Meson",
+  "summary": "Build system",
+  "category": "devtool",
+  "homepage": "https://mesonbuild.com/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "mesonbuild.meson"
+    ],
+    "choco": [
+      "meson"
+    ],
+    "scoop": [
+      "meson"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "meson"
+    ],
+    "apt": [
+      "meson"
+    ],
+    "dnf": [
+      "meson"
+    ],
+    "zypper": [
+      "meson"
+    ],
+    "apk": [
+      "meson"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Meson keeps its state in each project's build directory."
+  },
+  "equivalents": [
+    "cmake",
+    "ninja"
+  ]
+}

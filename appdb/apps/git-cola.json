@@ -1,0 +1,45 @@
+{
+  "id": "git-cola",
+  "name": "git-cola",
+  "summary": "Lightweight graphical Git client",
+  "category": "vcs",
+  "homepage": "https://git-cola.github.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": [
+      "git-cola.git-cola"
+    ],
+    "registry": [
+      "git-cola"
+    ],
+    "paths": {
+      "config": "%USERPROFILE%/.config/git-cola"
+    }
+  },
+  "linux": {
+    "apt": [
+      "git-cola"
+    ],
+    "dnf": [
+      "git-cola"
+    ],
+    "zypper": [
+      "git-cola"
+    ],
+    "flatpak": [
+      "com.github.git_cola.git-cola"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/git-cola"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The settings file is JSON, and git-cola looks for it under .config on both platforms."
+  },
+  "equivalents": [
+    "gitg",
+    "github-desktop",
+    "lazygit"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "transmission",
+  "name": "Transmission",
+  "summary": "Light BitTorrent client",
+  "category": "torrent",
+  "homepage": "https://transmissionbt.com/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Transmission.Transmission"],
+    "choco": ["transmission"],
+    "scoop": ["extras/transmission"],
+    "registry": ["Transmission"],
+    "paths": {
+      "config": "%APPDATA%/transmission"
+    }
+  },
+  "linux": {
+    "pacman": ["transmission-gtk", "transmission-qt"],
+    "apt": ["transmission"],
+    "dnf": ["transmission"],
+    "zypper": ["transmission"],
+    "apk": ["transmission-gtk"],
+    "flatpak": ["com.transmissionbt.Transmission"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/transmission"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.lock", "*.log", "blocklists"],
+    "notes": "settings.json holds download-dir and incomplete-dir as absolute paths, so the directory is kept aside. torrents/ and resume/ are what a re-add needs. The daemon variant keeps the same files under transmission-daemon."
+  },
+  "equivalents": ["qbittorrent", "deluge", "fragments"]
+}

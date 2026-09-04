@@ -1,0 +1,34 @@
+{
+  "id": "flameshot",
+  "name": "Flameshot",
+  "summary": "Screenshot tool with on-screen annotation",
+  "category": "screenshot",
+  "homepage": "https://flameshot.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Flameshot.Flameshot"],
+    "choco": ["flameshot"],
+    "scoop": ["extras/flameshot"],
+    "registry": ["Flameshot"],
+    "paths": {
+      "config": "%APPDATA%/flameshot"
+    }
+  },
+  "linux": {
+    "pacman": ["flameshot"],
+    "apt": ["flameshot"],
+    "dnf": ["flameshot"],
+    "zypper": ["flameshot"],
+    "apk": ["flameshot"],
+    "flatpak": ["org.flameshot.Flameshot"],
+    "snap": ["flameshot"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/flameshot"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "flameshot.ini keeps the drawing colours, the button layout and the shortcuts in the same INI format on both platforms, but the save path inside it is absolute, so the file is kept aside."
+  },
+  "equivalents": ["ksnip", "spectacle", "greenshot"]
+}

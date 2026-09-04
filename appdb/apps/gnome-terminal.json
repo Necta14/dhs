@@ -1,0 +1,34 @@
+{
+  "id": "gnome-terminal",
+  "name": "GNOME Terminal",
+  "summary": "GNOME terminal emulator",
+  "category": "terminal",
+  "homepage": "https://apps.gnome.org/Console/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": [
+      "gnome-terminal"
+    ],
+    "apt": [
+      "gnome-terminal"
+    ],
+    "dnf": [
+      "gnome-terminal"
+    ],
+    "zypper": [
+      "gnome-terminal"
+    ],
+    "apk": [
+      "gnome-terminal"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The profiles live in dconf, not in files; there is nothing to carry."
+  },
+  "equivalents": [
+    "ptyxis",
+    "konsole",
+    "windows-terminal"
+  ]
+}

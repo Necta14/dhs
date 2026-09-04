@@ -1,0 +1,35 @@
+{
+  "id": "kicad",
+  "name": "KiCad",
+  "summary": "Schematic capture and PCB layout",
+  "category": "cad",
+  "homepage": "https://www.kicad.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["KiCad.KiCad"],
+    "choco": ["kicad"],
+    "scoop": ["extras/kicad"],
+    "registry": ["KiCad"],
+    "paths": {
+      "config": "%APPDATA%/kicad"
+    }
+  },
+  "linux": {
+    "pacman": ["kicad"],
+    "apt": ["kicad"],
+    "dnf": ["kicad"],
+    "zypper": ["kicad"],
+    "apk": ["kicad"],
+    "flatpak": ["org.kicad.KiCad"],
+    "snap": ["kicad"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kicad"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.lck", "*.log", "3d", "cache"],
+    "notes": "One directory per major version. kicad_common.json defines the environment variables that point at the symbol, footprint and 3D-model libraries, and those paths differ on every system; the library tables, hotkeys and colour themes beside it are worth carrying."
+  },
+  "equivalents": ["fritzing", "freecad"]
+}

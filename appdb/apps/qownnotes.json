@@ -1,0 +1,28 @@
+{
+  "id": "qownnotes",
+  "name": "QOwnNotes",
+  "summary": "Plain-text Markdown notepad with Nextcloud Notes support",
+  "category": "notes",
+  "homepage": "https://www.qownnotes.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["pbek.QOwnNotes"],
+    "choco": ["qownnotes"],
+    "scoop": ["extras/qownnotes"],
+    "registry": ["QOwnNotes"]
+  },
+  "linux": {
+    "aur": ["qownnotes"],
+    "dnf": ["qownnotes"],
+    "flatpak": ["org.qownnotes.QOwnNotes"],
+    "snap": ["qownnotes"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/PBE"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "On Linux the settings are the Qt INI file ~/.config/PBE/QOwnNotes.conf and they record the absolute path of the note folder; the Windows build keeps the same settings elsewhere, so they are set aside rather than restored in place. The notes themselves are plain Markdown files in a folder the user chose."
+  },
+  "equivalents": ["joplin", "obsidian", "zettlr"]
+}

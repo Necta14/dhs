@@ -1,0 +1,28 @@
+{
+  "id": "megasync",
+  "name": "MEGAsync",
+  "summary": "Desktop sync client for MEGA cloud storage",
+  "category": "cloud-storage",
+  "homepage": "https://mega.io/desktop",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Mega.MEGASync"],
+    "choco": ["megasync"],
+    "registry": ["MEGAsync"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/Mega Limited/MEGAsync"
+    }
+  },
+  "linux": {
+    "aur": ["megasync"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Mega Limited/MEGAsync"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["logs", "*.log", "*.lock", "cache"],
+    "notes": "The settings hold the sync pairs as absolute paths and a session token bound to the installation, so the directory is kept aside and the account is signed in again."
+  },
+  "equivalents": ["dropbox", "nextcloud-desktop", "rclone"]
+}

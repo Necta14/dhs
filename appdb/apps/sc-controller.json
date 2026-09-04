@@ -1,0 +1,22 @@
+{
+  "id": "sc-controller",
+  "name": "SC Controller",
+  "summary": "Driver and configuration tool for the Steam Controller and other gamepads",
+  "category": "utility",
+  "homepage": "https://github.com/C0rn3j/sc-controller",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["sc-controller"],
+    "apt": ["sc-controller"],
+    "apk": ["sc-controller"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/scc"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log"],
+    "notes": "Linux only. The profiles describe uinput devices and evdev key codes that have no counterpart on Windows."
+  },
+  "equivalents": ["antimicrox", "ds4windows"]
+}

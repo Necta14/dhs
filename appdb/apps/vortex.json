@@ -1,0 +1,23 @@
+{
+  "id": "vortex",
+  "name": "Vortex",
+  "summary": "Mod manager for Nexus Mods",
+  "category": "utility",
+  "homepage": "https://www.nexusmods.com/about/vortex/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["NexusMods.Vortex"],
+    "choco": ["vortex"],
+    "scoop": ["games/vortex"],
+    "registry": ["Vortex"],
+    "paths": {
+      "config": "%APPDATA%/Vortex"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "temp", "logs", "*.log"],
+    "notes": "Windows only in practice. The state database records every managed game's install and deployment directory, and the deployment itself uses Windows hard links."
+  },
+  "equivalents": []
+}

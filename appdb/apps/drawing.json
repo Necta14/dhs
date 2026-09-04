@@ -1,0 +1,21 @@
+{
+  "id": "drawing",
+  "name": "Drawing",
+  "summary": "Small GNOME image editor",
+  "category": "graphics",
+  "homepage": "https://maoschanz.github.io/drawing/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["drawing"],
+    "apt": ["drawing"],
+    "dnf": ["drawing"],
+    "zypper": ["drawing"],
+    "apk": ["drawing"],
+    "flatpak": ["com.github.maoschanz.drawing"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only. Tool defaults and the window layout are dconf keys; there is nothing on disk to carry."
+  },
+  "equivalents": ["kolourpaint", "pinta", "paint-net"]
+}

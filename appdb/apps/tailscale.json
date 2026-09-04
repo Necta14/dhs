@@ -1,0 +1,25 @@
+{
+  "id": "tailscale",
+  "name": "Tailscale",
+  "summary": "Mesh VPN built on WireGuard",
+  "category": "vpn",
+  "homepage": "https://tailscale.com/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": ["tailscale.tailscale"],
+    "choco": ["tailscale"],
+    "scoop": ["tailscale"],
+    "registry": ["Tailscale"]
+  },
+  "linux": {
+    "pacman": ["tailscale"],
+    "dnf": ["tailscale"],
+    "zypper": ["tailscale"],
+    "apk": ["tailscale"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The node identity belongs to the machine, not to the user, and a new machine authenticates again."
+  },
+  "equivalents": ["zerotier", "wireguard"]
+}

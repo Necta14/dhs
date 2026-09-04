@@ -1,0 +1,24 @@
+{
+  "id": "peazip",
+  "name": "PeaZip",
+  "summary": "Graphical archiver for many formats",
+  "category": "archive",
+  "homepage": "https://peazip.github.io/",
+  "license": "LGPL-3.0",
+  "windows": {
+    "winget": ["Giorgiotani.Peazip"],
+    "choco": ["peazip"],
+    "scoop": ["extras/peazip"],
+    "registry": ["PeaZip"]
+  },
+  "linux": {
+    "pacman": ["peazip"],
+    "dnf": ["peazip"],
+    "zypper": ["peazip"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The settings sit next to the program and describe local paths and file associations; nothing is carried."
+  },
+  "equivalents": ["7zip", "ark", "file-roller"]
+}

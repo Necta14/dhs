@@ -1,0 +1,52 @@
+{
+  "id": "lazygit",
+  "name": "lazygit",
+  "summary": "Terminal user interface for Git",
+  "category": "vcs",
+  "homepage": "https://github.com/jesseduffield/lazygit",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "JesseDuffield.lazygit"
+    ],
+    "choco": [
+      "lazygit"
+    ],
+    "scoop": [
+      "extras/lazygit"
+    ],
+    "paths": {
+      "config": "%APPDATA%/lazygit"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "lazygit"
+    ],
+    "apt": [
+      "lazygit"
+    ],
+    "zypper": [
+      "lazygit"
+    ],
+    "apk": [
+      "lazygit"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/lazygit"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.log",
+      "state.yml"
+    ],
+    "notes": "config.yml has the same keys on both platforms."
+  },
+  "equivalents": [
+    "git-cola",
+    "gitkraken",
+    "sublime-merge"
+  ]
+}

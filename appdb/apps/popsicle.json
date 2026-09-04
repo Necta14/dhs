@@ -1,0 +1,16 @@
+{
+  "id": "popsicle",
+  "name": "Popsicle",
+  "summary": "Writes an image to several USB drives at once",
+  "category": "utility",
+  "homepage": "https://github.com/pop-os/popsicle",
+  "license": "MIT",
+  "linux": {
+    "aur": ["popsicle"],
+    "flatpak": ["com.system76.Popsicle"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["impression", "balena-etcher", "ventoy"]
+}

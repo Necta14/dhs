@@ -1,0 +1,28 @@
+{
+  "id": "modrinth-app",
+  "name": "Modrinth App",
+  "summary": "Minecraft launcher and mod manager for the Modrinth platform",
+  "category": "launcher",
+  "homepage": "https://modrinth.com/app",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Modrinth.ModrinthApp"],
+    "registry": ["Modrinth App"],
+    "paths": {
+      "data": "%APPDATA%/ModrinthApp"
+    }
+  },
+  "linux": {
+    "aur": ["modrinth-app-bin"],
+    "flatpak": ["com.modrinth.ModrinthApp"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/ModrinthApp"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["caches", "meta", "logs", "*.log", "launcher_logs"],
+    "notes": "The profiles and their mods travel; the settings record the Java installation and the instance directory by absolute path."
+  },
+  "equivalents": ["prismlauncher", "atlauncher", "curseforge"]
+}

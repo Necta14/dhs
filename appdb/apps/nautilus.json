@@ -1,0 +1,24 @@
+{
+  "id": "nautilus",
+  "name": "Files",
+  "summary": "GNOME file manager",
+  "category": "file-manager",
+  "homepage": "https://apps.gnome.org/Nautilus/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["nautilus"],
+    "apt": ["nautilus"],
+    "dnf": ["nautilus"],
+    "zypper": ["nautilus"],
+    "apk": ["nautilus"],
+    "flatpak": ["org.gnome.Nautilus"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/nautilus"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The settings live in dconf, not in files; only the scripts and the bookmarks under the data directory are carried."
+  },
+  "equivalents": ["dolphin", "nemo", "thunar"]
+}

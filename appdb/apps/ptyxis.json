@@ -1,0 +1,37 @@
+{
+  "id": "ptyxis",
+  "name": "Ptyxis",
+  "summary": "Container-aware GNOME terminal",
+  "category": "terminal",
+  "homepage": "https://gitlab.gnome.org/chergert/ptyxis",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": [
+      "ptyxis"
+    ],
+    "apt": [
+      "ptyxis"
+    ],
+    "dnf": [
+      "ptyxis"
+    ],
+    "zypper": [
+      "ptyxis"
+    ],
+    "apk": [
+      "ptyxis"
+    ],
+    "flatpak": [
+      "app.devsuite.Ptyxis"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Settings and profiles are GSettings keys in dconf; there is no configuration file."
+  },
+  "equivalents": [
+    "gnome-terminal",
+    "konsole",
+    "windows-terminal"
+  ]
+}

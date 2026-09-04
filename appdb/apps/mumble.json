@@ -1,0 +1,31 @@
+{
+  "id": "mumble",
+  "name": "Mumble",
+  "summary": "Low-latency voice chat for groups",
+  "category": "chat",
+  "homepage": "https://www.mumble.info/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": ["Mumble.Mumble"],
+    "choco": ["mumble"],
+    "scoop": ["extras/mumble"],
+    "registry": ["Mumble"]
+  },
+  "linux": {
+    "pacman": ["mumble"],
+    "apt": ["mumble"],
+    "dnf": ["mumble"],
+    "zypper": ["mumble"],
+    "apk": ["mumble"],
+    "flatpak": ["info.mumble.Mumble"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Mumble"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.lock", "*.log"],
+    "notes": "On Windows the settings live in the registry under HKCU\\Software\\Mumble, not in a file, so nothing is claimed there. The Linux Mumble.conf holds audio device names that mean nothing on the other system, so it is kept aside. The server certificate can be exported from inside Mumble."
+  },
+  "equivalents": ["teamspeak", "discord"]
+}

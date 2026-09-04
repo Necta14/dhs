@@ -1,0 +1,21 @@
+{
+  "id": "balena-etcher",
+  "name": "balenaEtcher",
+  "summary": "Writes disk images to USB sticks and SD cards",
+  "category": "utility",
+  "homepage": "https://etcher.balena.io/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": ["Balena.Etcher"],
+    "choco": ["etcher"],
+    "registry": ["balenaEtcher"]
+  },
+  "linux": {
+    "aur": ["balena-etcher"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Remembers only the last image and drive; nothing worth carrying."
+  },
+  "equivalents": ["ventoy", "popsicle", "impression", "rufus"]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "kitty",
+  "name": "kitty",
+  "summary": "GPU-accelerated terminal emulator",
+  "category": "terminal",
+  "homepage": "https://sw.kovidgoyal.net/kitty/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": [
+      "kitty"
+    ],
+    "apt": [
+      "kitty"
+    ],
+    "dnf": [
+      "kitty"
+    ],
+    "zypper": [
+      "kitty"
+    ],
+    "apk": [
+      "kitty"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kitty"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.log",
+      "*.sock"
+    ],
+    "notes": "kitty.conf and the themes are plain text. kitty has no Windows build; the equivalents below read a similar configuration."
+  },
+  "equivalents": [
+    "wezterm",
+    "alacritty",
+    "windows-terminal"
+  ]
+}

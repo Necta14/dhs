@@ -1,0 +1,23 @@
+{
+  "id": "wofi",
+  "name": "wofi",
+  "summary": "Launcher for Wayland compositors",
+  "category": "launcher",
+  "homepage": "https://hg.sr.ht/~scoopta/wofi",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["wofi"],
+    "apt": ["wofi"],
+    "dnf": ["wofi"],
+    "zypper": ["wofi"],
+    "apk": ["wofi"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/wofi"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only, and Wayland only."
+  },
+  "equivalents": ["rofi", "ulauncher", "albert"]
+}

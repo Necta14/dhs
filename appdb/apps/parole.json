@@ -1,0 +1,23 @@
+{
+  "id": "parole",
+  "name": "Parole",
+  "summary": "Xfce media player",
+  "category": "media-player",
+  "homepage": "https://docs.xfce.org/apps/parole/start",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["parole"],
+    "apt": ["parole"],
+    "dnf": ["parole"],
+    "zypper": ["parole"],
+    "apk": ["parole"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/xfce4/xfconf/xfce-perchannel-xml/parole.xml"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. Parole keeps its preferences in xfconf, so the single XML channel file above is the whole configuration."
+  },
+  "equivalents": ["celluloid", "vlc", "mpv"]
+}

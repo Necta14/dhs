@@ -1,0 +1,18 @@
+{
+  "id": "ea-app",
+  "name": "EA app",
+  "summary": "Game store and launcher by Electronic Arts, successor to Origin",
+  "category": "launcher",
+  "homepage": "https://www.ea.com/ea-app",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["ElectronicArts.EADesktop"],
+    "choco": ["ea-app"],
+    "registry": ["EA app"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. What it keeps is an account cache and a download state that is rebuilt at the next sign-in, so nothing is carried."
+  },
+  "equivalents": ["lutris", "heroic-games-launcher", "bottles"]
+}

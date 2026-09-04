@@ -1,0 +1,16 @@
+{
+  "id": "lact",
+  "name": "LACT",
+  "summary": "Linux AMDGPU control application",
+  "category": "utility",
+  "homepage": "https://github.com/ilya-zlobintsev/LACT",
+  "license": "MIT",
+  "linux": {
+    "aur": ["lact"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The daemon keeps its configuration under /etc, and the values are specific to the installed card."
+  },
+  "equivalents": ["corectrl", "msi-afterburner"]
+}

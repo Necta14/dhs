@@ -1,0 +1,22 @@
+{
+  "id": "input-remapper",
+  "name": "Input Remapper",
+  "summary": "Remaps keyboard, mouse and gamepad input on Linux",
+  "category": "utility",
+  "homepage": "https://github.com/sezanzeb/input-remapper",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["input-remapper"],
+    "apt": ["input-remapper"],
+    "dnf": ["input-remapper"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/input-remapper-2"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "logs"],
+    "notes": "Linux only. The presets are tied to a device name as the kernel reports it."
+  },
+  "equivalents": ["keyd", "kmonad", "powertoys"]
+}

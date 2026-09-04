@@ -1,0 +1,29 @@
+{
+  "id": "osu-lazer",
+  "name": "osu!",
+  "summary": "Rhythm game, the current osu!lazer client",
+  "category": "gaming",
+  "homepage": "https://osu.ppy.sh/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["ppy.osu"],
+    "scoop": ["games/osulazer"],
+    "registry": ["osu!"],
+    "paths": {
+      "data": "%APPDATA%/osu"
+    }
+  },
+  "linux": {
+    "aur": ["osu-lazer-bin"],
+    "flatpak": ["sh.ppy.osu"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/osu"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["files", "cache", "logs", "*.log", "client.realm.lock", "*.lock"],
+    "notes": "The settings and the score database are kept; the beatmap and skin files, which the game stores content-addressed under files/, are re-downloaded from the account."
+  },
+  "equivalents": []
+}

@@ -1,0 +1,17 @@
+{
+  "id": "waydroid",
+  "name": "Waydroid",
+  "summary": "Runs Android in a container on Wayland",
+  "category": "virtualization",
+  "homepage": "https://waydro.id/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["waydroid"],
+    "dnf": ["waydroid"],
+    "apk": ["waydroid"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The Android image and its data live under /var/lib/waydroid, outside the user's home."
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "id": "mupen64plus",
+  "name": "Mupen64Plus",
+  "summary": "Nintendo 64 emulator",
+  "category": "emulator",
+  "homepage": "https://mupen64plus.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["mupen64plus"],
+    "registry": ["Mupen64Plus"]
+  },
+  "linux": {
+    "pacman": ["mupen64plus"],
+    "dnf": ["mupen64plus"],
+    "zypper": ["mupen64plus"],
+    "apk": ["mupen64plus"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/mupen64plus",
+      "data": "$XDG_DATA_HOME/mupen64plus"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.log", "screenshot"],
+    "notes": "mupen64plus.cfg names the plugin libraries by file name, and those are .so on Linux and .dll on Windows; the saves and save states under the data directory are portable."
+  },
+  "equivalents": ["retroarch", "ares"]
+}

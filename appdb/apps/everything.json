@@ -1,0 +1,23 @@
+{
+  "id": "everything",
+  "name": "Everything",
+  "summary": "Instant file name search for Windows",
+  "category": "utility",
+  "homepage": "https://www.voidtools.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["voidtools.Everything"],
+    "choco": ["everything"],
+    "scoop": ["extras/everything"],
+    "registry": ["Everything"],
+    "paths": {
+      "config": "%APPDATA%/Everything"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.db", "*.log"],
+    "notes": "Windows only; it reads the NTFS master file table, which has no equivalent elsewhere. The index itself is rebuilt on the other side."
+  },
+  "equivalents": ["fsearch", "albert", "ulauncher"]
+}

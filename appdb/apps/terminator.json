@@ -1,0 +1,37 @@
+{
+  "id": "terminator",
+  "name": "Terminator",
+  "summary": "Terminal emulator with split panes",
+  "category": "terminal",
+  "homepage": "https://gnome-terminator.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": [
+      "terminator"
+    ],
+    "apt": [
+      "terminator"
+    ],
+    "dnf": [
+      "terminator"
+    ],
+    "zypper": [
+      "terminator"
+    ],
+    "apk": [
+      "terminator"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/terminator"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The config file is plain text with the same keys everywhere."
+  },
+  "equivalents": [
+    "tilix",
+    "konsole",
+    "windows-terminal"
+  ]
+}

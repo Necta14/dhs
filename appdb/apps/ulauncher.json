@@ -1,0 +1,22 @@
+{
+  "id": "ulauncher",
+  "name": "Ulauncher",
+  "summary": "Application launcher with extensions",
+  "category": "launcher",
+  "homepage": "https://ulauncher.io/",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["ulauncher"],
+    "dnf": ["ulauncher"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ulauncher",
+      "data": "$XDG_DATA_HOME/ulauncher"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "last-query.json"],
+    "notes": "Linux only. The installed extensions are Python packages under the data directory."
+  },
+  "equivalents": ["albert", "rofi", "flow-launcher"]
+}

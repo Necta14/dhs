@@ -1,0 +1,25 @@
+{
+  "id": "gthumb",
+  "name": "gThumb",
+  "summary": "Image viewer and organiser for GNOME",
+  "category": "photo",
+  "homepage": "https://gitlab.gnome.org/GNOME/gthumb",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["gthumb"],
+    "apt": ["gthumb"],
+    "dnf": ["gthumb"],
+    "zypper": ["gthumb"],
+    "apk": ["gthumb"],
+    "flatpak": ["org.gnome.gThumb"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/gthumb"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log"],
+    "notes": "Linux only. Most preferences are dconf keys; the configuration directory keeps the catalogues and the filter definitions."
+  },
+  "equivalents": ["shotwell", "nomacs", "geeqie"]
+}

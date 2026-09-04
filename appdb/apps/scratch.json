@@ -1,0 +1,23 @@
+{
+  "id": "scratch",
+  "name": "Scratch",
+  "summary": "Block-based programming environment for children",
+  "category": "education",
+  "homepage": "https://scratch.mit.edu/",
+  "windows": {
+    "winget": ["MITMediaLab.Scratch.3"],
+    "choco": ["scratch"],
+    "scoop": ["extras/scratch"],
+    "registry": ["Scratch 3", "Scratch"]
+  },
+  "linux": {
+    "pacman": ["scratch"],
+    "apt": ["scratch"],
+    "dnf": ["scratch"],
+    "flatpak": ["edu.mit.Scratch"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The projects are .sb3 files wherever the child saved them; the application itself keeps nothing worth carrying."
+  }
+}

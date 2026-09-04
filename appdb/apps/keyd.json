@@ -1,0 +1,19 @@
+{
+  "id": "keyd",
+  "name": "keyd",
+  "summary": "System-wide key remapping daemon for Linux",
+  "category": "utility",
+  "homepage": "https://github.com/rvaiya/keyd",
+  "license": "MIT",
+  "linux": {
+    "pacman": ["keyd"],
+    "apt": ["keyd"],
+    "zypper": ["keyd"],
+    "apk": ["keyd"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The layouts live in /etc/keyd, which belongs to the system rather than to the user."
+  },
+  "equivalents": ["input-remapper", "kmonad", "autohotkey"]
+}

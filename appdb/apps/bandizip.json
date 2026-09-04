@@ -1,0 +1,18 @@
+{
+  "id": "bandizip",
+  "name": "Bandizip",
+  "summary": "Archiver for Windows",
+  "category": "archive",
+  "homepage": "https://www.bandisoft.com/bandizip/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Bandisoft.Bandizip"],
+    "choco": ["bandizip"],
+    "registry": ["Bandizip"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only; the settings are in the registry."
+  },
+  "equivalents": ["7zip", "ark", "file-roller", "peazip"]
+}

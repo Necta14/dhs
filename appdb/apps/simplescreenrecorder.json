@@ -1,0 +1,23 @@
+{
+  "id": "simplescreenrecorder",
+  "name": "SimpleScreenRecorder",
+  "summary": "Screen recorder for Linux",
+  "category": "screen-recorder",
+  "homepage": "https://www.maartenbaert.be/simplescreenrecorder/",
+  "license": "GPL-3.0",
+  "linux": {
+    "apt": ["simplescreenrecorder"],
+    "zypper": ["simplescreenrecorder"],
+    "apk": ["simplescreenrecorder"],
+    "snap": ["simplescreenrecorder"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/simplescreenrecorder"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log"],
+    "notes": "Linux only, and built for X11. settings.conf holds the capture area, the codec choice and the output folder."
+  },
+  "equivalents": ["obs-studio", "gpu-screen-recorder", "kooha"]
+}

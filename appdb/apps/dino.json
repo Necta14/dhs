@@ -1,0 +1,25 @@
+{
+  "id": "dino",
+  "name": "Dino",
+  "summary": "Modern XMPP chat client for the desktop",
+  "category": "chat",
+  "homepage": "https://dino.im/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["dino"],
+    "apt": ["dino-im"],
+    "dnf": ["dino"],
+    "zypper": ["dino"],
+    "apk": ["dino"],
+    "flatpak": ["im.dino.Dino"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/dino"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.lock", "files"],
+    "notes": "Linux only. The accounts and the OMEMO keys live in dino.db; the keys belong to the device, so the sessions are re-established after a move."
+  },
+  "equivalents": ["gajim", "pidgin"]
+}

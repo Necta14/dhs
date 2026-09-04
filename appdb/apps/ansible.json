@@ -1,0 +1,35 @@
+{
+  "id": "ansible",
+  "name": "Ansible",
+  "summary": "Agentless configuration management over SSH",
+  "category": "devtool",
+  "homepage": "https://www.ansible.com/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": [
+      "ansible"
+    ],
+    "apt": [
+      "ansible"
+    ],
+    "dnf": [
+      "ansible"
+    ],
+    "zypper": [
+      "ansible"
+    ],
+    "apk": [
+      "ansible"
+    ],
+    "paths": {
+      "config": "~/.ansible.cfg"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "ansible.cfg is INI. The control node runs on Linux only; on Windows Ansible is used from WSL."
+  },
+  "equivalents": [
+    "terraform"
+  ]
+}

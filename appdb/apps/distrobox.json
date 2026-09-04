@@ -1,0 +1,36 @@
+{
+  "id": "distrobox",
+  "name": "Distrobox",
+  "summary": "Runs any distribution in a container tied to the host home",
+  "category": "container",
+  "homepage": "https://distrobox.it/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": [
+      "distrobox"
+    ],
+    "apt": [
+      "distrobox"
+    ],
+    "dnf": [
+      "distrobox"
+    ],
+    "zypper": [
+      "distrobox"
+    ],
+    "apk": [
+      "distrobox"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/distrobox"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "distrobox.conf is a plain key=value file. The containers themselves are recreated from their images."
+  },
+  "equivalents": [
+    "podman",
+    "docker"
+  ]
+}

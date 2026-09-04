@@ -1,0 +1,35 @@
+{
+  "id": "openmw",
+  "name": "OpenMW",
+  "summary": "Open source engine for Morrowind",
+  "category": "gaming",
+  "homepage": "https://openmw.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["OpenMW.OpenMW"],
+    "choco": ["openmw"],
+    "scoop": ["games/openmw"],
+    "registry": ["OpenMW"],
+    "paths": {
+      "config": "%USERPROFILE%/Documents/My Games/OpenMW"
+    }
+  },
+  "linux": {
+    "pacman": ["openmw"],
+    "apt": ["openmw"],
+    "dnf": ["openmw"],
+    "zypper": ["openmw"],
+    "apk": ["openmw"],
+    "flatpak": ["org.openmw.OpenMW"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/openmw",
+      "data": "$XDG_DATA_HOME/openmw"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "The savegames travel, but openmw.cfg lists the Morrowind data files by absolute path and those have to be re-pointed after a move. The game's own assets stay with the user."
+  },
+  "equivalents": []
+}

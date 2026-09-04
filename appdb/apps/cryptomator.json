@@ -1,0 +1,30 @@
+{
+  "id": "cryptomator",
+  "name": "Cryptomator",
+  "summary": "Encrypts a folder for cloud storage",
+  "category": "security",
+  "homepage": "https://cryptomator.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Cryptomator.Cryptomator"],
+    "choco": ["cryptomator"],
+    "scoop": ["extras/cryptomator"],
+    "registry": ["Cryptomator"],
+    "paths": {
+      "config": "%APPDATA%/Cryptomator"
+    }
+  },
+  "linux": {
+    "aur": ["cryptomator"],
+    "flatpak": ["org.cryptomator.Cryptomator"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Cryptomator"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "logs"],
+    "notes": "settings.json lists each vault by absolute path, so it is kept aside; the vaults themselves are plain folders and travel untouched."
+  },
+  "equivalents": ["veracrypt"]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "reaper",
+  "name": "REAPER",
+  "summary": "Digital audio workstation",
+  "category": "audio-editor",
+  "homepage": "https://www.reaper.fm/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Cockos.REAPER"],
+    "scoop": ["extras/reaper"],
+    "registry": ["REAPER"],
+    "paths": {
+      "config": "%APPDATA%/REAPER"
+    }
+  },
+  "linux": {
+    "flatpak": ["fm.reaper.Reaper"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/REAPER"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["MediaDB", "Peaks", "*.log", "ReaperUndoStorage"],
+    "notes": "reaper.ini holds the theme, the key map and the actions, but also the audio driver - ASIO or WASAPI against ALSA or JACK - and absolute plugin folders, so it is kept aside. The key map and the custom actions are the part worth copying by hand."
+  },
+  "equivalents": ["ardour", "lmms"]
+}

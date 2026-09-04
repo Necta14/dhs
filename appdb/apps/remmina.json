@@ -1,0 +1,26 @@
+{
+  "id": "remmina",
+  "name": "Remmina",
+  "summary": "Remote desktop client for RDP, VNC and SSH",
+  "category": "remote-desktop",
+  "homepage": "https://remmina.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["remmina"],
+    "apt": ["remmina"],
+    "dnf": ["remmina"],
+    "zypper": ["remmina"],
+    "apk": ["remmina"],
+    "flatpak": ["org.remmina.Remmina"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/remmina",
+      "profiles": "$XDG_DATA_HOME/remmina"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log"],
+    "notes": "Linux only. The .remmina profiles hold saved passwords encrypted with a key in the config file, which is why both directories belong together."
+  },
+  "equivalents": ["krdc", "gnome-connections", "mremoteng"]
+}

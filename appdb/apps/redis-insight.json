@@ -1,0 +1,32 @@
+{
+  "id": "redis-insight",
+  "name": "Redis Insight",
+  "summary": "Graphical client for Redis and Valkey",
+  "category": "database",
+  "homepage": "https://redis.io/insight/",
+  "license": "SSPL-1.0",
+  "windows": {
+    "winget": [
+      "RedisInsight.RedisInsight"
+    ],
+    "registry": [
+      "Redis Insight"
+    ]
+  },
+  "linux": {
+    "flatpak": [
+      "com.redis.RedisInsight"
+    ],
+    "snap": [
+      "redisinsight"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Redis Insight keeps its database in a versioned directory whose name changes between releases; DHS installs the application and does not carry it in v1."
+  },
+  "equivalents": [
+    "dbeaver",
+    "datagrip"
+  ]
+}

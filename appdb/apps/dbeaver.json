@@ -1,0 +1,54 @@
+{
+  "id": "dbeaver",
+  "name": "DBeaver Community",
+  "summary": "Universal database client",
+  "category": "database",
+  "homepage": "https://dbeaver.io/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "DBeaver.DBeaver.Community"
+    ],
+    "choco": [
+      "dbeaver"
+    ],
+    "scoop": [
+      "extras/dbeaver"
+    ],
+    "registry": [
+      "DBeaver"
+    ],
+    "paths": {
+      "workspace": "%APPDATA%/DBeaverData"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "dbeaver"
+    ],
+    "flatpak": [
+      "io.dbeaver.DBeaverCommunity"
+    ],
+    "snap": [
+      "dbeaver-ce"
+    ],
+    "paths": {
+      "workspace": "$XDG_DATA_HOME/DBeaverData"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      ".metadata",
+      "logs",
+      "*.log",
+      "workspace6/.metadata"
+    ],
+    "notes": "data-sources.json holds the connections, but the Eclipse workspace around it records absolute paths and JDBC driver locations, so it is kept aside on the other platform. Saved passwords are encrypted with a machine-local key."
+  },
+  "equivalents": [
+    "beekeeper-studio",
+    "datagrip",
+    "dbgate"
+  ]
+}

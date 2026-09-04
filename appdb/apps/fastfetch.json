@@ -1,0 +1,30 @@
+{
+  "id": "fastfetch",
+  "name": "fastfetch",
+  "summary": "Prints system information next to the distribution logo",
+  "category": "system",
+  "homepage": "https://github.com/fastfetch-cli/fastfetch",
+  "license": "MIT",
+  "windows": {
+    "winget": ["Fastfetch-cli.Fastfetch"],
+    "choco": ["fastfetch"],
+    "scoop": ["fastfetch"],
+    "paths": {
+      "config": "%APPDATA%/fastfetch"
+    }
+  },
+  "linux": {
+    "pacman": ["fastfetch"],
+    "apt": ["fastfetch"],
+    "dnf": ["fastfetch"],
+    "zypper": ["fastfetch"],
+    "apk": ["fastfetch"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/fastfetch"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "config.jsonc is the same file on both platforms; modules that do not exist on the target simply print nothing."
+  }
+}

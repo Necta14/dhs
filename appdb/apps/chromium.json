@@ -1,0 +1,35 @@
+{
+  "id": "chromium",
+  "name": "Chromium",
+  "summary": "Open source browser Chrome is built from",
+  "category": "browser",
+  "homepage": "https://www.chromium.org/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": ["Hibbiki.Chromium"],
+    "choco": ["chromium"],
+    "scoop": ["extras/chromium"],
+    "registry": ["Chromium"],
+    "paths": {
+      "user-data": "%LOCALAPPDATA%/Chromium/User Data"
+    }
+  },
+  "linux": {
+    "pacman": ["chromium"],
+    "apt": ["chromium", "chromium-browser"],
+    "dnf": ["chromium"],
+    "zypper": ["chromium"],
+    "apk": ["chromium"],
+    "flatpak": ["org.chromium.Chromium"],
+    "snap": ["chromium"],
+    "paths": {
+      "user-data": "$XDG_CONFIG_HOME/chromium"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "ShaderCache", "GrShaderCache", "GraphiteDawnCache", "DawnCache", "Crashpad", "Crash Reports", "component_crx_cache", "extensions_crx_cache", "Service Worker", "BrowserMetrics", "optimization_guide_model_store", "*.log"],
+    "notes": "The user-data directory has the same layout on both platforms: Preferences, Bookmarks, extensions and per-profile directories all carry over. Cookies and saved passwords are sealed with the Windows DPAPI, so those are re-entered on Linux; they are secrets anyway and travel only with --secrets."
+  },
+  "equivalents": ["ungoogled-chromium", "google-chrome", "firefox"]
+}

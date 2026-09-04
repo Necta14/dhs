@@ -1,0 +1,19 @@
+{
+  "id": "filelight",
+  "name": "Filelight",
+  "summary": "Shows what fills a disk, as rings",
+  "category": "utility",
+  "homepage": "https://apps.kde.org/filelight/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["filelight"],
+    "apt": ["filelight"],
+    "dnf": ["filelight"],
+    "zypper": ["filelight"],
+    "flatpak": ["org.kde.filelight"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["baobab", "qdirstat", "ncdu"]
+}

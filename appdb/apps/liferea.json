@@ -1,0 +1,25 @@
+{
+  "id": "liferea",
+  "name": "Liferea",
+  "summary": "GTK feed reader",
+  "category": "feed-reader",
+  "homepage": "https://lzone.de/liferea/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["liferea"],
+    "apt": ["liferea"],
+    "dnf": ["liferea"],
+    "zypper": ["liferea"],
+    "apk": ["liferea"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/liferea",
+      "data": "$XDG_DATA_HOME/liferea"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["cache", "*.lock"],
+    "notes": "Linux only. The feed list is feedlist.opml under the config directory and can be imported by any other reader."
+  },
+  "equivalents": ["newsflash", "rssguard", "akregator"]
+}

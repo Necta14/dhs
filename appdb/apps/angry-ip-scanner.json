@@ -1,0 +1,20 @@
+{
+  "id": "angry-ip-scanner",
+  "name": "Angry IP Scanner",
+  "summary": "Fast IP and port scanner with a GUI",
+  "category": "network",
+  "homepage": "https://angryip.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["angryziber.AngryIPScanner"],
+    "choco": ["ipscan"],
+    "registry": ["Angry IP Scanner"]
+  },
+  "linux": {
+    "aur": ["ipscan"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["nmap"]
+}

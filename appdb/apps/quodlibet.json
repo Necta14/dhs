@@ -1,0 +1,29 @@
+{
+  "id": "quodlibet",
+  "name": "Quod Libet",
+  "summary": "Music player built around tag queries",
+  "category": "music",
+  "homepage": "https://quodlibet.readthedocs.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["QuodLibet.QuodLibet"],
+    "choco": ["quodlibet"],
+    "scoop": ["extras/quodlibet"],
+    "registry": ["Quod Libet"]
+  },
+  "linux": {
+    "pacman": ["quodlibet"],
+    "apt": ["quodlibet"],
+    "dnf": ["quodlibet"],
+    "flatpak": ["io.github.quodlibet.QuodLibet"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/quodlibet"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["songs", "songs.*", "dumps", "*.log", "covers"],
+    "notes": "The configuration directory holds config, the saved searches and the playlists. The songs file is the scanned library, full of absolute paths, and is rebuilt by a rescan."
+  },
+  "equivalents": ["strawberry", "foobar2000"]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "ktorrent",
+  "name": "KTorrent",
+  "summary": "KDE BitTorrent client",
+  "category": "torrent",
+  "homepage": "https://apps.kde.org/ktorrent/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["ktorrent"],
+    "apt": ["ktorrent"],
+    "dnf": ["ktorrent"],
+    "zypper": ["ktorrent"],
+    "apk": ["ktorrent"],
+    "flatpak": ["org.kde.ktorrent"],
+    "snap": ["ktorrent"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ktorrentrc",
+      "data": "$XDG_DATA_HOME/ktorrent"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.lock", "*.log"],
+    "notes": "Linux only, and ktorrentrc stores absolute save paths."
+  },
+  "equivalents": ["qbittorrent", "transmission", "deluge"]
+}

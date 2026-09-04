@@ -1,0 +1,32 @@
+{
+  "id": "quassel",
+  "name": "Quassel IRC",
+  "summary": "IRC client with a detachable always-on core",
+  "category": "chat",
+  "homepage": "https://quassel-irc.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["quassel"],
+    "scoop": ["extras/quassel"],
+    "registry": ["Quassel IRC"],
+    "paths": {
+      "config": "%APPDATA%/quassel-irc.org"
+    }
+  },
+  "linux": {
+    "pacman": ["quassel-client", "quassel-monolithic"],
+    "apt": ["quassel"],
+    "dnf": ["quassel"],
+    "apk": ["quassel-client"],
+    "flatpak": ["org.quassel_irc.QuasselClient"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/quassel-irc.org"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.lock", "*.log"],
+    "notes": "quasselclient.conf is a Qt settings file holding absolute paths and certificate locations, so it is kept aside. The chat history lives on the core, not on the client."
+  },
+  "equivalents": ["konversation", "hexchat", "weechat"]
+}

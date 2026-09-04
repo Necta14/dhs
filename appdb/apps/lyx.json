@@ -1,0 +1,30 @@
+{
+  "id": "lyx",
+  "name": "LyX",
+  "summary": "Document processor that writes LaTeX behind a WYSIWYM interface",
+  "category": "office",
+  "homepage": "https://www.lyx.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["LyX.LyX"],
+    "choco": ["lyx"],
+    "registry": ["LyX"]
+  },
+  "linux": {
+    "aur": ["lyx"],
+    "apt": ["lyx"],
+    "dnf": ["lyx"],
+    "zypper": ["lyx"],
+    "apk": ["lyx"],
+    "flatpak": ["org.lyx.LyX"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/lyx"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.log"],
+    "notes": "The user directory carries preferences, layouts, templates and the personal dictionary, but the converter and viewer commands inside are absolute paths, and the Windows build keeps the same directory under a version-numbered name in %APPDATA%."
+  },
+  "equivalents": ["texstudio", "texmaker", "libreoffice"]
+}

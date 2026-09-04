@@ -1,0 +1,26 @@
+{
+  "id": "unciv",
+  "name": "Unciv",
+  "summary": "Open source remake of Civilization V",
+  "category": "gaming",
+  "homepage": "https://github.com/yairm210/Unciv",
+  "license": "MPL-2.0",
+  "windows": {
+    "choco": ["unciv"],
+    "scoop": ["games/unciv"],
+    "registry": ["Unciv"]
+  },
+  "linux": {
+    "aur": ["unciv"],
+    "flatpak": ["io.github.yairm210.unciv"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/Unciv"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "The saves, the mods and GameSettings.json are plain files; the Windows build keeps them in a different folder, so they are set aside rather than dropped in place."
+  },
+  "equivalents": []
+}

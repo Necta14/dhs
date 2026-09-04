@@ -1,0 +1,39 @@
+{
+  "id": "mise",
+  "name": "mise-en-place",
+  "summary": "Manages tool versions, tasks and environments per project",
+  "category": "devtool",
+  "homepage": "https://mise.jdx.dev/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "jdx.mise"
+    ],
+    "choco": [
+      "mise"
+    ],
+    "scoop": [
+      "mise"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "mise"
+    ],
+    "apk": [
+      "mise"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/mise"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "config.toml names the tool versions; mise downloads the tools themselves again on the target system."
+  },
+  "equivalents": [
+    "direnv",
+    "pyenv",
+    "nvm"
+  ]
+}

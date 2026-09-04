@@ -1,0 +1,24 @@
+{
+  "id": "vorta",
+  "name": "Vorta",
+  "summary": "Desktop front end for BorgBackup",
+  "category": "backup",
+  "homepage": "https://vorta.borgbase.com/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["vorta"],
+    "apt": ["vorta"],
+    "dnf": ["vorta"],
+    "zypper": ["vorta"],
+    "flatpak": ["com.borgbase.Vorta"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/Vorta"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "logs"],
+    "notes": "Linux only. settings.db lists repositories and source folders by absolute path."
+  },
+  "equivalents": ["pika-backup", "deja-dup", "borgbackup"]
+}

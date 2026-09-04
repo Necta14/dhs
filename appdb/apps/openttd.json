@@ -1,0 +1,35 @@
+{
+  "id": "openttd",
+  "name": "OpenTTD",
+  "summary": "Open source remake of Transport Tycoon Deluxe",
+  "category": "gaming",
+  "homepage": "https://www.openttd.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["OpenTTD.OpenTTD"],
+    "choco": ["openttd"],
+    "scoop": ["games/openttd"],
+    "registry": ["OpenTTD"],
+    "paths": {
+      "data": "%USERPROFILE%/Documents/OpenTTD"
+    }
+  },
+  "linux": {
+    "pacman": ["openttd"],
+    "apt": ["openttd"],
+    "dnf": ["openttd"],
+    "zypper": ["openttd"],
+    "apk": ["openttd"],
+    "flatpak": ["org.openttd.OpenTTD"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/openttd",
+      "data": "$XDG_DATA_HOME/openttd"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "screenshot", "autosave"],
+    "notes": "openttd.cfg and the savegames are portable, but Windows keeps everything in one folder under Documents while Linux puts the configuration under XDG_CONFIG_HOME and the rest under XDG_DATA_HOME."
+  },
+  "equivalents": []
+}

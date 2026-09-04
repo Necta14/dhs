@@ -1,0 +1,26 @@
+{
+  "id": "davinci-resolve",
+  "name": "DaVinci Resolve",
+  "summary": "Professional video editing and colour grading",
+  "category": "video-editor",
+  "homepage": "https://www.blackmagicdesign.com/products/davinciresolve",
+  "license": "proprietary",
+  "windows": {
+    "registry": ["DaVinci Resolve"],
+    "paths": {
+      "config": "%APPDATA%/Blackmagic Design/DaVinci Resolve"
+    }
+  },
+  "linux": {
+    "aur": ["davinci-resolve"],
+    "paths": {
+      "config": "$XDG_DATA_HOME/DaVinciResolve"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["logs", "*.log", "CacheClip", "GalleryStillImages"],
+    "notes": "No package manager carries it: Blackmagic puts the installer behind a registration form, and the AUR recipe only wraps a file you download yourself. DHS detects it and keeps the configuration aside; the project database is exported from inside Resolve, not copied."
+  },
+  "equivalents": ["kdenlive", "shotcut"]
+}

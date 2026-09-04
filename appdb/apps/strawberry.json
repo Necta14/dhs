@@ -1,0 +1,26 @@
+{
+  "id": "strawberry",
+  "name": "Strawberry",
+  "summary": "Music player for large local collections",
+  "category": "music",
+  "homepage": "https://www.strawberrymusicplayer.org/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["strawberry"],
+    "apt": ["strawberry"],
+    "dnf": ["strawberry"],
+    "zypper": ["strawberry"],
+    "apk": ["strawberry"],
+    "flatpak": ["org.strawberrymusicplayer.strawberry"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/strawberry",
+      "data": "$XDG_DATA_HOME/strawberry"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["strawberry.db", "strawberry.db-*", "albumcovers", "moodbars", "*.log"],
+    "notes": "A fork of Clementine, kept for local files rather than streaming. Windows builds exist on the project's site but in no package manager, so DHS offers the equivalents there. strawberry.db is the scanned collection and is rebuilt on first run."
+  },
+  "equivalents": ["musicbee", "foobar2000", "clementine"]
+}

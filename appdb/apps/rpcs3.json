@@ -1,0 +1,27 @@
+{
+  "id": "rpcs3",
+  "name": "RPCS3",
+  "summary": "PlayStation 3 emulator",
+  "category": "emulator",
+  "homepage": "https://rpcs3.net/",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["rpcs3"],
+    "scoop": ["games/rpcs3"],
+    "registry": ["RPCS3"]
+  },
+  "linux": {
+    "aur": ["rpcs3-bin"],
+    "zypper": ["rpcs3"],
+    "flatpak": ["net.rpcs3.RPCS3"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/rpcs3"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "dev_hdd0/game", "dev_hdd1", "dev_flash", "dev_flash2", "dev_flash3", "shaderlog", "*.log"],
+    "notes": "The savegames under dev_hdd0/home are carried; the installed games, the firmware in dev_flash and the shader caches are not. The Windows build keeps everything next to its own executable, which DHS cannot address, so only the Linux configuration is backed up."
+  },
+  "equivalents": []
+}

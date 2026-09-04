@@ -1,0 +1,36 @@
+{
+  "id": "qutebrowser",
+  "name": "qutebrowser",
+  "summary": "Keyboard-driven browser with vim-like bindings",
+  "category": "browser",
+  "homepage": "https://qutebrowser.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["qutebrowser.qutebrowser"],
+    "choco": ["qutebrowser"],
+    "scoop": ["extras/qutebrowser"],
+    "registry": ["qutebrowser"],
+    "paths": {
+      "config": "%APPDATA%/qutebrowser/config",
+      "data": "%APPDATA%/qutebrowser/data"
+    }
+  },
+  "linux": {
+    "pacman": ["qutebrowser"],
+    "apt": ["qutebrowser"],
+    "dnf": ["qutebrowser"],
+    "zypper": ["qutebrowser"],
+    "apk": ["qutebrowser"],
+    "flatpak": ["org.qutebrowser.qutebrowser"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/qutebrowser",
+      "data": "$XDG_DATA_HOME/qutebrowser"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache", "webengine", "qtwebengine_dictionaries", "*.log"],
+    "notes": "config.py and autoconfig.yml are the same on both platforms; only a config.py that shells out to platform commands needs a look."
+  },
+  "equivalents": ["firefox", "falkon", "chromium"]
+}

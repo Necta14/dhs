@@ -1,0 +1,32 @@
+{
+  "id": "pcsx2",
+  "name": "PCSX2",
+  "summary": "PlayStation 2 emulator",
+  "category": "emulator",
+  "homepage": "https://pcsx2.net/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["PCSX2Team.PCSX2"],
+    "choco": ["pcsx2"],
+    "scoop": ["games/pcsx2"],
+    "registry": ["PCSX2"],
+    "paths": {
+      "config": "%USERPROFILE%/Documents/PCSX2"
+    }
+  },
+  "linux": {
+    "aur": ["pcsx2"],
+    "apt": ["pcsx2"],
+    "zypper": ["pcsx2"],
+    "flatpak": ["net.pcsx2.PCSX2"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/PCSX2"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "logs", "*.log", "bios", "textures", "covers", "dumps"],
+    "notes": "The memory cards, the save states and the per-game settings are carried. PCSX2.ini records the BIOS and ISO directories by absolute path, and the BIOS dump itself stays with the user."
+  },
+  "equivalents": []
+}

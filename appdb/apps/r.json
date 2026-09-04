@@ -1,0 +1,33 @@
+{
+  "id": "r",
+  "name": "R",
+  "summary": "Language and environment for statistical computing",
+  "category": "science",
+  "homepage": "https://www.r-project.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["RProject.R"],
+    "choco": ["r.project"],
+    "scoop": ["r"],
+    "registry": ["R for Windows"],
+    "paths": {
+      "rprofile": "%USERPROFILE%/.Rprofile",
+      "renviron": "%USERPROFILE%/.Renviron"
+    }
+  },
+  "linux": {
+    "pacman": ["r"],
+    "apt": ["r-base"],
+    "dnf": ["R"],
+    "zypper": ["R-base"],
+    "apk": ["R"],
+    "paths": {
+      "rprofile": "~/.Rprofile",
+      "renviron": "~/.Renviron"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "Both files are plain R and shell-style text. The user library of installed packages is compiled for the platform and is not carried; reinstall the packages on the new system."
+  }
+}

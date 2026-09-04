@@ -1,0 +1,30 @@
+{
+  "id": "zettlr",
+  "name": "Zettlr",
+  "summary": "Markdown editor for academic writing and zettelkasten notes",
+  "category": "notes",
+  "homepage": "https://www.zettlr.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Zettlr.Zettlr"],
+    "choco": ["zettlr"],
+    "scoop": ["extras/zettlr"],
+    "registry": ["Zettlr"],
+    "paths": {
+      "config": "%APPDATA%/Zettlr"
+    }
+  },
+  "linux": {
+    "pacman": ["zettlr"],
+    "flatpak": ["com.zettlr.Zettlr"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Zettlr"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "config.json, the custom CSS and the user dictionaries are the same on both platforms; the open workspace paths inside have to be pointed at the new home."
+  },
+  "equivalents": ["obsidian", "marktext", "ghostwriter"]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "process-explorer",
+  "name": "Process Explorer",
+  "summary": "Sysinternals process viewer for Windows",
+  "category": "system",
+  "homepage": "https://learn.microsoft.com/sysinternals/downloads/process-explorer",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Microsoft.Sysinternals.ProcessExplorer"],
+    "choco": ["procexp"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only; settings go to the registry or to a .cfg next to the executable."
+  },
+  "equivalents": ["htop", "btop", "plasma-systemmonitor", "gnome-system-monitor"]
+}

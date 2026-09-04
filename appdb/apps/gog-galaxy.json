@@ -1,0 +1,23 @@
+{
+  "id": "gog-galaxy",
+  "name": "GOG Galaxy",
+  "summary": "Game store and launcher by GOG",
+  "category": "launcher",
+  "homepage": "https://www.gog.com/galaxy",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["GOG.Galaxy"],
+    "choco": ["goggalaxy"],
+    "scoop": ["games/goggalaxy"],
+    "registry": ["GOG GALAXY"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/GOG.com/Galaxy"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["logs", "*.log", "webcache", "storage", "Crashes"],
+    "notes": "Windows only. GOG games are DRM-free, so on Linux they are installed straight from the account through the equivalents below."
+  },
+  "equivalents": ["heroic-games-launcher", "lutris", "bottles"]
+}

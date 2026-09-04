@@ -1,0 +1,22 @@
+{
+  "id": "xarchiver",
+  "name": "Xarchiver",
+  "summary": "Lightweight GTK archive manager",
+  "category": "archive",
+  "homepage": "https://github.com/ib/xarchiver",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["xarchiver"],
+    "apt": ["xarchiver"],
+    "dnf": ["xarchiver"],
+    "apk": ["xarchiver"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/xarchiver"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only."
+  },
+  "equivalents": ["file-roller", "ark", "7zip"]
+}

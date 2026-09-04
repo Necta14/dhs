@@ -1,0 +1,21 @@
+{
+  "id": "corectrl",
+  "name": "CoreCtrl",
+  "summary": "Per-application control of AMD GPU and CPU profiles",
+  "category": "utility",
+  "homepage": "https://gitlab.com/corectrl/corectrl",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["corectrl"],
+    "apt": ["corectrl"],
+    "dnf": ["corectrl"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/corectrl"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The profiles name executables by absolute path and clock limits that belong to the installed card."
+  },
+  "equivalents": ["lact", "msi-afterburner"]
+}

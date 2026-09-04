@@ -1,0 +1,38 @@
+{
+  "id": "deno",
+  "name": "Deno",
+  "summary": "Secure JavaScript and TypeScript runtime",
+  "category": "devtool",
+  "homepage": "https://deno.com/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "DenoLand.Deno"
+    ],
+    "choco": [
+      "deno"
+    ],
+    "scoop": [
+      "deno"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "deno"
+    ],
+    "zypper": [
+      "deno"
+    ],
+    "apk": [
+      "deno"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Configuration lives in each project's deno.json; the module cache is re-downloaded."
+  },
+  "equivalents": [
+    "nodejs",
+    "bun"
+  ]
+}

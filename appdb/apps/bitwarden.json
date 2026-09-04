@@ -1,0 +1,33 @@
+{
+  "id": "bitwarden",
+  "name": "Bitwarden",
+  "summary": "Password manager with a hosted or self-hosted vault",
+  "category": "password-manager",
+  "homepage": "https://bitwarden.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Bitwarden.Bitwarden"],
+    "choco": ["bitwarden"],
+    "scoop": ["extras/bitwarden"],
+    "registry": ["Bitwarden"],
+    "paths": {
+      "config": "%APPDATA%/Bitwarden"
+    }
+  },
+  "linux": {
+    "pacman": ["bitwarden"],
+    "aur": ["bitwarden-bin"],
+    "zypper": ["bitwarden"],
+    "flatpak": ["com.bitwarden.desktop"],
+    "snap": ["bitwarden"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Bitwarden"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "Only the application settings are here, such as the server URL and the interface preferences. The vault itself lives in the account and is downloaded again after sign-in; the local data.json holds an encrypted copy and a session token, so treat it as a secret."
+  },
+  "equivalents": ["keepassxc", "proton-pass", "1password"]
+}

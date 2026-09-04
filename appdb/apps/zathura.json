@@ -1,0 +1,26 @@
+{
+  "id": "zathura",
+  "name": "zathura",
+  "summary": "Keyboard-driven document viewer with vim-like bindings",
+  "category": "pdf",
+  "homepage": "https://pwmt.org/projects/zathura/",
+  "license": "Zlib",
+  "linux": {
+    "pacman": ["zathura"],
+    "apt": ["zathura"],
+    "dnf": ["zathura"],
+    "zypper": ["zathura"],
+    "apk": ["zathura"],
+    "flatpak": ["org.pwmt.zathura"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/zathura",
+      "data": "$XDG_DATA_HOME/zathura"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["history", "bookmarks.sqlite-journal"],
+    "notes": "zathurarc is plain text. The plugin that renders PDF (zathura-pdf-mupdf or zathura-pdf-poppler) is a separate package on every distribution."
+  },
+  "equivalents": ["sioyek", "okular", "evince"]
+}

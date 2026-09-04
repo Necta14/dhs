@@ -1,0 +1,17 @@
+{
+  "id": "system-informer",
+  "name": "System Informer",
+  "summary": "Detailed process and system viewer for Windows",
+  "category": "system",
+  "homepage": "https://systeminformer.sourceforge.io/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["WinsiderSS.SystemInformer"],
+    "registry": ["System Informer"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only."
+  },
+  "equivalents": ["htop", "btop", "process-explorer"]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "ripgrep",
+  "name": "ripgrep",
+  "summary": "Fast recursive search tool",
+  "category": "devtool",
+  "homepage": "https://github.com/BurntSushi/ripgrep",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "BurntSushi.ripgrep.MSVC"
+    ],
+    "choco": [
+      "ripgrep"
+    ],
+    "scoop": [
+      "ripgrep"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "ripgrep"
+    ],
+    "apt": [
+      "ripgrep"
+    ],
+    "dnf": [
+      "ripgrep"
+    ],
+    "zypper": [
+      "ripgrep"
+    ],
+    "apk": [
+      "ripgrep"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "ripgrep reads the file named by RIPGREP_CONFIG_PATH, which the user places wherever they like; it travels with their documents."
+  },
+  "equivalents": [
+    "fd",
+    "fzf"
+  ]
+}

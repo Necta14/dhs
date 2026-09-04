@@ -1,0 +1,53 @@
+{
+  "id": "postgresql",
+  "name": "PostgreSQL",
+  "summary": "Relational database server and client tools",
+  "category": "database",
+  "homepage": "https://www.postgresql.org/",
+  "license": "PostgreSQL",
+  "windows": {
+    "winget": [
+      "PostgreSQL.PostgreSQL.17"
+    ],
+    "choco": [
+      "postgresql"
+    ],
+    "scoop": [
+      "postgresql"
+    ],
+    "registry": [
+      "PostgreSQL"
+    ],
+    "paths": {
+      "psqlrc": "%APPDATA%/postgresql/psqlrc.conf"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "postgresql"
+    ],
+    "apt": [
+      "postgresql"
+    ],
+    "dnf": [
+      "postgresql-server"
+    ],
+    "zypper": [
+      "postgresql-server"
+    ],
+    "apk": [
+      "postgresql16"
+    ],
+    "paths": {
+      "psqlrc": "~/.psqlrc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "Only the psql start-up file is carried; it is the same set of backslash commands under a different name. The databases themselves live in the server's data directory and are moved with pg_dump, not by DHS."
+  },
+  "equivalents": [
+    "mariadb",
+    "sqlite"
+  ]
+}

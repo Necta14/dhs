@@ -1,0 +1,30 @@
+{
+  "id": "bleachbit",
+  "name": "BleachBit",
+  "summary": "Frees disk space and shreds temporary files",
+  "category": "utility",
+  "homepage": "https://www.bleachbit.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["BleachBit.BleachBit"],
+    "choco": ["bleachbit"],
+    "registry": ["BleachBit"],
+    "paths": {
+      "config": "%APPDATA%/BleachBit"
+    }
+  },
+  "linux": {
+    "pacman": ["bleachbit"],
+    "apt": ["bleachbit"],
+    "dnf": ["bleachbit"],
+    "zypper": ["bleachbit"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/bleachbit"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "bleachbit.ini holds which cleaners are ticked; cleaners that do not exist on the other platform are ignored."
+  },
+  "equivalents": ["ccleaner", "stacer"]
+}

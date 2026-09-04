@@ -1,0 +1,30 @@
+{
+  "id": "xemu",
+  "name": "xemu",
+  "summary": "Original Xbox emulator",
+  "category": "emulator",
+  "homepage": "https://xemu.app/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["xemu-project.xemu"],
+    "scoop": ["games/xemu"],
+    "registry": ["xemu"],
+    "paths": {
+      "data": "%APPDATA%/xemu/xemu"
+    }
+  },
+  "linux": {
+    "aur": ["xemu"],
+    "apk": ["xemu"],
+    "flatpak": ["app.xemu.xemu"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/xemu/xemu"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "xemu.toml sits in this directory on both platforms, but it names the BIOS, MCPX and hard-disk images by absolute path; those images are the user's own dumps and stay where they are."
+  },
+  "equivalents": []
+}

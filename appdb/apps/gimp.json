@@ -1,0 +1,35 @@
+{
+  "id": "gimp",
+  "name": "GIMP",
+  "summary": "Raster image editor",
+  "category": "graphics",
+  "homepage": "https://www.gimp.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["GIMP.GIMP"],
+    "choco": ["gimp"],
+    "scoop": ["extras/gimp"],
+    "registry": ["GIMP"],
+    "paths": {
+      "config": "%APPDATA%/GIMP"
+    }
+  },
+  "linux": {
+    "pacman": ["gimp"],
+    "apt": ["gimp"],
+    "dnf": ["gimp"],
+    "zypper": ["gimp"],
+    "apk": ["gimp"],
+    "flatpak": ["org.gimp.GIMP"],
+    "snap": ["gimp"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/GIMP"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*/tmp", "*/cache", "*/pluginrc", "*/plug-ins", "*.log", "*/swap"],
+    "notes": "The profile is one directory per major version (3.0, 2.10). Brushes, palettes, gradients, patterns and Script-Fu scripts inside it are plain files and travel; gimprc and sessionrc hold absolute folder lists and monitor geometry, and the plug-ins directory holds binaries built for the old platform, so those stay behind."
+  },
+  "equivalents": ["krita", "paint-net", "pinta"]
+}

@@ -1,0 +1,45 @@
+{
+  "id": "jetbrains-toolbox",
+  "name": "JetBrains Toolbox App",
+  "summary": "Installer and updater for the JetBrains IDEs",
+  "category": "launcher",
+  "homepage": "https://www.jetbrains.com/toolbox-app/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "JetBrains.Toolbox"
+    ],
+    "choco": [
+      "jetbrainstoolbox"
+    ],
+    "scoop": [
+      "extras/jetbrains-toolbox"
+    ],
+    "registry": [
+      "JetBrains Toolbox"
+    ],
+    "paths": {
+      "config": "%LOCALAPPDATA%/JetBrains/Toolbox"
+    }
+  },
+  "linux": {
+    "aur": [
+      "jetbrains-toolbox"
+    ],
+    "paths": {
+      "config": "$XDG_DATA_HOME/JetBrains/Toolbox"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "apps",
+      "cache",
+      "logs",
+      "*.log",
+      "channels"
+    ],
+    "notes": ".settings.json records where the IDEs are installed; the installed IDEs themselves are hundreds of megabytes and are re-downloaded by the Toolbox."
+  },
+  "equivalents": []
+}

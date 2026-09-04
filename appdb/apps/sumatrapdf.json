@@ -1,0 +1,23 @@
+{
+  "id": "sumatrapdf",
+  "name": "SumatraPDF",
+  "summary": "Small, fast reader for PDF, EPUB, MOBI, CBZ and DjVu",
+  "category": "pdf",
+  "homepage": "https://www.sumatrapdfreader.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["SumatraPDF.SumatraPDF"],
+    "choco": ["sumatrapdf.install", "sumatrapdf"],
+    "scoop": ["extras/sumatrapdf"],
+    "registry": ["SumatraPDF"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/SumatraPDF"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["sumatrapdfcache", "*.log"],
+    "notes": "Windows only. SumatraPDF-settings.txt is its own format and records absolute paths of the files last opened, so it is kept aside on Linux."
+  },
+  "equivalents": ["zathura", "okular", "evince", "sioyek"]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "gwenview",
+  "name": "Gwenview",
+  "summary": "KDE image viewer",
+  "category": "photo",
+  "homepage": "https://apps.kde.org/gwenview/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["gwenview"],
+    "apt": ["gwenview"],
+    "dnf": ["gwenview"],
+    "zypper": ["gwenview"],
+    "apk": ["gwenview"],
+    "flatpak": ["org.kde.gwenview"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/gwenviewrc"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. gwenviewrc is a short KConfig file: the view mode, the sorting and the recent folders."
+  },
+  "equivalents": ["nomacs", "loupe", "irfanview"]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "shotcut",
+  "name": "Shotcut",
+  "summary": "Video editor built on the MLT framework",
+  "category": "video-editor",
+  "homepage": "https://www.shotcut.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Meltytech.Shotcut"],
+    "choco": ["shotcut"],
+    "scoop": ["extras/shotcut"],
+    "registry": ["Shotcut"],
+    "paths": {
+      "config": "%APPDATA%/Meltytech"
+    }
+  },
+  "linux": {
+    "pacman": ["shotcut"],
+    "apt": ["shotcut"],
+    "dnf": ["shotcut"],
+    "zypper": ["shotcut"],
+    "apk": ["shotcut"],
+    "flatpak": ["org.shotcut.Shotcut"],
+    "snap": ["shotcut"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Meltytech"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log"],
+    "notes": "Settings are a Qt configuration under Meltytech, written as Shotcut.ini on Windows and Shotcut.conf on Linux; the keys match but the recent projects and export folders inside are absolute paths."
+  },
+  "equivalents": ["kdenlive", "openshot", "davinci-resolve"]
+}

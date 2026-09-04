@@ -1,0 +1,57 @@
+{
+  "id": "codeblocks",
+  "name": "Code::Blocks",
+  "summary": "C, C++ and Fortran IDE",
+  "category": "ide",
+  "homepage": "https://www.codeblocks.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": [
+      "CodeBlocks.CodeBlocks"
+    ],
+    "choco": [
+      "codeblocks"
+    ],
+    "scoop": [
+      "extras/codeblocks"
+    ],
+    "registry": [
+      "Code::Blocks"
+    ],
+    "paths": {
+      "config": "%APPDATA%/CodeBlocks"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "codeblocks"
+    ],
+    "apt": [
+      "codeblocks"
+    ],
+    "dnf": [
+      "codeblocks"
+    ],
+    "apk": [
+      "codeblocks"
+    ],
+    "flatpak": [
+      "org.codeblocks.codeblocks"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/codeblocks"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "*.log"
+    ],
+    "notes": "default.conf records the compiler toolchains by absolute path, which differ between Windows and Linux."
+  },
+  "equivalents": [
+    "qt-creator",
+    "kdevelop",
+    "geany"
+  ]
+}

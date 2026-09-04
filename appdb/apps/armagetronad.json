@@ -1,0 +1,29 @@
+{
+  "id": "armagetronad",
+  "name": "Armagetron Advanced",
+  "summary": "Open source 3D light-cycle game in the spirit of Tron",
+  "category": "gaming",
+  "homepage": "https://www.armagetronad.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["armagetronad"],
+    "scoop": ["games/armagetronad"],
+    "registry": ["Armagetron Advanced"]
+  },
+  "linux": {
+    "pacman": ["armagetronad"],
+    "apt": ["armagetronad"],
+    "zypper": ["armagetron"],
+    "apk": ["armagetronad"],
+    "flatpak": ["org.armagetronad.ArmagetronAdvanced"],
+    "paths": {
+      "config": "~/.armagetronad"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "var"],
+    "notes": "user.cfg holds the key bindings and the player name; the Windows build keeps the same file in its own folder."
+  },
+  "equivalents": []
+}

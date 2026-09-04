@@ -1,0 +1,17 @@
+{
+  "id": "filmora",
+  "name": "Wondershare Filmora",
+  "summary": "Consumer video editor",
+  "category": "video-editor",
+  "homepage": "https://filmora.wondershare.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Wondershare.Filmora"],
+    "registry": ["Wondershare Filmora"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. The licence follows the Wondershare account and the effect packs are downloaded again after signing in; the projects are files kept with the footage."
+  },
+  "equivalents": ["kdenlive", "shotcut", "openshot"]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "gamescope",
+  "name": "Gamescope",
+  "summary": "Micro-compositor that gives a game its own scaled, framerate-limited display",
+  "category": "utility",
+  "homepage": "https://github.com/ValveSoftware/gamescope",
+  "license": "BSD-2-Clause",
+  "linux": {
+    "pacman": ["gamescope"],
+    "apt": ["gamescope"],
+    "dnf": ["gamescope"],
+    "zypper": ["gamescope"],
+    "apk": ["gamescope"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only, and driven entirely by command-line flags; there is no configuration file."
+  },
+  "equivalents": []
+}

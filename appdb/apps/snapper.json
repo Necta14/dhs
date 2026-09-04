@@ -1,0 +1,19 @@
+{
+  "id": "snapper",
+  "name": "Snapper",
+  "summary": "Btrfs and LVM snapshot management",
+  "category": "backup",
+  "homepage": "https://snapper.io/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["snapper"],
+    "apt": ["snapper"],
+    "dnf": ["snapper"],
+    "zypper": ["snapper"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The configurations live in /etc/snapper and describe subvolumes of this machine's filesystem."
+  },
+  "equivalents": ["timeshift", "borgbackup"]
+}

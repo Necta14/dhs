@@ -1,0 +1,22 @@
+{
+  "id": "mremoteng",
+  "name": "mRemoteNG",
+  "summary": "Tabbed connection manager for RDP, VNC and SSH",
+  "category": "remote-desktop",
+  "homepage": "https://mremoteng.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["mRemoteNG.mRemoteNG"],
+    "choco": ["mremoteng"],
+    "registry": ["mRemoteNG"],
+    "paths": {
+      "config": "%APPDATA%/mRemoteNG"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "Themes"],
+    "notes": "Windows only. confCons.xml holds the connection tree with encrypted passwords, which DHS treats as secrets."
+  },
+  "equivalents": ["remmina", "krdc"]
+}

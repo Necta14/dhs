@@ -1,0 +1,21 @@
+{
+  "id": "loupe",
+  "name": "Loupe",
+  "summary": "GNOME image viewer",
+  "category": "photo",
+  "homepage": "https://apps.gnome.org/Loupe/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["loupe"],
+    "apt": ["loupe"],
+    "dnf": ["loupe"],
+    "zypper": ["loupe"],
+    "apk": ["loupe"],
+    "flatpak": ["org.gnome.Loupe"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only, and it keeps almost nothing: a few GSettings keys in dconf for the window size and the zoom behaviour."
+  },
+  "equivalents": ["eog", "gwenview", "nomacs"]
+}

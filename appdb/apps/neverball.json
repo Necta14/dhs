@@ -1,0 +1,29 @@
+{
+  "id": "neverball",
+  "name": "Neverball",
+  "summary": "Open source tilt-the-floor ball rolling game",
+  "category": "gaming",
+  "homepage": "https://neverball.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Neverball.Neverball"],
+    "choco": ["neverball"],
+    "scoop": ["games/neverball"],
+    "registry": ["Neverball"]
+  },
+  "linux": {
+    "aur": ["neverball"],
+    "apt": ["neverball"],
+    "dnf": ["neverball"],
+    "zypper": ["neverball"],
+    "paths": {
+      "config": "~/.neverball"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "Screenshots"],
+    "notes": "neverballrc and the replays live here on Linux; the Windows build keeps them next to its own executable."
+  },
+  "equivalents": []
+}

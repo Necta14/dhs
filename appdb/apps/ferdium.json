@@ -1,0 +1,31 @@
+{
+  "id": "ferdium",
+  "name": "Ferdium",
+  "summary": "One window for many web messengers",
+  "category": "chat",
+  "homepage": "https://ferdium.org/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": ["Ferdium.Ferdium"],
+    "choco": ["ferdium"],
+    "scoop": ["extras/ferdium"],
+    "registry": ["Ferdium"],
+    "paths": {
+      "config": "%APPDATA%/Ferdium"
+    }
+  },
+  "linux": {
+    "aur": ["ferdium-bin"],
+    "flatpak": ["org.ferdium.Ferdium"],
+    "snap": ["ferdium"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Ferdium"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker", "Partitions", "recipes/temp"],
+    "notes": "An Electron application: the settings files are JSON and read the same on both platforms. The service list is in config/settings.json; each service keeps its own browser partition, which is dropped so that the logins are done again on the new machine."
+  },
+  "equivalents": ["slack", "discord"]
+}

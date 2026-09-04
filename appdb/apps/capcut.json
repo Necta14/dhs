@@ -1,0 +1,17 @@
+{
+  "id": "capcut",
+  "name": "CapCut",
+  "summary": "Video editor with templates and captions",
+  "category": "video-editor",
+  "homepage": "https://www.capcut.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["ByteDance.CapCut"],
+    "registry": ["CapCut"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only as a desktop application. Drafts and effect packs sit in a local folder tied to the account, and are downloaded again after signing in on the new machine."
+  },
+  "equivalents": ["kdenlive", "shotcut", "openshot"]
+}

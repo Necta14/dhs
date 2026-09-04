@@ -1,0 +1,51 @@
+{
+  "id": "sqlite",
+  "name": "SQLite",
+  "summary": "Embedded SQL database engine and its shell",
+  "category": "database",
+  "homepage": "https://www.sqlite.org/",
+  "license": "blessing",
+  "windows": {
+    "winget": [
+      "SQLite.SQLite"
+    ],
+    "choco": [
+      "SQLite"
+    ],
+    "scoop": [
+      "sqlite"
+    ],
+    "paths": {
+      "sqliterc": "%USERPROFILE%/.sqliterc"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "sqlite"
+    ],
+    "apt": [
+      "sqlite3"
+    ],
+    "dnf": [
+      "sqlite"
+    ],
+    "zypper": [
+      "sqlite3"
+    ],
+    "apk": [
+      "sqlite"
+    ],
+    "paths": {
+      "sqliterc": "~/.sqliterc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": ".sqliterc is a list of dot-commands for the shell, identical everywhere. Database files are the user's own documents."
+  },
+  "equivalents": [
+    "sqlitebrowser",
+    "postgresql",
+    "mariadb"
+  ]
+}

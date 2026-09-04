@@ -1,0 +1,27 @@
+{
+  "id": "warzone2100",
+  "name": "Warzone 2100",
+  "summary": "Open source real-time strategy game",
+  "category": "gaming",
+  "homepage": "https://wz2100.net/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Warzone2100Project.Warzone2100"],
+    "choco": ["warzone2100"],
+    "scoop": ["games/warzone2100"],
+    "registry": ["Warzone 2100"]
+  },
+  "linux": {
+    "pacman": ["warzone2100"],
+    "apt": ["warzone2100"],
+    "dnf": ["warzone2100"],
+    "zypper": ["warzone2100"],
+    "apk": ["warzone2100"],
+    "flatpak": ["net.wz2100.wz2100"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The savegames and the configuration sit in a folder named after the game's own version number on both platforms, so there is no stable location for DHS to read."
+  },
+  "equivalents": []
+}

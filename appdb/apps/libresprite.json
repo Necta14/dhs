@@ -1,0 +1,31 @@
+{
+  "id": "libresprite",
+  "name": "LibreSprite",
+  "summary": "Free fork of Aseprite for pixel art",
+  "category": "graphics",
+  "homepage": "https://libresprite.github.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["libresprite"],
+    "scoop": ["extras/libresprite"],
+    "registry": ["LibreSprite"],
+    "paths": {
+      "config": "%APPDATA%/LibreSprite"
+    }
+  },
+  "linux": {
+    "pacman": ["libresprite"],
+    "zypper": ["libresprite"],
+    "apk": ["libresprite"],
+    "flatpak": ["com.github.libresprite.LibreSprite"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/libresprite"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache", "*.log", "sessions"],
+    "notes": "The settings file, the palettes and the key bindings follow Aseprite's format and read the same on both platforms."
+  },
+  "equivalents": ["aseprite", "krita"]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "deja-dup",
+  "name": "Deja Dup",
+  "summary": "Simple backup tool for GNOME",
+  "category": "backup",
+  "homepage": "https://apps.gnome.org/DejaDup/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["deja-dup"],
+    "apt": ["deja-dup"],
+    "dnf": ["deja-dup"],
+    "zypper": ["deja-dup"],
+    "apk": ["deja-dup"],
+    "flatpak": ["org.gnome.DejaDup"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Backup locations and schedules live in dconf, not in files."
+  },
+  "equivalents": ["pika-backup", "vorta", "backintime", "duplicati"]
+}

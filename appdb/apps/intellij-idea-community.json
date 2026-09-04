@@ -1,0 +1,58 @@
+{
+  "id": "intellij-idea-community",
+  "name": "IntelliJ IDEA Community Edition",
+  "summary": "Java and Kotlin IDE, open source edition",
+  "category": "ide",
+  "homepage": "https://www.jetbrains.com/idea/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "JetBrains.IntelliJIDEA.Community"
+    ],
+    "choco": [
+      "intellijidea-community"
+    ],
+    "scoop": [
+      "extras/idea-community"
+    ],
+    "registry": [
+      "IntelliJ IDEA Community Edition"
+    ],
+    "paths": {
+      "config": "%APPDATA%/JetBrains"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "intellij-idea-community-edition"
+    ],
+    "flatpak": [
+      "com.jetbrains.IntelliJ-IDEA-Community"
+    ],
+    "snap": [
+      "intellij-idea-community --classic"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/JetBrains"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "log",
+      "logs",
+      "*.log",
+      "*.lock",
+      "port",
+      "system",
+      "caches",
+      "index"
+    ],
+    "notes": "IntelliJ-platform settings, kept per version under the JetBrains directory. They name JDKs, SDKs and projects by absolute path, so they are kept aside on the other platform rather than restored in place."
+  },
+  "equivalents": [
+    "intellij-idea-ultimate",
+    "eclipse",
+    "netbeans"
+  ]
+}

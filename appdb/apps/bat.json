@@ -1,0 +1,48 @@
+{
+  "id": "bat",
+  "name": "bat",
+  "summary": "cat with syntax highlighting and Git integration",
+  "category": "devtool",
+  "homepage": "https://github.com/sharkdp/bat",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "sharkdp.bat"
+    ],
+    "scoop": [
+      "bat"
+    ],
+    "paths": {
+      "config": "%APPDATA%/bat"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "bat"
+    ],
+    "apt": [
+      "bat"
+    ],
+    "dnf": [
+      "bat"
+    ],
+    "zypper": [
+      "bat"
+    ],
+    "apk": [
+      "bat"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/bat"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.bin",
+      "metadata.yaml"
+    ],
+    "notes": "The config file and the custom syntaxes and themes are plain text; the compiled theme cache beside them is rebuilt with bat cache --build. Debian and Ubuntu name the command batcat."
+  },
+  "equivalents": []
+}

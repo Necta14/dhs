@@ -1,0 +1,30 @@
+{
+  "id": "visual-studio",
+  "name": "Visual Studio",
+  "summary": "Microsoft's integrated development environment for Windows",
+  "category": "ide",
+  "homepage": "https://visualstudio.microsoft.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "Microsoft.VisualStudio.2022.Community",
+      "Microsoft.VisualStudio.Community"
+    ],
+    "choco": [
+      "visualstudio2022community"
+    ],
+    "registry": [
+      "Visual Studio Community 2022",
+      "Visual Studio Professional 2022"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. The settings live in machine-specific state under %LOCALAPPDATA%; DHS installs nothing of them. An exported .vssettings file is an ordinary document and travels with the user's files."
+  },
+  "equivalents": [
+    "vscode",
+    "rider",
+    "qt-creator"
+  ]
+}

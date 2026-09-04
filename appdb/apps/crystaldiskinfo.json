@@ -1,0 +1,18 @@
+{
+  "id": "crystaldiskinfo",
+  "name": "CrystalDiskInfo",
+  "summary": "Shows S.M.A.R.T. disk health on Windows",
+  "category": "system",
+  "homepage": "https://crystalmark.info/en/software/crystaldiskinfo/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["CrystalDewWorld.CrystalDiskInfo"],
+    "choco": ["crystaldiskinfo"],
+    "registry": ["CrystalDiskInfo"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only; the settings are an INI file next to the executable."
+  },
+  "equivalents": ["gsmartcontrol"]
+}

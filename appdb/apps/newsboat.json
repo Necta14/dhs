@@ -1,0 +1,25 @@
+{
+  "id": "newsboat",
+  "name": "Newsboat",
+  "summary": "Terminal feed reader",
+  "category": "feed-reader",
+  "homepage": "https://newsboat.org/",
+  "license": "MIT",
+  "linux": {
+    "pacman": ["newsboat"],
+    "apt": ["newsboat"],
+    "dnf": ["newsboat"],
+    "zypper": ["newsboat"],
+    "apk": ["newsboat"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/newsboat",
+      "data": "$XDG_DATA_HOME/newsboat"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["cache.db", "*.lock"],
+    "notes": "No packaged Windows build. The urls file is a plain list and can be moved by hand; the article cache is rebuilt."
+  },
+  "equivalents": ["liferea", "newsflash", "akregator"]
+}

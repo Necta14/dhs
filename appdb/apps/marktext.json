@@ -1,0 +1,30 @@
+{
+  "id": "marktext",
+  "name": "MarkText",
+  "summary": "Distraction-free Markdown editor with live preview",
+  "category": "notes",
+  "homepage": "https://www.marktext.cc/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["MarkText.MarkText"],
+    "choco": ["marktext"],
+    "scoop": ["extras/marktext"],
+    "registry": ["MarkText"],
+    "paths": {
+      "config": "%APPDATA%/marktext"
+    }
+  },
+  "linux": {
+    "aur": ["marktext-bin", "marktext"],
+    "flatpak": ["com.github.marktext.marktext"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/marktext"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "preference.json and the user themes and keybindings are the same on both platforms."
+  },
+  "equivalents": ["typora", "ghostwriter", "zettlr"]
+}

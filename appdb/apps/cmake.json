@@ -1,0 +1,46 @@
+{
+  "id": "cmake",
+  "name": "CMake",
+  "summary": "Cross-platform build system generator",
+  "category": "devtool",
+  "homepage": "https://cmake.org/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": [
+      "Kitware.CMake"
+    ],
+    "choco": [
+      "cmake"
+    ],
+    "scoop": [
+      "cmake"
+    ],
+    "registry": [
+      "CMake"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "cmake"
+    ],
+    "apt": [
+      "cmake"
+    ],
+    "dnf": [
+      "cmake"
+    ],
+    "zypper": [
+      "cmake"
+    ],
+    "apk": [
+      "cmake"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "CMake's settings live in the build tree of each project, not in the user's home."
+  },
+  "equivalents": [
+    "meson"
+  ]
+}

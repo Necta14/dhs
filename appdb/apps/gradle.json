@@ -1,0 +1,40 @@
+{
+  "id": "gradle",
+  "name": "Gradle",
+  "summary": "Java and Android build tool",
+  "category": "devtool",
+  "homepage": "https://gradle.org/",
+  "license": "Apache-2.0",
+  "windows": {
+    "choco": [
+      "gradle"
+    ],
+    "scoop": [
+      "gradle"
+    ],
+    "paths": {
+      "properties": "%USERPROFILE%/.gradle/gradle.properties"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "gradle"
+    ],
+    "apt": [
+      "gradle"
+    ],
+    "apk": [
+      "gradle"
+    ],
+    "paths": {
+      "properties": "~/.gradle/gradle.properties"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "gradle.properties is a plain key=value file. The caches and the wrapper distributions beside it are re-downloaded."
+  },
+  "equivalents": [
+    "maven"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "tilix",
+  "name": "Tilix",
+  "summary": "Tiling GTK terminal emulator",
+  "category": "terminal",
+  "homepage": "https://gnunn1.github.io/tilix-web/",
+  "license": "MPL-2.0",
+  "linux": {
+    "aur": [
+      "tilix"
+    ],
+    "apt": [
+      "tilix"
+    ],
+    "dnf": [
+      "tilix"
+    ],
+    "zypper": [
+      "tilix"
+    ],
+    "apk": [
+      "tilix"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Tilix keeps its profiles in dconf. Exported session files are ordinary documents."
+  },
+  "equivalents": [
+    "terminator",
+    "konsole",
+    "gnome-terminal"
+  ]
+}

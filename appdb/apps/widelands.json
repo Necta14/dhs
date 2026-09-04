@@ -1,0 +1,32 @@
+{
+  "id": "widelands",
+  "name": "Widelands",
+  "summary": "Open source real-time strategy game in the spirit of Settlers II",
+  "category": "gaming",
+  "homepage": "https://www.widelands.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["WidelandsDevelopmentTeam.Widelands"],
+    "choco": ["widelands"],
+    "scoop": ["games/widelands"],
+    "registry": ["Widelands"]
+  },
+  "linux": {
+    "pacman": ["widelands"],
+    "apt": ["widelands"],
+    "dnf": ["widelands"],
+    "zypper": ["widelands"],
+    "apk": ["widelands"],
+    "flatpak": ["org.widelands.Widelands"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/widelands",
+      "data": "$XDG_DATA_HOME/widelands"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache", "temp"],
+    "notes": "The savegames, the replays and the add-ons travel; the Windows build keeps the same files in its own folder."
+  },
+  "equivalents": []
+}

@@ -1,0 +1,29 @@
+{
+  "id": "texlive",
+  "name": "TeX Live",
+  "summary": "Complete TeX distribution",
+  "category": "office",
+  "homepage": "https://tug.org/texlive/",
+  "windows": {
+    "choco": ["texlive"],
+    "registry": ["TeX Live"],
+    "paths": {
+      "texmf": "%USERPROFILE%/texmf"
+    }
+  },
+  "linux": {
+    "pacman": ["texlive-basic"],
+    "apt": ["texlive", "texlive-full"],
+    "dnf": ["texlive"],
+    "zypper": ["texlive"],
+    "apk": ["texlive"],
+    "paths": {
+      "texmf": "~/texmf"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The personal texmf tree holds the .sty, .cls and .bst files the user added; it has the same layout everywhere. The distribution's own package set is installed by the package manager, not carried."
+  },
+  "equivalents": ["miktex"]
+}

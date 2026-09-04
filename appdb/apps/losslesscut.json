@@ -1,0 +1,29 @@
+{
+  "id": "losslesscut",
+  "name": "LosslessCut",
+  "summary": "Cuts and joins video without re-encoding",
+  "category": "video-editor",
+  "homepage": "https://mifi.no/losslesscut/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["ch.LosslessCut"],
+    "scoop": ["extras/losslesscut"],
+    "registry": ["LosslessCut"],
+    "paths": {
+      "config": "%APPDATA%/LosslessCut"
+    }
+  },
+  "linux": {
+    "flatpak": ["no.mifi.losslesscut"],
+    "snap": ["losslesscut"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/LosslessCut"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker"],
+    "notes": "An Electron application: config.json holds the keyboard shortcuts, the export format and the custom output template, and reads the same on both platforms."
+  },
+  "equivalents": ["avidemux", "mkvtoolnix"]
+}

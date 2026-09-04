@@ -1,0 +1,21 @@
+{
+  "id": "adobe-acrobat-reader",
+  "name": "Adobe Acrobat Reader",
+  "summary": "Adobe's PDF reader",
+  "category": "pdf",
+  "homepage": "https://www.adobe.com/acrobat/pdf-reader.html",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Adobe.Acrobat.Reader.64-bit", "Adobe.Acrobat.Reader.32-bit"],
+    "registry": ["Adobe Acrobat Reader", "Adobe Acrobat Reader DC", "Adobe Acrobat DC"],
+    "paths": {
+      "config": "%APPDATA%/Adobe/Acrobat"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["Cache", "*.log", "logs"],
+    "notes": "Windows only; the preferences are largely in the registry and the file part records absolute paths. Adobe stopped shipping a Linux reader, so DHS proposes the equivalents below."
+  },
+  "equivalents": ["okular", "evince", "foxit-reader", "zathura"]
+}

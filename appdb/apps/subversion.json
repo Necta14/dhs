@@ -1,0 +1,53 @@
+{
+  "id": "subversion",
+  "name": "Apache Subversion",
+  "summary": "Centralised version control",
+  "category": "vcs",
+  "homepage": "https://subversion.apache.org/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Slik.Subversion"
+    ],
+    "choco": [
+      "svn"
+    ],
+    "registry": [
+      "Subversion"
+    ],
+    "paths": {
+      "config": "%APPDATA%/Subversion"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "subversion"
+    ],
+    "apt": [
+      "subversion"
+    ],
+    "dnf": [
+      "subversion"
+    ],
+    "zypper": [
+      "subversion"
+    ],
+    "apk": [
+      "subversion"
+    ],
+    "paths": {
+      "config": "~/.subversion"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "auth"
+    ],
+    "notes": "config and servers are INI files with the same keys. The auth directory holds cached credentials and is left out."
+  },
+  "equivalents": [
+    "git",
+    "mercurial"
+  ]
+}

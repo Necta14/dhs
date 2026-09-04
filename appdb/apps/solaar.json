@@ -1,0 +1,23 @@
+{
+  "id": "solaar",
+  "name": "Solaar",
+  "summary": "Manages Logitech Unifying receivers and devices",
+  "category": "utility",
+  "homepage": "https://pwr-solaar.github.io/Solaar/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["solaar"],
+    "apt": ["solaar"],
+    "dnf": ["solaar"],
+    "zypper": ["solaar"],
+    "apk": ["solaar"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/solaar"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The settings are keyed by device serial number."
+  },
+  "equivalents": ["piper"]
+}

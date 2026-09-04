@@ -1,0 +1,19 @@
+{
+  "id": "winscp",
+  "name": "WinSCP",
+  "summary": "SFTP, FTP and SCP file transfer for Windows",
+  "category": "network",
+  "homepage": "https://winscp.net/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["WinSCP.WinSCP"],
+    "choco": ["winscp"],
+    "scoop": ["extras/winscp"],
+    "registry": ["WinSCP"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. Sites are stored in the registry, or in a WinSCP.ini next to the executable when installed portable."
+  },
+  "equivalents": ["filezilla", "dolphin", "krusader", "nautilus"]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "podman",
+  "name": "Podman",
+  "summary": "Daemonless container engine",
+  "category": "container",
+  "homepage": "https://podman.io/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "RedHat.Podman"
+    ],
+    "choco": [
+      "podman-cli"
+    ],
+    "scoop": [
+      "podman"
+    ],
+    "paths": {
+      "config": "%APPDATA%/containers"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "podman"
+    ],
+    "apt": [
+      "podman"
+    ],
+    "dnf": [
+      "podman"
+    ],
+    "zypper": [
+      "podman"
+    ],
+    "apk": [
+      "podman"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/containers"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.log",
+      "auth.json"
+    ],
+    "notes": "registries.conf, containers.conf and storage.conf are TOML with the same keys on both platforms. Images and volumes are not carried."
+  },
+  "equivalents": [
+    "docker"
+  ]
+}

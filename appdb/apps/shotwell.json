@@ -1,0 +1,25 @@
+{
+  "id": "shotwell",
+  "name": "Shotwell",
+  "summary": "GNOME photo manager",
+  "category": "photo",
+  "homepage": "https://gitlab.gnome.org/GNOME/shotwell",
+  "license": "LGPL-2.1",
+  "linux": {
+    "pacman": ["shotwell"],
+    "apt": ["shotwell"],
+    "dnf": ["shotwell"],
+    "zypper": ["shotwell"],
+    "apk": ["shotwell"],
+    "flatpak": ["org.gnome.Shotwell"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/shotwell"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["thumbs", "*.log"],
+    "notes": "Linux only. The preferences are dconf keys; the data directory holds photo.db, the catalogue with the tags, events and edit history, which names every file by absolute path. The thumbnail directory is a cache."
+  },
+  "equivalents": ["digikam", "gthumb"]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "amberol",
+  "name": "Amberol",
+  "summary": "Small GNOME music player for a queue of files",
+  "category": "music",
+  "homepage": "https://apps.gnome.org/Amberol/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["amberol"],
+    "apt": ["amberol"],
+    "zypper": ["amberol"],
+    "apk": ["amberol"],
+    "flatpak": ["io.bassi.Amberol"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only, and deliberately without a library: the few preferences it has are GSettings keys in dconf."
+  },
+  "equivalents": ["elisa", "lollypop", "rhythmbox"]
+}

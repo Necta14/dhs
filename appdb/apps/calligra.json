@@ -1,0 +1,25 @@
+{
+  "id": "calligra",
+  "name": "Calligra Suite",
+  "summary": "KDE office suite: Words, Sheets, Stage",
+  "category": "office",
+  "homepage": "https://calligra.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["calligra"],
+    "apt": ["calligra"],
+    "dnf": ["calligra"],
+    "apk": ["calligra"],
+    "flatpak": ["org.kde.calligra"],
+    "paths": {
+      "words": "$XDG_CONFIG_HOME/calligrawordsrc",
+      "sheets": "$XDG_CONFIG_HOME/calligrasheetsrc",
+      "stage": "$XDG_CONFIG_HOME/calligrastagerc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "Plain INI files, one per application, restored in place between distributions."
+  },
+  "equivalents": ["libreoffice", "onlyoffice-desktopeditors"]
+}

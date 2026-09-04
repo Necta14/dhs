@@ -1,0 +1,53 @@
+{
+  "id": "mariadb",
+  "name": "MariaDB",
+  "summary": "Relational database server, a MySQL fork",
+  "category": "database",
+  "homepage": "https://mariadb.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": [
+      "MariaDB.Server"
+    ],
+    "choco": [
+      "mariadb"
+    ],
+    "scoop": [
+      "mariadb"
+    ],
+    "registry": [
+      "MariaDB"
+    ],
+    "paths": {
+      "my-cnf": "%USERPROFILE%/.my.cnf"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "mariadb"
+    ],
+    "apt": [
+      "mariadb-server"
+    ],
+    "dnf": [
+      "mariadb-server"
+    ],
+    "zypper": [
+      "mariadb"
+    ],
+    "apk": [
+      "mariadb"
+    ],
+    "paths": {
+      "my-cnf": "~/.my.cnf"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": ".my.cnf is the per-user client configuration, the same INI on both platforms. It often holds a password, so DHS treats it as a secret. The databases are moved with mysqldump."
+  },
+  "equivalents": [
+    "postgresql",
+    "sqlite"
+  ]
+}

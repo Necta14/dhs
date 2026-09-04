@@ -1,0 +1,17 @@
+{
+  "id": "resources",
+  "name": "Resources",
+  "summary": "GNOME monitor for processes, CPU, memory and drives",
+  "category": "system",
+  "homepage": "https://apps.gnome.org/Resources/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["resources"],
+    "zypper": ["resources"],
+    "flatpak": ["net.nokyan.Resources"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["mission-center", "gnome-system-monitor"]
+}

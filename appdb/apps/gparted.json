@@ -1,0 +1,20 @@
+{
+  "id": "gparted",
+  "name": "GParted",
+  "summary": "Partition editor",
+  "category": "system",
+  "homepage": "https://gparted.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["gparted"],
+    "apt": ["gparted"],
+    "dnf": ["gparted"],
+    "zypper": ["gparted"],
+    "apk": ["gparted"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Runs as root and stores nothing per user."
+  },
+  "equivalents": ["kde-partitionmanager", "gnome-disks"]
+}

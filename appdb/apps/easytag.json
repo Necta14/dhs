@@ -1,0 +1,30 @@
+{
+  "id": "easytag",
+  "name": "EasyTAG",
+  "summary": "Tag editor for audio files",
+  "category": "music",
+  "homepage": "https://gitlab.gnome.org/GNOME/easytag",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["gnome.EasyTAG"],
+    "choco": ["easytag"],
+    "registry": ["EasyTAG"]
+  },
+  "linux": {
+    "pacman": ["easytag"],
+    "apt": ["easytag"],
+    "dnf": ["easytag"],
+    "zypper": ["easytag"],
+    "apk": ["easytag"],
+    "flatpak": ["org.gnome.EasyTAG"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/EasyTAG"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "The configuration holds the scanner masks, the playlist template and the default directory, that last one absolute. The masks are the part worth copying."
+  },
+  "equivalents": ["musicbrainz-picard", "mp3tag"]
+}

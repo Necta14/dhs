@@ -1,0 +1,29 @@
+{
+  "id": "bottom",
+  "name": "bottom",
+  "summary": "Cross-platform graphical process and system monitor for the terminal",
+  "category": "system",
+  "homepage": "https://github.com/ClementTsang/bottom",
+  "license": "MIT",
+  "windows": {
+    "choco": ["bottom"],
+    "scoop": ["bottom"],
+    "paths": {
+      "config": "%APPDATA%/bottom"
+    }
+  },
+  "linux": {
+    "pacman": ["bottom"],
+    "apt": ["btm"],
+    "zypper": ["bottom"],
+    "apk": ["bottom"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/bottom"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "bottom.toml is the same file on both platforms."
+  },
+  "equivalents": ["htop", "btop"]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "notesnook",
+  "name": "Notesnook",
+  "summary": "End-to-end encrypted note taking",
+  "category": "notes",
+  "homepage": "https://notesnook.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Streetwriters.Notesnook"],
+    "choco": ["notesnook"],
+    "scoop": ["extras/notesnook"],
+    "registry": ["Notesnook"],
+    "paths": {
+      "config": "%APPDATA%/Notesnook"
+    }
+  },
+  "linux": {
+    "aur": ["notesnook-bin", "notesnook"],
+    "flatpak": ["com.notesnook.Notesnook"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Notesnook"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "The notes are encrypted in the account and return on sign-in; the directory carries settings and the offline database."
+  },
+  "equivalents": ["standard-notes", "joplin", "obsidian"]
+}

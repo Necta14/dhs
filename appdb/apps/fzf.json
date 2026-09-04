@@ -1,0 +1,44 @@
+{
+  "id": "fzf",
+  "name": "fzf",
+  "summary": "Command line fuzzy finder",
+  "category": "devtool",
+  "homepage": "https://github.com/junegunn/fzf",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "junegunn.fzf"
+    ],
+    "choco": [
+      "fzf"
+    ],
+    "scoop": [
+      "fzf"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "fzf"
+    ],
+    "apt": [
+      "fzf"
+    ],
+    "dnf": [
+      "fzf"
+    ],
+    "zypper": [
+      "fzf"
+    ],
+    "apk": [
+      "fzf"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "fzf is configured through environment variables set in the shell's rc file, which the shell entry carries."
+  },
+  "equivalents": [
+    "ripgrep",
+    "fd"
+  ]
+}

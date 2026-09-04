@@ -1,0 +1,35 @@
+{
+  "id": "dbgate",
+  "name": "DbGate",
+  "summary": "Database manager for SQL and NoSQL engines",
+  "category": "database",
+  "homepage": "https://dbgate.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": [
+      "JanProchazka.dbgate"
+    ],
+    "choco": [
+      "dbgate"
+    ],
+    "registry": [
+      "DbGate"
+    ]
+  },
+  "linux": {
+    "flatpak": [
+      "org.dbgate.DbGate"
+    ],
+    "snap": [
+      "dbgate"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "DbGate keeps its connections in its own data directory, whose place differs between the packaged builds; DHS installs the application and does not carry it in v1."
+  },
+  "equivalents": [
+    "beekeeper-studio",
+    "dbeaver"
+  ]
+}

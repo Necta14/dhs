@@ -1,0 +1,30 @@
+{
+  "id": "floorp",
+  "name": "Floorp",
+  "summary": "Firefox fork with a configurable interface",
+  "category": "browser",
+  "homepage": "https://floorp.app/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": ["Ablaze.Floorp"],
+    "choco": ["floorp"],
+    "scoop": ["extras/floorp"],
+    "registry": ["Floorp"],
+    "paths": {
+      "profiles": "%APPDATA%/Floorp"
+    }
+  },
+  "linux": {
+    "aur": ["floorp-bin"],
+    "flatpak": ["one.ablaze.floorp"],
+    "paths": {
+      "profiles": "~/.floorp"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache2", "startupCache", "thumbnails", "crashes", "minidumps", "datareporting", "saved-telemetry-pings", "storage/default/*/cache", "*.lock", "lock", "parent.lock"],
+    "notes": "A Firefox-style profile directory: the same layout on every platform, and profiles.ini points at profiles by a relative path."
+  },
+  "equivalents": ["firefox", "zen-browser", "librewolf"]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "scribus",
+  "name": "Scribus",
+  "summary": "Desktop publishing and page layout",
+  "category": "graphics",
+  "homepage": "https://www.scribus.net/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Scribus.Scribus"],
+    "choco": ["scribus"],
+    "scoop": ["extras/scribus"],
+    "registry": ["Scribus"],
+    "paths": {
+      "config": "%APPDATA%/Scribus"
+    }
+  },
+  "linux": {
+    "pacman": ["scribus"],
+    "apt": ["scribus"],
+    "dnf": ["scribus"],
+    "zypper": ["scribus"],
+    "apk": ["scribus"],
+    "flatpak": ["net.scribus.Scribus"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/scribus"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "checkfonts.xml", "*.log"],
+    "notes": "The rc file holds the preferences, the colour sets and the document templates, with absolute paths to the font and document folders. The colour palettes and templates in the same directory are plain files worth carrying."
+  },
+  "equivalents": ["inkscape", "libreoffice"]
+}

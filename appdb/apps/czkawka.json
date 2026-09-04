@@ -1,0 +1,25 @@
+{
+  "id": "czkawka",
+  "name": "Czkawka",
+  "summary": "Finds duplicate files, similar images and empty folders",
+  "category": "utility",
+  "homepage": "https://github.com/qarmin/czkawka",
+  "license": "MIT",
+  "windows": {
+    "choco": ["czkawka"]
+  },
+  "linux": {
+    "aur": ["czkawka-gui"],
+    "apk": ["czkawka-gui"],
+    "flatpak": ["com.github.qarmin.czkawka"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/czkawka"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache_*.bin", "*.log"],
+    "notes": "The saved include and exclude folders are absolute paths, so the settings are kept aside."
+  },
+  "equivalents": ["dupeguru", "rmlint", "fdupes"]
+}

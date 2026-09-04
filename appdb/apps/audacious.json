@@ -1,0 +1,31 @@
+{
+  "id": "audacious",
+  "name": "Audacious",
+  "summary": "Lightweight audio player",
+  "category": "music",
+  "homepage": "https://audacious-media-player.org/",
+  "license": "BSD-2-Clause",
+  "windows": {
+    "winget": ["Audacious.MediaPlayer"],
+    "choco": ["audacious"],
+    "scoop": ["extras/audacious"],
+    "registry": ["Audacious"]
+  },
+  "linux": {
+    "pacman": ["audacious"],
+    "apt": ["audacious"],
+    "dnf": ["audacious"],
+    "zypper": ["audacious"],
+    "apk": ["audacious"],
+    "flatpak": ["org.atheme.audacious"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/audacious"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["playlist-state", "*.log"],
+    "notes": "config names the output plugin, which is PulseAudio or ALSA on Linux and Windows Audio on the other side, so the directory is kept aside. The playlists in it are plain lists of file URIs."
+  },
+  "equivalents": ["deadbeef", "aimp", "foobar2000"]
+}

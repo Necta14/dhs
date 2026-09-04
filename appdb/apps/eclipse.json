@@ -1,0 +1,39 @@
+{
+  "id": "eclipse",
+  "name": "Eclipse IDE",
+  "summary": "Java-centred integrated development environment",
+  "category": "ide",
+  "homepage": "https://eclipseide.org/",
+  "license": "EPL-2.0",
+  "windows": {
+    "choco": [
+      "eclipse"
+    ],
+    "scoop": [
+      "extras/eclipse-java"
+    ],
+    "registry": [
+      "Eclipse"
+    ]
+  },
+  "linux": {
+    "aur": [
+      "eclipse-java-bin"
+    ],
+    "flatpak": [
+      "org.eclipse.Java"
+    ],
+    "snap": [
+      "eclipse --classic"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Eclipse keeps its settings inside the workspace the user chooses (.metadata), together with absolute paths to JDKs and projects. DHS installs the IDE and leaves the workspace where it is."
+  },
+  "equivalents": [
+    "intellij-idea-community",
+    "netbeans",
+    "vscodium"
+  ]
+}

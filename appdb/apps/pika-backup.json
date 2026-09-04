@@ -1,0 +1,18 @@
+{
+  "id": "pika-backup",
+  "name": "Pika Backup",
+  "summary": "GNOME front end for BorgBackup",
+  "category": "backup",
+  "homepage": "https://apps.gnome.org/PikaBackup/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["pika-backup"],
+    "zypper": ["pika-backup"],
+    "flatpak": ["org.gnome.World.PikaBackup"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The configured repositories live in the GSettings database, not in files."
+  },
+  "equivalents": ["vorta", "deja-dup", "borgbackup"]
+}

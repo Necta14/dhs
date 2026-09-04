@@ -1,0 +1,33 @@
+{
+  "id": "aegisub",
+  "name": "Aegisub",
+  "summary": "Subtitle editor for typesetting and timing",
+  "category": "video-editor",
+  "homepage": "https://aegisub.org/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": ["Aegisub.Aegisub"],
+    "choco": ["aegisub"],
+    "scoop": ["extras/aegisub"],
+    "registry": ["Aegisub"],
+    "paths": {
+      "config": "%APPDATA%/Aegisub"
+    }
+  },
+  "linux": {
+    "pacman": ["aegisub"],
+    "apt": ["aegisub"],
+    "dnf": ["aegisub"],
+    "zypper": ["aegisub"],
+    "flatpak": ["org.aegisub.Aegisub"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Aegisub"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log", "audiocache", "*.aegisub-cache"],
+    "notes": "config.json, the hotkeys, the style catalogues and the automation scripts are the same files on both platforms; a typesetter's style catalogue moves across unchanged."
+  },
+  "equivalents": ["subtitle-edit"]
+}

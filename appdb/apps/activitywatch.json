@@ -1,0 +1,27 @@
+{
+  "id": "activitywatch",
+  "name": "ActivityWatch",
+  "summary": "Automatic time tracking of the applications and windows used",
+  "category": "productivity",
+  "homepage": "https://activitywatch.net/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": ["ActivityWatch.ActivityWatch"],
+    "choco": ["activitywatch"],
+    "scoop": ["extras/activitywatch"],
+    "registry": ["ActivityWatch"]
+  },
+  "linux": {
+    "aur": ["activitywatch-bin", "activitywatch"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/activitywatch",
+      "data": "$XDG_DATA_HOME/activitywatch"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "logs", "cache"],
+    "notes": "The watchers are configured per platform, and the recorded events are keyed by host name and by the window titles of that system, so the database is kept aside rather than merged into a new one."
+  },
+  "equivalents": ["super-productivity"]
+}

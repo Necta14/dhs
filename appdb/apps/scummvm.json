@@ -1,0 +1,35 @@
+{
+  "id": "scummvm",
+  "name": "ScummVM",
+  "summary": "Runs classic point-and-click adventure games",
+  "category": "emulator",
+  "homepage": "https://www.scummvm.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["ScummVM.ScummVM"],
+    "choco": ["scummvm"],
+    "scoop": ["games/scummvm"],
+    "registry": ["ScummVM"],
+    "paths": {
+      "config": "%APPDATA%/ScummVM"
+    }
+  },
+  "linux": {
+    "pacman": ["scummvm"],
+    "apt": ["scummvm"],
+    "dnf": ["scummvm"],
+    "zypper": ["scummvm"],
+    "apk": ["scummvm"],
+    "flatpak": ["org.scummvm.ScummVM"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/scummvm",
+      "data": "$XDG_DATA_HOME/scummvm"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache", "icons", "shaders"],
+    "notes": "scummvm.ini keeps one section per added game with the absolute path of its files, so the list has to be re-pointed on the other system; the savegames themselves are portable."
+  },
+  "equivalents": []
+}

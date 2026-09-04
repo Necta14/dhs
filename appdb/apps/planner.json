@@ -1,0 +1,22 @@
+{
+  "id": "planner",
+  "name": "Planify",
+  "summary": "Task manager for GNOME, with Todoist and CalDAV synchronisation",
+  "category": "productivity",
+  "homepage": "https://useplanify.com/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["planify"],
+    "aur": ["planify"],
+    "zypper": ["planify"],
+    "flatpak": ["io.github.alainm23.planify"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/io.github.alainm23.planify"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The task database sits in the application's data directory and moves unchanged between distributions. Earlier releases were called Planner. Accounts synchronised from Todoist or a CalDAV server are restored by signing in again."
+  },
+  "equivalents": ["todoist", "ticktick", "super-productivity"]
+}

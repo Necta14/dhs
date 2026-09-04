@@ -1,0 +1,27 @@
+{
+  "id": "mediainfo",
+  "name": "MediaInfo",
+  "summary": "Shows the technical details of a media file",
+  "category": "utility",
+  "homepage": "https://mediaarea.net/MediaInfo",
+  "license": "BSD-2-Clause",
+  "windows": {
+    "winget": ["MediaArea.MediaInfo.GUI"],
+    "choco": ["mediainfo"],
+    "scoop": ["extras/mediainfo-gui"],
+    "registry": ["MediaInfo"]
+  },
+  "linux": {
+    "pacman": ["mediainfo-gui", "mediainfo"],
+    "apt": ["mediainfo-gui", "mediainfo"],
+    "dnf": ["mediainfo-gui", "mediainfo"],
+    "zypper": ["mediainfo-gui", "mediainfo"],
+    "apk": ["mediainfo-gui", "mediainfo"],
+    "flatpak": ["net.mediaarea.MediaInfo"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "A viewer with nothing to configure beyond which view it opens in. Every distribution splits it into a command-line package and a graphical one; the graphical name is listed first."
+  },
+  "equivalents": ["ffmpeg", "exiftool"]
+}

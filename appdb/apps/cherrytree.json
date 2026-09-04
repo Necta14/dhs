@@ -1,0 +1,31 @@
+{
+  "id": "cherrytree",
+  "name": "CherryTree",
+  "summary": "Hierarchical notes in a single file, with rich text and code boxes",
+  "category": "notes",
+  "homepage": "https://www.giuspen.net/cherrytree/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Giuspen.Cherrytree"],
+    "choco": ["cherrytree"],
+    "scoop": ["extras/cherrytree"],
+    "registry": ["CherryTree"],
+    "paths": {
+      "config": "%APPDATA%/cherrytree"
+    }
+  },
+  "linux": {
+    "pacman": ["cherrytree"],
+    "apt": ["cherrytree"],
+    "zypper": ["cherrytree"],
+    "flatpak": ["net.giuspen.cherrytree"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/cherrytree"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "config.cfg is an INI file with the same keys everywhere. The documents themselves are .ctb or .ctd files wherever the user saved them, and config.cfg records their absolute paths."
+  },
+  "equivalents": ["trilium", "zim", "joplin"]
+}

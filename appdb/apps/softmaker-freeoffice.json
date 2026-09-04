@@ -1,0 +1,28 @@
+{
+  "id": "softmaker-freeoffice",
+  "name": "SoftMaker FreeOffice",
+  "summary": "Free edition of the SoftMaker office suite",
+  "category": "office",
+  "homepage": "https://www.freeoffice.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["SoftMaker.FreeOffice.2024", "SoftMaker.FreeOffice.2021"],
+    "choco": ["freeoffice"],
+    "registry": ["SoftMaker FreeOffice"],
+    "paths": {
+      "config": "%APPDATA%/SoftMaker"
+    }
+  },
+  "linux": {
+    "aur": ["freeoffice"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/SoftMaker"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.log"],
+    "notes": "TextMaker, PlanMaker and Presentations share one settings directory. It records absolute paths to documents and dictionaries, so it is kept aside on the other platform."
+  },
+  "equivalents": ["libreoffice", "onlyoffice-desktopeditors"]
+}

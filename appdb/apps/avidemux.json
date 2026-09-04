@@ -1,0 +1,27 @@
+{
+  "id": "avidemux",
+  "name": "Avidemux",
+  "summary": "Cutting, filtering and encoding of single video files",
+  "category": "video-editor",
+  "homepage": "https://avidemux.sourceforge.net/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Avidemux.Avidemux"],
+    "choco": ["avidemux"],
+    "scoop": ["extras/avidemux"],
+    "registry": ["Avidemux"]
+  },
+  "linux": {
+    "pacman": ["avidemux-qt"],
+    "flatpak": ["org.avidemux.Avidemux"],
+    "paths": {
+      "config": "~/.avidemux6"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "jobs.js"],
+    "notes": "The .avidemux6 folder holds the encoding presets, the auto-saved settings and the custom scripts. The Windows build keeps the same files under its own profile folder, so the directory is kept aside."
+  },
+  "equivalents": ["handbrake", "losslesscut", "shotcut"]
+}

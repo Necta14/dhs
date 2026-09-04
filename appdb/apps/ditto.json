@@ -1,0 +1,22 @@
+{
+  "id": "ditto",
+  "name": "Ditto",
+  "summary": "Clipboard manager for Windows",
+  "category": "utility",
+  "homepage": "https://ditto-cp.sourceforge.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Ditto.Ditto"],
+    "choco": ["ditto"],
+    "registry": ["Ditto"],
+    "paths": {
+      "config": "%APPDATA%/Ditto"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "*.db-journal"],
+    "notes": "Windows only. The settings and the clip database are a Windows-specific format."
+  },
+  "equivalents": ["copyq", "gpaste", "diodon"]
+}

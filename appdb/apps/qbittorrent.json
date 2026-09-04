@@ -1,0 +1,36 @@
+{
+  "id": "qbittorrent",
+  "name": "qBittorrent",
+  "summary": "BitTorrent client with a Qt interface",
+  "category": "torrent",
+  "homepage": "https://www.qbittorrent.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["qBittorrent.qBittorrent"],
+    "choco": ["qbittorrent"],
+    "scoop": ["extras/qbittorrent"],
+    "registry": ["qBittorrent"],
+    "paths": {
+      "config": "%APPDATA%/qBittorrent",
+      "data": "%LOCALAPPDATA%/qBittorrent"
+    }
+  },
+  "linux": {
+    "pacman": ["qbittorrent"],
+    "apt": ["qbittorrent"],
+    "dnf": ["qbittorrent"],
+    "zypper": ["qbittorrent"],
+    "apk": ["qbittorrent"],
+    "flatpak": ["org.qbittorrent.qBittorrent"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/qBittorrent",
+      "data": "$XDG_DATA_HOME/qBittorrent"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.lock", "logs", "*.log", "rss/articles", "GeoDB"],
+    "notes": "qBittorrent.conf and the resume data name absolute save paths, which do not exist on the other system, so the directory is kept aside. The .torrent files and the resume data under BT_backup are what a re-add needs."
+  },
+  "equivalents": ["transmission", "deluge", "ktorrent"]
+}

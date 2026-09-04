@@ -1,0 +1,21 @@
+{
+  "id": "merkuro",
+  "name": "Merkuro",
+  "summary": "KDE calendar, contacts and mail companion",
+  "category": "productivity",
+  "homepage": "https://apps.kde.org/merkuro.calendar/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["merkuro"],
+    "apt": ["merkuro"],
+    "dnf": ["merkuro"],
+    "zypper": ["merkuro"],
+    "apk": ["merkuro"],
+    "flatpak": ["org.kde.merkuro"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The calendars and address books are Akonadi resources; they are re-created when the accounts are added again on the new system."
+  },
+  "equivalents": ["gnome-calendar"]
+}

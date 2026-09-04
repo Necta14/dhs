@@ -1,0 +1,29 @@
+{
+  "id": "keeweb",
+  "name": "KeeWeb",
+  "summary": "Desktop client for KeePass databases",
+  "category": "password-manager",
+  "homepage": "https://keeweb.info/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["KeeWeb.KeeWeb"],
+    "choco": ["keeweb"],
+    "scoop": ["extras/keeweb"],
+    "registry": ["KeeWeb"],
+    "paths": {
+      "config": "%APPDATA%/KeeWeb"
+    }
+  },
+  "linux": {
+    "aur": ["keeweb"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/KeeWeb"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "The settings, the themes and the plugin list have the same layout on both platforms. The .kdbx files KeeWeb opens are secrets and travel only with --secrets."
+  },
+  "equivalents": ["keepassxc", "keepass"]
+}

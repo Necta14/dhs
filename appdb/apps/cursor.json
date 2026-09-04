@@ -1,0 +1,51 @@
+{
+  "id": "cursor",
+  "name": "Cursor",
+  "summary": "Code editor built on Visual Studio Code",
+  "category": "editor",
+  "homepage": "https://cursor.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "Anysphere.Cursor"
+    ],
+    "choco": [
+      "cursoride"
+    ],
+    "scoop": [
+      "extras/cursor"
+    ],
+    "registry": [
+      "Cursor"
+    ],
+    "paths": {
+      "user": "%APPDATA%/Cursor/User",
+      "extensions": "%USERPROFILE%/.cursor/extensions"
+    }
+  },
+  "linux": {
+    "aur": [
+      "cursor-bin"
+    ],
+    "paths": {
+      "user": "$XDG_CONFIG_HOME/Cursor/User",
+      "extensions": "~/.cursor/extensions"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "workspaceStorage",
+      "History",
+      "logs",
+      "*.log",
+      "globalStorage/state.vscdb.backup"
+    ],
+    "notes": "A Visual Studio Code fork: settings.json, keybindings.json and snippets have the same layout."
+  },
+  "equivalents": [
+    "vscode",
+    "vscodium",
+    "windsurf"
+  ]
+}

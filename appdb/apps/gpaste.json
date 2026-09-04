@@ -1,0 +1,20 @@
+{
+  "id": "gpaste",
+  "name": "GPaste",
+  "summary": "Clipboard manager for GNOME",
+  "category": "utility",
+  "homepage": "https://github.com/Keruspe/GPaste",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["gpaste"],
+    "apt": ["gpaste"],
+    "dnf": ["gpaste"],
+    "zypper": ["gpaste"],
+    "apk": ["gpaste"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Settings are in dconf; the history is deliberately not carried."
+  },
+  "equivalents": ["copyq", "diodon", "ditto"]
+}

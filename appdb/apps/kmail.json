@@ -1,0 +1,26 @@
+{
+  "id": "kmail",
+  "name": "KMail",
+  "summary": "KDE mail client, part of Kontact",
+  "category": "email",
+  "homepage": "https://apps.kde.org/kmail2/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["kmail"],
+    "apt": ["kmail"],
+    "dnf": ["kmail"],
+    "zypper": ["kmail"],
+    "apk": ["kmail"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kmail2rc",
+      "identities": "$XDG_CONFIG_HOME/emailidentities",
+      "akonadi": "$XDG_CONFIG_HOME/akonadi"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.lock", "*.log"],
+    "notes": "Linux only, and the accounts are really Akonadi resources: the mail itself lives in the Akonadi store and is not carried."
+  },
+  "equivalents": ["thunderbird", "evolution", "claws-mail"]
+}

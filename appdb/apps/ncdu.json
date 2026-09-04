@@ -1,0 +1,19 @@
+{
+  "id": "ncdu",
+  "name": "ncdu",
+  "summary": "Disk usage analyser for the terminal",
+  "category": "utility",
+  "homepage": "https://dev.yorhel.nl/ncdu",
+  "license": "MIT",
+  "linux": {
+    "pacman": ["ncdu"],
+    "apt": ["ncdu"],
+    "dnf": ["ncdu"],
+    "zypper": ["ncdu"],
+    "apk": ["ncdu"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["gdu", "dust", "baobab"]
+}

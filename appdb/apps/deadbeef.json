@@ -1,0 +1,27 @@
+{
+  "id": "deadbeef",
+  "name": "DeaDBeeF",
+  "summary": "Modular audio player in the foobar2000 tradition",
+  "category": "music",
+  "homepage": "https://deadbeef.sourceforge.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["DeaDBeeF.DeaDBeeF"],
+    "choco": ["deadbeef"],
+    "scoop": ["extras/deadbeef"]
+  },
+  "linux": {
+    "aur": ["deadbeef"],
+    "zypper": ["deadbeef"],
+    "apk": ["deadbeef"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/deadbeef"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "playlist.dbpl.bak"],
+    "notes": "config keeps the output plugin and the plugin list, which differ between the platforms; the Windows build is portable and keeps the same files next to its executable."
+  },
+  "equivalents": ["foobar2000", "audacious", "strawberry"]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "lightshot",
+  "name": "Lightshot",
+  "summary": "Screenshot tool with quick online sharing",
+  "category": "screenshot",
+  "homepage": "https://app.prntscr.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Skillbrains.Lightshot"],
+    "choco": ["lightshot"],
+    "scoop": ["extras/lightshot"],
+    "registry": ["Lightshot"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, and it keeps its few settings in the registry. The uploaded screenshots live on prntscr.com, tied to the account rather than the machine."
+  },
+  "equivalents": ["flameshot", "greenshot", "ksnip"]
+}

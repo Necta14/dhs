@@ -1,0 +1,40 @@
+{
+  "id": "terraform",
+  "name": "Terraform",
+  "summary": "Infrastructure as code tool",
+  "category": "devtool",
+  "homepage": "https://developer.hashicorp.com/terraform",
+  "license": "BUSL-1.1",
+  "windows": {
+    "winget": [
+      "Hashicorp.Terraform"
+    ],
+    "choco": [
+      "terraform"
+    ],
+    "scoop": [
+      "terraform"
+    ],
+    "paths": {
+      "cli-config": "%APPDATA%/terraform.rc"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "terraform"
+    ],
+    "aur": [
+      "terraform-bin"
+    ],
+    "paths": {
+      "cli-config": "~/.terraformrc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The CLI configuration file is small HCL with the same keys; only its name differs between the platforms. Provider plugins are downloaded again per project."
+  },
+  "equivalents": [
+    "ansible"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "impression",
+  "name": "Impression",
+  "summary": "GNOME tool for writing images to drives",
+  "category": "utility",
+  "homepage": "https://gitlab.com/adhami3310/Impression",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["impression"],
+    "zypper": ["impression"],
+    "flatpak": ["io.gitlab.adhami3310.Impression"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["popsicle", "balena-etcher", "ventoy"]
+}

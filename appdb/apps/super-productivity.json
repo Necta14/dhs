@@ -1,0 +1,31 @@
+{
+  "id": "super-productivity",
+  "name": "Super Productivity",
+  "summary": "To-do list with time tracking and issue-tracker integration",
+  "category": "productivity",
+  "homepage": "https://super-productivity.com/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["JohannesMillan.superProductivity"],
+    "choco": ["super-productivity"],
+    "scoop": ["extras/super-productivity"],
+    "registry": ["Super Productivity"],
+    "paths": {
+      "config": "%APPDATA%/superProductivity"
+    }
+  },
+  "linux": {
+    "pacman": ["super-productivity"],
+    "aur": ["super-productivity-git"],
+    "flatpak": ["com.super_productivity.SuperProductivity"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/superProductivity"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "The tasks, the time records and the settings are kept locally in the same layout on both platforms."
+  },
+  "equivalents": ["todoist", "ticktick", "planner"]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "redshift",
+  "name": "Redshift",
+  "summary": "Shifts the screen colour temperature with the time of day",
+  "category": "utility",
+  "homepage": "https://github.com/jonls/redshift",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["redshift"],
+    "apt": ["redshift"],
+    "dnf": ["redshift"],
+    "zypper": ["redshift"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/redshift",
+      "config-file": "$XDG_CONFIG_HOME/redshift.conf"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. Older versions keep redshift.conf directly in the config directory, newer ones in a redshift subdirectory; both are listed. The file holds the user's latitude and longitude."
+  }
+}

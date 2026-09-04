@@ -1,0 +1,23 @@
+{
+  "id": "font-manager",
+  "name": "Font Manager",
+  "summary": "Installs and organises fonts on the desktop",
+  "category": "fonts",
+  "homepage": "https://fontmanager.github.io/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["font-manager"],
+    "apt": ["font-manager"],
+    "zypper": ["font-manager"],
+    "apk": ["font-manager"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/font-manager"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "*.db"],
+    "notes": "Linux only. It keeps the collections and the disabled-font list; the fonts themselves sit in the user font directory and travel as personal files."
+  },
+  "equivalents": ["fontforge"]
+}

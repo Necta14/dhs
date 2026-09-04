@@ -1,0 +1,34 @@
+{
+  "id": "libreoffice",
+  "name": "LibreOffice",
+  "summary": "Office suite: text documents, spreadsheets, presentations, drawings",
+  "category": "office",
+  "homepage": "https://www.libreoffice.org/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": ["TheDocumentFoundation.LibreOffice"],
+    "choco": ["libreoffice-fresh", "libreoffice-still"],
+    "scoop": ["extras/libreoffice"],
+    "registry": ["LibreOffice"],
+    "paths": {
+      "profile": "%APPDATA%/LibreOffice/4/user"
+    }
+  },
+  "linux": {
+    "pacman": ["libreoffice-fresh", "libreoffice-still"],
+    "apt": ["libreoffice"],
+    "dnf": ["libreoffice"],
+    "zypper": ["libreoffice"],
+    "apk": ["libreoffice"],
+    "flatpak": ["org.libreoffice.LibreOffice"],
+    "snap": ["libreoffice"],
+    "paths": {
+      "profile": "$XDG_CONFIG_HOME/libreoffice/4/user"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "temp", "backup", "psprint", "uno_packages/cache", "extensions/tmp", "*.lock", ".~lock.*"],
+    "notes": "The 4/user profile carries templates, autocorrect, autotext, dictionaries and the toolbar layout. registrymodifications.xcu holds absolute file:// URLs for the work and template directories and platform-specific printer and Java settings, so it is kept aside rather than dropped in place."
+  }
+}

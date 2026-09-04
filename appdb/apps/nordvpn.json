@@ -1,0 +1,20 @@
+{
+  "id": "nordvpn",
+  "name": "NordVPN",
+  "summary": "VPN client for the NordVPN service",
+  "category": "vpn",
+  "homepage": "https://nordvpn.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["NordSecurity.NordVPN"],
+    "choco": ["nordvpn"],
+    "registry": ["NordVPN"]
+  },
+  "linux": {
+    "aur": ["nordvpn-bin"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["protonvpn", "mullvad-vpn"]
+}

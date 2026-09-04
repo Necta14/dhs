@@ -1,0 +1,23 @@
+{
+  "id": "powertoys",
+  "name": "Microsoft PowerToys",
+  "summary": "Utility bundle for Windows: launcher, window layouts, key remapping",
+  "category": "utility",
+  "homepage": "https://learn.microsoft.com/windows/powertoys/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["Microsoft.PowerToys"],
+    "choco": ["powertoys"],
+    "scoop": ["extras/powertoys"],
+    "registry": ["PowerToys"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/Microsoft/PowerToys"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "logs", "Logs"],
+    "notes": "Windows only, and every module is bound to the Windows shell. Each utility has a Linux counterpart of its own rather than one replacement."
+  },
+  "equivalents": ["ulauncher", "copyq", "autokey", "gnome-tweaks"]
+}

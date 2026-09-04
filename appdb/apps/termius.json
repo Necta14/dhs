@@ -1,0 +1,22 @@
+{
+  "id": "termius",
+  "name": "Termius",
+  "summary": "SSH client with synchronised hosts",
+  "category": "remote-desktop",
+  "homepage": "https://termius.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Termius.Termius"],
+    "choco": ["termius"],
+    "registry": ["Termius"]
+  },
+  "linux": {
+    "aur": ["termius"],
+    "snap": ["termius-app"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Hosts and keys live in the account, not on disk; signing in restores them."
+  },
+  "equivalents": ["remmina", "openssh", "putty"]
+}

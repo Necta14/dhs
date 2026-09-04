@@ -1,0 +1,33 @@
+{
+  "id": "elisa",
+  "name": "Elisa",
+  "summary": "KDE music player",
+  "category": "music",
+  "homepage": "https://apps.kde.org/elisa/",
+  "license": "LGPL-3.0",
+  "windows": {
+    "winget": ["KDE.Elisa"],
+    "choco": ["elisa"],
+    "scoop": ["extras/elisa"],
+    "registry": ["Elisa"],
+    "paths": {
+      "config": "%APPDATA%/elisarc"
+    }
+  },
+  "linux": {
+    "pacman": ["elisa"],
+    "apt": ["elisa"],
+    "dnf": ["elisa-player"],
+    "zypper": ["elisa"],
+    "apk": ["elisa"],
+    "flatpak": ["org.kde.elisa"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/elisarc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "elisarc is a short KConfig file: the indexed folders, the view and the volume. The index database itself is rebuilt by a rescan. Fedora calls the package elisa-player."
+  },
+  "equivalents": ["amberol", "strawberry"]
+}

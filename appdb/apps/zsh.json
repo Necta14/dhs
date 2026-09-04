@@ -1,0 +1,44 @@
+{
+  "id": "zsh",
+  "name": "Zsh",
+  "summary": "Extended Bourne shell with completion and themes",
+  "category": "shell",
+  "homepage": "https://www.zsh.org/",
+  "license": "MIT",
+  "linux": {
+    "pacman": [
+      "zsh"
+    ],
+    "apt": [
+      "zsh"
+    ],
+    "dnf": [
+      "zsh"
+    ],
+    "zypper": [
+      "zsh"
+    ],
+    "apk": [
+      "zsh"
+    ],
+    "paths": {
+      "zshrc": "~/.zshrc",
+      "zprofile": "~/.zprofile",
+      "config": "$XDG_CONFIG_HOME/zsh"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.zwc",
+      ".zcompdump*",
+      "*.log"
+    ],
+    "notes": "The rc files are plain scripts. Frameworks such as Oh My Zsh are cloned again on the target system; the lines that source them keep working once they are."
+  },
+  "equivalents": [
+    "fish",
+    "nushell",
+    "powershell"
+  ]
+}

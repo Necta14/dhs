@@ -1,0 +1,18 @@
+{
+  "id": "gscan2pdf",
+  "name": "gscan2pdf",
+  "summary": "Scans to PDF and DjVu, with OCR",
+  "category": "utility",
+  "homepage": "https://gscan2pdf.sourceforge.net/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["gscan2pdf"],
+    "apt": ["gscan2pdf"],
+    "dnf": ["gscan2pdf"],
+    "zypper": ["gscan2pdf"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["simple-scan", "skanlite", "naps2"]
+}

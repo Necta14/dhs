@@ -1,0 +1,27 @@
+{
+  "id": "tor-browser",
+  "name": "Tor Browser",
+  "summary": "Firefox-based browser that routes traffic over Tor",
+  "category": "browser",
+  "homepage": "https://www.torproject.org/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": ["TorProject.TorBrowser"],
+    "choco": ["tor-browser"],
+    "scoop": ["extras/tor-browser"],
+    "registry": ["Tor Browser"]
+  },
+  "linux": {
+    "pacman": ["torbrowser-launcher"],
+    "aur": ["tor-browser-bin"],
+    "apt": ["torbrowser-launcher"],
+    "dnf": ["torbrowser-launcher"],
+    "zypper": ["torbrowser-launcher"],
+    "flatpak": ["org.torproject.torbrowser-launcher"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The profile is deliberately not carried over. Tor Browser ships a fixed configuration so that every user looks alike; a migrated profile makes the browser easier to fingerprint, and the Tor Project advises against moving it. DHS installs the browser and leaves it at its defaults."
+  },
+  "equivalents": ["librewolf", "firefox"]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "konsole",
+  "name": "Konsole",
+  "summary": "KDE terminal emulator",
+  "category": "terminal",
+  "homepage": "https://apps.kde.org/konsole/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": [
+      "konsole"
+    ],
+    "apt": [
+      "konsole"
+    ],
+    "dnf": [
+      "konsole"
+    ],
+    "zypper": [
+      "konsole"
+    ],
+    "apk": [
+      "konsole"
+    ],
+    "flatpak": [
+      "org.kde.konsole"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/konsolerc",
+      "profiles": "$XDG_DATA_HOME/konsole"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "konsolerc and the .profile files are INI text with the same keys everywhere."
+  },
+  "equivalents": [
+    "windows-terminal",
+    "kitty",
+    "gnome-terminal"
+  ]
+}

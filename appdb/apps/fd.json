@@ -1,0 +1,44 @@
+{
+  "id": "fd",
+  "name": "fd",
+  "summary": "Fast and friendly alternative to find",
+  "category": "devtool",
+  "homepage": "https://github.com/sharkdp/fd",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "sharkdp.fd"
+    ],
+    "choco": [
+      "fd"
+    ],
+    "scoop": [
+      "fd"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "fd"
+    ],
+    "apt": [
+      "fd-find"
+    ],
+    "dnf": [
+      "fd-find"
+    ],
+    "zypper": [
+      "fd"
+    ],
+    "apk": [
+      "fd"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "No configuration file; the ignore rules come from the project's .gitignore. Debian, Ubuntu and Fedora call the package fd-find and the command fdfind."
+  },
+  "equivalents": [
+    "ripgrep",
+    "fzf"
+  ]
+}

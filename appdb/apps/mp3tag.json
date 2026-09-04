@@ -1,0 +1,23 @@
+{
+  "id": "mp3tag",
+  "name": "Mp3tag",
+  "summary": "Batch tag editor for audio files",
+  "category": "music",
+  "homepage": "https://www.mp3tag.de/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["FlorianHeidenreich.Mp3tag"],
+    "choco": ["mp3tag"],
+    "scoop": ["extras/mp3tag"],
+    "registry": ["Mp3tag"],
+    "paths": {
+      "config": "%APPDATA%/Mp3tag"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "backup"],
+    "notes": "Windows only. The profile keeps the export scripts, the action groups and the tag-source definitions, which are the part a heavy user has built up over years and which no other tagger reads."
+  },
+  "equivalents": ["musicbrainz-picard", "easytag", "quodlibet"]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "zim",
+  "name": "Zim Desktop Wiki",
+  "summary": "Personal wiki over a folder of plain text pages",
+  "category": "notes",
+  "homepage": "https://zim-wiki.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Zimwiki.Zim"],
+    "choco": ["zim"],
+    "scoop": ["extras/zim"],
+    "registry": ["Zim Desktop Wiki", "Zim"],
+    "paths": {
+      "config": "%APPDATA%/zim",
+      "data": "%LOCALAPPDATA%/zim"
+    }
+  },
+  "linux": {
+    "pacman": ["zim"],
+    "apt": ["zim"],
+    "dnf": ["Zim"],
+    "zypper": ["zim"],
+    "apk": ["zim"],
+    "flatpak": ["org.zim_wiki.Zim"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/zim",
+      "data": "$XDG_DATA_HOME/zim"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache", "*.log"],
+    "notes": "The notebook list and per-notebook preferences are plain INI files; the notebooks themselves are folders of text files the user chose, and their paths have to be pointed at the new home."
+  },
+  "equivalents": ["cherrytree", "obsidian", "joplin"]
+}

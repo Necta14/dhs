@@ -1,0 +1,25 @@
+{
+  "id": "geary",
+  "name": "Geary",
+  "summary": "Lightweight GNOME mail client",
+  "category": "email",
+  "homepage": "https://apps.gnome.org/Geary/",
+  "license": "LGPL-2.1",
+  "linux": {
+    "pacman": ["geary"],
+    "apt": ["geary"],
+    "dnf": ["geary"],
+    "zypper": ["geary"],
+    "apk": ["geary"],
+    "flatpak": ["org.gnome.Geary"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/geary"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.lock", "*.log"],
+    "notes": "Linux only. The mail database under $XDG_DATA_HOME/geary is a local copy of the server and is not carried."
+  },
+  "equivalents": ["evolution", "thunderbird"]
+}

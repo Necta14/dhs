@@ -1,0 +1,34 @@
+{
+  "id": "darktable",
+  "name": "darktable",
+  "summary": "Raw photo developer and library",
+  "category": "photo",
+  "homepage": "https://www.darktable.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["darktable.darktable"],
+    "choco": ["darktable"],
+    "scoop": ["extras/darktable"],
+    "registry": ["darktable"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/darktable"
+    }
+  },
+  "linux": {
+    "pacman": ["darktable"],
+    "apt": ["darktable"],
+    "dnf": ["darktable"],
+    "zypper": ["darktable"],
+    "apk": ["darktable"],
+    "flatpak": ["org.darktable.Darktable"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/darktable"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.log", "lock", "library.db.lock", "data.db.lock", "mipmaps*"],
+    "notes": "darktablerc holds the preferences, styles and presets; library.db is the catalogue and names every photo by absolute path, so the directory is kept aside and the catalogue is re-imported. The edits themselves also live in the XMP sidecar next to each raw file, which is what actually survives a move."
+  },
+  "equivalents": ["rawtherapee", "digikam"]
+}

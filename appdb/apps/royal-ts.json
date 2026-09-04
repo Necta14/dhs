@@ -1,0 +1,17 @@
+{
+  "id": "royal-ts",
+  "name": "Royal TS",
+  "summary": "Connection manager for RDP, VNC, SSH and web consoles",
+  "category": "remote-desktop",
+  "homepage": "https://www.royalapps.com/",
+  "license": "proprietary",
+  "windows": {
+    "choco": ["royalts"],
+    "registry": ["Royal TS"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only in this entry. The connection documents are files the user saves where they like, so they travel as documents, not as configuration."
+  },
+  "equivalents": ["remmina", "krdc", "mremoteng"]
+}

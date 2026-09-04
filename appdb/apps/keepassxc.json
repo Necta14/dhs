@@ -1,0 +1,34 @@
+{
+  "id": "keepassxc",
+  "name": "KeePassXC",
+  "summary": "Offline password manager for KeePass databases",
+  "category": "password-manager",
+  "homepage": "https://keepassxc.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["KeePassXCTeam.KeePassXC"],
+    "choco": ["keepassxc"],
+    "scoop": ["extras/keepassxc"],
+    "registry": ["KeePassXC"],
+    "paths": {
+      "config": "%APPDATA%/KeePassXC"
+    }
+  },
+  "linux": {
+    "pacman": ["keepassxc"],
+    "apt": ["keepassxc"],
+    "dnf": ["keepassxc"],
+    "zypper": ["keepassxc"],
+    "apk": ["keepassxc"],
+    "flatpak": ["org.keepassxc.KeePassXC"],
+    "snap": ["keepassxc"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/keepassxc"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "This is the application's own settings only. keepassxc.ini records the last opened databases and the key files by absolute path and names the browser-integration proxy, so it is kept aside on the other platform. The .kdbx database itself is a secret: DHS recognises it by name and includes it only with --secrets."
+  },
+  "equivalents": ["keepass", "keeweb", "bitwarden"]
+}

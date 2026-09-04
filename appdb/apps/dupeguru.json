@@ -1,0 +1,21 @@
+{
+  "id": "dupeguru",
+  "name": "dupeGuru",
+  "summary": "Finds duplicate files, music and pictures",
+  "category": "utility",
+  "homepage": "https://dupeguru.voltaicideas.net/",
+  "license": "GPL-3.0",
+  "windows": {
+    "choco": ["dupeguru"],
+    "registry": ["dupeGuru"]
+  },
+  "linux": {
+    "aur": ["dupeguru"],
+    "apt": ["dupeguru"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Remembers the last scanned folders as absolute paths; nothing is carried."
+  },
+  "equivalents": ["czkawka", "rmlint", "fdupes"]
+}

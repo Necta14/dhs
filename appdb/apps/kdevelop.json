@@ -1,0 +1,48 @@
+{
+  "id": "kdevelop",
+  "name": "KDevelop",
+  "summary": "KDE integrated development environment for C, C++ and Python",
+  "category": "ide",
+  "homepage": "https://kdevelop.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": [
+      "KDE.KDevelop"
+    ],
+    "registry": [
+      "KDevelop"
+    ],
+    "paths": {
+      "config": "%APPDATA%/kdeveloprc"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "kdevelop"
+    ],
+    "apt": [
+      "kdevelop"
+    ],
+    "dnf": [
+      "kdevelop"
+    ],
+    "zypper": [
+      "kdevelop"
+    ],
+    "flatpak": [
+      "org.kde.kdevelop"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kdeveloprc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "kdeveloprc is an INI file with the same keys everywhere. The session list inside it points at project directories that must exist on the target system."
+  },
+  "equivalents": [
+    "qt-creator",
+    "codeblocks",
+    "clion"
+  ]
+}

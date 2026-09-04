@@ -1,0 +1,62 @@
+{
+  "id": "neovim",
+  "name": "Neovim",
+  "summary": "Vim-based modal text editor",
+  "category": "editor",
+  "homepage": "https://neovim.io/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Neovim.Neovim"
+    ],
+    "choco": [
+      "neovim"
+    ],
+    "scoop": [
+      "neovim"
+    ],
+    "registry": [
+      "Neovim"
+    ],
+    "paths": {
+      "config": "%LOCALAPPDATA%/nvim"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "neovim"
+    ],
+    "apt": [
+      "neovim"
+    ],
+    "dnf": [
+      "neovim"
+    ],
+    "zypper": [
+      "neovim"
+    ],
+    "apk": [
+      "neovim"
+    ],
+    "flatpak": [
+      "io.neovim.nvim"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/nvim"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.log",
+      "shada",
+      "undo",
+      "swap"
+    ],
+    "notes": "init.lua, init.vim and the Lua configuration are the same on every platform. Plugins live in the data directory and are re-fetched by the plugin manager on first start, so they are not carried."
+  },
+  "equivalents": [
+    "vim",
+    "helix"
+  ]
+}

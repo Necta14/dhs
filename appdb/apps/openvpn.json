@@ -1,0 +1,29 @@
+{
+  "id": "openvpn",
+  "name": "OpenVPN",
+  "summary": "SSL/TLS VPN client and server",
+  "category": "vpn",
+  "homepage": "https://openvpn.net/community/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["OpenVPNTechnologies.OpenVPN"],
+    "choco": ["openvpn"],
+    "registry": ["OpenVPN"],
+    "paths": {
+      "profiles": "%USERPROFILE%/OpenVPN/config"
+    }
+  },
+  "linux": {
+    "pacman": ["openvpn"],
+    "apt": ["openvpn"],
+    "dnf": ["openvpn"],
+    "zypper": ["openvpn"],
+    "apk": ["openvpn"]
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log"],
+    "notes": "The OpenVPN GUI on Windows keeps .ovpn profiles in the user's profile; on Linux they usually sit under /etc/openvpn or are imported into NetworkManager, so they are kept aside. Embedded keys are secrets."
+  },
+  "equivalents": ["wireguard", "openconnect"]
+}

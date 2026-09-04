@@ -1,0 +1,46 @@
+{
+  "id": "rstudio",
+  "name": "RStudio",
+  "summary": "IDE for the R statistical language",
+  "category": "ide",
+  "homepage": "https://posit.co/products/open-source/rstudio/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": [
+      "Posit.RStudio"
+    ],
+    "choco": [
+      "R.Studio"
+    ],
+    "scoop": [
+      "extras/rstudio"
+    ],
+    "registry": [
+      "RStudio"
+    ],
+    "paths": {
+      "config": "%APPDATA%/RStudio"
+    }
+  },
+  "linux": {
+    "aur": [
+      "rstudio-desktop-bin"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/rstudio"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "log",
+      "*.log",
+      "sources",
+      "sessions"
+    ],
+    "notes": "rstudio-prefs.json, the keybindings and the snippets are the same JSON and text files on both platforms."
+  },
+  "equivalents": [
+    "spyder"
+  ]
+}

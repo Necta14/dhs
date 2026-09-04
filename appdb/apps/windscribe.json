@@ -1,0 +1,17 @@
+{
+  "id": "windscribe",
+  "name": "Windscribe",
+  "summary": "VPN client for the Windscribe service",
+  "category": "vpn",
+  "homepage": "https://windscribe.com/",
+  "windows": {
+    "winget": ["Windscribe.Windscribe"],
+    "choco": ["windscribe"],
+    "registry": ["Windscribe"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "On Linux Windscribe ships its own repository, so no distribution package name is listed here."
+  },
+  "equivalents": ["protonvpn", "mullvad-vpn", "wireguard"]
+}

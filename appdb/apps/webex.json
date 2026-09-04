@@ -1,0 +1,19 @@
+{
+  "id": "webex",
+  "name": "Webex",
+  "summary": "Cisco video meetings and messaging",
+  "category": "video-call",
+  "homepage": "https://www.webex.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Cisco.Webex"],
+    "choco": ["webex"],
+    "scoop": ["extras/webex"],
+    "registry": ["Webex"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Cisco publishes a Linux build on its own site, but no distribution ships it, so no Linux section is claimed here. The settings live on the account."
+  },
+  "equivalents": ["zoom", "jitsi-meet"]
+}

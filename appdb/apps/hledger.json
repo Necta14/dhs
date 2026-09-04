@@ -1,0 +1,25 @@
+{
+  "id": "hledger",
+  "name": "hledger",
+  "summary": "Plain-text double-entry accounting on the command line",
+  "category": "finance",
+  "homepage": "https://hledger.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["simonmichael.hledger"],
+    "choco": ["hledger"],
+    "scoop": ["hledger"]
+  },
+  "linux": {
+    "pacman": ["hledger"],
+    "aur": ["hledger-bin"],
+    "dnf": ["hledger"],
+    "zypper": ["hledger"],
+    "apk": ["hledger"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The journal is a plain text file named by the LEDGER_FILE variable, by default ~/.hledger.journal; it is carried as an ordinary personal file, and hledger itself keeps no other state."
+  },
+  "equivalents": ["gnucash", "kmymoney"]
+}

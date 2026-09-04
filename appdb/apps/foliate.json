@@ -1,0 +1,26 @@
+{
+  "id": "foliate",
+  "name": "Foliate",
+  "summary": "GTK e-book reader for EPUB, MOBI and comics",
+  "category": "ebook",
+  "homepage": "https://johnfactotum.github.io/foliate/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["foliate"],
+    "apt": ["foliate"],
+    "dnf": ["foliate"],
+    "zypper": ["foliate"],
+    "apk": ["foliate"],
+    "flatpak": ["com.github.johnfactotum.Foliate"],
+    "snap": ["foliate"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/com.github.johnfactotum.Foliate"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache"],
+    "notes": "Reading positions, bookmarks and annotations are kept per book in the data directory; the interface settings live in dconf."
+  },
+  "equivalents": ["calibre", "koodo-reader", "thorium-reader"]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "eog",
+  "name": "Eye of GNOME",
+  "summary": "The older GNOME image viewer",
+  "category": "photo",
+  "homepage": "https://gitlab.gnome.org/GNOME/eog",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["eog"],
+    "apt": ["eog"],
+    "dnf": ["eog"],
+    "zypper": ["eog"],
+    "apk": ["eog"],
+    "flatpak": ["org.gnome.eog"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only. Its settings are dconf keys; nothing on disk is worth carrying. Newer GNOME releases ship Loupe in its place."
+  },
+  "equivalents": ["loupe", "gwenview", "nomacs"]
+}

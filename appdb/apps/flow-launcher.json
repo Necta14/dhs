@@ -1,0 +1,23 @@
+{
+  "id": "flow-launcher",
+  "name": "Flow Launcher",
+  "summary": "Keyboard launcher for Windows with plugins",
+  "category": "launcher",
+  "homepage": "https://www.flowlauncher.com/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["Flow-Launcher.Flow-Launcher"],
+    "choco": ["flow-launcher"],
+    "scoop": ["extras/flow-launcher"],
+    "registry": ["Flow Launcher"],
+    "paths": {
+      "config": "%APPDATA%/FlowLauncher"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["Logs", "*.log", "Cache"],
+    "notes": "Windows only. The plugins are .NET assemblies and the settings name Windows programs."
+  },
+  "equivalents": ["ulauncher", "albert", "rofi"]
+}

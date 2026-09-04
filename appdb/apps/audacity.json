@@ -1,0 +1,35 @@
+{
+  "id": "audacity",
+  "name": "Audacity",
+  "summary": "Multi-track audio recorder and editor",
+  "category": "audio-editor",
+  "homepage": "https://www.audacityteam.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Audacity.Audacity"],
+    "choco": ["audacity"],
+    "scoop": ["extras/audacity"],
+    "registry": ["Audacity"],
+    "paths": {
+      "config": "%APPDATA%/audacity"
+    }
+  },
+  "linux": {
+    "pacman": ["audacity"],
+    "apt": ["audacity"],
+    "dnf": ["audacity"],
+    "zypper": ["audacity"],
+    "apk": ["audacity"],
+    "flatpak": ["org.audacityteam.Audacity"],
+    "snap": ["audacity"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/audacity"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["SessionData", "AutoSave", "*.log"],
+    "notes": "audacity.cfg has the same keys on both platforms but names the host audio API - MME or WASAPI against ALSA, PulseAudio or JACK - and holds absolute paths for the temporary directory and the recent files, so it is kept aside."
+  },
+  "equivalents": ["tenacity", "ocenaudio"]
+}

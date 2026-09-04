@@ -1,0 +1,23 @@
+{
+  "id": "clamtk",
+  "name": "ClamTk",
+  "summary": "Desktop front end for ClamAV",
+  "category": "security",
+  "homepage": "https://gitlab.com/dave_m/clamtk",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["clamtk"],
+    "apt": ["clamtk"],
+    "dnf": ["clamtk"],
+    "zypper": ["clamtk"],
+    "paths": {
+      "config": "~/.clamtk"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["history", "*.log"],
+    "notes": "Linux only. The whitelist entries are absolute paths."
+  },
+  "equivalents": ["clamav", "malwarebytes"]
+}

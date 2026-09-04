@@ -1,0 +1,19 @@
+{
+  "id": "gnome-disks",
+  "name": "Disks",
+  "summary": "GNOME disk and volume manager",
+  "category": "system",
+  "homepage": "https://apps.gnome.org/DiskUtility/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["gnome-disk-utility"],
+    "apt": ["gnome-disk-utility"],
+    "dnf": ["gnome-disk-utility"],
+    "zypper": ["gnome-disk-utility"],
+    "apk": ["gnome-disk-utility"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["gparted", "kde-partitionmanager"]
+}

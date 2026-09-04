@@ -1,0 +1,23 @@
+{
+  "id": "jdownloader",
+  "name": "JDownloader",
+  "summary": "Download manager for file hosters",
+  "category": "download",
+  "homepage": "https://jdownloader.org/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["AppWork.JDownloader"],
+    "choco": ["jdownloader"],
+    "registry": ["JDownloader"]
+  },
+  "linux": {
+    "aur": ["jdownloader2"],
+    "flatpak": ["org.jdownloader.JDownloader"],
+    "snap": ["jdownloader2"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "JDownloader keeps its cfg/ directory inside the installation folder, not under the home directory, so there is nothing under a user path to carry. The download list can be exported from inside the program."
+  },
+  "equivalents": ["motrix", "uget", "free-download-manager"]
+}

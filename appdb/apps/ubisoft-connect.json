@@ -1,0 +1,22 @@
+{
+  "id": "ubisoft-connect",
+  "name": "Ubisoft Connect",
+  "summary": "Game store and launcher by Ubisoft",
+  "category": "launcher",
+  "homepage": "https://ubisoftconnect.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Ubisoft.Connect"],
+    "choco": ["ubisoft-connect"],
+    "registry": ["Ubisoft Connect"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/Ubisoft Game Launcher"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["logs", "*.log", "cache", "crashes"],
+    "notes": "Windows only. The savegames directory under this location belongs to the games, not to the launcher, and Ubisoft's cloud restores it after a sign-in."
+  },
+  "equivalents": ["lutris", "bottles", "heroic-games-launcher"]
+}

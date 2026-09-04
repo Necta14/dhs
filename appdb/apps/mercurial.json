@@ -1,0 +1,53 @@
+{
+  "id": "mercurial",
+  "name": "Mercurial",
+  "summary": "Distributed version control",
+  "category": "vcs",
+  "homepage": "https://www.mercurial-scm.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": [
+      "Mercurial.Mercurial"
+    ],
+    "choco": [
+      "hg"
+    ],
+    "scoop": [
+      "mercurial"
+    ],
+    "registry": [
+      "Mercurial"
+    ],
+    "paths": {
+      "hgrc": "%USERPROFILE%/mercurial.ini"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "mercurial"
+    ],
+    "apt": [
+      "mercurial"
+    ],
+    "dnf": [
+      "mercurial"
+    ],
+    "zypper": [
+      "mercurial"
+    ],
+    "apk": [
+      "mercurial"
+    ],
+    "paths": {
+      "hgrc": "~/.hgrc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The same INI content under a different name: mercurial.ini on Windows, .hgrc on Linux. Extensions named in it must be present on the target system."
+  },
+  "equivalents": [
+    "git",
+    "subversion"
+  ]
+}

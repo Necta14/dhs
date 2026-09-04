@@ -1,0 +1,22 @@
+{
+  "id": "languagetool",
+  "name": "LanguageTool",
+  "summary": "Grammar and style checker for many languages",
+  "category": "productivity",
+  "homepage": "https://languagetool.org/",
+  "license": "LGPL-2.1",
+  "windows": {
+    "winget": ["Learneo.LanguageTool"],
+    "choco": ["languagetool"],
+    "scoop": ["extras/languagetool"],
+    "registry": ["LanguageTool"]
+  },
+  "linux": {
+    "pacman": ["languagetool"],
+    "zypper": ["languagetool"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The personal dictionary and the rule preferences belong to the account or to the office suite's extension, not to a directory of its own. The command-line server takes its settings from a file given on the command line."
+  }
+}

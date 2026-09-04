@@ -1,0 +1,18 @@
+{
+  "id": "cpu-x",
+  "name": "CPU-X",
+  "summary": "Reports processor, board and memory details on Linux",
+  "category": "system",
+  "homepage": "https://thetumultuousunicornofdarkness.github.io/CPU-X/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["cpu-x"],
+    "apt": ["cpu-x"],
+    "dnf": ["cpu-x"],
+    "zypper": ["cpu-x"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["cpu-z", "hardinfo", "hwinfo"]
+}

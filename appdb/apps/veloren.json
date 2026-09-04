@@ -1,0 +1,25 @@
+{
+  "id": "veloren",
+  "name": "Veloren",
+  "summary": "Open source multiplayer voxel role-playing game",
+  "category": "gaming",
+  "homepage": "https://veloren.net/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Veloren.Airshipper"],
+    "registry": ["Airshipper"]
+  },
+  "linux": {
+    "aur": ["veloren-bin"],
+    "flatpak": ["net.veloren.veloren"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/veloren"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["cache", "logs", "*.log", "screenshots"],
+    "notes": "On Windows the game is installed and updated through the Airshipper launcher, which keeps its own directory; only the Linux settings and keybindings are carried."
+  },
+  "equivalents": []
+}

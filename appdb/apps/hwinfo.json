@@ -1,0 +1,18 @@
+{
+  "id": "hwinfo",
+  "name": "HWiNFO",
+  "summary": "Hardware inventory and sensor readings for Windows",
+  "category": "system",
+  "homepage": "https://www.hwinfo.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["REALiX.HWiNFO"],
+    "choco": ["hwinfo"],
+    "registry": ["HWiNFO64"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. Not to be confused with the Linux package of the same name, which is a different tool."
+  },
+  "equivalents": ["hardinfo", "cpu-x", "gsmartcontrol"]
+}

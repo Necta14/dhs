@@ -1,0 +1,16 @@
+{
+  "id": "macrium-reflect",
+  "name": "Macrium Reflect",
+  "summary": "Disk imaging and backup for Windows",
+  "category": "backup",
+  "homepage": "https://www.macrium.com/",
+  "license": "proprietary",
+  "windows": {
+    "registry": ["Macrium Reflect"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. The backup definitions describe Windows volumes and cannot follow the user to Linux."
+  },
+  "equivalents": ["timeshift", "deja-dup", "borgbackup", "restic"]
+}

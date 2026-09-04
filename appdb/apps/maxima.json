@@ -1,0 +1,28 @@
+{
+  "id": "maxima",
+  "name": "Maxima",
+  "summary": "Computer algebra system",
+  "category": "science",
+  "homepage": "https://maxima.sourceforge.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["MaximaTeam.Maxima"],
+    "choco": ["maxima"],
+    "scoop": ["extras/maxima"],
+    "registry": ["Maxima"]
+  },
+  "linux": {
+    "pacman": ["maxima"],
+    "apt": ["maxima"],
+    "dnf": ["maxima"],
+    "zypper": ["maxima"],
+    "paths": {
+      "config": "~/.maxima"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "maxima-init.mac and the user's own .mac libraries are plain text and move unchanged between distributions."
+  },
+  "equivalents": ["wxmaxima", "octave"]
+}

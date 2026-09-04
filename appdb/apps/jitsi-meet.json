@@ -1,0 +1,29 @@
+{
+  "id": "jitsi-meet",
+  "name": "Jitsi Meet",
+  "summary": "Desktop client for Jitsi video meetings",
+  "category": "video-call",
+  "homepage": "https://jitsi.org/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": ["Jitsi.Meet"],
+    "choco": ["jitsi-meet-electron"],
+    "registry": ["Jitsi Meet"],
+    "paths": {
+      "config": "%APPDATA%/Jitsi Meet"
+    }
+  },
+  "linux": {
+    "aur": ["jitsi-meet-desktop"],
+    "flatpak": ["org.jitsi.jitsi-meet"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Jitsi Meet"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker"],
+    "notes": "An Electron application: the settings files are JSON and read the same on both platforms. The server list and the display name are all it keeps."
+  },
+  "equivalents": ["zoom", "jami", "webex"]
+}

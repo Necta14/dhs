@@ -1,0 +1,25 @@
+{
+  "id": "tauon",
+  "name": "Tauon Music Box",
+  "summary": "Music player for local collections",
+  "category": "music",
+  "homepage": "https://tauonmusicbox.rocks/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Taiko2k.TauonMusicBox"],
+    "scoop": ["extras/tauon"],
+    "registry": ["Tauon Music Box"]
+  },
+  "linux": {
+    "flatpak": ["com.github.taiko2k.tauonmb"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/TauonMusicBox"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.log", "state.p.backup"],
+    "notes": "The Windows build keeps the same files next to its own directory rather than under the user profile, so the profile is kept aside instead of dropped in place."
+  },
+  "equivalents": ["strawberry", "foobar2000"]
+}

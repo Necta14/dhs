@@ -1,0 +1,24 @@
+{
+  "id": "cmus",
+  "name": "cmus",
+  "summary": "Terminal music player",
+  "category": "music",
+  "homepage": "https://cmus.github.io/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["cmus"],
+    "apt": ["cmus"],
+    "zypper": ["cmus"],
+    "apk": ["cmus"],
+    "flatpak": ["io.github.cmus.cmus"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/cmus"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["cache", "socket", "*.pid"],
+    "notes": "Linux only in practice. rc and autosave hold the key bindings, the colours and the library, the last of which is a list of absolute paths."
+  },
+  "equivalents": ["ncmpcpp", "audacious", "deadbeef"]
+}

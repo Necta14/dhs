@@ -1,0 +1,55 @@
+{
+  "id": "vagrant",
+  "name": "Vagrant",
+  "summary": "Reproducible development virtual machines",
+  "category": "virtualization",
+  "homepage": "https://developer.hashicorp.com/vagrant",
+  "license": "BUSL-1.1",
+  "windows": {
+    "winget": [
+      "Hashicorp.Vagrant"
+    ],
+    "choco": [
+      "vagrant"
+    ],
+    "scoop": [
+      "vagrant"
+    ],
+    "registry": [
+      "Vagrant"
+    ],
+    "paths": {
+      "home": "%USERPROFILE%/.vagrant.d"
+    }
+  },
+  "linux": {
+    "aur": [
+      "vagrant"
+    ],
+    "apt": [
+      "vagrant"
+    ],
+    "dnf": [
+      "vagrant"
+    ],
+    "paths": {
+      "home": "~/.vagrant.d"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "boxes",
+      "gems",
+      "tmp",
+      "cache",
+      "*.log",
+      "data"
+    ],
+    "notes": "The boxes are multi-gigabyte images that Vagrant downloads again, and the plugin gems are built for one Ruby. What is left is the plugin list and the insecure key."
+  },
+  "equivalents": [
+    "virtualbox",
+    "virt-manager"
+  ]
+}

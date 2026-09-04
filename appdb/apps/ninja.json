@@ -1,0 +1,44 @@
+{
+  "id": "ninja",
+  "name": "Ninja",
+  "summary": "Small build system built for speed",
+  "category": "devtool",
+  "homepage": "https://ninja-build.org/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Ninja-build.Ninja"
+    ],
+    "choco": [
+      "ninja"
+    ],
+    "scoop": [
+      "ninja"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "ninja"
+    ],
+    "apt": [
+      "ninja-build"
+    ],
+    "dnf": [
+      "ninja-build"
+    ],
+    "zypper": [
+      "ninja"
+    ],
+    "apk": [
+      "ninja-build"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "No user configuration; the build files are generated in each project."
+  },
+  "equivalents": [
+    "meson",
+    "cmake"
+  ]
+}

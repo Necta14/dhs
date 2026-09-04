@@ -1,0 +1,30 @@
+{
+  "id": "flightgear",
+  "name": "FlightGear",
+  "summary": "Open source flight simulator",
+  "category": "gaming",
+  "homepage": "https://www.flightgear.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["FlightGear.FlightGear"],
+    "choco": ["flightgear"],
+    "registry": ["FlightGear"]
+  },
+  "linux": {
+    "aur": ["flightgear"],
+    "apt": ["flightgear"],
+    "dnf": ["FlightGear"],
+    "zypper": ["FlightGear"],
+    "apk": ["flightgear"],
+    "flatpak": ["org.flightgear.FlightGear"],
+    "paths": {
+      "config": "~/.fgfs"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "Export", "cache", "TerraSync"],
+    "notes": "autosave.xml keeps the settings and the joystick bindings; the scenery downloaded by TerraSync is many gigabytes and is fetched again."
+  },
+  "equivalents": []
+}

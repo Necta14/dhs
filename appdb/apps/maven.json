@@ -1,0 +1,46 @@
+{
+  "id": "maven",
+  "name": "Apache Maven",
+  "summary": "Java build and dependency tool",
+  "category": "devtool",
+  "homepage": "https://maven.apache.org/",
+  "license": "Apache-2.0",
+  "windows": {
+    "choco": [
+      "maven"
+    ],
+    "scoop": [
+      "maven"
+    ],
+    "paths": {
+      "settings": "%USERPROFILE%/.m2/settings.xml"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "maven"
+    ],
+    "apt": [
+      "maven"
+    ],
+    "dnf": [
+      "maven"
+    ],
+    "zypper": [
+      "maven"
+    ],
+    "apk": [
+      "maven"
+    ],
+    "paths": {
+      "settings": "~/.m2/settings.xml"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "settings.xml holds the mirrors, the servers and the profiles in the same XML everywhere. The local repository beside it is a download cache and is left behind."
+  },
+  "equivalents": [
+    "gradle"
+  ]
+}

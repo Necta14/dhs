@@ -1,0 +1,40 @@
+{
+  "id": "vmware-workstation",
+  "name": "VMware Workstation",
+  "summary": "Desktop virtual machine host",
+  "category": "virtualization",
+  "homepage": "https://www.vmware.com/products/desktop-hypervisor.html",
+  "license": "proprietary",
+  "windows": {
+    "choco": [
+      "vmwareworkstation"
+    ],
+    "registry": [
+      "VMware Workstation"
+    ],
+    "paths": {
+      "preferences": "%APPDATA%/VMware"
+    }
+  },
+  "linux": {
+    "aur": [
+      "vmware-workstation"
+    ],
+    "paths": {
+      "preferences": "~/.vmware"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "*.log",
+      "logs"
+    ],
+    "notes": "preferences.ini names the virtual machines by absolute path. The .vmx and disk files are the machines themselves and live wherever the user put them."
+  },
+  "equivalents": [
+    "virtualbox",
+    "virt-manager",
+    "gnome-boxes"
+  ]
+}

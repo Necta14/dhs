@@ -1,0 +1,34 @@
+{
+  "id": "nextcloud-desktop",
+  "name": "Nextcloud Desktop",
+  "summary": "Sync client for Nextcloud servers",
+  "category": "file-sync",
+  "homepage": "https://nextcloud.com/clients/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Nextcloud.NextcloudDesktop"],
+    "choco": ["nextcloud-client"],
+    "scoop": ["extras/nextcloud"],
+    "registry": ["Nextcloud"],
+    "paths": {
+      "config": "%APPDATA%/Nextcloud"
+    }
+  },
+  "linux": {
+    "pacman": ["nextcloud-client"],
+    "apt": ["nextcloud-desktop"],
+    "dnf": ["nextcloud-client"],
+    "zypper": ["nextcloud-desktop"],
+    "apk": ["nextcloud-client"],
+    "flatpak": ["com.nextcloud.desktopclient.nextcloud"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Nextcloud"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["logs", "*.log", "*.lock", "journal.db*"],
+    "notes": "nextcloud.cfg keeps the account and the folder pairs, but the local side of every pair is an absolute path, so the directory is kept aside and the folders are chosen again. The password is in the system keyring, not here."
+  },
+  "equivalents": ["owncloud-client", "seafile-client", "syncthing"]
+}

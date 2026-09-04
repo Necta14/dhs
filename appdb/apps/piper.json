@@ -1,0 +1,18 @@
+{
+  "id": "piper",
+  "name": "Piper",
+  "summary": "Configures gaming mice through libratbag",
+  "category": "utility",
+  "homepage": "https://github.com/libratbag/piper",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["piper"],
+    "apt": ["piper"],
+    "dnf": ["piper"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The profiles are written to the mouse itself, not to disk."
+  },
+  "equivalents": ["solaar", "openrazer"]
+}

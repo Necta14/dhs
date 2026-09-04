@@ -1,0 +1,34 @@
+{
+  "id": "syncthing",
+  "name": "Syncthing",
+  "summary": "Continuous file sync between your own devices",
+  "category": "file-sync",
+  "homepage": "https://syncthing.net/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": ["Syncthing.Syncthing"],
+    "choco": ["syncthing"],
+    "scoop": ["syncthing"],
+    "registry": ["Syncthing"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/Syncthing"
+    }
+  },
+  "linux": {
+    "pacman": ["syncthing"],
+    "apt": ["syncthing"],
+    "dnf": ["syncthing"],
+    "zypper": ["syncthing"],
+    "apk": ["syncthing"],
+    "paths": {
+      "config": "$XDG_STATE_HOME/syncthing",
+      "config-legacy": "$XDG_CONFIG_HOME/syncthing"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["index-v*.db", "*.log", "*.lock", "csrftokens.txt"],
+    "notes": "config.xml holds the device identity (cert.pem and key.pem) together with the shared folders as absolute paths. Carrying the identity keeps the device ID, which every other device already trusts, but the folder paths have to be set again, so it is kept aside. Since version 1.27 Linux uses the XDG state directory; older installations are still under the config directory."
+  },
+  "equivalents": ["nextcloud-desktop", "rclone"]
+}

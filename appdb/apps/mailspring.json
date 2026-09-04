@@ -1,0 +1,30 @@
+{
+  "id": "mailspring",
+  "name": "Mailspring",
+  "summary": "Mail client with a unified inbox",
+  "category": "email",
+  "homepage": "https://getmailspring.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Foundry376.Mailspring"],
+    "choco": ["mailspring"],
+    "scoop": ["extras/mailspring"],
+    "registry": ["Mailspring"],
+    "paths": {
+      "config": "%APPDATA%/Mailspring"
+    }
+  },
+  "linux": {
+    "aur": ["mailspring"],
+    "flatpak": ["com.getmailspring.Mailspring"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Mailspring"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker", "files", "edgehill.db*"],
+    "notes": "An Electron application: config.json and the account list are the same on both platforms. The local mail database is rebuilt after the first sync."
+  },
+  "equivalents": ["thunderbird", "betterbird"]
+}

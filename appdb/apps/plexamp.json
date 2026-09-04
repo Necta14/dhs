@@ -1,0 +1,22 @@
+{
+  "id": "plexamp",
+  "name": "Plexamp",
+  "summary": "Music client for a Plex server",
+  "category": "music",
+  "homepage": "https://plexamp.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Plex.Plexamp"],
+    "choco": ["plexamp"],
+    "registry": ["Plexamp"]
+  },
+  "linux": {
+    "aur": ["plexamp-bin"],
+    "flatpak": ["com.plexamp.Plexamp"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The library and the settings follow the Plex account and the server; signing in on the new machine brings them back."
+  },
+  "equivalents": ["plex-desktop", "strawberry"]
+}

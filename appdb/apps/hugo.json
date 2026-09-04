@@ -1,0 +1,41 @@
+{
+  "id": "hugo",
+  "name": "Hugo",
+  "summary": "Static site generator",
+  "category": "devtool",
+  "homepage": "https://gohugo.io/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Hugo.Hugo.Extended"
+    ],
+    "choco": [
+      "hugo"
+    ],
+    "scoop": [
+      "hugo"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "hugo"
+    ],
+    "apt": [
+      "hugo"
+    ],
+    "dnf": [
+      "hugo"
+    ],
+    "zypper": [
+      "hugo"
+    ],
+    "apk": [
+      "hugo"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Hugo is configured per site, in the site's own directory; there is nothing in the user's home."
+  },
+  "equivalents": []
+}

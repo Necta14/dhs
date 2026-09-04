@@ -1,0 +1,29 @@
+{
+  "id": "lf",
+  "name": "lf",
+  "summary": "Terminal file manager written in Go",
+  "category": "file-manager",
+  "homepage": "https://github.com/gokcehan/lf",
+  "license": "MIT",
+  "windows": {
+    "choco": ["lf"],
+    "scoop": ["main/lf"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/lf"
+    }
+  },
+  "linux": {
+    "pacman": ["lf"],
+    "apt": ["lf"],
+    "zypper": ["lf"],
+    "apk": ["lf"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/lf"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "lfrc has the same syntax on both platforms but its commands are shell one-liners, so they differ between cmd and a Unix shell."
+  },
+  "equivalents": ["yazi", "ranger", "nnn"]
+}

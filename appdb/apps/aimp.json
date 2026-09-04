@@ -1,0 +1,23 @@
+{
+  "id": "aimp",
+  "name": "AIMP",
+  "summary": "Windows audio player",
+  "category": "music",
+  "homepage": "https://www.aimp.ru/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["AIMP.AIMP"],
+    "choco": ["aimp"],
+    "scoop": ["extras/aimp"],
+    "registry": ["AIMP"],
+    "paths": {
+      "config": "%APPDATA%/AIMP"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["Cache", "*.log"],
+    "notes": "Windows only. The profile holds the skin, the playlists and the equalizer presets in AIMP's own formats."
+  },
+  "equivalents": ["audacious", "deadbeef", "strawberry"]
+}

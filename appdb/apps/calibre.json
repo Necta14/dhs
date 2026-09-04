@@ -1,0 +1,32 @@
+{
+  "id": "calibre",
+  "name": "calibre",
+  "summary": "E-book library manager, converter and reader",
+  "category": "ebook",
+  "homepage": "https://calibre-ebook.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["calibre.calibre"],
+    "choco": ["calibre"],
+    "scoop": ["extras/calibre"],
+    "registry": ["calibre"],
+    "paths": {
+      "config": "%APPDATA%/calibre"
+    }
+  },
+  "linux": {
+    "pacman": ["calibre"],
+    "apt": ["calibre"],
+    "dnf": ["calibre"],
+    "zypper": ["calibre"],
+    "flatpak": ["com.calibre_ebook.calibre"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/calibre"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["caches", "cache", "*.log", "tmp"],
+    "notes": "The plugins, column layouts and conversion presets are portable, but global.py records the absolute path of the library and of the configured e-reader devices, so the directory is kept aside rather than dropped in place. The library folder itself is backed up as ordinary personal files."
+  }
+}

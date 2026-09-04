@@ -1,0 +1,32 @@
+{
+  "id": "kde-connect",
+  "name": "KDE Connect",
+  "summary": "Links a phone and a computer over the network",
+  "category": "file-sync",
+  "homepage": "https://kdeconnect.kde.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["KDE.KDEConnect"],
+    "scoop": ["extras/kdeconnect"],
+    "registry": ["KDE Connect"],
+    "paths": {
+      "config": "%APPDATA%/kdeconnect"
+    }
+  },
+  "linux": {
+    "pacman": ["kdeconnect"],
+    "apt": ["kdeconnect"],
+    "dnf": ["kde-connect"],
+    "apk": ["kdeconnect"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kdeconnect",
+      "data": "$XDG_DATA_HOME/kdeconnect"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "*.lock"],
+    "notes": "The pairing is a certificate belonging to this machine, so the phones are paired again after a move; the configuration is kept aside rather than restored in place."
+  },
+  "equivalents": ["localsend", "warpinator"]
+}

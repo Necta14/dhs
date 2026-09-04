@@ -1,0 +1,20 @@
+{
+  "id": "launchy",
+  "name": "Launchy",
+  "summary": "Keystroke launcher",
+  "category": "launcher",
+  "homepage": "https://www.launchy.net/",
+  "license": "GPL-2.0",
+  "windows": {
+    "registry": ["Launchy"]
+  },
+  "linux": {
+    "pacman": ["launchy"],
+    "dnf": ["launchy"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The catalogue is rebuilt from the directories the user points it at; the plugin settings differ per platform. No longer actively developed."
+  },
+  "equivalents": ["flow-launcher", "ulauncher", "albert", "rofi"]
+}

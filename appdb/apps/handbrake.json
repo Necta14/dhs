@@ -1,0 +1,32 @@
+{
+  "id": "handbrake",
+  "name": "HandBrake",
+  "summary": "Video transcoder with presets",
+  "category": "video-editor",
+  "homepage": "https://handbrake.fr/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["HandBrake.HandBrake"],
+    "choco": ["handbrake"],
+    "scoop": ["extras/handbrake"],
+    "registry": ["HandBrake"],
+    "paths": {
+      "config": "%APPDATA%/HandBrake"
+    }
+  },
+  "linux": {
+    "pacman": ["handbrake"],
+    "apt": ["handbrake"],
+    "apk": ["handbrake"],
+    "flatpak": ["fr.handbrake.ghb"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ghb"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["logs", "*.log"],
+    "notes": "Both platforms keep the custom presets as JSON, but the Windows client writes presets.json and settings.xml under HandBrake while the GTK client writes presets.json and preferences.json under ghb. The presets import cleanly through the application's own Import menu. On Fedora and openSUSE HandBrake comes from RPM Fusion and Packman, not the official repositories; use the Flatpak there."
+  },
+  "equivalents": ["avidemux", "ffmpeg", "losslesscut"]
+}

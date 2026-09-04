@@ -1,0 +1,21 @@
+{
+  "id": "parsec",
+  "name": "Parsec",
+  "summary": "Low-latency remote desktop for games and creative work",
+  "category": "remote-desktop",
+  "homepage": "https://parsec.app/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Parsec.Parsec"],
+    "choco": ["parsec"],
+    "registry": ["Parsec"]
+  },
+  "linux": {
+    "flatpak": ["com.parsecgaming.parsec"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Settings follow the account; the local config.txt is mostly encoder options tied to the hardware."
+  },
+  "equivalents": ["moonlight", "rustdesk"]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "smplayer",
+  "name": "SMPlayer",
+  "summary": "Qt front end for mpv and MPlayer",
+  "category": "media-player",
+  "homepage": "https://www.smplayer.info/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["SMPlayer.SMPlayer"],
+    "choco": ["smplayer"],
+    "scoop": ["extras/smplayer"],
+    "registry": ["SMPlayer"],
+    "paths": {
+      "config": "%APPDATA%/smplayer"
+    }
+  },
+  "linux": {
+    "pacman": ["smplayer"],
+    "apt": ["smplayer"],
+    "dnf": ["smplayer"],
+    "zypper": ["smplayer"],
+    "flatpak": ["info.smplayer.SMPlayer"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/smplayer"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["file_settings", "screenshots", "*.log"],
+    "notes": "smplayer.ini keeps the absolute path of the mpv or mplayer executable and the audio output driver, both of which differ between the platforms. file_settings is per-file resume state."
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "mangohud",
+  "name": "MangoHud",
+  "summary": "Vulkan and OpenGL overlay showing FPS, temperatures and frame times",
+  "category": "utility",
+  "homepage": "https://github.com/flightlessmango/MangoHud",
+  "license": "MIT",
+  "linux": {
+    "pacman": ["mangohud", "lib32-mangohud"],
+    "apt": ["mangohud"],
+    "dnf": ["mangohud"],
+    "zypper": ["mangohud"],
+    "apk": ["mangohud"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/MangoHud"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. MangoHud.conf and the per-game configurations are plain text but describe a Vulkan layer that Windows does not load."
+  },
+  "equivalents": ["rivatuner"]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "wesnoth",
+  "name": "Battle for Wesnoth",
+  "summary": "Open source turn-based fantasy strategy game",
+  "category": "gaming",
+  "homepage": "https://www.wesnoth.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Wesnoth.BattleForWesnoth"],
+    "choco": ["wesnoth"],
+    "scoop": ["games/wesnoth"],
+    "registry": ["Battle for Wesnoth"]
+  },
+  "linux": {
+    "pacman": ["wesnoth"],
+    "apt": ["wesnoth", "wesnoth-1.18"],
+    "dnf": ["wesnoth"],
+    "zypper": ["wesnoth"],
+    "apk": ["wesnoth"],
+    "flatpak": ["org.wesnoth.Wesnoth"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/wesnoth",
+      "data": "$XDG_DATA_HOME/wesnoth"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "logs", "*.log"],
+    "notes": "The savegames and the installed add-ons travel. On Windows the same files live in a version-numbered folder under Documents/My Games, which DHS does not try to guess."
+  },
+  "equivalents": []
+}

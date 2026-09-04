@@ -1,0 +1,50 @@
+{
+  "id": "direnv",
+  "name": "direnv",
+  "summary": "Loads and unloads environment variables per directory",
+  "category": "devtool",
+  "homepage": "https://direnv.net/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "direnv.direnv"
+    ],
+    "choco": [
+      "direnv"
+    ],
+    "scoop": [
+      "direnv"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "direnv"
+    ],
+    "apt": [
+      "direnv"
+    ],
+    "dnf": [
+      "direnv"
+    ],
+    "zypper": [
+      "direnv"
+    ],
+    "apk": [
+      "direnv"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/direnv"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "allow",
+      "deny"
+    ],
+    "notes": "direnvrc is a shell script. The allow list records approved directories by absolute path and is not carried, so each .envrc is approved again."
+  },
+  "equivalents": [
+    "mise"
+  ]
+}

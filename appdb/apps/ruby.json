@@ -1,0 +1,50 @@
+{
+  "id": "ruby",
+  "name": "Ruby",
+  "summary": "Ruby interpreter and RubyGems",
+  "category": "devtool",
+  "homepage": "https://www.ruby-lang.org/",
+  "license": "Ruby",
+  "windows": {
+    "winget": [
+      "RubyInstallerTeam.Ruby.3.4"
+    ],
+    "choco": [
+      "ruby"
+    ],
+    "scoop": [
+      "ruby"
+    ],
+    "registry": [
+      "Ruby"
+    ],
+    "paths": {
+      "gemrc": "%USERPROFILE%/.gemrc"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "ruby"
+    ],
+    "apt": [
+      "ruby"
+    ],
+    "dnf": [
+      "ruby"
+    ],
+    "zypper": [
+      "ruby"
+    ],
+    "apk": [
+      "ruby"
+    ],
+    "paths": {
+      "gemrc": "~/.gemrc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": ".gemrc is YAML with the same keys on both platforms. Installed gems with native extensions are rebuilt on the target system."
+  },
+  "equivalents": []
+}

@@ -1,0 +1,56 @@
+{
+  "id": "nushell",
+  "name": "Nushell",
+  "summary": "Shell with structured data pipelines",
+  "category": "shell",
+  "homepage": "https://www.nushell.sh/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "Nushell.Nushell"
+    ],
+    "choco": [
+      "nushell"
+    ],
+    "scoop": [
+      "nu"
+    ],
+    "registry": [
+      "nu"
+    ],
+    "paths": {
+      "config": "%APPDATA%/nushell"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "nushell"
+    ],
+    "dnf": [
+      "nushell"
+    ],
+    "zypper": [
+      "nushell"
+    ],
+    "apk": [
+      "nushell"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/nushell"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "history.txt",
+      "history.sqlite3",
+      "*.log"
+    ],
+    "notes": "config.nu and env.nu are the same scripts on both platforms; the external commands they call differ."
+  },
+  "equivalents": [
+    "fish",
+    "powershell",
+    "zsh"
+  ]
+}

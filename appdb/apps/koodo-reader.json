@@ -1,0 +1,30 @@
+{
+  "id": "koodo-reader",
+  "name": "Koodo Reader",
+  "summary": "E-book reader with a library, notes and highlights",
+  "category": "ebook",
+  "homepage": "https://www.koodoreader.com/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["AppByTroye.KoodoReader"],
+    "choco": ["koodo-reader"],
+    "scoop": ["extras/koodo-reader"],
+    "registry": ["Koodo Reader"],
+    "paths": {
+      "config": "%APPDATA%/Koodo Reader"
+    }
+  },
+  "linux": {
+    "aur": ["koodo-reader-bin"],
+    "flatpak": ["io.github.troyeguo.koodo-reader"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Koodo Reader"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "The library index, highlights and notes are stored here in the same layout on both platforms."
+  },
+  "equivalents": ["calibre", "thorium-reader", "foliate"]
+}

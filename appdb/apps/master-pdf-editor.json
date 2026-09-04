@@ -1,0 +1,24 @@
+{
+  "id": "master-pdf-editor",
+  "name": "Master PDF Editor",
+  "summary": "PDF editor: text, images, forms and signatures",
+  "category": "pdf",
+  "homepage": "https://code-industry.net/masterpdfeditor/",
+  "license": "proprietary",
+  "windows": {
+    "choco": ["master-pdf-editor"],
+    "registry": ["Master PDF Editor"]
+  },
+  "linux": {
+    "aur": ["masterpdfeditor-free", "masterpdfeditor"],
+    "flatpak": ["net.code_industry.MasterPDFEditor"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Code Industry"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "On Linux the settings are a Qt .conf file under ~/.config/Code Industry; the Windows build keeps the same settings in the registry, so they are kept aside rather than restored in place."
+  },
+  "equivalents": ["okular", "xournalpp", "libreoffice"]
+}

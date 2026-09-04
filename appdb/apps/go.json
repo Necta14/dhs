@@ -1,0 +1,50 @@
+{
+  "id": "go",
+  "name": "Go",
+  "summary": "Go compiler and toolchain",
+  "category": "devtool",
+  "homepage": "https://go.dev/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": [
+      "GoLang.Go"
+    ],
+    "choco": [
+      "golang"
+    ],
+    "scoop": [
+      "go"
+    ],
+    "registry": [
+      "Go Programming Language"
+    ],
+    "paths": {
+      "env": "%APPDATA%/go"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "go"
+    ],
+    "apt": [
+      "golang-go"
+    ],
+    "dnf": [
+      "golang"
+    ],
+    "zypper": [
+      "go"
+    ],
+    "apk": [
+      "go"
+    ],
+    "paths": {
+      "env": "$XDG_CONFIG_HOME/go"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The go env file holds GOPROXY, GOPRIVATE and the like as plain key=value lines. GOPATH and the module cache are absolute paths and are left behind."
+  },
+  "equivalents": []
+}

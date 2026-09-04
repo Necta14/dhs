@@ -1,0 +1,30 @@
+{
+  "id": "owncloud-client",
+  "name": "ownCloud Desktop",
+  "summary": "Sync client for ownCloud servers",
+  "category": "file-sync",
+  "homepage": "https://owncloud.com/desktop-app/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["ownCloud.ownCloudDesktop"],
+    "choco": ["owncloud-client"],
+    "registry": ["ownCloud"],
+    "paths": {
+      "config": "%APPDATA%/ownCloud"
+    }
+  },
+  "linux": {
+    "pacman": ["owncloud-client"],
+    "apt": ["owncloud-client"],
+    "zypper": ["owncloud-client"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ownCloud"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["logs", "*.log", "*.lock", "journal.db*"],
+    "notes": "Same shape as the Nextcloud client it is the ancestor of: owncloud.cfg holds absolute local folder paths, so it is kept aside."
+  },
+  "equivalents": ["nextcloud-desktop", "seafile-client", "syncthing"]
+}

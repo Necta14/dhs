@@ -1,0 +1,48 @@
+{
+  "id": "httpie",
+  "name": "HTTPie",
+  "summary": "Human-friendly HTTP client for the command line",
+  "category": "devtool",
+  "homepage": "https://httpie.io/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "choco": [
+      "httpie"
+    ],
+    "paths": {
+      "config": "%USERPROFILE%/.config/httpie"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "httpie"
+    ],
+    "apt": [
+      "httpie"
+    ],
+    "dnf": [
+      "httpie"
+    ],
+    "zypper": [
+      "httpie"
+    ],
+    "apk": [
+      "httpie"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/httpie"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "sessions"
+    ],
+    "notes": "config.json holds the default options in the same form on both platforms. Sessions hold cookies and credentials and are left out."
+  },
+  "equivalents": [
+    "curl",
+    "postman",
+    "bruno"
+  ]
+}

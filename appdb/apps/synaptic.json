@@ -1,0 +1,15 @@
+{
+  "id": "synaptic",
+  "name": "Synaptic",
+  "summary": "Graphical package manager for Debian and Ubuntu",
+  "category": "system",
+  "homepage": "https://www.nongnu.org/synaptic/",
+  "license": "GPL-2.0",
+  "linux": {
+    "apt": ["synaptic"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Debian and Ubuntu only; it edits the system's apt configuration."
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "id": "espanso",
+  "name": "Espanso",
+  "summary": "Cross-platform text expander",
+  "category": "utility",
+  "homepage": "https://espanso.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Espanso.Espanso"],
+    "choco": ["espanso"],
+    "scoop": ["extras/espanso"],
+    "registry": ["Espanso"],
+    "paths": {
+      "config": "%APPDATA%/espanso"
+    }
+  },
+  "linux": {
+    "aur": ["espanso-wayland", "espanso-x11"],
+    "zypper": ["espanso"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/espanso"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log"],
+    "notes": "The YAML matches and the config directory have the same layout on both platforms; only matches that shell out need a second look."
+  },
+  "equivalents": ["autokey", "autohotkey"]
+}

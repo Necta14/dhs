@@ -1,0 +1,22 @@
+{
+  "id": "gpg4win",
+  "name": "Gpg4win",
+  "summary": "GnuPG for Windows, with Kleopatra",
+  "category": "security",
+  "homepage": "https://gpg4win.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["GnuPG.Gpg4win"],
+    "choco": ["gpg4win"],
+    "registry": ["Gpg4win"],
+    "paths": {
+      "gnupg": "%APPDATA%/gnupg"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["S.gpg-agent", "S.gpg-agent.*", "S.dirmngr", "random_seed", "*.lock", "*.log"],
+    "notes": "The GnuPG home directory itself is portable and lands in ~/.gnupg on Linux, but it is kept aside so the user decides: the private keys inside are secrets."
+  },
+  "equivalents": ["gnupg", "kleopatra"]
+}

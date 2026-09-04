@@ -1,0 +1,16 @@
+{
+  "id": "adobe-after-effects",
+  "name": "Adobe After Effects",
+  "summary": "Motion graphics and compositing",
+  "category": "video-editor",
+  "homepage": "https://www.adobe.com/products/aftereffects.html",
+  "license": "proprietary",
+  "windows": {
+    "registry": ["Adobe After Effects"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, installed through the Creative Cloud desktop application, which no package manager drives; DHS only detects it. Projects are .aep files, and the plugins are compiled for Windows; nothing here survives a move to Linux."
+  },
+  "equivalents": ["natron", "blender", "davinci-resolve"]
+}

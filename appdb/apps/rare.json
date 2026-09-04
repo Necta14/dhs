@@ -1,0 +1,20 @@
+{
+  "id": "rare",
+  "name": "Rare",
+  "summary": "Graphical front end for Legendary, the Epic Games command-line client",
+  "category": "launcher",
+  "homepage": "https://github.com/RareDevs/Rare",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["rare"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Rare"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "Rare stores only its own window and download settings; the game library belongs to Legendary, which has its own entry."
+  },
+  "equivalents": ["heroic-games-launcher", "legendary"]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "octave",
+  "name": "GNU Octave",
+  "summary": "Numerical computing language, largely compatible with MATLAB",
+  "category": "science",
+  "homepage": "https://octave.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["GNU.Octave"],
+    "choco": ["octave.install", "octave"],
+    "scoop": ["octave"],
+    "registry": ["GNU Octave"],
+    "paths": {
+      "config": "%APPDATA%/octave",
+      "octaverc": "%USERPROFILE%/.octaverc"
+    }
+  },
+  "linux": {
+    "pacman": ["octave"],
+    "apt": ["octave"],
+    "dnf": ["octave"],
+    "zypper": ["octave"],
+    "apk": ["octave"],
+    "flatpak": ["org.octave.Octave"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/octave",
+      "octaverc": "~/.octaverc"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["history", "*.log"],
+    "notes": "~/.octaverc is plain text, but qt-settings records the load path, the editor session and the installed packages by absolute path, so the directory is kept aside on the other platform. Packages installed with pkg install are compiled and have to be reinstalled."
+  }
+}

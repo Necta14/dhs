@@ -1,0 +1,16 @@
+{
+  "id": "adobe-photoshop",
+  "name": "Adobe Photoshop",
+  "summary": "Raster image editor",
+  "category": "graphics",
+  "homepage": "https://www.adobe.com/products/photoshop.html",
+  "license": "proprietary",
+  "windows": {
+    "registry": ["Adobe Photoshop"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, and installed through the Creative Cloud desktop application rather than as a package of its own, so no package manager can put it back; DHS only detects it. Workspaces, brushes, actions and presets live under %APPDATA%/Adobe in folders named after the release; none of it means anything on Linux, and DHS carries none of it. Presets are exported from inside the application."
+  },
+  "equivalents": ["krita", "gimp", "pinta"]
+}

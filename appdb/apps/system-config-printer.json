@@ -1,0 +1,18 @@
+{
+  "id": "system-config-printer",
+  "name": "Print Settings",
+  "summary": "CUPS printer configuration tool",
+  "category": "utility",
+  "homepage": "https://github.com/OpenPrinting/system-config-printer",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["system-config-printer"],
+    "apt": ["system-config-printer"],
+    "dnf": ["system-config-printer"],
+    "zypper": ["system-config-printer"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Printers are defined in the CUPS configuration under /etc/cups, not per user."
+  }
+}

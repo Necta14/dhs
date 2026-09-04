@@ -1,0 +1,36 @@
+{
+  "id": "tmux",
+  "name": "tmux",
+  "summary": "Terminal multiplexer",
+  "category": "terminal",
+  "homepage": "https://github.com/tmux/tmux",
+  "license": "ISC",
+  "linux": {
+    "pacman": [
+      "tmux"
+    ],
+    "apt": [
+      "tmux"
+    ],
+    "dnf": [
+      "tmux"
+    ],
+    "zypper": [
+      "tmux"
+    ],
+    "apk": [
+      "tmux"
+    ],
+    "paths": {
+      "tmux-conf": "~/.tmux.conf",
+      "config": "$XDG_CONFIG_HOME/tmux"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "tmux.conf is plain text. Plugins fetched by tpm are re-cloned on the target system."
+  },
+  "equivalents": [
+    "zellij"
+  ]
+}

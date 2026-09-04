@@ -1,0 +1,16 @@
+{
+  "id": "stacer",
+  "name": "Stacer",
+  "summary": "System optimiser and monitor for Linux",
+  "category": "system",
+  "homepage": "https://github.com/oguzhaninan/Stacer",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["stacer"],
+    "apt": ["stacer"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["bleachbit", "gnome-system-monitor"]
+}

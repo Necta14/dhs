@@ -1,0 +1,31 @@
+{
+  "id": "uget",
+  "name": "uGet",
+  "summary": "Download manager built on aria2 and libcurl",
+  "category": "download",
+  "homepage": "https://ugetdm.com/",
+  "license": "LGPL-2.1",
+  "windows": {
+    "winget": ["uGetdm.uGet"],
+    "choco": ["uget"],
+    "scoop": ["extras/uget"],
+    "registry": ["uGet"],
+    "paths": {
+      "config": "%APPDATA%/uGet"
+    }
+  },
+  "linux": {
+    "pacman": ["uget"],
+    "apt": ["uget"],
+    "dnf": ["uget"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/uGet"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.lock", "*.log"],
+    "notes": "The category and download lists are XML with absolute output folders, so the directory is kept aside."
+  },
+  "equivalents": ["motrix", "persepolis", "aria2"]
+}

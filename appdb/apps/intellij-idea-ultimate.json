@@ -1,0 +1,56 @@
+{
+  "id": "intellij-idea-ultimate",
+  "name": "IntelliJ IDEA Ultimate",
+  "summary": "Java, Kotlin and web IDE, commercial edition",
+  "category": "ide",
+  "homepage": "https://www.jetbrains.com/idea/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "JetBrains.IntelliJIDEA.Ultimate"
+    ],
+    "choco": [
+      "intellijidea-ultimate"
+    ],
+    "scoop": [
+      "extras/idea"
+    ],
+    "registry": [
+      "IntelliJ IDEA"
+    ],
+    "paths": {
+      "config": "%APPDATA%/JetBrains"
+    }
+  },
+  "linux": {
+    "aur": [
+      "intellij-idea-ultimate-edition"
+    ],
+    "flatpak": [
+      "com.jetbrains.IntelliJ-IDEA-Ultimate"
+    ],
+    "snap": [
+      "intellij-idea-ultimate --classic"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/JetBrains"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "log",
+      "logs",
+      "*.log",
+      "*.lock",
+      "port",
+      "system",
+      "caches",
+      "index"
+    ],
+    "notes": "IntelliJ-platform settings, kept per version under the JetBrains directory. They name JDKs, SDKs and projects by absolute path, so they are kept aside on the other platform rather than restored in place."
+  },
+  "equivalents": [
+    "intellij-idea-community"
+  ]
+}

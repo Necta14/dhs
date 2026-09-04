@@ -1,0 +1,32 @@
+{
+  "id": "freeplane",
+  "name": "Freeplane",
+  "summary": "Mind mapping and knowledge management",
+  "category": "productivity",
+  "homepage": "https://www.freeplane.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Freeplane.Freeplane"],
+    "choco": ["freeplane"],
+    "scoop": ["extras/freeplane"],
+    "registry": ["Freeplane"],
+    "paths": {
+      "config": "%APPDATA%/Freeplane"
+    }
+  },
+  "linux": {
+    "pacman": ["freeplane"],
+    "aur": ["freeplane-git"],
+    "apt": ["freeplane"],
+    "flatpak": ["org.freeplane.App"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/freeplane"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log", "logs", "lastOpened", "*.lck"],
+    "notes": "The per-version directory holds auto.properties, the user templates, styles and add-ons, in the same layout on both platforms."
+  },
+  "equivalents": ["xmind", "minder", "drawio"]
+}

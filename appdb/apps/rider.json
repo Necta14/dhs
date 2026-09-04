@@ -1,0 +1,57 @@
+{
+  "id": "rider",
+  "name": "JetBrains Rider",
+  "summary": ".NET and C# IDE",
+  "category": "ide",
+  "homepage": "https://www.jetbrains.com/rider/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "JetBrains.Rider"
+    ],
+    "choco": [
+      "jetbrains-rider"
+    ],
+    "scoop": [
+      "extras/rider"
+    ],
+    "registry": [
+      "Rider"
+    ],
+    "paths": {
+      "config": "%APPDATA%/JetBrains"
+    }
+  },
+  "linux": {
+    "aur": [
+      "rider"
+    ],
+    "flatpak": [
+      "com.jetbrains.Rider"
+    ],
+    "snap": [
+      "rider --classic"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/JetBrains"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "log",
+      "logs",
+      "*.log",
+      "*.lock",
+      "port",
+      "system",
+      "caches",
+      "index"
+    ],
+    "notes": "IntelliJ-platform settings, kept per version under the JetBrains directory. They name JDKs, SDKs and projects by absolute path, so they are kept aside on the other platform rather than restored in place."
+  },
+  "equivalents": [
+    "visual-studio",
+    "vscodium"
+  ]
+}

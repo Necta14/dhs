@@ -34,8 +34,31 @@ func (s Source) reportable() bool {
 	switch s.Manager {
 	case appdb.Pacman, appdb.Apt, appdb.Dnf, appdb.Zypper, appdb.Apk:
 		return s.Desktop
+	case appdb.Registry:
+		return !windowsRuntime(s.Name)
 	}
 	return true
+}
+
+// windowsRuntimePrefixes are the entries Apps & features lists that nobody installs on purpose:
+// redistributables, runtimes and updaters that arrive with something else. They are not
+// applications to migrate, so an unmatched one is not worth a line in the report. The list is
+// deliberately short and literal; drivers and vendor tools stay visible.
+var windowsRuntimePrefixes = []string{
+	"microsoft visual c++", "microsoft .net", "microsoft asp.net", "microsoft windows desktop runtime",
+	"microsoft edge webview2", "microsoft edge update", "microsoft update health tools",
+	"windows sdk", "windows software development kit", "microsoft visual studio installer",
+	"vulkan run time", "java auto updater", "microsoft gameinput", "microsoft onedrive setup",
+}
+
+func windowsRuntime(name string) bool {
+	n := strings.ToLower(strings.TrimSpace(name))
+	for _, p := range windowsRuntimePrefixes {
+		if strings.HasPrefix(n, p) {
+			return true
+		}
+	}
+	return false
 }
 
 // Location is one configuration location of an application that exists on this system.

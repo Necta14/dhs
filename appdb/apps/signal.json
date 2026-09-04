@@ -1,0 +1,31 @@
+{
+  "id": "signal",
+  "name": "Signal",
+  "summary": "End-to-end encrypted messenger",
+  "category": "chat",
+  "homepage": "https://signal.org/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["OpenWhisperSystems.Signal"],
+    "choco": ["signal"],
+    "scoop": ["extras/signal"],
+    "registry": ["Signal"],
+    "paths": {
+      "config": "%APPDATA%/Signal"
+    }
+  },
+  "linux": {
+    "pacman": ["signal-desktop"],
+    "flatpak": ["org.signal.Signal"],
+    "snap": ["signal-desktop"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Signal"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker", "attachments.noindex", "drafts.noindex", "stickers.noindex", "temp", "update-cache"],
+    "notes": "The message database is encrypted with a key that Windows seals with the DPAPI and Linux keeps in the keyring, so the directory does not decrypt on the other system. It is kept aside; the desktop app is linked to the phone again, which is the supported way."
+  },
+  "equivalents": ["telegram", "element"]
+}

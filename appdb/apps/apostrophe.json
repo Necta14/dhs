@@ -1,0 +1,18 @@
+{
+  "id": "apostrophe",
+  "name": "Apostrophe",
+  "summary": "GNOME Markdown editor with a clean preview",
+  "category": "notes",
+  "homepage": "https://apps.gnome.org/Apostrophe/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["apostrophe"],
+    "apt": ["apostrophe"],
+    "flatpak": ["org.gnome.gitlab.somas.Apostrophe"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "All of its settings live in dconf, not in files; the documents are ordinary Markdown files wherever the user keeps them."
+  },
+  "equivalents": ["ghostwriter", "marktext", "zettlr"]
+}

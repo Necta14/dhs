@@ -1,0 +1,17 @@
+{
+  "id": "nanazip",
+  "name": "NanaZip",
+  "summary": "7-Zip fork with a modern Windows shell integration",
+  "category": "archive",
+  "homepage": "https://github.com/M2Team/NanaZip",
+  "license": "MIT",
+  "windows": {
+    "winget": ["M2Team.NanaZip"],
+    "registry": ["NanaZip"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only; a packaged application whose settings stay in its own container."
+  },
+  "equivalents": ["7zip", "ark", "file-roller"]
+}

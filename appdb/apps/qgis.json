@@ -1,0 +1,31 @@
+{
+  "id": "qgis",
+  "name": "QGIS",
+  "summary": "Geographic information system for maps and spatial analysis",
+  "category": "science",
+  "homepage": "https://qgis.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["OSGeo.QGIS", "OSGeo.QGIS_LTR"],
+    "choco": ["qgis"],
+    "registry": ["QGIS"],
+    "paths": {
+      "profiles": "%APPDATA%/QGIS/QGIS3/profiles"
+    }
+  },
+  "linux": {
+    "pacman": ["qgis"],
+    "apt": ["qgis"],
+    "dnf": ["qgis"],
+    "zypper": ["qgis"],
+    "flatpak": ["org.qgis.qgis"],
+    "paths": {
+      "profiles": "$XDG_CONFIG_HOME/QGIS/QGIS3/profiles"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.log", "logs"],
+    "notes": "A profile holds the installed plugins, the saved connections and QGIS3.ini. The .ini records absolute paths to projects and data sources and the plugins may have compiled parts, so a profile is kept aside on the other platform."
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "pegasus-frontend",
+  "name": "Pegasus",
+  "summary": "Customisable game and emulator launcher frontend",
+  "category": "launcher",
+  "homepage": "https://pegasus-frontend.org/",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["pegasus-frontend-git"],
+    "flatpak": ["org.pegasus_frontend.Pegasus"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/pegasus-frontend"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["cache", "*.log"],
+    "notes": "settings.txt and the game collection files point at the ROM directories and the launch commands by absolute path."
+  },
+  "equivalents": ["emulationstation-de", "playnite", "retroarch"]
+}

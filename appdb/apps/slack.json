@@ -1,0 +1,31 @@
+{
+  "id": "slack",
+  "name": "Slack",
+  "summary": "Team chat and collaboration",
+  "category": "chat",
+  "homepage": "https://slack.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["SlackTechnologies.Slack"],
+    "choco": ["slack"],
+    "scoop": ["extras/slack"],
+    "registry": ["Slack"],
+    "paths": {
+      "config": "%APPDATA%/Slack"
+    }
+  },
+  "linux": {
+    "aur": ["slack-desktop"],
+    "flatpak": ["com.slack.Slack"],
+    "snap": ["slack"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Slack"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker", "Partitions", "storage"],
+    "notes": "An Electron application: the settings files are JSON and read the same on both platforms. The workspace list and preferences carry over; a fresh sign-in is still needed."
+  },
+  "equivalents": ["mattermost", "rocketchat", "element"]
+}

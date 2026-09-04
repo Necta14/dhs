@@ -1,0 +1,35 @@
+{
+  "id": "inkscape",
+  "name": "Inkscape",
+  "summary": "Vector graphics editor",
+  "category": "graphics",
+  "homepage": "https://inkscape.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Inkscape.Inkscape"],
+    "choco": ["inkscape"],
+    "scoop": ["extras/inkscape"],
+    "registry": ["Inkscape"],
+    "paths": {
+      "config": "%APPDATA%/inkscape"
+    }
+  },
+  "linux": {
+    "pacman": ["inkscape"],
+    "apt": ["inkscape"],
+    "dnf": ["inkscape"],
+    "zypper": ["inkscape"],
+    "apk": ["inkscape"],
+    "flatpak": ["org.inkscape.Inkscape"],
+    "snap": ["inkscape"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/inkscape"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.lock", "preferences.xml.bak", "extension-errors.log", "*.log"],
+    "notes": "preferences.xml, the custom templates, the palettes, the icon sets and the user extensions have the same layout on every platform. Extensions written in Python need Python on the new system, which the packages pull in."
+  },
+  "equivalents": ["krita", "gimp"]
+}

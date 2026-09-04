@@ -1,0 +1,26 @@
+{
+  "id": "tenacity",
+  "name": "Tenacity",
+  "summary": "Audio editor forked from Audacity, without telemetry",
+  "category": "audio-editor",
+  "homepage": "https://tenacityaudio.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["TenacityTeam.Tenacity"],
+    "choco": ["tenacity"],
+    "registry": ["Tenacity"]
+  },
+  "linux": {
+    "pacman": ["tenacity"],
+    "flatpak": ["org.tenacityaudio.Tenacity"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/tenacity"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["SessionData", "AutoSave", "*.log"],
+    "notes": "tenacity.cfg follows Audacity's format and names the same platform-specific audio host, so it is kept aside rather than dropped in place."
+  },
+  "equivalents": ["audacity", "ocenaudio"]
+}

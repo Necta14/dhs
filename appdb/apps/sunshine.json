@@ -1,0 +1,26 @@
+{
+  "id": "sunshine",
+  "name": "Sunshine",
+  "summary": "Self-hosted game streaming host for Moonlight",
+  "category": "remote-desktop",
+  "homepage": "https://app.lizardbyte.dev/Sunshine/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["LizardByte.Sunshine"],
+    "choco": ["sunshine"],
+    "scoop": ["sunshine"],
+    "registry": ["Sunshine"]
+  },
+  "linux": {
+    "aur": ["sunshine"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/sunshine"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "sunshine.log"],
+    "notes": "apps.json lists each launchable application by absolute path and command line, so it is kept aside."
+  },
+  "equivalents": ["moonlight", "parsec"]
+}

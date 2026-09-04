@@ -1,0 +1,24 @@
+{
+  "id": "foobar2000",
+  "name": "foobar2000",
+  "summary": "Configurable Windows audio player",
+  "category": "music",
+  "homepage": "https://www.foobar2000.org/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["PeterPawlowski.foobar2000"],
+    "choco": ["foobar2000"],
+    "scoop": ["extras/foobar2000"],
+    "registry": ["foobar2000"],
+    "paths": {
+      "config": "%APPDATA%/foobar2000-v2",
+      "config-v1": "%APPDATA%/foobar2000"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "index-data", "cache"],
+    "notes": "Windows only. Version 2 keeps its profile in foobar2000-v2, version 1 in foobar2000; both hold the layout, the components and the playlists, and none of it means anything to another player."
+  },
+  "equivalents": ["strawberry", "quodlibet", "deadbeef", "audacious"]
+}

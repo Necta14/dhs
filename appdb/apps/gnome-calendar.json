@@ -1,0 +1,21 @@
+{
+  "id": "gnome-calendar",
+  "name": "GNOME Calendar",
+  "summary": "Calendar for the GNOME desktop",
+  "category": "productivity",
+  "homepage": "https://apps.gnome.org/Calendar/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["gnome-calendar"],
+    "apt": ["gnome-calendar"],
+    "dnf": ["gnome-calendar"],
+    "zypper": ["gnome-calendar"],
+    "apk": ["gnome-calendar"],
+    "flatpak": ["org.gnome.Calendar"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The calendars come from the accounts registered with Evolution Data Server and GNOME Online Accounts, not from files of its own; the view settings are in dconf."
+  },
+  "equivalents": ["merkuro"]
+}

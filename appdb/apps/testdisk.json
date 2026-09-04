@@ -1,0 +1,23 @@
+{
+  "id": "testdisk",
+  "name": "TestDisk",
+  "summary": "Recovers lost partitions and deleted files",
+  "category": "utility",
+  "homepage": "https://www.cgsecurity.org/wiki/TestDisk",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["testdisk"],
+    "scoop": ["testdisk"]
+  },
+  "linux": {
+    "pacman": ["testdisk"],
+    "apt": ["testdisk"],
+    "dnf": ["testdisk"],
+    "zypper": ["testdisk"],
+    "apk": ["testdisk"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Writes only a log next to where it is run."
+  }
+}

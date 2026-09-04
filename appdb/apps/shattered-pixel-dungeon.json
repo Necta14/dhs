@@ -1,0 +1,16 @@
+{
+  "id": "shattered-pixel-dungeon",
+  "name": "Shattered Pixel Dungeon",
+  "summary": "Open source traditional roguelike",
+  "category": "gaming",
+  "homepage": "https://shatteredpixel.com/",
+  "license": "GPL-3.0",
+  "linux": {
+    "flatpak": ["com.shatteredpixel.shatteredpixeldungeon"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The desktop build keeps its runs and settings in a libGDX preferences folder whose location differs between the packaged builds, so DHS does not guess at it."
+  },
+  "equivalents": []
+}

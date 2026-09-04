@@ -1,0 +1,17 @@
+{
+  "id": "msi-afterburner",
+  "name": "MSI Afterburner",
+  "summary": "Graphics card overclocking and monitoring for Windows",
+  "category": "utility",
+  "homepage": "https://www.msi.com/Landing/afterburner/graphics-cards",
+  "license": "proprietary",
+  "windows": {
+    "choco": ["msiafterburner"],
+    "registry": ["MSI Afterburner"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only; the profiles hold voltage and clock offsets for the card in this machine."
+  },
+  "equivalents": ["corectrl", "lact", "openrgb"]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "wine",
+  "name": "Wine",
+  "summary": "Runs Windows programs on Linux",
+  "category": "virtualization",
+  "homepage": "https://www.winehq.org/",
+  "license": "LGPL-2.1",
+  "linux": {
+    "pacman": ["wine"],
+    "apt": ["wine"],
+    "dnf": ["wine"],
+    "zypper": ["wine"],
+    "apk": ["wine"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "A Wine prefix in ~/.wine is a whole simulated C: drive, often gigabytes and tied to the installed libraries; it is treated as data by the user, not as configuration by DHS."
+  },
+  "equivalents": ["winetricks"]
+}

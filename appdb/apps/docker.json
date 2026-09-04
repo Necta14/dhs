@@ -1,0 +1,55 @@
+{
+  "id": "docker",
+  "name": "Docker Engine",
+  "summary": "Container engine and command line client",
+  "category": "container",
+  "homepage": "https://www.docker.com/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Docker.DockerCLI"
+    ],
+    "choco": [
+      "docker-cli"
+    ],
+    "scoop": [
+      "docker"
+    ],
+    "paths": {
+      "config": "%USERPROFILE%/.docker"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "docker",
+      "docker-compose"
+    ],
+    "apt": [
+      "docker.io",
+      "docker-compose"
+    ],
+    "zypper": [
+      "docker"
+    ],
+    "apk": [
+      "docker",
+      "docker-cli-compose"
+    ],
+    "paths": {
+      "config": "~/.docker"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "contexts",
+      "*.log",
+      "buildx",
+      "run"
+    ],
+    "notes": "config.json names a credential helper (wincred on Windows, pass or secretservice on Linux) that does not exist on the other side. Images and volumes are not part of the package. On Fedora and Debian the distribution ships podman or docker.io; docker-ce comes from Docker's own repository, which DHS does not add."
+  },
+  "equivalents": [
+    "podman"
+  ]
+}

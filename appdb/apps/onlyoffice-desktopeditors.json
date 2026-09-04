@@ -1,0 +1,31 @@
+{
+  "id": "onlyoffice-desktopeditors",
+  "name": "ONLYOFFICE Desktop Editors",
+  "summary": "Office suite with Microsoft Office file formats as its native ones",
+  "category": "office",
+  "homepage": "https://www.onlyoffice.com/desktop.aspx",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["ONLYOFFICE.DesktopEditors"],
+    "choco": ["onlyoffice"],
+    "scoop": ["extras/onlyoffice-desktopeditors"],
+    "registry": ["ONLYOFFICE Desktop Editors"],
+    "paths": {
+      "config": "%APPDATA%/ONLYOFFICE/DesktopEditors"
+    }
+  },
+  "linux": {
+    "aur": ["onlyoffice-bin"],
+    "flatpak": ["org.onlyoffice.desktopeditors"],
+    "snap": ["onlyoffice-desktopeditors"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ONLYOFFICE/DesktopEditors"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache", "data/cache", "*.log", "logs"],
+    "notes": "The settings are JSON with the same keys on both platforms."
+  },
+  "equivalents": ["libreoffice"]
+}

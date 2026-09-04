@@ -1,0 +1,29 @@
+{
+  "id": "vesktop",
+  "name": "Vesktop",
+  "summary": "Alternative Discord client with Vencord built in",
+  "category": "chat",
+  "homepage": "https://github.com/Vencord/Vesktop",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Vencord.Vesktop"],
+    "scoop": ["extras/vesktop"],
+    "registry": ["Vesktop"],
+    "paths": {
+      "config": "%APPDATA%/vesktop"
+    }
+  },
+  "linux": {
+    "aur": ["vesktop-bin", "vesktop"],
+    "flatpak": ["dev.vencord.Vesktop"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/vesktop"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker"],
+    "notes": "An Electron application: the settings files are JSON and read the same on both platforms. settings/ holds the Vencord settings and the enabled plugins."
+  },
+  "equivalents": ["discord"]
+}

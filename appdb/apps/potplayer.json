@@ -1,0 +1,19 @@
+{
+  "id": "potplayer",
+  "name": "PotPlayer",
+  "summary": "Windows media player by Daum",
+  "category": "media-player",
+  "homepage": "https://potplayer.daum.net/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Daum.PotPlayer"],
+    "choco": ["potplayer"],
+    "scoop": ["extras/potplayer"],
+    "registry": ["PotPlayer"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, and its settings live in the registry under HKCU\\Software\\DAUM\\PotPlayer, which DHS does not carry in v1."
+  },
+  "equivalents": ["mpv", "vlc", "smplayer"]
+}

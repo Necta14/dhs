@@ -1,0 +1,23 @@
+{
+  "id": "nemo",
+  "name": "Nemo",
+  "summary": "Cinnamon file manager",
+  "category": "file-manager",
+  "homepage": "https://github.com/linuxmint/nemo",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["nemo"],
+    "apt": ["nemo"],
+    "dnf": ["nemo"],
+    "zypper": ["nemo"],
+    "apk": ["nemo"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/nemo"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. Preferences are in dconf; actions and scripts live under the data directory."
+  },
+  "equivalents": ["nautilus", "dolphin", "thunar"]
+}

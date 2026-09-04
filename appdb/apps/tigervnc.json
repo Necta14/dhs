@@ -1,0 +1,23 @@
+{
+  "id": "tigervnc",
+  "name": "TigerVNC",
+  "summary": "VNC client and server",
+  "category": "remote-desktop",
+  "homepage": "https://tigervnc.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["tigervnc"]
+  },
+  "linux": {
+    "pacman": ["tigervnc"],
+    "apt": ["tigervnc-viewer"],
+    "dnf": ["tigervnc"],
+    "zypper": ["tigervnc"],
+    "apk": ["tigervnc"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The viewer remembers little beyond the last servers; the server side is configured per session."
+  },
+  "equivalents": ["realvnc-viewer", "remmina", "krdc"]
+}

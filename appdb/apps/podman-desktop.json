@@ -1,0 +1,55 @@
+{
+  "id": "podman-desktop",
+  "name": "Podman Desktop",
+  "summary": "Graphical front end for Podman and Docker",
+  "category": "container",
+  "homepage": "https://podman-desktop.io/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "RedHat.Podman-Desktop"
+    ],
+    "choco": [
+      "podman-desktop"
+    ],
+    "scoop": [
+      "extras/podman-desktop"
+    ],
+    "registry": [
+      "Podman Desktop"
+    ],
+    "paths": {
+      "desktop-config": "%APPDATA%/containers/podman-desktop"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "podman-desktop"
+    ],
+    "flatpak": [
+      "io.podman_desktop.PodmanDesktop"
+    ],
+    "paths": {
+      "desktop-config": "$XDG_CONFIG_HOME/containers/podman-desktop"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "Cache",
+      "Code Cache",
+      "GPUCache",
+      "DawnCache",
+      "blob_storage",
+      "logs",
+      "*.log",
+      "Crashpad",
+      "Service Worker"
+    ],
+    "notes": "An Electron application; the settings and the extension list are JSON in the same layout."
+  },
+  "equivalents": [
+    "docker-desktop",
+    "podman"
+  ]
+}

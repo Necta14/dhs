@@ -1,0 +1,23 @@
+{
+  "id": "glances",
+  "name": "Glances",
+  "summary": "System monitor for the terminal and the web",
+  "category": "system",
+  "homepage": "https://nicolargo.github.io/glances/",
+  "license": "LGPL-3.0",
+  "linux": {
+    "pacman": ["glances"],
+    "apt": ["glances"],
+    "dnf": ["glances"],
+    "zypper": ["python-Glances"],
+    "apk": ["glances"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/glances"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "glances.conf names sensors and thresholds that are specific to the machine."
+  },
+  "equivalents": ["htop", "btop", "bottom"]
+}

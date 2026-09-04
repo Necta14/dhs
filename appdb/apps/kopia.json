@@ -1,0 +1,28 @@
+{
+  "id": "kopia",
+  "name": "Kopia",
+  "summary": "Encrypted, deduplicating backup with a desktop UI",
+  "category": "backup",
+  "homepage": "https://kopia.io/",
+  "license": "Apache-2.0",
+  "windows": {
+    "scoop": ["kopia"],
+    "registry": ["KopiaUI"],
+    "paths": {
+      "config": "%APPDATA%/kopia"
+    }
+  },
+  "linux": {
+    "aur": ["kopia", "kopia-ui-bin"],
+    "zypper": ["kopia"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kopia"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["logs", "*.log"],
+    "notes": "repository.config has the same shape on both platforms but names the repository by an absolute path or drive letter."
+  },
+  "equivalents": ["restic", "borgbackup", "duplicati"]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "minecraft-launcher",
+  "name": "Minecraft Launcher",
+  "summary": "Official launcher for Minecraft: Java and Bedrock editions",
+  "category": "launcher",
+  "homepage": "https://www.minecraft.net/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Mojang.MinecraftLauncher"],
+    "choco": ["minecraft-launcher"],
+    "scoop": ["games/minecraft"],
+    "registry": ["Minecraft Launcher"],
+    "paths": {
+      "game": "%APPDATA%/.minecraft"
+    }
+  },
+  "linux": {
+    "aur": ["minecraft-launcher"],
+    "paths": {
+      "game": "~/.minecraft"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["versions", "assets", "libraries", "bin", "logs", "*.log", "crash-reports", "webcache", "webcache2", "*.lock"],
+    "notes": ".minecraft has the same layout everywhere: options.txt, saves, resourcepacks, screenshots and the launcher profiles are carried; the downloaded versions, assets and libraries are re-fetched on the first start."
+  },
+  "equivalents": ["prismlauncher", "modrinth-app", "atlauncher"]
+}

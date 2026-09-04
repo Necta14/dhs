@@ -1,0 +1,31 @@
+{
+  "id": "element",
+  "name": "Element",
+  "summary": "Matrix client",
+  "category": "chat",
+  "homepage": "https://element.io/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["Element.Element"],
+    "choco": ["element-desktop"],
+    "scoop": ["extras/element"],
+    "registry": ["Element"],
+    "paths": {
+      "config": "%APPDATA%/Element"
+    }
+  },
+  "linux": {
+    "pacman": ["element-desktop"],
+    "flatpak": ["im.riot.Riot"],
+    "snap": ["element-desktop"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Element"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker"],
+    "notes": "An Electron application: the settings files are JSON and read the same on both platforms. The end-to-end encryption keys belong to the device, so the session is verified again from another device or the recovery key after the move."
+  },
+  "equivalents": ["neochat", "nheko", "fractal"]
+}

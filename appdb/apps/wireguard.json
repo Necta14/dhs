@@ -1,0 +1,25 @@
+{
+  "id": "wireguard",
+  "name": "WireGuard",
+  "summary": "Modern, minimal VPN tunnel",
+  "category": "vpn",
+  "homepage": "https://www.wireguard.com/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["WireGuard.WireGuard"],
+    "choco": ["wireguard"],
+    "registry": ["WireGuard"]
+  },
+  "linux": {
+    "pacman": ["wireguard-tools"],
+    "apt": ["wireguard"],
+    "dnf": ["wireguard-tools"],
+    "zypper": ["wireguard-tools"],
+    "apk": ["wireguard-tools"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The tunnels live outside the user's home: /etc/wireguard on Linux, the service's data directory on Windows. Their private keys are secrets in any case."
+  },
+  "equivalents": ["openvpn", "tailscale"]
+}

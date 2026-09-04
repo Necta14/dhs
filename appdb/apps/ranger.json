@@ -1,0 +1,24 @@
+{
+  "id": "ranger",
+  "name": "ranger",
+  "summary": "Terminal file manager with Vim-like keys",
+  "category": "file-manager",
+  "homepage": "https://ranger.fm/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["ranger"],
+    "apt": ["ranger"],
+    "dnf": ["ranger"],
+    "zypper": ["ranger"],
+    "apk": ["ranger"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ranger"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["history", "bookmarks", "tagged"],
+    "notes": "Unix only. rc.conf and rifle.conf call external programs by their Unix names."
+  },
+  "equivalents": ["yazi", "nnn", "lf", "midnight-commander"]
+}

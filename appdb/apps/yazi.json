@@ -1,0 +1,28 @@
+{
+  "id": "yazi",
+  "name": "Yazi",
+  "summary": "Terminal file manager with async I/O",
+  "category": "file-manager",
+  "homepage": "https://yazi-rs.github.io/",
+  "license": "MIT",
+  "windows": {
+    "choco": ["yazi"],
+    "scoop": ["main/yazi"],
+    "paths": {
+      "config": "%APPDATA%/yazi/config"
+    }
+  },
+  "linux": {
+    "pacman": ["yazi"],
+    "zypper": ["yazi"],
+    "apk": ["yazi"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/yazi"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "yazi.toml, keymap.toml and theme.toml are the same files on both platforms; openers that name external programs may need adjusting."
+  },
+  "equivalents": ["ranger", "nnn", "lf"]
+}

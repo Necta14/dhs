@@ -1,0 +1,16 @@
+{
+  "id": "adobe-premiere-pro",
+  "name": "Adobe Premiere Pro",
+  "summary": "Video editing",
+  "category": "video-editor",
+  "homepage": "https://www.adobe.com/products/premiere.html",
+  "license": "proprietary",
+  "windows": {
+    "registry": ["Adobe Premiere Pro"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, installed through the Creative Cloud desktop application, which no package manager drives; DHS only detects it. Projects are .prproj files kept with the footage; no other editor opens them, so a migration means exporting an EDL or XML from Premiere before the move."
+  },
+  "equivalents": ["davinci-resolve", "kdenlive", "shotcut"]
+}

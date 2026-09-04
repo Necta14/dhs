@@ -1,0 +1,30 @@
+{
+  "id": "hydrogen",
+  "name": "Hydrogen",
+  "summary": "Pattern-based drum machine",
+  "category": "audio-editor",
+  "homepage": "https://hydrogen-music.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Hydrogen-Music.Hydrogen"],
+    "scoop": ["extras/hydrogen"],
+    "registry": ["Hydrogen"]
+  },
+  "linux": {
+    "pacman": ["hydrogen"],
+    "apt": ["hydrogen"],
+    "dnf": ["hydrogen"],
+    "zypper": ["hydrogen"],
+    "apk": ["hydrogen"],
+    "flatpak": ["org.hydrogenmusic.Hydrogen"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/hydrogen"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log"],
+    "notes": "hydrogen.conf names the audio driver, JACK or ALSA on one side and PortAudio on the other, and points at the drumkit folders by absolute path. The drumkits are files and travel with the rest."
+  },
+  "equivalents": ["lmms", "ardour"]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "nomacs",
+  "name": "nomacs",
+  "summary": "Small image viewer with side-by-side comparison",
+  "category": "photo",
+  "homepage": "https://nomacs.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["nomacs.nomacs"],
+    "choco": ["nomacs"],
+    "scoop": ["extras/nomacs"],
+    "registry": ["nomacs"]
+  },
+  "linux": {
+    "apt": ["nomacs"],
+    "dnf": ["nomacs"],
+    "zypper": ["nomacs"],
+    "apk": ["nomacs"],
+    "flatpak": ["org.nomacs.ImageLounge"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/nomacs"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "On Linux the settings are an INI file under the configuration directory; the Windows build keeps the same values in the registry, so the directory is kept aside instead of dropped in place."
+  },
+  "equivalents": ["gwenview", "xnview-mp", "irfanview"]
+}

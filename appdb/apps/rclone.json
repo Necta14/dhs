@@ -1,0 +1,32 @@
+{
+  "id": "rclone",
+  "name": "rclone",
+  "summary": "Command-line client for many cloud storage services",
+  "category": "cloud-storage",
+  "homepage": "https://rclone.org/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["Rclone.Rclone"],
+    "choco": ["rclone"],
+    "scoop": ["rclone"],
+    "paths": {
+      "config": "%APPDATA%/rclone"
+    }
+  },
+  "linux": {
+    "pacman": ["rclone"],
+    "apt": ["rclone"],
+    "dnf": ["rclone"],
+    "zypper": ["rclone"],
+    "apk": ["rclone"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/rclone"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log", "*.lock"],
+    "notes": "rclone.conf is one INI file with the same syntax on both platforms and every remote defined in it keeps working. It also holds access tokens, so it is a file to treat as a secret."
+  },
+  "equivalents": ["syncthing", "nextcloud-desktop"]
+}

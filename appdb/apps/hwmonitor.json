@@ -1,0 +1,18 @@
+{
+  "id": "hwmonitor",
+  "name": "HWMonitor",
+  "summary": "Reads hardware temperature, voltage and fan sensors",
+  "category": "system",
+  "homepage": "https://www.cpuid.com/softwares/hwmonitor.html",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["CPUID.HWMonitor"],
+    "choco": ["hwmonitor"],
+    "registry": ["CPUID HWMonitor"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only."
+  },
+  "equivalents": ["hardinfo", "cpu-x"]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "curseforge",
+  "name": "CurseForge",
+  "summary": "Mod manager and launcher for Minecraft and other moddable games",
+  "category": "launcher",
+  "homepage": "https://www.curseforge.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Overwolf.CurseForge"],
+    "choco": ["curseforge"],
+    "registry": ["CurseForge"]
+  },
+  "linux": {
+    "aur": ["curseforge"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The Windows build runs inside Overwolf and the Linux build is a separate AppImage; they share neither a settings format nor a location, so nothing is carried."
+  },
+  "equivalents": ["prismlauncher", "modrinth-app", "atlauncher"]
+}

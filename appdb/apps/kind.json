@@ -1,0 +1,44 @@
+{
+  "id": "kind",
+  "name": "kind",
+  "summary": "Kubernetes clusters made of Docker containers",
+  "category": "devtool",
+  "homepage": "https://kind.sigs.k8s.io/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Kubernetes.kind"
+    ],
+    "choco": [
+      "kind"
+    ],
+    "scoop": [
+      "kind"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "kind"
+    ],
+    "apt": [
+      "kind"
+    ],
+    "dnf": [
+      "kind"
+    ],
+    "zypper": [
+      "kind"
+    ],
+    "apk": [
+      "kind"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "kind keeps no user configuration; the cluster definitions are per-project YAML files."
+  },
+  "equivalents": [
+    "minikube",
+    "kubectl"
+  ]
+}

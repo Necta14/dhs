@@ -1,0 +1,61 @@
+{
+  "id": "thonny",
+  "name": "Thonny",
+  "summary": "Python IDE for beginners",
+  "category": "ide",
+  "homepage": "https://thonny.org/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "AivarAnnamaa.Thonny"
+    ],
+    "choco": [
+      "thonny"
+    ],
+    "scoop": [
+      "extras/thonny"
+    ],
+    "registry": [
+      "Thonny"
+    ],
+    "paths": {
+      "config": "%APPDATA%/Thonny"
+    }
+  },
+  "linux": {
+    "aur": [
+      "thonny"
+    ],
+    "apt": [
+      "thonny"
+    ],
+    "dnf": [
+      "thonny"
+    ],
+    "zypper": [
+      "thonny"
+    ],
+    "apk": [
+      "thonny"
+    ],
+    "flatpak": [
+      "org.thonny.Thonny"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Thonny"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "backend_cache",
+      "*.log",
+      "logs"
+    ],
+    "notes": "configuration.ini has the same keys everywhere; the interpreter it names is an absolute path and is re-chosen on the target system."
+  },
+  "equivalents": [
+    "spyder",
+    "pycharm-community"
+  ]
+}

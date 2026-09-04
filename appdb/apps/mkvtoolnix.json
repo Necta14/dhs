@@ -1,0 +1,30 @@
+{
+  "id": "mkvtoolnix",
+  "name": "MKVToolNix",
+  "summary": "Creates and edits Matroska files",
+  "category": "utility",
+  "homepage": "https://mkvtoolnix.download/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["MoritzBunkus.MKVToolNix"],
+    "choco": ["mkvtoolnix"],
+    "scoop": ["extras/mkvtoolnix"],
+    "registry": ["MKVToolNix"]
+  },
+  "linux": {
+    "pacman": ["mkvtoolnix-gui"],
+    "apt": ["mkvtoolnix-gui"],
+    "dnf": ["mkvtoolnix-gui"],
+    "zypper": ["mkvtoolnix-gui"],
+    "apk": ["mkvtoolnix-gui"],
+    "flatpak": ["org.bunkus.mkvtoolnix-gui"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/bunkus.org"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "On Linux the settings are an INI file under bunkus.org; the Windows build keeps the same values in the registry unless it is run portable, so the directory is kept aside."
+  },
+  "equivalents": ["losslesscut", "handbrake"]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "newsflash",
+  "name": "NewsFlash",
+  "summary": "GTK feed reader with support for sync services",
+  "category": "feed-reader",
+  "homepage": "https://gitlab.com/news-flash/news_flash_gtk",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["newsflash"],
+    "zypper": ["newsflash"],
+    "apk": ["newsflash"],
+    "flatpak": ["io.gitlab.news_flash.NewsFlash"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/news-flash"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.lock", "*.log"],
+    "notes": "Linux only; part of the settings live in dconf. Export the feed list as OPML to move it to a reader on another platform."
+  },
+  "equivalents": ["liferea", "rssguard", "fluent-reader"]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "spotify",
+  "name": "Spotify",
+  "summary": "Streaming music client",
+  "category": "music",
+  "homepage": "https://www.spotify.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Spotify.Spotify"],
+    "choco": ["spotify"],
+    "scoop": ["extras/spotify"],
+    "registry": ["Spotify"]
+  },
+  "linux": {
+    "aur": ["spotify"],
+    "flatpak": ["com.spotify.Client"],
+    "snap": ["spotify"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Playlists, liked songs and settings follow the Spotify account. What is on disk is a cache of encrypted audio, worth nothing on the new machine."
+  },
+  "equivalents": ["spotube", "nuclear"]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "ark",
+  "name": "Ark",
+  "summary": "KDE archive manager",
+  "category": "archive",
+  "homepage": "https://apps.kde.org/ark/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["ark"],
+    "apt": ["ark"],
+    "dnf": ["ark"],
+    "zypper": ["ark"],
+    "apk": ["ark"],
+    "flatpak": ["org.kde.ark"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/arkrc"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. arkrc remembers the last extraction folders."
+  },
+  "equivalents": ["file-roller", "xarchiver", "7zip"]
+}

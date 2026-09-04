@@ -1,0 +1,29 @@
+{
+  "id": "imagemagick",
+  "name": "ImageMagick",
+  "summary": "Command-line image conversion and processing",
+  "category": "utility",
+  "homepage": "https://imagemagick.org/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": ["ImageMagick.ImageMagick"],
+    "choco": ["imagemagick"],
+    "scoop": ["imagemagick"],
+    "registry": ["ImageMagick"]
+  },
+  "linux": {
+    "pacman": ["imagemagick"],
+    "apt": ["imagemagick"],
+    "dnf": ["ImageMagick"],
+    "zypper": ["ImageMagick"],
+    "apk": ["imagemagick"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ImageMagick"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "Most people never write a configuration for it. When they do, policy.xml, delegates.xml and the colour and type definitions live in the directory above; the delegate commands inside name external programs by absolute path. Fedora and openSUSE spell the package ImageMagick, with capitals."
+  },
+  "equivalents": ["gimp"]
+}

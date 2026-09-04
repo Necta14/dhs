@@ -1,0 +1,16 @@
+{
+  "id": "adobe-illustrator",
+  "name": "Adobe Illustrator",
+  "summary": "Vector graphics editor",
+  "category": "graphics",
+  "homepage": "https://www.adobe.com/products/illustrator.html",
+  "license": "proprietary",
+  "windows": {
+    "registry": ["Adobe Illustrator"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, installed through the Creative Cloud desktop application, which no package manager drives; DHS only detects it. Inkscape opens .ai files that were saved with PDF compatibility, which is the usual way out; the workspaces and brushes do not travel."
+  },
+  "equivalents": ["inkscape", "krita"]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "krita",
+  "name": "Krita",
+  "summary": "Digital painting application",
+  "category": "graphics",
+  "homepage": "https://krita.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["KDE.Krita"],
+    "choco": ["krita"],
+    "scoop": ["extras/krita"],
+    "registry": ["Krita"],
+    "paths": {
+      "data": "%APPDATA%/krita"
+    }
+  },
+  "linux": {
+    "pacman": ["krita"],
+    "apt": ["krita"],
+    "dnf": ["krita"],
+    "zypper": ["krita"],
+    "apk": ["krita"],
+    "flatpak": ["org.kde.krita"],
+    "snap": ["krita"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kritarc",
+      "data": "$XDG_DATA_HOME/krita"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "backup"],
+    "notes": "The resource directory carries the brushes, brush presets, patterns, gradients and workspaces, and those files are the same on both platforms. kritarc, which sits inside that directory on Windows and beside it on Linux, holds window geometry and absolute paths, so the whole thing is kept aside and the resources are dropped into the new profile by hand."
+  },
+  "equivalents": ["gimp", "mypaint", "paint-net"]
+}

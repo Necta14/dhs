@@ -1,0 +1,29 @@
+{
+  "id": "simplenote",
+  "name": "Simplenote",
+  "summary": "Plain-text notes synchronised across devices",
+  "category": "notes",
+  "homepage": "https://simplenote.com/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Automattic.Simplenote"],
+    "choco": ["simplenote"],
+    "scoop": ["extras/simplenote"],
+    "registry": ["Simplenote"],
+    "paths": {
+      "config": "%APPDATA%/Simplenote"
+    }
+  },
+  "linux": {
+    "flatpak": ["com.simplenote.Simplenote"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Simplenote"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "The notes live in the Simplenote account; the directory carries the interface settings and the offline copy."
+  },
+  "equivalents": ["standard-notes", "joplin"]
+}

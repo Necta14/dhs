@@ -1,0 +1,49 @@
+{
+  "id": "gh",
+  "name": "GitHub CLI",
+  "summary": "GitHub from the command line",
+  "category": "vcs",
+  "homepage": "https://cli.github.com/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "GitHub.cli"
+    ],
+    "choco": [
+      "gh"
+    ],
+    "scoop": [
+      "gh"
+    ],
+    "paths": {
+      "config": "%APPDATA%/GitHub CLI"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "github-cli"
+    ],
+    "apt": [
+      "gh"
+    ],
+    "dnf": [
+      "gh"
+    ],
+    "zypper": [
+      "gh"
+    ],
+    "apk": [
+      "github-cli"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/gh"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "config.yml and the aliases are the same YAML everywhere. hosts.yml holds the authentication token, which DHS treats as a secret."
+  },
+  "equivalents": [
+    "git"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "mullvad-vpn",
+  "name": "Mullvad VPN",
+  "summary": "VPN client for the Mullvad service",
+  "category": "vpn",
+  "homepage": "https://mullvad.net/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["MullvadVPN.MullvadVPN"],
+    "choco": ["mullvad-app"],
+    "registry": ["Mullvad VPN"]
+  },
+  "linux": {
+    "pacman": ["mullvad-vpn"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The account number and the settings are held by the daemon outside the user's home."
+  },
+  "equivalents": ["protonvpn", "wireguard"]
+}

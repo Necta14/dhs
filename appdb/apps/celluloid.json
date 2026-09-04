@@ -1,0 +1,24 @@
+{
+  "id": "celluloid",
+  "name": "Celluloid",
+  "summary": "GTK front end for mpv",
+  "category": "media-player",
+  "homepage": "https://celluloid-player.github.io/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["celluloid"],
+    "apt": ["celluloid"],
+    "dnf": ["celluloid"],
+    "zypper": ["celluloid"],
+    "apk": ["celluloid"],
+    "flatpak": ["io.github.celluloid_player.Celluloid"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/celluloid"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The window and playback preferences live in dconf; the configuration directory holds the mpv.conf, input.conf and scripts Celluloid passes to mpv."
+  },
+  "equivalents": ["mpv", "smplayer", "vlc"]
+}

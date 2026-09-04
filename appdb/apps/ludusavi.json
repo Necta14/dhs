@@ -1,0 +1,30 @@
+{
+  "id": "ludusavi",
+  "name": "Ludusavi",
+  "summary": "Backs up and restores savegames for games from many launchers",
+  "category": "backup",
+  "homepage": "https://github.com/mtkennerly/ludusavi",
+  "license": "MIT",
+  "windows": {
+    "winget": ["mtkennerly.ludusavi"],
+    "choco": ["ludusavi"],
+    "scoop": ["extras/ludusavi"],
+    "registry": ["Ludusavi"],
+    "paths": {
+      "config": "%APPDATA%/ludusavi"
+    }
+  },
+  "linux": {
+    "aur": ["ludusavi"],
+    "flatpak": ["com.github.mtkennerly.ludusavi"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ludusavi"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "config.yaml has the same keys everywhere, but it names the backup directory and every scanned game root by absolute path."
+  },
+  "equivalents": []
+}

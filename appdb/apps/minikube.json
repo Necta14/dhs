@@ -1,0 +1,38 @@
+{
+  "id": "minikube",
+  "name": "minikube",
+  "summary": "Runs a single-node Kubernetes cluster locally",
+  "category": "devtool",
+  "homepage": "https://minikube.sigs.k8s.io/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Kubernetes.minikube"
+    ],
+    "scoop": [
+      "minikube"
+    ],
+    "paths": {
+      "config": "%USERPROFILE%/.minikube/config"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "minikube"
+    ],
+    "zypper": [
+      "minikube"
+    ],
+    "paths": {
+      "config": "~/.minikube/config"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "Only the config file is carried. The certificates, the cached images and the virtual machine disks beside it are rebuilt by minikube start."
+  },
+  "equivalents": [
+    "kind",
+    "kubectl"
+  ]
+}

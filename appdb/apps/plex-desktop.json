@@ -1,0 +1,21 @@
+{
+  "id": "plex-desktop",
+  "name": "Plex",
+  "summary": "Desktop client for a Plex server",
+  "category": "media-player",
+  "homepage": "https://www.plex.tv/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Plex.Plex"],
+    "registry": ["Plex"]
+  },
+  "linux": {
+    "aur": ["plex-desktop"],
+    "flatpak": ["tv.plex.PlexDesktop"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Settings and the library follow the Plex account and the server, not the machine. Signing in on the new system restores everything the client knows."
+  },
+  "equivalents": ["jellyfin-media-player", "kodi"]
+}

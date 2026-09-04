@@ -1,0 +1,28 @@
+{
+  "id": "mindustry",
+  "name": "Mindustry",
+  "summary": "Open source factory-building tower defence game",
+  "category": "gaming",
+  "homepage": "https://mindustrygame.github.io/",
+  "license": "GPL-3.0",
+  "windows": {
+    "scoop": ["games/mindustry"],
+    "registry": ["Mindustry"],
+    "paths": {
+      "data": "%APPDATA%/Mindustry"
+    }
+  },
+  "linux": {
+    "aur": ["mindustry"],
+    "flatpak": ["com.github.Anuken.Mindustry"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/Mindustry"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache", "logs", "*.log", "crashes"],
+    "notes": "The saves, the schematics, the maps and the mods are the same files on both platforms; the game is Java and reads them identically."
+  },
+  "equivalents": []
+}

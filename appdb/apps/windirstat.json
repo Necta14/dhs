@@ -1,0 +1,18 @@
+{
+  "id": "windirstat",
+  "name": "WinDirStat",
+  "summary": "Disk usage treemap for Windows",
+  "category": "utility",
+  "homepage": "https://windirstat.net/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["WinDirStat.WinDirStat"],
+    "choco": ["windirstat"],
+    "registry": ["WinDirStat"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only; the settings are in the registry."
+  },
+  "equivalents": ["qdirstat", "filelight", "baobab"]
+}

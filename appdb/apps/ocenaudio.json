@@ -1,0 +1,22 @@
+{
+  "id": "ocenaudio",
+  "name": "ocenaudio",
+  "summary": "Simple audio editor for single files",
+  "category": "audio-editor",
+  "homepage": "https://www.ocenaudio.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Ocenaudio.Ocenaudio"],
+    "choco": ["ocenaudio"],
+    "scoop": ["extras/ocenaudio"],
+    "registry": ["ocenaudio"]
+  },
+  "linux": {
+    "aur": ["ocenaudio-bin"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "What it keeps between runs is the window layout, the recent files and the effect presets, in no documented location; DHS carries none of it and the editor starts with its defaults."
+  },
+  "equivalents": ["audacity", "tenacity"]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "google-drive",
+  "name": "Google Drive for desktop",
+  "summary": "Google's cloud storage client, which mounts the drive as a disk",
+  "category": "cloud-storage",
+  "homepage": "https://www.google.com/drive/download/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Google.GoogleDrive"],
+    "registry": ["Google Drive"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Google ships no Linux client. The settings and the local cache are bound to the machine and the account, so nothing is carried; on Linux the same files are reached with rclone or through the GNOME online accounts."
+  },
+  "equivalents": ["rclone", "nextcloud-desktop"]
+}

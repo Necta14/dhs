@@ -1,0 +1,33 @@
+{
+  "id": "filezilla",
+  "name": "FileZilla",
+  "summary": "FTP, FTPS and SFTP client",
+  "category": "network",
+  "homepage": "https://filezilla-project.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["filezilla"],
+    "scoop": ["extras/filezilla"],
+    "registry": ["FileZilla Client"],
+    "paths": {
+      "config": "%APPDATA%/FileZilla"
+    }
+  },
+  "linux": {
+    "pacman": ["filezilla"],
+    "apt": ["filezilla"],
+    "dnf": ["filezilla"],
+    "zypper": ["filezilla"],
+    "apk": ["filezilla"],
+    "flatpak": ["org.filezillaproject.Filezilla"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/filezilla"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.lock", "*.log", "logs"],
+    "notes": "sitemanager.xml is the same XML on both platforms, but filezilla.xml and the site entries hold local directory paths, so the directory is kept aside. Saved passwords in sitemanager.xml are stored in plain text unless a master password is set, so treat the file as a secret."
+  },
+  "equivalents": ["rclone"]
+}

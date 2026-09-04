@@ -1,0 +1,28 @@
+{
+  "id": "duckstation",
+  "name": "DuckStation",
+  "summary": "PlayStation 1 emulator",
+  "category": "emulator",
+  "homepage": "https://www.duckstation.org/",
+  "license": "CC-BY-NC-ND-4.0",
+  "windows": {
+    "winget": ["Stenzek.DuckStation"],
+    "scoop": ["games/duckstation"],
+    "registry": ["DuckStation"],
+    "paths": {
+      "config": "%USERPROFILE%/Documents/DuckStation"
+    }
+  },
+  "linux": {
+    "aur": ["duckstation"],
+    "paths": {
+      "config": "$XDG_DATA_HOME/duckstation"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "bios", "covers", "dump", "shaders", "textures", "*.log"],
+    "notes": "The memory cards and the save states are carried; settings.ini records the BIOS and game directories by absolute path, and the BIOS images stay with the user."
+  },
+  "equivalents": []
+}

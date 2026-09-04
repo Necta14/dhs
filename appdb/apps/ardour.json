@@ -1,0 +1,26 @@
+{
+  "id": "ardour",
+  "name": "Ardour",
+  "summary": "Digital audio workstation for recording and mixing",
+  "category": "audio-editor",
+  "homepage": "https://ardour.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["ardour"],
+    "apt": ["ardour"],
+    "dnf": ["ardour9", "ardour8"],
+    "zypper": ["ardour"],
+    "apk": ["ardour"],
+    "flatpak": ["org.ardour.Ardour"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ardour9",
+      "config-v8": "$XDG_CONFIG_HOME/ardour8"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["cache", "*.log", "backup"],
+    "notes": "The configuration directory is named after the major version, so a machine may hold ardour8 and ardour9 side by side. It carries the MIDI bindings, the templates and the plugin metadata; the audio engine settings inside it are JACK or ALSA names. Ardour sells Windows builds, but no package manager ships them."
+  },
+  "equivalents": ["reaper", "lmms", "audacity"]
+}

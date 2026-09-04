@@ -1,0 +1,31 @@
+{
+  "id": "persepolis",
+  "name": "Persepolis",
+  "summary": "Graphical front end for aria2",
+  "category": "download",
+  "homepage": "https://persepolisdm.github.io/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["PersepolisDownloadManager.Persepolis"],
+    "choco": ["persepolis"],
+    "scoop": ["extras/persepolis"],
+    "registry": ["Persepolis Download Manager"],
+    "paths": {
+      "config": "%APPDATA%/persepolis_download_manager"
+    }
+  },
+  "linux": {
+    "pacman": ["persepolis"],
+    "apt": ["persepolis"],
+    "dnf": ["persepolis"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/persepolis_download_manager"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.lock", "*.log"],
+    "notes": "The download database records absolute save paths, so the directory is kept aside."
+  },
+  "equivalents": ["motrix", "uget", "aria2"]
+}

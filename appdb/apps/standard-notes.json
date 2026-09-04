@@ -1,0 +1,28 @@
+{
+  "id": "standard-notes",
+  "name": "Standard Notes",
+  "summary": "End-to-end encrypted notes",
+  "category": "notes",
+  "homepage": "https://standardnotes.com/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["StandardNotes.StandardNotes"],
+    "scoop": ["extras/standardnotes"],
+    "registry": ["Standard Notes"],
+    "paths": {
+      "config": "%APPDATA%/Standard Notes"
+    }
+  },
+  "linux": {
+    "flatpak": ["org.standardnotes.standardnotes"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Standard Notes"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "The notes are encrypted on the server and come back after sign-in; what travels here is the local settings and the offline database."
+  },
+  "equivalents": ["joplin", "notesnook", "obsidian"]
+}

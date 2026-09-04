@@ -1,0 +1,30 @@
+{
+  "id": "cemu",
+  "name": "Cemu",
+  "summary": "Wii U emulator",
+  "category": "emulator",
+  "homepage": "https://cemu.info/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": ["Cemu.Cemu"],
+    "scoop": ["games/cemu"],
+    "registry": ["Cemu"],
+    "paths": {
+      "data": "%APPDATA%/Cemu"
+    }
+  },
+  "linux": {
+    "aur": ["cemu"],
+    "flatpak": ["info.cemu.Cemu"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Cemu",
+      "data": "$XDG_DATA_HOME/Cemu"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["shaderCache", "cache", "log.txt", "*.log", "dump"],
+    "notes": "The savegames under mlc01 are carried; the shader caches are rebuilt. Cemu uses one roaming folder on Windows and the XDG pair on Linux, and settings.xml lists the game paths absolutely."
+  },
+  "equivalents": []
+}

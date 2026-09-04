@@ -1,0 +1,19 @@
+{
+  "id": "mpc-hc",
+  "name": "MPC-HC",
+  "summary": "Lightweight Windows media player",
+  "category": "media-player",
+  "homepage": "https://github.com/clsid2/mpc-hc",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["clsid2.mpc-hc"],
+    "choco": ["mpc-hc"],
+    "scoop": ["extras/mpc-hc"],
+    "registry": ["MPC-HC"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. The installed build keeps its settings under HKCU in the registry, which DHS does not carry in v1; a portable build keeps mpc-hc64.ini next to the executable instead."
+  },
+  "equivalents": ["mpv", "vlc", "smplayer"]
+}

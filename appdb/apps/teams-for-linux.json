@@ -1,0 +1,22 @@
+{
+  "id": "teams-for-linux",
+  "name": "Teams for Linux",
+  "summary": "Unofficial desktop client that wraps Microsoft Teams",
+  "category": "chat",
+  "homepage": "https://github.com/IsmaelMartinez/teams-for-linux",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["teams-for-linux-bin", "teams-for-linux"],
+    "flatpak": ["com.github.IsmaelMartinez.teams_for_linux"],
+    "snap": ["teams-for-linux"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/teams-for-linux"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker"],
+    "notes": "Linux only, and it exists because Microsoft ships no Linux client. It is a wrapper around the Teams web application, so it holds no data of its own beyond the window and tray preferences."
+  },
+  "equivalents": ["microsoft-teams"]
+}

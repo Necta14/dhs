@@ -1,0 +1,41 @@
+{
+  "id": "jq",
+  "name": "jq",
+  "summary": "Command line JSON processor",
+  "category": "devtool",
+  "homepage": "https://jqlang.org/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "jqlang.jq"
+    ],
+    "choco": [
+      "jq"
+    ],
+    "scoop": [
+      "jq"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "jq"
+    ],
+    "apt": [
+      "jq"
+    ],
+    "dnf": [
+      "jq"
+    ],
+    "zypper": [
+      "jq"
+    ],
+    "apk": [
+      "jq"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "No user configuration."
+  },
+  "equivalents": []
+}

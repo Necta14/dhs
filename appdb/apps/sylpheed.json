@@ -1,0 +1,27 @@
+{
+  "id": "sylpheed",
+  "name": "Sylpheed",
+  "summary": "Small, fast GTK mail client",
+  "category": "email",
+  "homepage": "https://sylpheed.sraoss.jp/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Sylpheed.Sylpheed"],
+    "choco": ["sylpheed"],
+    "registry": ["Sylpheed"]
+  },
+  "linux": {
+    "apt": ["sylpheed"],
+    "dnf": ["sylpheed"],
+    "apk": ["sylpheed"],
+    "paths": {
+      "config": "~/.sylpheed-2.0"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.lock", "*.log"],
+    "notes": "The configuration directory holds absolute mailbox paths, so it is kept aside rather than dropped in place."
+  },
+  "equivalents": ["claws-mail", "thunderbird"]
+}

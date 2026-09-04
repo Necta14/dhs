@@ -1,0 +1,30 @@
+{
+  "id": "joplin",
+  "name": "Joplin",
+  "summary": "Note taking and to-do application with synchronisation",
+  "category": "notes",
+  "homepage": "https://joplinapp.org/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["Joplin.Joplin"],
+    "choco": ["joplin"],
+    "scoop": ["extras/joplin"],
+    "registry": ["Joplin"],
+    "paths": {
+      "profile": "%APPDATA%/joplin-desktop"
+    }
+  },
+  "linux": {
+    "aur": ["joplin-desktop", "joplin-appimage"],
+    "flatpak": ["net.cozic.joplin_desktop"],
+    "paths": {
+      "profile": "$XDG_CONFIG_HOME/joplin-desktop"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "GPUCache", "log.txt", "*.log", "tmp", "cache"],
+    "notes": "The profile holds settings.json, the note database and the attachment resources, in the same layout on both platforms. Synchronisation credentials inside it are secrets."
+  },
+  "equivalents": ["obsidian", "notesnook", "standard-notes"]
+}

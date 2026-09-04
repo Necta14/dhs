@@ -1,0 +1,30 @@
+{
+  "id": "upscayl",
+  "name": "Upscayl",
+  "summary": "Enlarges images with local upscaling models",
+  "category": "graphics",
+  "homepage": "https://upscayl.org/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["Upscayl.Upscayl"],
+    "choco": ["upscayl"],
+    "scoop": ["extras/upscayl"],
+    "registry": ["Upscayl"],
+    "paths": {
+      "config": "%APPDATA%/upscayl"
+    }
+  },
+  "linux": {
+    "flatpak": ["org.upscayl.Upscayl"],
+    "snap": ["upscayl"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/upscayl"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker", "models"],
+    "notes": "An Electron application: the settings are JSON and read the same on both platforms. Custom models are large binary files kept outside the profile, and DHS leaves them where the user put them."
+  },
+  "equivalents": ["gimp", "darktable"]
+}

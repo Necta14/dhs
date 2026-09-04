@@ -1,0 +1,30 @@
+{
+  "id": "librecad",
+  "name": "LibreCAD",
+  "summary": "2D CAD drafting",
+  "category": "cad",
+  "homepage": "https://librecad.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["LibreCAD.LibreCAD"],
+    "choco": ["librecad"],
+    "scoop": ["extras/librecad"],
+    "registry": ["LibreCAD"]
+  },
+  "linux": {
+    "pacman": ["librecad"],
+    "apt": ["librecad"],
+    "dnf": ["librecad"],
+    "zypper": ["librecad"],
+    "flatpak": ["org.librecad.librecad"],
+    "snap": ["librecad"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/LibreCAD"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "On Linux the settings are an INI file holding the units, the snap defaults and the paths to the part and pattern libraries; the Windows build keeps the same values in the registry."
+  },
+  "equivalents": ["freecad", "openscad"]
+}

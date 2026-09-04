@@ -1,0 +1,23 @@
+{
+  "id": "neomutt",
+  "name": "NeoMutt",
+  "summary": "Terminal mail client, a fork of Mutt",
+  "category": "email",
+  "homepage": "https://neomutt.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["neomutt"],
+    "apt": ["neomutt"],
+    "dnf": ["neomutt"],
+    "zypper": ["neomutt"],
+    "apk": ["neomutt"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/neomutt"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "No packaged Windows build. The neomuttrc is plain text but names absolute mailbox paths and helper commands such as gpg and msmtp."
+  },
+  "equivalents": ["aerc", "thunderbird"]
+}

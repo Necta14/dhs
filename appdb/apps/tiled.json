@@ -1,0 +1,32 @@
+{
+  "id": "tiled",
+  "name": "Tiled",
+  "summary": "Tile map editor for 2D games",
+  "category": "graphics",
+  "homepage": "https://www.mapeditor.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Tiled.Tiled"],
+    "choco": ["tiled"],
+    "scoop": ["extras/tiled"],
+    "registry": ["Tiled"]
+  },
+  "linux": {
+    "pacman": ["tiled"],
+    "apt": ["tiled"],
+    "dnf": ["tiled"],
+    "zypper": ["tiled"],
+    "apk": ["tiled"],
+    "flatpak": ["org.mapeditor.Tiled"],
+    "snap": ["tiled"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/tiled"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log"],
+    "notes": "On Linux the settings, the custom object types and the extensions live in the configuration directory; the Windows build keeps the settings in the registry, so the directory is kept aside."
+  },
+  "equivalents": ["aseprite", "libresprite"]
+}

@@ -1,0 +1,35 @@
+{
+  "id": "blender",
+  "name": "Blender",
+  "summary": "3D modelling, animation and rendering",
+  "category": "3d",
+  "homepage": "https://www.blender.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["BlenderFoundation.Blender"],
+    "choco": ["blender"],
+    "scoop": ["extras/blender"],
+    "registry": ["Blender"],
+    "paths": {
+      "config": "%APPDATA%/Blender Foundation/Blender"
+    }
+  },
+  "linux": {
+    "pacman": ["blender"],
+    "apt": ["blender"],
+    "dnf": ["blender"],
+    "zypper": ["blender"],
+    "apk": ["blender"],
+    "flatpak": ["org.blender.Blender"],
+    "snap": ["blender"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/blender"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*/cache", "*/datafiles/temp", "*.log", "*.blend1"],
+    "notes": "One directory per version, each with config/userpref.blend, the startup file and scripts/addons. The .blend files read on any platform, but userpref.blend stores the script, asset-library and temp folders as absolute paths, and add-ons that ship compiled extensions were built for the old system, so the directory is kept aside."
+  },
+  "equivalents": ["freecad"]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "anydesk",
+  "name": "AnyDesk",
+  "summary": "Remote desktop access",
+  "category": "remote-desktop",
+  "homepage": "https://anydesk.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["AnyDeskSoftwareGmbH.AnyDesk"],
+    "choco": ["anydesk"],
+    "scoop": ["extras/anydesk"],
+    "registry": ["AnyDesk"]
+  },
+  "linux": {
+    "aur": ["anydesk-bin"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The AnyDesk ID and its key belong to the installation; a new machine gets a new ID, so nothing is carried."
+  },
+  "equivalents": ["rustdesk", "teamviewer", "remmina"]
+}

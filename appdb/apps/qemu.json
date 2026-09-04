@@ -1,0 +1,42 @@
+{
+  "id": "qemu",
+  "name": "QEMU",
+  "summary": "Machine emulator and virtualizer",
+  "category": "virtualization",
+  "homepage": "https://www.qemu.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": [
+      "SoftwareFreedomConservancy.QEMU"
+    ],
+    "registry": [
+      "QEMU"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "qemu-full",
+      "qemu-desktop"
+    ],
+    "apt": [
+      "qemu-system"
+    ],
+    "dnf": [
+      "qemu"
+    ],
+    "zypper": [
+      "qemu"
+    ],
+    "apk": [
+      "qemu"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "QEMU is driven from the command line or through libvirt; it keeps no configuration of its own in the user's home."
+  },
+  "equivalents": [
+    "virt-manager",
+    "virtualbox"
+  ]
+}

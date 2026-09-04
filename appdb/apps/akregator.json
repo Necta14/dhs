@@ -1,0 +1,33 @@
+{
+  "id": "akregator",
+  "name": "Akregator",
+  "summary": "KDE feed reader",
+  "category": "feed-reader",
+  "homepage": "https://apps.kde.org/akregator/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["KDE.Akregator"],
+    "registry": ["Akregator"],
+    "paths": {
+      "config": "%APPDATA%/akregatorrc",
+      "data": "%LOCALAPPDATA%/akregator"
+    }
+  },
+  "linux": {
+    "pacman": ["akregator"],
+    "apt": ["akregator"],
+    "dnf": ["akregator"],
+    "zypper": ["akregator"],
+    "apk": ["akregator"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/akregatorrc",
+      "data": "$XDG_DATA_HOME/akregator"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.lock", "Archive"],
+    "notes": "akregatorrc is an INI file with the same keys everywhere; the subscription list is feeds.opml under the data directory."
+  },
+  "equivalents": ["rssguard", "liferea", "newsflash"]
+}

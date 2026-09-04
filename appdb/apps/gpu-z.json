@@ -1,0 +1,18 @@
+{
+  "id": "gpu-z",
+  "name": "GPU-Z",
+  "summary": "Reports graphics card details and sensors",
+  "category": "system",
+  "homepage": "https://www.techpowerup.com/gpuz/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["TechPowerUp.GPU-Z"],
+    "choco": ["gpu-z"],
+    "registry": ["GPU-Z"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only."
+  },
+  "equivalents": ["cpu-x", "hardinfo"]
+}

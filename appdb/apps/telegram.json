@@ -1,0 +1,34 @@
+{
+  "id": "telegram",
+  "name": "Telegram Desktop",
+  "summary": "Desktop client for Telegram",
+  "category": "chat",
+  "homepage": "https://desktop.telegram.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Telegram.TelegramDesktop"],
+    "choco": ["telegram"],
+    "scoop": ["extras/telegram"],
+    "registry": ["Telegram Desktop"],
+    "paths": {
+      "tdata": "%APPDATA%/Telegram Desktop/tdata"
+    }
+  },
+  "linux": {
+    "pacman": ["telegram-desktop"],
+    "apt": ["telegram-desktop"],
+    "zypper": ["telegram-desktop"],
+    "apk": ["telegram-desktop"],
+    "flatpak": ["org.telegram.desktop"],
+    "snap": ["telegram-desktop"],
+    "paths": {
+      "tdata": "$XDG_DATA_HOME/TelegramDesktop/tdata"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.lock", "user_data/cache", "user_data/media_cache", "user_data#2/cache", "emoji", "dumps"],
+    "notes": "tdata holds the session and the settings in the same platform-independent format everywhere, so the account survives the move and no new login is needed. It is the session key as well: whoever holds it is logged in."
+  },
+  "equivalents": ["signal", "element"]
+}

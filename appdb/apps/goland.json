@@ -1,0 +1,57 @@
+{
+  "id": "goland",
+  "name": "GoLand",
+  "summary": "Go IDE",
+  "category": "ide",
+  "homepage": "https://www.jetbrains.com/go/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "JetBrains.GoLand"
+    ],
+    "choco": [
+      "goland"
+    ],
+    "scoop": [
+      "extras/goland"
+    ],
+    "registry": [
+      "GoLand"
+    ],
+    "paths": {
+      "config": "%APPDATA%/JetBrains"
+    }
+  },
+  "linux": {
+    "aur": [
+      "goland"
+    ],
+    "flatpak": [
+      "com.jetbrains.GoLand"
+    ],
+    "snap": [
+      "goland --classic"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/JetBrains"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "log",
+      "logs",
+      "*.log",
+      "*.lock",
+      "port",
+      "system",
+      "caches",
+      "index"
+    ],
+    "notes": "IntelliJ-platform settings, kept per version under the JetBrains directory. They name JDKs, SDKs and projects by absolute path, so they are kept aside on the other platform rather than restored in place."
+  },
+  "equivalents": [
+    "vscodium",
+    "vscode"
+  ]
+}

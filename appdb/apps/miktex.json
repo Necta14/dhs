@@ -1,0 +1,29 @@
+{
+  "id": "miktex",
+  "name": "MiKTeX",
+  "summary": "TeX distribution that installs packages on demand",
+  "category": "office",
+  "homepage": "https://miktex.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["MiKTeX.MiKTeX"],
+    "choco": ["miktex"],
+    "scoop": ["miktex"],
+    "registry": ["MiKTeX"],
+    "paths": {
+      "config": "%APPDATA%/MiKTeX"
+    }
+  },
+  "linux": {
+    "aur": ["miktex"],
+    "paths": {
+      "config": "~/.miktex"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["miktex/log", "logs", "*.log", "miktex/data"],
+    "notes": "The user tree holds the packages MiKTeX installed on demand and the local .sty files. The file-name database and the package registry are rebuilt on the new machine, so the tree is kept aside rather than dropped in place."
+  },
+  "equivalents": ["texlive"]
+}

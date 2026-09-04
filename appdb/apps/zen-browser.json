@@ -1,0 +1,30 @@
+{
+  "id": "zen-browser",
+  "name": "Zen Browser",
+  "summary": "Firefox fork built around split views and workspaces",
+  "category": "browser",
+  "homepage": "https://zen-browser.app/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": ["Zen-Team.Zen-Browser"],
+    "choco": ["zen-browser"],
+    "scoop": ["extras/zen-browser"],
+    "registry": ["Zen Browser"],
+    "paths": {
+      "profiles": "%APPDATA%/zen"
+    }
+  },
+  "linux": {
+    "aur": ["zen-browser-bin"],
+    "flatpak": ["app.zen_browser.zen"],
+    "paths": {
+      "profiles": "~/.zen"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache2", "startupCache", "thumbnails", "crashes", "minidumps", "datareporting", "saved-telemetry-pings", "storage/default/*/cache", "*.lock", "lock", "parent.lock"],
+    "notes": "A Firefox-style profile directory: the same layout on every platform, and profiles.ini points at profiles by a relative path."
+  },
+  "equivalents": ["firefox", "floorp", "librewolf"]
+}

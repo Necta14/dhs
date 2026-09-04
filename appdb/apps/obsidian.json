@@ -1,0 +1,32 @@
+{
+  "id": "obsidian",
+  "name": "Obsidian",
+  "summary": "Markdown knowledge base over a folder of plain files",
+  "category": "notes",
+  "homepage": "https://obsidian.md/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Obsidian.Obsidian"],
+    "choco": ["obsidian"],
+    "scoop": ["extras/obsidian"],
+    "registry": ["Obsidian"],
+    "paths": {
+      "config": "%APPDATA%/obsidian"
+    }
+  },
+  "linux": {
+    "pacman": ["obsidian"],
+    "aur": ["obsidian-bin"],
+    "flatpak": ["md.obsidian.Obsidian"],
+    "snap": ["obsidian --classic"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/obsidian"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "Only the application settings live here; the notes themselves are in the vault folder the user picked, which DHS backs up as ordinary personal files. obsidian.json records the vault paths, so after a migration the vaults are opened again by hand."
+  },
+  "equivalents": ["logseq", "joplin", "zettlr"]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "gajim",
+  "name": "Gajim",
+  "summary": "GTK XMPP client",
+  "category": "chat",
+  "homepage": "https://gajim.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Gajim.Gajim"],
+    "choco": ["gajim"],
+    "registry": ["Gajim"],
+    "paths": {
+      "config": "%APPDATA%/Gajim"
+    }
+  },
+  "linux": {
+    "pacman": ["gajim"],
+    "apt": ["gajim"],
+    "dnf": ["gajim"],
+    "zypper": ["gajim"],
+    "apk": ["gajim"],
+    "flatpak": ["org.gajim.Gajim"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/gajim",
+      "data": "$XDG_DATA_HOME/gajim"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "logs", "*.log", "avatars", "downloads"],
+    "notes": "Windows keeps configuration and data together under one directory, Linux splits them across the XDG directories, so what is found is kept aside."
+  },
+  "equivalents": ["dino", "pidgin"]
+}

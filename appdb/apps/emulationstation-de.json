@@ -1,0 +1,28 @@
+{
+  "id": "emulationstation-de",
+  "name": "ES-DE",
+  "summary": "Emulator frontend, formerly EmulationStation Desktop Edition",
+  "category": "launcher",
+  "homepage": "https://es-de.org/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["ES-DE.EmulationStation-DE"],
+    "scoop": ["games/es-de"],
+    "registry": ["ES-DE"],
+    "paths": {
+      "config": "%USERPROFILE%/ES-DE"
+    }
+  },
+  "linux": {
+    "aur": ["emulationstation-de"],
+    "paths": {
+      "config": "~/ES-DE"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "logs", "*.log", "downloaded_media", "themes"],
+    "notes": "The application data folder has the same layout on both platforms, but es_settings.xml and es_systems.xml name the ROM directory and every emulator binary by absolute path."
+  },
+  "equivalents": ["pegasus-frontend", "retroarch", "playnite"]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "devilutionx",
+  "name": "DevilutionX",
+  "summary": "Open source engine for Diablo and Hellfire",
+  "category": "gaming",
+  "homepage": "https://github.com/diasurgical/DevilutionX",
+  "linux": {
+    "aur": ["devilutionx"],
+    "zypper": ["devilutionx"],
+    "flatpak": ["org.diasurgical.DevilutionX"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The savegames sit beside the original DIABDAT.MPQ, wherever the user placed it, so there is no fixed location for DHS to read. The game data itself is the user's own."
+  },
+  "equivalents": []
+}

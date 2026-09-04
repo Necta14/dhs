@@ -1,0 +1,19 @@
+{
+  "id": "timeshift",
+  "name": "Timeshift",
+  "summary": "System snapshots with rsync or Btrfs",
+  "category": "backup",
+  "homepage": "https://github.com/linuxmint/timeshift",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["timeshift"],
+    "apt": ["timeshift"],
+    "dnf": ["timeshift"],
+    "zypper": ["timeshift"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Runs as root and keeps its settings in /etc/timeshift; nothing in the user's home."
+  },
+  "equivalents": ["deja-dup", "borgbackup", "restic"]
+}

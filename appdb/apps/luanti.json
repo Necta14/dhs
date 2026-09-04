@@ -1,0 +1,33 @@
+{
+  "id": "luanti",
+  "name": "Luanti",
+  "summary": "Open source voxel game engine, formerly Minetest",
+  "category": "gaming",
+  "homepage": "https://www.luanti.org/",
+  "license": "LGPL-2.1",
+  "windows": {
+    "winget": ["LuantiTeam.Luanti"],
+    "scoop": ["games/luanti"],
+    "registry": ["Luanti"],
+    "paths": {
+      "data": "%APPDATA%/Minetest"
+    }
+  },
+  "linux": {
+    "pacman": ["luanti"],
+    "apt": ["luanti", "minetest"],
+    "dnf": ["minetest"],
+    "zypper": ["luanti"],
+    "apk": ["luanti"],
+    "flatpak": ["org.luanti.luanti"],
+    "paths": {
+      "data": "~/.minetest"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache", "debug.txt", "*.log", "client/serverlist"],
+    "notes": "The user directory keeps the same name it had under the old project name. Worlds, mods and minetest.conf have the same format everywhere; mods are Lua and travel with the worlds."
+  },
+  "equivalents": []
+}

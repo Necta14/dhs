@@ -1,0 +1,23 @@
+{
+  "id": "playnite",
+  "name": "Playnite",
+  "summary": "Unified library for games from Steam, GOG, Epic and emulators",
+  "category": "launcher",
+  "homepage": "https://playnite.link/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["Playnite.Playnite"],
+    "choco": ["playnite"],
+    "scoop": ["extras/playnite"],
+    "registry": ["Playnite"],
+    "paths": {
+      "config": "%APPDATA%/Playnite"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["cache", "Backup", "ExtensionsData", "*.log", "library/files"],
+    "notes": "Windows only, and built on .NET Framework with extensions that call Windows APIs. The library database records absolute install paths."
+  },
+  "equivalents": ["lutris", "cartridges", "gamehub"]
+}

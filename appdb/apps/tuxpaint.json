@@ -1,0 +1,31 @@
+{
+  "id": "tuxpaint",
+  "name": "Tux Paint",
+  "summary": "Drawing program for young children",
+  "category": "education",
+  "homepage": "https://tuxpaint.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["NewBreedSoftware.TuxPaint"],
+    "choco": ["tux-paint"],
+    "registry": ["Tux Paint"],
+    "paths": {
+      "data": "%APPDATA%/TuxPaint"
+    }
+  },
+  "linux": {
+    "aur": ["tuxpaint"],
+    "apt": ["tuxpaint"],
+    "dnf": ["tuxpaint"],
+    "zypper": ["tuxpaint"],
+    "apk": ["tuxpaint"],
+    "flatpak": ["org.tuxpaint.Tuxpaint"],
+    "paths": {
+      "data": "~/.tuxpaint"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "The saved drawings and the stamp collection live in the user directory, but tuxpaint.cfg names fonts and data folders by absolute path, so it is kept aside on the other platform."
+  }
+}

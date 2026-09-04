@@ -1,0 +1,23 @@
+{
+  "id": "nnn",
+  "name": "nnn",
+  "summary": "Small and fast terminal file manager",
+  "category": "file-manager",
+  "homepage": "https://github.com/jarun/nnn",
+  "license": "BSD-2-Clause",
+  "linux": {
+    "pacman": ["nnn"],
+    "apt": ["nnn"],
+    "dnf": ["nnn"],
+    "zypper": ["nnn"],
+    "apk": ["nnn"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/nnn"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Unix only. The plugins in the config directory are shell scripts."
+  },
+  "equivalents": ["ranger", "yazi", "lf"]
+}

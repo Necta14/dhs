@@ -1,0 +1,52 @@
+{
+  "id": "powershell",
+  "name": "PowerShell",
+  "summary": "Cross-platform object-oriented shell",
+  "category": "shell",
+  "homepage": "https://microsoft.com/powershell",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "Microsoft.PowerShell"
+    ],
+    "choco": [
+      "powershell-core"
+    ],
+    "scoop": [
+      "pwsh"
+    ],
+    "registry": [
+      "PowerShell"
+    ],
+    "paths": {
+      "profile": "%USERPROFILE%/Documents/PowerShell"
+    }
+  },
+  "linux": {
+    "aur": [
+      "powershell-bin"
+    ],
+    "apk": [
+      "powershell"
+    ],
+    "snap": [
+      "powershell --classic"
+    ],
+    "paths": {
+      "profile": "$XDG_CONFIG_HOME/powershell"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.log",
+      "Modules"
+    ],
+    "notes": "The profile scripts have the same syntax on both platforms; Windows-only cmdlets inside them will not resolve on Linux. Installed modules are fetched again from the gallery."
+  },
+  "equivalents": [
+    "nushell",
+    "fish",
+    "zsh"
+  ]
+}

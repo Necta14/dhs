@@ -1,0 +1,44 @@
+{
+  "id": "lapce",
+  "name": "Lapce",
+  "summary": "Rust code editor with remote development",
+  "category": "editor",
+  "homepage": "https://lapce.dev/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Lapce.Lapce"
+    ],
+    "choco": [
+      "lapce"
+    ],
+    "scoop": [
+      "extras/lapce"
+    ],
+    "registry": [
+      "Lapce"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "lapce"
+    ],
+    "zypper": [
+      "lapce"
+    ],
+    "apk": [
+      "lapce"
+    ],
+    "flatpak": [
+      "dev.lapce.lapce"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Lapce keeps its settings in a directory named after the release channel (lapce-stable and the like); DHS does not carry it in v1, and installs the editor only."
+  },
+  "equivalents": [
+    "zed",
+    "vscodium"
+  ]
+}

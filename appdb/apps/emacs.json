@@ -1,0 +1,60 @@
+{
+  "id": "emacs",
+  "name": "GNU Emacs",
+  "summary": "Extensible text editor and Lisp environment",
+  "category": "editor",
+  "homepage": "https://www.gnu.org/software/emacs/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": [
+      "GNU.Emacs"
+    ],
+    "registry": [
+      "GNU Emacs"
+    ],
+    "paths": {
+      "config": "%APPDATA%/.emacs.d"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "emacs",
+      "emacs-wayland",
+      "emacs-nox"
+    ],
+    "apt": [
+      "emacs",
+      "emacs-gtk"
+    ],
+    "dnf": [
+      "emacs"
+    ],
+    "zypper": [
+      "emacs"
+    ],
+    "apk": [
+      "emacs"
+    ],
+    "paths": {
+      "config": "~/.emacs.d",
+      "config-xdg": "$XDG_CONFIG_HOME/emacs"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "elpa",
+      "eln-cache",
+      "auto-save-list",
+      "transient",
+      "*.elc",
+      "recentf",
+      "url"
+    ],
+    "notes": "init.el and the Lisp configuration are portable. Byte- and native-compiled packages under elpa and eln-cache are built for one Emacs binary and are re-installed on the target system."
+  },
+  "equivalents": [
+    "neovim",
+    "vim"
+  ]
+}

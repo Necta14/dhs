@@ -1,0 +1,33 @@
+{
+  "id": "wireshark",
+  "name": "Wireshark",
+  "summary": "Network protocol analyser",
+  "category": "network",
+  "homepage": "https://www.wireshark.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["WiresharkFoundation.Wireshark"],
+    "choco": ["wireshark"],
+    "scoop": ["extras/wireshark"],
+    "registry": ["Wireshark"],
+    "paths": {
+      "config": "%APPDATA%/Wireshark"
+    }
+  },
+  "linux": {
+    "pacman": ["wireshark-qt"],
+    "apt": ["wireshark"],
+    "dnf": ["wireshark"],
+    "zypper": ["wireshark"],
+    "apk": ["wireshark"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/wireshark"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "recent", "recent_common"],
+    "notes": "Profiles, colour filters and display filters have the same syntax everywhere, but the capture filters and the interface settings name adapters by their platform names."
+  },
+  "equivalents": ["nmap"]
+}

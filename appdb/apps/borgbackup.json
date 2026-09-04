@@ -1,0 +1,24 @@
+{
+  "id": "borgbackup",
+  "name": "BorgBackup",
+  "summary": "Deduplicating backup with compression and encryption",
+  "category": "backup",
+  "homepage": "https://www.borgbackup.org/",
+  "license": "BSD-3-Clause",
+  "linux": {
+    "pacman": ["borg"],
+    "apt": ["borgbackup"],
+    "dnf": ["borgbackup"],
+    "zypper": ["borgbackup"],
+    "apk": ["borgbackup"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/borg"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.lock", "*.log"],
+    "notes": "Unix only. The config directory holds the repository keys, which DHS treats as secrets, and the known-repository list with absolute paths."
+  },
+  "equivalents": ["restic", "kopia", "vorta"]
+}

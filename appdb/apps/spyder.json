@@ -1,0 +1,56 @@
+{
+  "id": "spyder",
+  "name": "Spyder",
+  "summary": "Scientific Python development environment",
+  "category": "ide",
+  "homepage": "https://www.spyder-ide.org/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "Spyder.Spyder"
+    ],
+    "scoop": [
+      "extras/spyder"
+    ],
+    "registry": [
+      "Spyder"
+    ],
+    "paths": {
+      "config": "%USERPROFILE%/.spyder-py3"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "spyder"
+    ],
+    "apt": [
+      "spyder"
+    ],
+    "dnf": [
+      "python3-spyder"
+    ],
+    "zypper": [
+      "spyder"
+    ],
+    "flatpak": [
+      "org.spyder_ide.spyder"
+    ],
+    "paths": {
+      "config": "~/.spyder-py3",
+      "config-xdg": "$XDG_CONFIG_HOME/spyder-py3"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.log",
+      "logs",
+      "workingdir"
+    ],
+    "notes": "spyder.ini keeps the same keys on both platforms. Newer releases use the XDG directory on Linux, so both locations are listed."
+  },
+  "equivalents": [
+    "thonny",
+    "pycharm-community"
+  ]
+}

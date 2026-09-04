@@ -1,0 +1,21 @@
+{
+  "id": "lollypop",
+  "name": "Lollypop",
+  "summary": "GNOME music player with a collection view",
+  "category": "music",
+  "homepage": "https://gitlab.gnome.org/World/lollypop",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["lollypop"],
+    "apt": ["lollypop"],
+    "dnf": ["lollypop"],
+    "zypper": ["lollypop"],
+    "apk": ["lollypop"],
+    "flatpak": ["org.gnome.Lollypop"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only. Preferences are GSettings keys in dconf; the collection database under the data directory is a scan of the music and is rebuilt on the new machine."
+  },
+  "equivalents": ["rhythmbox", "elisa", "strawberry"]
+}

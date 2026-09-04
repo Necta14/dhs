@@ -1,0 +1,26 @@
+{
+  "id": "epiphany",
+  "name": "GNOME Web",
+  "summary": "GNOME's WebKit browser, also known as Epiphany",
+  "category": "browser",
+  "homepage": "https://apps.gnome.org/Epiphany/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["epiphany"],
+    "apt": ["epiphany-browser"],
+    "dnf": ["epiphany"],
+    "zypper": ["epiphany"],
+    "apk": ["epiphany"],
+    "flatpak": ["org.gnome.Epiphany"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/epiphany",
+      "data": "$XDG_DATA_HOME/epiphany"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.lock", "*.log"],
+    "notes": "Linux only, and part of the settings live in dconf rather than in files."
+  },
+  "equivalents": ["firefox", "chromium", "falkon"]
+}

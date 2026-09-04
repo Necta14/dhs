@@ -1,0 +1,59 @@
+{
+  "id": "beekeeper-studio",
+  "name": "Beekeeper Studio",
+  "summary": "SQL editor and database manager",
+  "category": "database",
+  "homepage": "https://www.beekeeperstudio.io/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": [
+      "beekeeper-studio.beekeeper-studio"
+    ],
+    "choco": [
+      "beekeeper-studio"
+    ],
+    "scoop": [
+      "extras/beekeeper-studio"
+    ],
+    "registry": [
+      "Beekeeper Studio"
+    ],
+    "paths": {
+      "config": "%APPDATA%/beekeeper-studio"
+    }
+  },
+  "linux": {
+    "aur": [
+      "beekeeper-studio-bin"
+    ],
+    "flatpak": [
+      "io.beekeeperstudio.Studio"
+    ],
+    "snap": [
+      "beekeeper-studio"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/beekeeper-studio"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "Cache",
+      "Code Cache",
+      "GPUCache",
+      "DawnCache",
+      "blob_storage",
+      "logs",
+      "*.log",
+      "Crashpad",
+      "Service Worker"
+    ],
+    "notes": "An Electron application; the saved connections live in a small SQLite file with the same schema on both platforms."
+  },
+  "equivalents": [
+    "dbeaver",
+    "dbgate",
+    "datagrip"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "gnome-connections",
+  "name": "Connections",
+  "summary": "GNOME remote desktop client",
+  "category": "remote-desktop",
+  "homepage": "https://apps.gnome.org/Connections/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["gnome-connections"],
+    "apt": ["gnome-connections"],
+    "dnf": ["gnome-connections"],
+    "zypper": ["gnome-connections"],
+    "apk": ["gnome-connections"],
+    "flatpak": ["org.gnome.Connections"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The saved connections are in the GSettings database."
+  },
+  "equivalents": ["remmina", "krdc"]
+}

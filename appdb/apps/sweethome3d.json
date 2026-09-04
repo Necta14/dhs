@@ -1,0 +1,28 @@
+{
+  "id": "sweethome3d",
+  "name": "Sweet Home 3D",
+  "summary": "Interior design and floor planning",
+  "category": "cad",
+  "homepage": "https://www.sweethome3d.com/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["eTeks.SweetHome3D"],
+    "choco": ["sweet-home-3d"],
+    "scoop": ["extras/sweethome3d"],
+    "registry": ["Sweet Home 3D"]
+  },
+  "linux": {
+    "pacman": ["sweethome3d"],
+    "apt": ["sweethome3d"],
+    "flatpak": ["com.sweethome3d.Sweethome3d"],
+    "paths": {
+      "libraries": "~/.eteks/sweethome3d"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "recovery"],
+    "notes": "A Java application: the preferences go into the Java preference store, the registry on Windows and a userPrefs tree on Linux, and are not carried. The furniture, texture and plugin libraries the user installed live in the directory above and are worth keeping."
+  },
+  "equivalents": ["freecad", "blender"]
+}

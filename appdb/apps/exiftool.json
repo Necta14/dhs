@@ -1,0 +1,31 @@
+{
+  "id": "exiftool",
+  "name": "ExifTool",
+  "summary": "Reads and writes metadata in images and video",
+  "category": "utility",
+  "homepage": "https://exiftool.org/",
+  "license": "Artistic-1.0",
+  "windows": {
+    "winget": ["OliverBetz.ExifTool"],
+    "choco": ["exiftool"],
+    "scoop": ["exiftool"],
+    "paths": {
+      "config": "%USERPROFILE%/.ExifTool_config"
+    }
+  },
+  "linux": {
+    "pacman": ["perl-image-exiftool"],
+    "apt": ["libimage-exiftool-perl"],
+    "dnf": ["perl-Image-ExifTool"],
+    "zypper": ["exiftool"],
+    "apk": ["exiftool"],
+    "paths": {
+      "config": "~/.ExifTool_config"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The optional .ExifTool_config is a Perl file defining user tags and shortcuts, identical on both platforms. Every distribution names the package after Perl rather than after the tool."
+  },
+  "equivalents": ["imagemagick"]
+}

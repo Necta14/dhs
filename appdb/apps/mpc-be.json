@@ -1,0 +1,19 @@
+{
+  "id": "mpc-be",
+  "name": "MPC-BE",
+  "summary": "Media Player Classic - Black Edition",
+  "category": "media-player",
+  "homepage": "https://sourceforge.net/projects/mpcbe/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["MPC-BE.MPC-BE"],
+    "choco": ["mpc-be"],
+    "scoop": ["extras/mpc-be"],
+    "registry": ["MPC-BE"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. Settings live in the registry under HKCU unless the portable build is used, and DHS does not carry registry keys in v1."
+  },
+  "equivalents": ["mpv", "vlc", "mpc-hc"]
+}

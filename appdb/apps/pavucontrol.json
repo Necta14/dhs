@@ -1,0 +1,19 @@
+{
+  "id": "pavucontrol",
+  "name": "PulseAudio Volume Control",
+  "summary": "Per-application volume and device routing",
+  "category": "system",
+  "homepage": "https://freedesktop.org/software/pulseaudio/pavucontrol/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["pavucontrol"],
+    "apt": ["pavucontrol"],
+    "dnf": ["pavucontrol"],
+    "zypper": ["pavucontrol"],
+    "apk": ["pavucontrol"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Routing is remembered by PulseAudio or PipeWire, not by this tool."
+  }
+}

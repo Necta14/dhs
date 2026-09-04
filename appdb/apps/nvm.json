@@ -1,0 +1,35 @@
+{
+  "id": "nvm",
+  "name": "nvm",
+  "summary": "Installs and switches between Node.js versions",
+  "category": "devtool",
+  "homepage": "https://github.com/nvm-sh/nvm",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "CoreyButler.NVMforWindows"
+    ],
+    "choco": [
+      "nvm"
+    ],
+    "scoop": [
+      "nvm"
+    ],
+    "registry": [
+      "NVM for Windows"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "nvm"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The installed Node.js versions are binaries for one platform and are downloaded again; .nvmrc files live in the projects. Windows uses the separate nvm-windows port, which shares only the name."
+  },
+  "equivalents": [
+    "mise",
+    "nodejs"
+  ]
+}

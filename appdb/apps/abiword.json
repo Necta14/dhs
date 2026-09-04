@@ -1,0 +1,25 @@
+{
+  "id": "abiword",
+  "name": "AbiWord",
+  "summary": "Lightweight word processor",
+  "category": "office",
+  "homepage": "https://www.abisource.com/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["abiword"],
+    "apt": ["abiword"],
+    "dnf": ["abiword"],
+    "zypper": ["abiword"],
+    "apk": ["abiword"],
+    "flatpak": ["com.abisource.AbiWord"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/abiword"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log"],
+    "notes": "The profile file, templates and the user dictionary sit in one directory."
+  },
+  "equivalents": ["libreoffice", "onlyoffice-desktopeditors"]
+}

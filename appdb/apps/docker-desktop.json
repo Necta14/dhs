@@ -1,0 +1,45 @@
+{
+  "id": "docker-desktop",
+  "name": "Docker Desktop",
+  "summary": "Docker with a graphical interface and a managed virtual machine",
+  "category": "container",
+  "homepage": "https://www.docker.com/products/docker-desktop/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "Docker.DockerDesktop"
+    ],
+    "choco": [
+      "docker-desktop"
+    ],
+    "registry": [
+      "Docker Desktop"
+    ],
+    "paths": {
+      "settings": "%APPDATA%/Docker"
+    }
+  },
+  "linux": {
+    "aur": [
+      "docker-desktop"
+    ],
+    "paths": {
+      "settings": "$XDG_CONFIG_HOME/docker-desktop"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "log",
+      "logs",
+      "*.log",
+      "vms",
+      "Cache"
+    ],
+    "notes": "settings-store.json records how much memory and disk the virtual machine gets and where its disk lives; those numbers describe one machine."
+  },
+  "equivalents": [
+    "podman-desktop",
+    "docker"
+  ]
+}

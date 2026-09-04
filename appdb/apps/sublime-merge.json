@@ -1,0 +1,49 @@
+{
+  "id": "sublime-merge",
+  "name": "Sublime Merge",
+  "summary": "Git client from the makers of Sublime Text",
+  "category": "vcs",
+  "homepage": "https://www.sublimemerge.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "SublimeHQ.SublimeMerge"
+    ],
+    "choco": [
+      "sublimemerge"
+    ],
+    "scoop": [
+      "extras/sublime-merge"
+    ],
+    "registry": [
+      "Sublime Merge"
+    ],
+    "paths": {
+      "user": "%APPDATA%/Sublime Merge/Packages/User"
+    }
+  },
+  "linux": {
+    "aur": [
+      "sublime-merge"
+    ],
+    "flatpak": [
+      "com.sublimemerge.App"
+    ],
+    "paths": {
+      "user": "$XDG_CONFIG_HOME/sublime-merge/Packages/User"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.cache",
+      "*.log"
+    ],
+    "notes": "The Packages/User directory holds the settings and key bindings as plain files, exactly as in Sublime Text."
+  },
+  "equivalents": [
+    "gitkraken",
+    "github-desktop",
+    "lazygit"
+  ]
+}

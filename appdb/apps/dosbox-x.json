@@ -1,0 +1,28 @@
+{
+  "id": "dosbox-x",
+  "name": "DOSBox-X",
+  "summary": "DOSBox fork aimed at full PC and early Windows emulation",
+  "category": "emulator",
+  "homepage": "https://dosbox-x.com/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["joncampbell123.DOSBox-X"],
+    "choco": ["dosbox-x"],
+    "scoop": ["extras/dosbox-x"],
+    "registry": ["DOSBox-X"]
+  },
+  "linux": {
+    "aur": ["dosbox-x"],
+    "apt": ["dosbox-x"],
+    "flatpak": ["com.dosbox_x.DOSBox-X"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/dosbox-x"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "capture"],
+    "notes": "dosbox-x.conf is far larger than the DOSBox one but has the same problem: the mounted directories and the disk images are absolute host paths. The Windows build reads the file next to its executable."
+  },
+  "equivalents": ["dosbox-staging", "dosbox"]
+}

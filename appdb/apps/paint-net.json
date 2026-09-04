@@ -1,0 +1,19 @@
+{
+  "id": "paint-net",
+  "name": "Paint.NET",
+  "summary": "Windows image and photo editor",
+  "category": "graphics",
+  "homepage": "https://www.getpaint.net/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["dotPDN.PaintDotNet"],
+    "choco": ["paint.net"],
+    "scoop": ["extras/paint.net"],
+    "registry": ["paint.net"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. Preferences and the plugin list live in the registry under HKCU\\Software\\paint.net; the plugins themselves are DLLs in the program folder and would not run on the other platform anyway."
+  },
+  "equivalents": ["pinta", "krita", "gimp"]
+}

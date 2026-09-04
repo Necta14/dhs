@@ -1,0 +1,18 @@
+{
+  "id": "speccy",
+  "name": "Speccy",
+  "summary": "Reports the machine's hardware and sensors",
+  "category": "system",
+  "homepage": "https://www.ccleaner.com/speccy",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Piriform.Speccy"],
+    "choco": ["speccy"],
+    "registry": ["Speccy"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only."
+  },
+  "equivalents": ["hardinfo", "cpu-x", "hwinfo"]
+}

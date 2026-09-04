@@ -1,0 +1,53 @@
+{
+  "id": "android-studio",
+  "name": "Android Studio",
+  "summary": "Official IDE for Android development",
+  "category": "ide",
+  "homepage": "https://developer.android.com/studio",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Google.AndroidStudio"
+    ],
+    "choco": [
+      "AndroidStudio"
+    ],
+    "scoop": [
+      "extras/android-studio"
+    ],
+    "registry": [
+      "Android Studio"
+    ],
+    "paths": {
+      "config": "%APPDATA%/Google"
+    }
+  },
+  "linux": {
+    "aur": [
+      "android-studio"
+    ],
+    "flatpak": [
+      "com.google.AndroidStudio"
+    ],
+    "snap": [
+      "android-studio --classic"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Google"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "*.log",
+      "log",
+      "system",
+      "caches"
+    ],
+    "notes": "IntelliJ-style settings under a per-version directory. They name the SDK, the JDK and the emulator images by absolute path, so they are kept aside on the other platform."
+  },
+  "equivalents": [
+    "intellij-idea-community",
+    "vscodium"
+  ]
+}

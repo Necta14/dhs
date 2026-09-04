@@ -1,0 +1,19 @@
+{
+  "id": "kooha",
+  "name": "Kooha",
+  "summary": "Simple GNOME screen recorder",
+  "category": "screen-recorder",
+  "homepage": "https://apps.gnome.org/Kooha/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["kooha"],
+    "apt": ["kooha"],
+    "apk": ["kooha"],
+    "flatpak": ["io.github.seadve.Kooha"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only. The format, the frame rate and the output folder are dconf keys; there is nothing on disk to carry."
+  },
+  "equivalents": ["obs-studio", "gpu-screen-recorder", "simplescreenrecorder"]
+}

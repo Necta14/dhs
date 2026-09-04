@@ -1,0 +1,27 @@
+{
+  "id": "makemkv",
+  "name": "MakeMKV",
+  "summary": "Rips DVD and Blu-ray discs into Matroska files",
+  "category": "utility",
+  "homepage": "https://www.makemkv.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["GuinpinSoft.MakeMKV"],
+    "choco": ["makemkv"],
+    "scoop": ["extras/makemkv"],
+    "registry": ["MakeMKV"]
+  },
+  "linux": {
+    "aur": ["makemkv"],
+    "flatpak": ["com.makemkv.MakeMKV"],
+    "paths": {
+      "config": "~/.MakeMKV"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log"],
+    "notes": "settings.conf holds the output folder, the language preferences and the registration key. The Windows build keeps the same values in the registry. The beta key changes every month and is not worth carrying."
+  },
+  "equivalents": ["handbrake", "mkvtoolnix"]
+}

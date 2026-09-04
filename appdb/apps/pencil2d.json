@@ -1,0 +1,27 @@
+{
+  "id": "pencil2d",
+  "name": "Pencil2D",
+  "summary": "Hand-drawn 2D animation",
+  "category": "graphics",
+  "homepage": "https://www.pencil2d.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Pencil2D.Pencil"],
+    "scoop": ["extras/pencil2d"],
+    "registry": ["Pencil2D"]
+  },
+  "linux": {
+    "pacman": ["pencil2d"],
+    "apt": ["pencil2d"],
+    "dnf": ["Pencil2D"],
+    "flatpak": ["org.pencil2d.Pencil2D"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Pencil2D"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "On Linux the preferences and the recent files are a Qt INI file; the Windows build keeps them in the registry. Fedora spells the package Pencil2D, with capitals."
+  },
+  "equivalents": ["synfig", "opentoonz", "krita"]
+}

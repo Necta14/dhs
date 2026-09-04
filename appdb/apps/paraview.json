@@ -1,0 +1,32 @@
+{
+  "id": "paraview",
+  "name": "ParaView",
+  "summary": "Visualisation of large scientific datasets",
+  "category": "science",
+  "homepage": "https://www.paraview.org/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": ["Kitware.ParaView"],
+    "choco": ["paraview"],
+    "scoop": ["extras/paraview"],
+    "registry": ["ParaView"],
+    "paths": {
+      "config": "%APPDATA%/ParaView"
+    }
+  },
+  "linux": {
+    "pacman": ["paraview"],
+    "apt": ["paraview"],
+    "dnf": ["paraview"],
+    "zypper": ["paraview"],
+    "flatpak": ["org.paraview.ParaView"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ParaView"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "logs"],
+    "notes": "The settings and the saved colour maps are JSON, but they record absolute paths of recent datasets and of the Python plugins, so they are kept aside on the other platform."
+  }
+}

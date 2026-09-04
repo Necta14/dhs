@@ -1,0 +1,22 @@
+{
+  "id": "qdirstat",
+  "name": "QDirStat",
+  "summary": "Directory statistics with a treemap",
+  "category": "utility",
+  "homepage": "https://github.com/shundhammer/qdirstat",
+  "license": "GPL-2.0",
+  "linux": {
+    "aur": ["qdirstat"],
+    "apt": ["qdirstat"],
+    "dnf": ["qdirstat"],
+    "zypper": ["qdirstat"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/QDirStat"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The cleanup actions in the config are shell commands."
+  },
+  "equivalents": ["filelight", "baobab", "windirstat"]
+}

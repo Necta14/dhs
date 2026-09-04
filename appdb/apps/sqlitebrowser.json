@@ -1,0 +1,56 @@
+{
+  "id": "sqlitebrowser",
+  "name": "DB Browser for SQLite",
+  "summary": "Visual editor for SQLite databases",
+  "category": "database",
+  "homepage": "https://sqlitebrowser.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": [
+      "DBBrowserForSQLite.DBBrowserForSQLite"
+    ],
+    "choco": [
+      "sqlitebrowser"
+    ],
+    "scoop": [
+      "extras/sqlitebrowser"
+    ],
+    "registry": [
+      "DB Browser for SQLite"
+    ],
+    "paths": {
+      "config": "%APPDATA%/sqlitebrowser"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "sqlitebrowser"
+    ],
+    "apt": [
+      "sqlitebrowser"
+    ],
+    "dnf": [
+      "sqlitebrowser"
+    ],
+    "zypper": [
+      "sqlitebrowser"
+    ],
+    "apk": [
+      "sqlitebrowser"
+    ],
+    "flatpak": [
+      "org.sqlitebrowser.sqlitebrowser"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/sqlitebrowser"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "A Qt INI file that records the recent databases and the extension libraries by absolute path."
+  },
+  "equivalents": [
+    "dbeaver",
+    "beekeeper-studio"
+  ]
+}

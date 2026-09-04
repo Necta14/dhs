@@ -1,0 +1,30 @@
+{
+  "id": "steam-rom-manager",
+  "name": "Steam ROM Manager",
+  "summary": "Adds emulated and non-Steam games to the Steam library with artwork",
+  "category": "launcher",
+  "homepage": "https://steamgriddb.github.io/steam-rom-manager/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["SteamGridDB.RomManager"],
+    "choco": ["steam-rom-manager"],
+    "scoop": ["games/steam-rom-manager"],
+    "registry": ["Steam ROM Manager"],
+    "paths": {
+      "config": "%APPDATA%/steam-rom-manager"
+    }
+  },
+  "linux": {
+    "aur": ["steam-rom-manager-bin"],
+    "flatpak": ["com.steamgriddb.steam-rom-manager"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/steam-rom-manager"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log", "artworkBackups"],
+    "notes": "The parser configurations are JSON with the same keys everywhere, but every one of them names a ROM directory and an emulator executable by absolute path."
+  },
+  "equivalents": []
+}

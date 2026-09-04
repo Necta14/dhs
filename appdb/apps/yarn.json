@@ -1,0 +1,47 @@
+{
+  "id": "yarn",
+  "name": "Yarn",
+  "summary": "JavaScript package manager",
+  "category": "devtool",
+  "homepage": "https://yarnpkg.com/",
+  "license": "BSD-2-Clause",
+  "windows": {
+    "winget": [
+      "Yarn.Yarn"
+    ],
+    "choco": [
+      "yarn"
+    ],
+    "scoop": [
+      "yarn"
+    ],
+    "paths": {
+      "yarnrc": "%USERPROFILE%/.yarnrc.yml"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "yarn"
+    ],
+    "apt": [
+      "yarnpkg"
+    ],
+    "dnf": [
+      "yarnpkg"
+    ],
+    "apk": [
+      "yarn"
+    ],
+    "paths": {
+      "yarnrc": "~/.yarnrc.yml"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": ".yarnrc.yml is YAML with the same keys on both platforms; Debian and Ubuntu call the package yarnpkg."
+  },
+  "equivalents": [
+    "pnpm",
+    "nodejs"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "fragments",
+  "name": "Fragments",
+  "summary": "GNOME BitTorrent client",
+  "category": "torrent",
+  "homepage": "https://apps.gnome.org/Fragments/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["fragments"],
+    "apt": ["fragments"],
+    "dnf": ["fragments"],
+    "zypper": ["Fragments"],
+    "apk": ["fragments"],
+    "flatpak": ["de.haeckerfelix.Fragments"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only, and the few settings it has live in dconf rather than in files; the torrent list belongs to the Transmission session it drives. Nothing is worth carrying."
+  },
+  "equivalents": ["transmission", "qbittorrent"]
+}

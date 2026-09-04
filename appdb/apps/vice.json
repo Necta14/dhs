@@ -1,0 +1,27 @@
+{
+  "id": "vice",
+  "name": "VICE",
+  "summary": "Commodore 64, 128, VIC-20 and PET emulator",
+  "category": "emulator",
+  "homepage": "https://vice-emu.sourceforge.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["VICE-Team.VICE"],
+    "registry": ["VICE"]
+  },
+  "linux": {
+    "pacman": ["vice"],
+    "apt": ["vice"],
+    "apk": ["vice"],
+    "flatpak": ["net.sf.VICE"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/vice"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log"],
+    "notes": "vicerc and sdl-vicerc hold the emulator settings; the Windows build reads them from its own folder. The disk and tape images are the user's own files."
+  },
+  "equivalents": []
+}

@@ -1,0 +1,23 @@
+{
+  "id": "wxmaxima",
+  "name": "wxMaxima",
+  "summary": "Graphical notebook interface for the Maxima computer algebra system",
+  "category": "science",
+  "homepage": "https://wxmaxima-developers.github.io/wxmaxima/",
+  "license": "GPL-2.0",
+  "linux": {
+    "aur": ["wxmaxima"],
+    "apt": ["wxmaxima"],
+    "dnf": ["wxMaxima"],
+    "zypper": ["wxMaxima"],
+    "flatpak": ["io.github.wxmaxima_developers.wxMaxima"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/wxMaxima"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "A single plain-text settings file. The Maxima engine itself is a separate package."
+  },
+  "equivalents": ["maxima", "octave"]
+}

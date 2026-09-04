@@ -1,0 +1,29 @@
+{
+  "id": "ghidra",
+  "name": "Ghidra",
+  "summary": "Software reverse engineering suite",
+  "category": "devtool",
+  "homepage": "https://ghidra-sre.org/",
+  "license": "Apache-2.0",
+  "windows": {
+    "choco": [
+      "ghidra"
+    ],
+    "scoop": [
+      "extras/ghidra"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "ghidra"
+    ],
+    "flatpak": [
+      "org.ghidra_sre.Ghidra"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Ghidra keeps its settings in a directory named after the exact version, and the projects are chosen by the user; DHS installs the application and does not carry either in v1."
+  },
+  "equivalents": []
+}

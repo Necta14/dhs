@@ -1,0 +1,24 @@
+{
+  "id": "ncmpcpp",
+  "name": "ncmpcpp",
+  "summary": "Terminal client for the Music Player Daemon",
+  "category": "music",
+  "homepage": "https://rybczak.net/ncmpcpp/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["ncmpcpp"],
+    "apt": ["ncmpcpp"],
+    "dnf": ["ncmpcpp"],
+    "zypper": ["ncmpcpp"],
+    "apk": ["ncmpcpp"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ncmpcpp"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["error.log", "*.log"],
+    "notes": "Linux only. config and bindings are plain text; ncmpcpp is a front end and needs mpd running to be of any use."
+  },
+  "equivalents": ["mpd", "cmus"]
+}

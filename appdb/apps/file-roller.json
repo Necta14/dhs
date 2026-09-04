@@ -1,0 +1,21 @@
+{
+  "id": "file-roller",
+  "name": "Archive Manager",
+  "summary": "GNOME archive manager",
+  "category": "archive",
+  "homepage": "https://gitlab.gnome.org/GNOME/file-roller",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["file-roller"],
+    "apt": ["file-roller"],
+    "dnf": ["file-roller"],
+    "zypper": ["file-roller"],
+    "apk": ["file-roller"],
+    "flatpak": ["org.gnome.FileRoller"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The preferences live in dconf; nothing worth carrying as files."
+  },
+  "equivalents": ["ark", "xarchiver", "7zip"]
+}

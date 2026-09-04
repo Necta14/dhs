@@ -1,0 +1,52 @@
+{
+  "id": "pycharm-community",
+  "name": "PyCharm Community Edition",
+  "summary": "Python IDE, open source edition",
+  "category": "ide",
+  "homepage": "https://www.jetbrains.com/pycharm/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "JetBrains.PyCharm.Community"
+    ],
+    "scoop": [
+      "extras/pycharm"
+    ],
+    "registry": [
+      "PyCharm Community Edition"
+    ],
+    "paths": {
+      "config": "%APPDATA%/JetBrains"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "pycharm-community-edition"
+    ],
+    "snap": [
+      "pycharm-community --classic"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/JetBrains"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "log",
+      "logs",
+      "*.log",
+      "*.lock",
+      "port",
+      "system",
+      "caches",
+      "index"
+    ],
+    "notes": "IntelliJ-platform settings, kept per version under the JetBrains directory. They name JDKs, SDKs and projects by absolute path, so they are kept aside on the other platform rather than restored in place."
+  },
+  "equivalents": [
+    "pycharm-professional",
+    "spyder",
+    "thonny"
+  ]
+}

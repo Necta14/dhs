@@ -1,0 +1,31 @@
+{
+  "id": "dia",
+  "name": "Dia",
+  "summary": "Structured diagram editor in the style of Visio",
+  "category": "productivity",
+  "homepage": "https://gitlab.gnome.org/GNOME/dia",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["gnome.Dia"],
+    "choco": ["dia"],
+    "scoop": ["extras/dia"],
+    "registry": ["Dia"],
+    "paths": {
+      "config": "%USERPROFILE%/.dia"
+    }
+  },
+  "linux": {
+    "aur": ["dia"],
+    "apt": ["dia"],
+    "dnf": ["dia"],
+    "zypper": ["dia"],
+    "paths": {
+      "config": "~/.dia"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The user directory holds the custom shapes and sheets, the persistence file and the preferences, with the same layout on both platforms."
+  },
+  "equivalents": ["drawio", "umbrello"]
+}

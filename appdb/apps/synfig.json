@@ -1,0 +1,32 @@
+{
+  "id": "synfig",
+  "name": "Synfig Studio",
+  "summary": "Vector-based 2D animation",
+  "category": "graphics",
+  "homepage": "https://www.synfig.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Synfig.SynfigStudio"],
+    "choco": ["synfig"],
+    "scoop": ["extras/synfig-studio"],
+    "registry": ["Synfig Studio"],
+    "paths": {
+      "config": "%APPDATA%/synfig"
+    }
+  },
+  "linux": {
+    "pacman": ["synfigstudio"],
+    "apt": ["synfigstudio"],
+    "dnf": ["synfigstudio"],
+    "flatpak": ["org.synfig.SynfigStudio"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/synfig"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "tmp"],
+    "notes": "The settings file holds the interface layout, the plugin list and the recent files with absolute paths. The plugins beside it are Python and travel."
+  },
+  "equivalents": ["opentoonz", "pencil2d", "krita"]
+}

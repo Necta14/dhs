@@ -1,0 +1,30 @@
+{
+  "id": "wire",
+  "name": "Wire",
+  "summary": "End-to-end encrypted messenger and calls",
+  "category": "chat",
+  "homepage": "https://wire.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["wire.wire"],
+    "choco": ["wire"],
+    "scoop": ["extras/wire"],
+    "registry": ["Wire"],
+    "paths": {
+      "config": "%APPDATA%/Wire"
+    }
+  },
+  "linux": {
+    "aur": ["wire-desktop"],
+    "flatpak": ["com.wire.WireDesktop"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Wire"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker"],
+    "notes": "An Electron application: the settings files are JSON and read the same on both platforms. The client is a device of its own in Wire's model, so it is registered again and the history is re-synchronised."
+  },
+  "equivalents": ["signal", "element", "telegram"]
+}

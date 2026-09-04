@@ -1,0 +1,32 @@
+{
+  "id": "prismlauncher",
+  "name": "Prism Launcher",
+  "summary": "Open source Minecraft launcher with instances and mod management",
+  "category": "launcher",
+  "homepage": "https://prismlauncher.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["PrismLauncher.PrismLauncher"],
+    "choco": ["prismlauncher"],
+    "scoop": ["games/prismlauncher"],
+    "registry": ["Prism Launcher"],
+    "paths": {
+      "data": "%APPDATA%/PrismLauncher"
+    }
+  },
+  "linux": {
+    "pacman": ["prismlauncher"],
+    "zypper": ["prismlauncher"],
+    "apk": ["prismlauncher"],
+    "flatpak": ["org.prismlauncher.PrismLauncher"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/PrismLauncher"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["libraries", "assets", "meta", "translations", "cache", "logs", "*.log", "instances/*/.minecraft/logs"],
+    "notes": "The instances, their mods and their worlds have the same layout on both platforms, but prismlauncher.cfg records the Java binary by absolute path and each instance may pin its own."
+  },
+  "equivalents": ["modrinth-app", "atlauncher", "minecraft-launcher"]
+}

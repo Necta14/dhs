@@ -1,0 +1,32 @@
+{
+  "id": "homebank",
+  "name": "HomeBank",
+  "summary": "Simple personal accounting with budgets and reports",
+  "category": "finance",
+  "homepage": "https://www.gethomebank.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["HomeBank.HomeBank"],
+    "choco": ["homebank"],
+    "scoop": ["extras/homebank"],
+    "registry": ["HomeBank"],
+    "paths": {
+      "config": "%APPDATA%/homebank"
+    }
+  },
+  "linux": {
+    "pacman": ["homebank"],
+    "apt": ["homebank"],
+    "dnf": ["homebank"],
+    "zypper": ["homebank"],
+    "flatpak": ["fr.free.Homebank"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/homebank"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "preferences is a plain INI file with the same keys on both platforms; the accounts live in an .xhb file wherever the user saved it."
+  },
+  "equivalents": ["gnucash", "kmymoney", "skrooge"]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "midnight-commander",
+  "name": "Midnight Commander",
+  "summary": "Two-panel file manager for the terminal",
+  "category": "file-manager",
+  "homepage": "https://midnight-commander.org/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["mc"],
+    "apt": ["mc"],
+    "dnf": ["mc"],
+    "zypper": ["mc"],
+    "apk": ["mc"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/mc",
+      "data": "$XDG_DATA_HOME/mc"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["history", "*.log"],
+    "notes": "Unix only. The hotlist and the panel state carry absolute paths."
+  },
+  "equivalents": ["ranger", "yazi", "krusader"]
+}

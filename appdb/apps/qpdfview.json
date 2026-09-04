@@ -1,0 +1,22 @@
+{
+  "id": "qpdfview",
+  "name": "qpdfview",
+  "summary": "Tabbed document viewer for PDF, PostScript and DjVu",
+  "category": "pdf",
+  "homepage": "https://launchpad.net/qpdfview",
+  "license": "GPL-2.0",
+  "linux": {
+    "aur": ["qpdfview"],
+    "apt": ["qpdfview"],
+    "dnf": ["qpdfview"],
+    "zypper": ["qpdfview"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/qpdfview"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "qpdfview.conf and the bookmark database sit in one directory and move unchanged between distributions."
+  },
+  "equivalents": ["okular", "evince", "zathura"]
+}

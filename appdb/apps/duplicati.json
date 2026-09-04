@@ -1,0 +1,28 @@
+{
+  "id": "duplicati",
+  "name": "Duplicati",
+  "summary": "Scheduled encrypted backup to cloud and local storage",
+  "category": "backup",
+  "homepage": "https://www.duplicati.com/",
+  "license": "LGPL-2.1",
+  "windows": {
+    "winget": ["Duplicati.Duplicati"],
+    "choco": ["duplicati"],
+    "registry": ["Duplicati"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/Duplicati"
+    }
+  },
+  "linux": {
+    "aur": ["duplicati-bin"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Duplicati"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "*-journal"],
+    "notes": "The job database keeps source folders as absolute paths, so it is kept aside rather than dropped in place."
+  },
+  "equivalents": ["restic", "kopia", "deja-dup"]
+}

@@ -1,0 +1,26 @@
+{
+  "id": "fritzing",
+  "name": "Fritzing",
+  "summary": "Circuit design for breadboards and PCBs",
+  "category": "cad",
+  "homepage": "https://fritzing.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "scoop": ["extras/fritzing"],
+    "registry": ["Fritzing"]
+  },
+  "linux": {
+    "apt": ["fritzing"],
+    "dnf": ["fritzing"],
+    "zypper": ["fritzing"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Fritzing"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "The settings hold the recent sketches and the parts-bin layout, with absolute paths to the user parts. The custom parts themselves live in the documents folder and travel as personal files."
+  },
+  "equivalents": ["kicad"]
+}

@@ -1,0 +1,37 @@
+{
+  "id": "gitg",
+  "name": "gitg",
+  "summary": "GNOME Git repository viewer",
+  "category": "vcs",
+  "homepage": "https://apps.gnome.org/Gitg/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": [
+      "gitg"
+    ],
+    "apt": [
+      "gitg"
+    ],
+    "dnf": [
+      "gitg"
+    ],
+    "zypper": [
+      "gitg"
+    ],
+    "apk": [
+      "gitg"
+    ],
+    "flatpak": [
+      "org.gnome.gitg"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "gitg stores its settings and its repository list in dconf; there is no configuration file."
+  },
+  "equivalents": [
+    "git-cola",
+    "github-desktop",
+    "gitkraken"
+  ]
+}

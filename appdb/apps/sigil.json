@@ -1,0 +1,33 @@
+{
+  "id": "sigil",
+  "name": "Sigil",
+  "summary": "EPUB editor",
+  "category": "ebook",
+  "homepage": "https://sigil-ebook.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Sigil-Ebook.Sigil"],
+    "choco": ["sigil"],
+    "scoop": ["extras/sigil"],
+    "registry": ["Sigil"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/sigil-ebook"
+    }
+  },
+  "linux": {
+    "pacman": ["sigil"],
+    "apt": ["sigil"],
+    "dnf": ["sigil"],
+    "zypper": ["sigil"],
+    "flatpak": ["com.sigil_ebook.Sigil"],
+    "paths": {
+      "config": "$XDG_DATA_HOME/sigil-ebook"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log", "logs"],
+    "notes": "The preferences, plugins, saved searches and clips live under sigil-ebook/sigil and have the same layout on both platforms."
+  },
+  "equivalents": ["calibre"]
+}

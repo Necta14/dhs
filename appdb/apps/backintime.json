@@ -1,0 +1,22 @@
+{
+  "id": "backintime",
+  "name": "Back In Time",
+  "summary": "Snapshot backup built on rsync",
+  "category": "backup",
+  "homepage": "https://github.com/bit-team/backintime",
+  "license": "GPL-2.0",
+  "linux": {
+    "aur": ["backintime"],
+    "apt": ["backintime-qt"],
+    "dnf": ["backintime-qt"],
+    "zypper": ["backintime"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/backintime"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The profiles name include and exclude folders by absolute path."
+  },
+  "equivalents": ["deja-dup", "vorta", "borgbackup"]
+}

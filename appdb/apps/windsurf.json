@@ -1,0 +1,48 @@
+{
+  "id": "windsurf",
+  "name": "Windsurf",
+  "summary": "Code editor built on Visual Studio Code",
+  "category": "editor",
+  "homepage": "https://windsurf.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "Codeium.Windsurf"
+    ],
+    "choco": [
+      "windsurf"
+    ],
+    "scoop": [
+      "extras/windsurf"
+    ],
+    "registry": [
+      "Windsurf"
+    ],
+    "paths": {
+      "user": "%APPDATA%/Windsurf/User"
+    }
+  },
+  "linux": {
+    "aur": [
+      "windsurf"
+    ],
+    "paths": {
+      "user": "$XDG_CONFIG_HOME/Windsurf/User"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "workspaceStorage",
+      "History",
+      "logs",
+      "*.log"
+    ],
+    "notes": "A Visual Studio Code fork; the User directory has the same layout as VS Code's."
+  },
+  "equivalents": [
+    "cursor",
+    "vscode",
+    "vscodium"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "pass",
+  "name": "pass",
+  "summary": "The standard Unix password manager: GPG files in a git repository",
+  "category": "password-manager",
+  "homepage": "https://www.passwordstore.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["pass"],
+    "apt": ["password-store"],
+    "dnf": ["pass"],
+    "zypper": ["password-store"],
+    "apk": ["pass"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "There is no configuration of its own. The store is ~/.password-store, a tree of GPG-encrypted files, and it is useless without the private key: both are secrets and travel only with --secrets."
+  },
+  "equivalents": ["keepassxc", "gnome-secrets"]
+}

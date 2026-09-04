@@ -1,0 +1,30 @@
+{
+  "id": "gzdoom",
+  "name": "GZDoom",
+  "summary": "Modern source port of Doom",
+  "category": "gaming",
+  "homepage": "https://zdoom.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "choco": ["gzdoom"],
+    "scoop": ["games/gzdoom"],
+    "registry": ["GZDoom"],
+    "paths": {
+      "config": "%USERPROFILE%/Documents/My Games/GZDoom"
+    }
+  },
+  "linux": {
+    "aur": ["gzdoom"],
+    "apk": ["gzdoom"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/gzdoom",
+      "data": "$XDG_DATA_HOME/gzdoom"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache", "screenshots"],
+    "notes": "gzdoom.ini keeps the key bindings and the savegames folder; it also lists the IWAD search paths absolutely. The IWAD files themselves are the user's own game data and stay where they are."
+  },
+  "equivalents": []
+}

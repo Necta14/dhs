@@ -1,0 +1,22 @@
+{
+  "id": "orca",
+  "name": "Orca",
+  "summary": "Screen reader for the Linux desktop",
+  "category": "accessibility",
+  "homepage": "https://orca.gnome.org/",
+  "license": "LGPL-2.1",
+  "linux": {
+    "pacman": ["orca"],
+    "apt": ["orca"],
+    "dnf": ["orca"],
+    "zypper": ["orca"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/orca"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The voice settings name speech-dispatcher outputs that do not exist on Windows."
+  },
+  "equivalents": ["nvda"]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "wezterm",
+  "name": "WezTerm",
+  "summary": "GPU-accelerated terminal emulator configured in Lua",
+  "category": "terminal",
+  "homepage": "https://wezterm.org/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "wez.wezterm"
+    ],
+    "choco": [
+      "wezterm"
+    ],
+    "scoop": [
+      "extras/wezterm"
+    ],
+    "registry": [
+      "WezTerm"
+    ],
+    "paths": {
+      "config": "%USERPROFILE%/.config/wezterm",
+      "config-file": "%USERPROFILE%/.wezterm.lua"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "wezterm"
+    ],
+    "zypper": [
+      "wezterm"
+    ],
+    "apk": [
+      "wezterm"
+    ],
+    "flatpak": [
+      "org.wezfurlong.wezterm"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/wezterm",
+      "config-file": "~/.wezterm.lua"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "wezterm.lua is the same script on both platforms; WezTerm reads it from the home directory or from the config directory, so both are listed."
+  },
+  "equivalents": [
+    "alacritty",
+    "kitty",
+    "windows-terminal"
+  ]
+}

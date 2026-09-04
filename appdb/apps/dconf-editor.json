@@ -1,0 +1,20 @@
+{
+  "id": "dconf-editor",
+  "name": "dconf Editor",
+  "summary": "Direct editor for the GSettings database",
+  "category": "system",
+  "homepage": "https://apps.gnome.org/DconfEditor/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["dconf-editor"],
+    "apt": ["dconf-editor"],
+    "dnf": ["dconf-editor"],
+    "zypper": ["dconf-editor"],
+    "flatpak": ["ca.desrt.dconf-editor"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Keeps nothing of its own; it edits the desktop database that other applications use."
+  },
+  "equivalents": ["gnome-tweaks"]
+}

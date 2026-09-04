@@ -1,0 +1,17 @@
+{
+  "id": "auto-cpufreq",
+  "name": "auto-cpufreq",
+  "summary": "Automatic CPU speed and power optimiser",
+  "category": "system",
+  "homepage": "https://github.com/AdnanHodzic/auto-cpufreq",
+  "license": "LGPL-3.0",
+  "linux": {
+    "aur": ["auto-cpufreq"],
+    "snap": ["auto-cpufreq"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Configured in /etc/auto-cpufreq.conf, tuned to the machine's own governor and thresholds."
+  },
+  "equivalents": ["tlp", "powertop"]
+}

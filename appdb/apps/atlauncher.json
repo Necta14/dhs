@@ -1,0 +1,21 @@
+{
+  "id": "atlauncher",
+  "name": "ATLauncher",
+  "summary": "Minecraft launcher with a modpack browser",
+  "category": "launcher",
+  "homepage": "https://atlauncher.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["ATLauncher.ATLauncher"],
+    "registry": ["ATLauncher"]
+  },
+  "linux": {
+    "aur": ["atlauncher"],
+    "flatpak": ["com.atlauncher.ATLauncher"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "ATLauncher keeps its instances and settings next to its own working directory, which differs between the installer, the Flatpak and the portable build, so DHS does not guess at it."
+  },
+  "equivalents": ["prismlauncher", "modrinth-app", "minecraft-launcher"]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "geany",
+  "name": "Geany",
+  "summary": "Lightweight GTK editor with IDE features",
+  "category": "editor",
+  "homepage": "https://www.geany.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": [
+      "Geany.Geany"
+    ],
+    "choco": [
+      "geany"
+    ],
+    "scoop": [
+      "extras/geany"
+    ],
+    "registry": [
+      "Geany"
+    ],
+    "paths": {
+      "config": "%APPDATA%/geany"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "geany"
+    ],
+    "apt": [
+      "geany"
+    ],
+    "dnf": [
+      "geany"
+    ],
+    "zypper": [
+      "geany"
+    ],
+    "apk": [
+      "geany"
+    ],
+    "flatpak": [
+      "org.geany.Geany"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/geany"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.log",
+      "geany_socket*"
+    ],
+    "notes": "geany.conf, the templates, snippets and colour schemes are the same INI and text files everywhere. The recent-files list keeps absolute paths that will not resolve on the other system."
+  },
+  "equivalents": [
+    "notepad-plus-plus",
+    "kate"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "unetbootin",
+  "name": "UNetbootin",
+  "summary": "Creates bootable USB drives from ISO images",
+  "category": "utility",
+  "homepage": "https://unetbootin.github.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["unetbootin"],
+    "registry": ["UNetbootin"]
+  },
+  "linux": {
+    "aur": ["unetbootin"],
+    "dnf": ["unetbootin"],
+    "zypper": ["unetbootin"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["ventoy", "balena-etcher", "rufus", "popsicle"]
+}

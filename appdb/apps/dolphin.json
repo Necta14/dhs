@@ -1,0 +1,25 @@
+{
+  "id": "dolphin",
+  "name": "Dolphin",
+  "summary": "KDE file manager",
+  "category": "file-manager",
+  "homepage": "https://apps.kde.org/dolphin/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["dolphin"],
+    "apt": ["dolphin"],
+    "dnf": ["dolphin"],
+    "zypper": ["dolphin"],
+    "apk": ["dolphin"],
+    "flatpak": ["org.kde.dolphin"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/dolphinrc",
+      "data": "$XDG_DATA_HOME/dolphin"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. dolphinrc is an INI file, and the view properties under the data directory carry absolute paths."
+  },
+  "equivalents": ["nautilus", "nemo", "thunar", "krusader"]
+}

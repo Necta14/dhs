@@ -1,0 +1,30 @@
+{
+  "id": "waterfox",
+  "name": "Waterfox",
+  "summary": "Firefox fork that keeps legacy extension support",
+  "category": "browser",
+  "homepage": "https://www.waterfox.net/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": ["Waterfox.Waterfox"],
+    "choco": ["waterfox"],
+    "scoop": ["extras/waterfox"],
+    "registry": ["Waterfox"],
+    "paths": {
+      "profiles": "%APPDATA%/Waterfox"
+    }
+  },
+  "linux": {
+    "aur": ["waterfox-bin"],
+    "flatpak": ["net.waterfox.waterfox"],
+    "paths": {
+      "profiles": "~/.waterfox"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache2", "startupCache", "thumbnails", "crashes", "minidumps", "datareporting", "saved-telemetry-pings", "storage/default/*/cache", "*.lock", "lock", "parent.lock"],
+    "notes": "A Firefox-style profile directory: the same layout on every platform, and profiles.ini points at profiles by a relative path."
+  },
+  "equivalents": ["firefox", "librewolf", "floorp"]
+}

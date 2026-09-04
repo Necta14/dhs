@@ -1,0 +1,23 @@
+{
+  "id": "greenshot",
+  "name": "Greenshot",
+  "summary": "Small Windows screenshot tool",
+  "category": "screenshot",
+  "homepage": "https://getgreenshot.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Greenshot.Greenshot"],
+    "choco": ["greenshot"],
+    "scoop": ["extras/greenshot"],
+    "registry": ["Greenshot"],
+    "paths": {
+      "config": "%APPDATA%/Greenshot"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log"],
+    "notes": "Windows only. Greenshot.ini holds the hotkeys, the output template and the destinations, and the plugin settings beside it are Windows-specific."
+  },
+  "equivalents": ["flameshot", "ksnip", "spectacle"]
+}

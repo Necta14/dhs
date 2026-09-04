@@ -1,0 +1,23 @@
+{
+  "id": "gdu",
+  "name": "gdu",
+  "summary": "Fast disk usage analyser for the terminal",
+  "category": "utility",
+  "homepage": "https://github.com/dundee/gdu",
+  "license": "MIT",
+  "windows": {
+    "choco": ["gdu"],
+    "scoop": ["gdu"]
+  },
+  "linux": {
+    "pacman": ["gdu"],
+    "apt": ["gdu"],
+    "dnf": ["gdu"],
+    "zypper": ["gdu"],
+    "apk": ["gdu"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["ncdu", "dust"]
+}

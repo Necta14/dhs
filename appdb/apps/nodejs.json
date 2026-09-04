@@ -1,0 +1,55 @@
+{
+  "id": "nodejs",
+  "name": "Node.js",
+  "summary": "JavaScript runtime and the npm package manager",
+  "category": "devtool",
+  "homepage": "https://nodejs.org/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "OpenJS.NodeJS.LTS",
+      "OpenJS.NodeJS"
+    ],
+    "choco": [
+      "nodejs-lts",
+      "nodejs"
+    ],
+    "scoop": [
+      "nodejs"
+    ],
+    "registry": [
+      "Node.js"
+    ],
+    "paths": {
+      "npmrc": "%USERPROFILE%/.npmrc"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "nodejs",
+      "npm"
+    ],
+    "apt": [
+      "nodejs",
+      "npm"
+    ],
+    "dnf": [
+      "nodejs"
+    ],
+    "apk": [
+      "nodejs",
+      "npm"
+    ],
+    "paths": {
+      "npmrc": "~/.npmrc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "Only .npmrc is carried: registries, proxies and settings, in the same INI form on both platforms. The npm cache and the node_modules trees are rebuilt by npm install and are not part of the package."
+  },
+  "equivalents": [
+    "deno",
+    "bun"
+  ]
+}

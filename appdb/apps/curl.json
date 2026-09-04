@@ -1,0 +1,50 @@
+{
+  "id": "curl",
+  "name": "curl",
+  "summary": "Command line client for URLs",
+  "category": "devtool",
+  "homepage": "https://curl.se/",
+  "license": "curl",
+  "windows": {
+    "winget": [
+      "cURL.cURL"
+    ],
+    "choco": [
+      "curl"
+    ],
+    "scoop": [
+      "curl"
+    ],
+    "paths": {
+      "curlrc": "%USERPROFILE%/_curlrc"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "curl"
+    ],
+    "apt": [
+      "curl"
+    ],
+    "dnf": [
+      "curl"
+    ],
+    "zypper": [
+      "curl"
+    ],
+    "apk": [
+      "curl"
+    ],
+    "paths": {
+      "curlrc": "~/.curlrc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The same list of default command line options under a different name: _curlrc on Windows, .curlrc on Linux. It may hold credentials, which DHS treats as secrets."
+  },
+  "equivalents": [
+    "wget",
+    "httpie"
+  ]
+}

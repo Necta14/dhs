@@ -1,0 +1,20 @@
+{
+  "id": "peek",
+  "name": "Peek",
+  "summary": "Records a screen area as an animated GIF",
+  "category": "screen-recorder",
+  "homepage": "https://github.com/phw/peek",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["peek"],
+    "apt": ["peek"],
+    "zypper": ["peek"],
+    "apk": ["peek"],
+    "snap": ["peek"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only, and no longer developed. Its settings are a few dconf keys for the output format and the frame rate."
+  },
+  "equivalents": ["kooha", "obs-studio", "simplescreenrecorder"]
+}

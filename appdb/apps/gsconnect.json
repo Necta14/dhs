@@ -1,0 +1,17 @@
+{
+  "id": "gsconnect",
+  "name": "GSConnect",
+  "summary": "KDE Connect for GNOME Shell",
+  "category": "network",
+  "homepage": "https://github.com/GSConnect/gnome-shell-extension-gsconnect",
+  "license": "GPL-2.0",
+  "linux": {
+    "apt": ["gnome-shell-extension-gsconnect"],
+    "dnf": ["gnome-shell-extension-gsconnect"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Paired devices are stored in dconf with per-device certificates; pairing is done again on a new machine."
+  },
+  "equivalents": ["kde-connect"]
+}

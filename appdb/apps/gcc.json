@@ -1,0 +1,36 @@
+{
+  "id": "gcc",
+  "name": "GCC",
+  "summary": "GNU Compiler Collection",
+  "category": "devtool",
+  "homepage": "https://gcc.gnu.org/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": [
+      "gcc"
+    ],
+    "apt": [
+      "build-essential",
+      "gcc"
+    ],
+    "dnf": [
+      "gcc",
+      "gcc-c++"
+    ],
+    "zypper": [
+      "gcc"
+    ],
+    "apk": [
+      "build-base",
+      "gcc"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "A compiler with no user configuration."
+  },
+  "equivalents": [
+    "llvm",
+    "mingw-w64"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "drawio",
+  "name": "draw.io",
+  "summary": "Diagram editor for flowcharts, network maps and UML",
+  "category": "productivity",
+  "homepage": "https://www.drawio.com/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": ["JGraph.Draw"],
+    "choco": ["drawio"],
+    "scoop": ["extras/draw.io"],
+    "registry": ["draw.io"],
+    "paths": {
+      "config": "%APPDATA%/draw.io"
+    }
+  },
+  "linux": {
+    "pacman": ["drawio-desktop"],
+    "aur": ["drawio-desktop-bin"],
+    "flatpak": ["com.jgraph.drawio.desktop"],
+    "snap": ["drawio"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/draw.io"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "The stored settings are the interface preferences and the custom shape libraries; the diagrams are .drawio files wherever the user saved them."
+  },
+  "equivalents": ["dia", "umbrello", "freeplane"]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "gnome-boxes",
+  "name": "GNOME Boxes",
+  "summary": "Simple virtual machine manager for GNOME",
+  "category": "virtualization",
+  "homepage": "https://apps.gnome.org/Boxes/",
+  "license": "LGPL-2.1",
+  "linux": {
+    "pacman": [
+      "gnome-boxes"
+    ],
+    "apt": [
+      "gnome-boxes"
+    ],
+    "dnf": [
+      "gnome-boxes"
+    ],
+    "zypper": [
+      "gnome-boxes"
+    ],
+    "apk": [
+      "gnome-boxes"
+    ],
+    "flatpak": [
+      "org.gnome.Boxes"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Boxes keeps its settings in dconf and its machines as libvirt domains with disk images; neither is carried as configuration."
+  },
+  "equivalents": [
+    "virt-manager",
+    "virtualbox"
+  ]
+}

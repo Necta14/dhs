@@ -1,0 +1,31 @@
+{
+  "id": "zulip",
+  "name": "Zulip",
+  "summary": "Desktop client for Zulip threaded team chat",
+  "category": "chat",
+  "homepage": "https://zulip.com/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": ["Zulip.Zulip"],
+    "choco": ["zulip"],
+    "scoop": ["extras/zulip"],
+    "registry": ["Zulip"],
+    "paths": {
+      "config": "%APPDATA%/Zulip"
+    }
+  },
+  "linux": {
+    "aur": ["zulip-desktop-bin"],
+    "flatpak": ["org.zulip.Zulip"],
+    "snap": ["zulip"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Zulip"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker"],
+    "notes": "An Electron application: the settings files are JSON and read the same on both platforms. domain.json holds the organisations that were added."
+  },
+  "equivalents": ["slack", "mattermost", "rocketchat"]
+}

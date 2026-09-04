@@ -1,0 +1,24 @@
+{
+  "id": "localsend",
+  "name": "LocalSend",
+  "summary": "Send files between devices on the same network",
+  "category": "file-sync",
+  "homepage": "https://localsend.org/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["LocalSend.LocalSend"],
+    "choco": ["localsend"],
+    "scoop": ["extras/localsend"],
+    "registry": ["LocalSend"]
+  },
+  "linux": {
+    "aur": ["localsend-bin", "localsend"],
+    "flatpak": ["org.localsend.localsend_app"],
+    "snap": ["localsend"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "It holds nothing but a device alias and a destination folder, both set again in a moment. Nothing is carried."
+  },
+  "equivalents": ["warpinator", "kde-connect"]
+}

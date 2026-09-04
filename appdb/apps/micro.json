@@ -1,0 +1,52 @@
+{
+  "id": "micro",
+  "name": "micro",
+  "summary": "Terminal text editor with familiar key bindings",
+  "category": "editor",
+  "homepage": "https://micro-editor.github.io/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "zyedidia.micro"
+    ],
+    "choco": [
+      "micro"
+    ],
+    "scoop": [
+      "micro"
+    ],
+    "paths": {
+      "config": "%USERPROFILE%/.config/micro"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "micro"
+    ],
+    "apt": [
+      "micro"
+    ],
+    "dnf": [
+      "micro"
+    ],
+    "apk": [
+      "micro"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/micro"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "buffers",
+      "backups",
+      "*.log"
+    ],
+    "notes": "settings.json, bindings.json and the colour schemes are the same files on both platforms; micro looks for them under .config on Windows too."
+  },
+  "equivalents": [
+    "nano",
+    "neovim"
+  ]
+}

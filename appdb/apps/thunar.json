@@ -1,0 +1,24 @@
+{
+  "id": "thunar",
+  "name": "Thunar",
+  "summary": "Xfce file manager",
+  "category": "file-manager",
+  "homepage": "https://docs.xfce.org/xfce/thunar/start",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["thunar"],
+    "apt": ["thunar"],
+    "dnf": ["Thunar"],
+    "zypper": ["thunar"],
+    "apk": ["thunar"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Thunar",
+      "settings": "$XDG_CONFIG_HOME/xfce4/xfconf/xfce-perchannel-xml/thunar.xml"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. Custom actions sit in the config directory, the rest in the xfconf channel file."
+  },
+  "equivalents": ["dolphin", "nautilus", "nemo", "pcmanfm-qt"]
+}

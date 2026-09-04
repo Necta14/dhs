@@ -1,0 +1,18 @@
+{
+  "id": "faststone-image-viewer",
+  "name": "FastStone Image Viewer",
+  "summary": "Windows image viewer and browser",
+  "category": "photo",
+  "homepage": "https://www.faststone.org/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["FastStone.Viewer"],
+    "choco": ["faststone-image-viewer"],
+    "registry": ["FastStone Image Viewer"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, and its settings live in the registry under HKCU, which DHS does not carry in v1."
+  },
+  "equivalents": ["nomacs", "irfanview", "xnview-mp"]
+}

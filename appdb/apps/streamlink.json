@@ -1,0 +1,32 @@
+{
+  "id": "streamlink",
+  "name": "Streamlink",
+  "summary": "Pipes a live stream into a local media player",
+  "category": "streaming",
+  "homepage": "https://streamlink.github.io/",
+  "license": "BSD-2-Clause",
+  "windows": {
+    "winget": ["Streamlink.Streamlink"],
+    "choco": ["streamlink"],
+    "scoop": ["extras/streamlink"],
+    "registry": ["Streamlink"],
+    "paths": {
+      "config": "%APPDATA%/streamlink"
+    }
+  },
+  "linux": {
+    "pacman": ["streamlink"],
+    "apt": ["streamlink"],
+    "zypper": ["streamlink"],
+    "apk": ["streamlink"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/streamlink"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log"],
+    "notes": "The config file is a plain list of command-line options and reads the same on both platforms; only a player path written into it needs changing by hand."
+  },
+  "equivalents": ["mpv", "vlc"]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "nmap",
+  "name": "Nmap",
+  "summary": "Network and port scanner",
+  "category": "network",
+  "homepage": "https://nmap.org/",
+  "windows": {
+    "winget": ["Insecure.Nmap"],
+    "choco": ["nmap"],
+    "registry": ["Nmap"]
+  },
+  "linux": {
+    "pacman": ["nmap"],
+    "apt": ["nmap"],
+    "dnf": ["nmap"],
+    "zypper": ["nmap"],
+    "apk": ["nmap"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "A command-line tool; scans are described on the command line."
+  },
+  "equivalents": ["angry-ip-scanner", "wireshark"]
+}

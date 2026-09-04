@@ -1,0 +1,32 @@
+{
+  "id": "aria2",
+  "name": "aria2",
+  "summary": "Command-line downloader for HTTP, FTP and BitTorrent",
+  "category": "download",
+  "homepage": "https://aria2.github.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["aria2.aria2"],
+    "choco": ["aria2"],
+    "scoop": ["aria2"],
+    "paths": {
+      "config": "%USERPROFILE%/.aria2"
+    }
+  },
+  "linux": {
+    "pacman": ["aria2"],
+    "apt": ["aria2"],
+    "dnf": ["aria2"],
+    "zypper": ["aria2"],
+    "apk": ["aria2"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/aria2"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "*.aria2"],
+    "notes": "aria2.conf is plain text with the same options everywhere, but dir= and input-file= are absolute, so it is kept aside. On Linux both $XDG_CONFIG_HOME/aria2 and ~/.aria2 are in use depending on the packaging."
+  },
+  "equivalents": ["uget", "motrix", "yt-dlp"]
+}

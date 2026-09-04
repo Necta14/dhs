@@ -1,0 +1,22 @@
+{
+  "id": "dwarf-fortress",
+  "name": "Dwarf Fortress",
+  "summary": "Colony simulation and world generation game",
+  "category": "gaming",
+  "homepage": "https://www.bay12games.com/dwarves/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Bay12Games.DwarfFortressClassic"],
+    "choco": ["dwarf-fortress"],
+    "scoop": ["games/dwarf-fortress"],
+    "registry": ["Dwarf Fortress"]
+  },
+  "linux": {
+    "pacman": ["dwarffortress"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The saves, the worlds and init.txt live inside the game's own directory, wherever it was unpacked, so there is no user location for DHS to read."
+  },
+  "equivalents": []
+}

@@ -1,0 +1,50 @@
+{
+  "id": "python",
+  "name": "Python",
+  "summary": "Python interpreter and the pip installer",
+  "category": "devtool",
+  "homepage": "https://www.python.org/",
+  "license": "PSF-2.0",
+  "windows": {
+    "winget": [
+      "Python.Python.3.13"
+    ],
+    "choco": [
+      "python"
+    ],
+    "scoop": [
+      "python"
+    ],
+    "registry": [
+      "Python"
+    ],
+    "paths": {
+      "pip": "%APPDATA%/pip"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "python"
+    ],
+    "apt": [
+      "python3"
+    ],
+    "dnf": [
+      "python3"
+    ],
+    "zypper": [
+      "python3"
+    ],
+    "apk": [
+      "python3"
+    ],
+    "paths": {
+      "pip": "$XDG_CONFIG_HOME/pip"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "pip.ini on Windows and pip.conf on Linux are the same INI format with the same keys. Virtual environments hold absolute paths and compiled wheels and are rebuilt from requirements, not carried."
+  },
+  "equivalents": []
+}

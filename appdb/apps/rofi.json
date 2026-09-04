@@ -1,0 +1,23 @@
+{
+  "id": "rofi",
+  "name": "rofi",
+  "summary": "Window switcher and application launcher for X11",
+  "category": "launcher",
+  "homepage": "https://github.com/davatorium/rofi",
+  "license": "MIT",
+  "linux": {
+    "pacman": ["rofi"],
+    "apt": ["rofi"],
+    "dnf": ["rofi"],
+    "zypper": ["rofi"],
+    "apk": ["rofi"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/rofi"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The themes and the modi call external commands."
+  },
+  "equivalents": ["wofi", "ulauncher", "albert"]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "nvda",
+  "name": "NVDA",
+  "summary": "Screen reader for Windows",
+  "category": "accessibility",
+  "homepage": "https://www.nvaccess.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["NVAccess.NVDA"],
+    "choco": ["nvda"],
+    "registry": ["NVDA"],
+    "paths": {
+      "config": "%APPDATA%/nvda"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "addons/*/globalPlugins/__pycache__"],
+    "notes": "Windows only. The add-ons are Windows binaries and the speech settings name SAPI voices."
+  },
+  "equivalents": ["orca"]
+}

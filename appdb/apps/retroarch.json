@@ -1,0 +1,34 @@
+{
+  "id": "retroarch",
+  "name": "RetroArch",
+  "summary": "Frontend for the libretro emulation cores",
+  "category": "emulator",
+  "homepage": "https://www.retroarch.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Libretro.RetroArch"],
+    "choco": ["retroarch"],
+    "scoop": ["extras/retroarch"],
+    "registry": ["RetroArch"],
+    "paths": {
+      "config": "%APPDATA%/RetroArch"
+    }
+  },
+  "linux": {
+    "pacman": ["retroarch"],
+    "apt": ["retroarch"],
+    "dnf": ["retroarch"],
+    "zypper": ["retroarch"],
+    "apk": ["retroarch"],
+    "flatpak": ["org.libretro.RetroArch"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/retroarch"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cores", "downloads", "assets", "shaders", "thumbnails", "cache", "system", "logs", "*.log"],
+    "notes": "The saves, the save states, the playlists and the input remaps are carried. retroarch.cfg is kept aside because every directory in it is an absolute path and the core names differ between platforms. BIOS files in system/ stay where they are: they are the user's own dumps."
+  },
+  "equivalents": []
+}

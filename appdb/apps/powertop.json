@@ -1,0 +1,19 @@
+{
+  "id": "powertop",
+  "name": "PowerTOP",
+  "summary": "Shows what is draining the battery and suggests fixes",
+  "category": "system",
+  "homepage": "https://github.com/fenrus75/powertop",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["powertop"],
+    "apt": ["powertop"],
+    "dnf": ["powertop"],
+    "zypper": ["powertop"],
+    "apk": ["powertop"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["tlp", "auto-cpufreq"]
+}

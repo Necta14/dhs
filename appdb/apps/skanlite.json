@@ -1,0 +1,19 @@
+{
+  "id": "skanlite",
+  "name": "Skanlite",
+  "summary": "Simple scanning application for KDE",
+  "category": "utility",
+  "homepage": "https://apps.kde.org/skanlite/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["skanlite"],
+    "apt": ["skanlite"],
+    "dnf": ["skanlite"],
+    "zypper": ["skanlite"],
+    "flatpak": ["org.kde.skanlite"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["simple-scan", "naps2", "gscan2pdf"]
+}

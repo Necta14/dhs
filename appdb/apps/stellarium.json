@@ -1,0 +1,33 @@
+{
+  "id": "stellarium",
+  "name": "Stellarium",
+  "summary": "Planetarium that renders the sky as seen from a chosen place and time",
+  "category": "science",
+  "homepage": "https://stellarium.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Stellarium.Stellarium"],
+    "choco": ["stellarium"],
+    "scoop": ["extras/stellarium"],
+    "registry": ["Stellarium"],
+    "paths": {
+      "userdir": "%APPDATA%/Stellarium"
+    }
+  },
+  "linux": {
+    "pacman": ["stellarium"],
+    "apt": ["stellarium"],
+    "dnf": ["stellarium"],
+    "zypper": ["stellarium"],
+    "apk": ["stellarium"],
+    "flatpak": ["org.stellarium.Stellarium"],
+    "paths": {
+      "userdir": "~/.stellarium"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["log.txt", "*.log", "cache"],
+    "notes": "The user directory has the same layout on both platforms: config.ini, scripts, landscapes, sky cultures and the installed plugins."
+  }
+}

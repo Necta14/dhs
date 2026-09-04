@@ -1,0 +1,37 @@
+{
+  "id": "kdenlive",
+  "name": "Kdenlive",
+  "summary": "Non-linear video editor",
+  "category": "video-editor",
+  "homepage": "https://kdenlive.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["KDE.Kdenlive"],
+    "choco": ["kdenlive"],
+    "scoop": ["extras/kdenlive"],
+    "registry": ["Kdenlive"],
+    "paths": {
+      "config": "%APPDATA%/kdenliverc",
+      "data": "%LOCALAPPDATA%/kdenlive"
+    }
+  },
+  "linux": {
+    "pacman": ["kdenlive"],
+    "apt": ["kdenlive"],
+    "dnf": ["kdenlive"],
+    "zypper": ["kdenlive"],
+    "apk": ["kdenlive"],
+    "flatpak": ["org.kde.kdenlive"],
+    "snap": ["kdenlive"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kdenliverc",
+      "data": "$XDG_DATA_HOME/kdenlive"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "thumbs"],
+    "notes": "kdenliverc keeps the absolute paths of the melt and ffmpeg binaries, the project and proxy folders and the render profiles, all of which differ between the platforms. The custom effects and layouts in the data directory are worth carrying by hand."
+  },
+  "equivalents": ["shotcut", "openshot", "davinci-resolve"]
+}

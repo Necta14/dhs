@@ -1,0 +1,21 @@
+{
+  "id": "protonvpn",
+  "name": "Proton VPN",
+  "summary": "VPN client from Proton",
+  "category": "vpn",
+  "homepage": "https://protonvpn.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Proton.ProtonVPN"],
+    "choco": ["protonvpn"],
+    "registry": ["Proton VPN"]
+  },
+  "linux": {
+    "aur": ["proton-vpn-gtk-app"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Sessions and credentials are held in the system keyring; nothing is carried. On Debian and Fedora Proton ships its own repository, so no apt or dnf name is listed here."
+  },
+  "equivalents": ["mullvad-vpn", "wireguard"]
+}

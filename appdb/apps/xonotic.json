@@ -1,0 +1,33 @@
+{
+  "id": "xonotic",
+  "name": "Xonotic",
+  "summary": "Open source arena first-person shooter",
+  "category": "gaming",
+  "homepage": "https://xonotic.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Xonotic.Xonotic"],
+    "choco": ["xonotic"],
+    "scoop": ["games/xonotic"],
+    "registry": ["Xonotic"],
+    "paths": {
+      "data": "%APPDATA%/xonotic"
+    }
+  },
+  "linux": {
+    "pacman": ["xonotic"],
+    "dnf": ["xonotic"],
+    "zypper": ["xonotic"],
+    "apk": ["xonotic"],
+    "flatpak": ["org.xonotic.Xonotic"],
+    "paths": {
+      "data": "~/.xonotic"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["data/dlcache", "*.log", "data/screenshots"],
+    "notes": "config.cfg and the key bindings are plain text with the same syntax on every platform."
+  },
+  "equivalents": []
+}

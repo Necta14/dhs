@@ -1,0 +1,37 @@
+{
+  "id": "kwrite",
+  "name": "KWrite",
+  "summary": "Simple KDE text editor",
+  "category": "editor",
+  "homepage": "https://apps.kde.org/kwrite/",
+  "license": "LGPL-2.0",
+  "linux": {
+    "apt": [
+      "kwrite"
+    ],
+    "dnf": [
+      "kwrite"
+    ],
+    "zypper": [
+      "kwrite"
+    ],
+    "apk": [
+      "kwrite"
+    ],
+    "flatpak": [
+      "org.kde.kwrite"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kwriterc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "kwriterc is an INI file with the same keys everywhere. KWrite shares the KTextEditor settings with Kate. Arch does not package KWrite separately; Kate is the alternative there."
+  },
+  "equivalents": [
+    "kate",
+    "gnome-text-editor",
+    "notepad-plus-plus"
+  ]
+}

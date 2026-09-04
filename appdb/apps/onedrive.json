@@ -1,0 +1,32 @@
+{
+  "id": "onedrive",
+  "name": "OneDrive",
+  "summary": "Microsoft's cloud storage, with a sync client",
+  "category": "cloud-storage",
+  "homepage": "https://www.microsoft.com/microsoft-365/onedrive/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Microsoft.OneDrive"],
+    "choco": ["onedrive"],
+    "registry": ["Microsoft OneDrive"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/Microsoft/OneDrive/settings"
+    }
+  },
+  "linux": {
+    "aur": ["onedrive-abraunegg"],
+    "apt": ["onedrive"],
+    "dnf": ["onedrive"],
+    "zypper": ["onedrive"],
+    "apk": ["onedrive"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/onedrive"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["logs", "*.log", "*.lock", "items.sqlite3*"],
+    "notes": "The two sides are not the same program: Windows runs Microsoft's client, Linux the independent abraunegg client that speaks the same service. The settings do not convert, so what is found is kept aside and the Linux client is authorised once from the terminal."
+  },
+  "equivalents": ["rclone", "nextcloud-desktop"]
+}

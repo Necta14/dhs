@@ -1,0 +1,24 @@
+{
+  "id": "dragon-player",
+  "name": "Dragon Player",
+  "summary": "Simple KDE video player",
+  "category": "media-player",
+  "homepage": "https://apps.kde.org/dragonplayer/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["dragon"],
+    "apt": ["dragonplayer"],
+    "dnf": ["dragon"],
+    "zypper": ["dragonplayer"],
+    "apk": ["dragon"],
+    "flatpak": ["org.kde.dragonplayer"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/dragonplayerrc"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. dragonplayerrc is a short KConfig file holding the volume, the subtitle preference and the recent files."
+  },
+  "equivalents": ["haruna", "celluloid", "vlc"]
+}

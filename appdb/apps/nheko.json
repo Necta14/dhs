@@ -1,0 +1,34 @@
+{
+  "id": "nheko",
+  "name": "Nheko",
+  "summary": "Qt Matrix client",
+  "category": "chat",
+  "homepage": "https://nheko-reborn.github.io/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["NhekoReborn.Nheko"],
+    "choco": ["nheko-reborn", "nheko"],
+    "scoop": ["extras/nheko"],
+    "registry": ["Nheko"],
+    "paths": {
+      "config": "%APPDATA%/nheko"
+    }
+  },
+  "linux": {
+    "pacman": ["nheko"],
+    "apt": ["nheko"],
+    "dnf": ["nheko"],
+    "zypper": ["nheko"],
+    "apk": ["nheko"],
+    "flatpak": ["im.nheko.Nheko"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/nheko"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.lock", "*.log"],
+    "notes": "nheko.conf is a Qt settings file and stores absolute cache paths, so it is kept aside. The device keys are in the local cache and do not travel."
+  },
+  "equivalents": ["element", "neochat", "fractal"]
+}

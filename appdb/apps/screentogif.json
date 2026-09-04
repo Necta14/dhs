@@ -1,0 +1,23 @@
+{
+  "id": "screentogif",
+  "name": "ScreenToGif",
+  "summary": "Records a screen area and edits the result as a GIF",
+  "category": "screen-recorder",
+  "homepage": "https://www.screentogif.com/",
+  "license": "MS-PL",
+  "windows": {
+    "winget": ["NickeManarin.ScreenToGif"],
+    "choco": ["screentogif"],
+    "scoop": ["extras/screentogif"],
+    "registry": ["ScreenToGif"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/ScreenToGif"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "Recordings", "Updates"],
+    "notes": "Windows only, written for .NET. Settings.xaml holds the shortcuts, the editor defaults and the export presets."
+  },
+  "equivalents": ["peek", "kooha", "obs-studio"]
+}

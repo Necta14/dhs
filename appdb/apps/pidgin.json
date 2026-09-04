@@ -1,0 +1,34 @@
+{
+  "id": "pidgin",
+  "name": "Pidgin",
+  "summary": "Multi-protocol instant messenger",
+  "category": "chat",
+  "homepage": "https://pidgin.im/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Pidgin.Pidgin"],
+    "choco": ["pidgin"],
+    "scoop": ["extras/pidgin"],
+    "registry": ["Pidgin"],
+    "paths": {
+      "purple": "%APPDATA%/.purple"
+    }
+  },
+  "linux": {
+    "aur": ["pidgin"],
+    "apt": ["pidgin"],
+    "dnf": ["pidgin"],
+    "zypper": ["pidgin"],
+    "apk": ["pidgin"],
+    "flatpak": ["im.pidgin.Pidgin"],
+    "paths": {
+      "purple": "~/.purple"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["logs", "*.log", "icons", "certificates/cache"],
+    "notes": "Both platforms use the same .purple directory with the same XML files. The protocol plugins named in prefs.xml may not all exist on the other platform; Pidgin ignores the ones it cannot load. Arch has dropped it to the AUR."
+  },
+  "equivalents": ["gajim", "dino", "element"]
+}

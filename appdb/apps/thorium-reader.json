@@ -1,0 +1,29 @@
+{
+  "id": "thorium-reader",
+  "name": "Thorium Reader",
+  "summary": "EPUB and audiobook reader with accessibility support",
+  "category": "ebook",
+  "homepage": "https://www.edrlab.org/software/thorium-reader/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": ["EDRLab.Thorium"],
+    "choco": ["thorium-reader"],
+    "scoop": ["extras/thorium-reader"],
+    "registry": ["Thorium"],
+    "paths": {
+      "config": "%APPDATA%/EDRLab.ThoriumReader"
+    }
+  },
+  "linux": {
+    "aur": ["thorium-reader-bin", "thorium-reader"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/EDRLab.ThoriumReader"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "The imported publications, bookmarks and reading settings sit in one directory with the same layout on both platforms."
+  },
+  "equivalents": ["foliate", "calibre", "koodo-reader"]
+}

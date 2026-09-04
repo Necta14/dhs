@@ -1,0 +1,23 @@
+{
+  "id": "sharex",
+  "name": "ShareX",
+  "summary": "Screenshot, recording and upload tool for Windows",
+  "category": "screenshot",
+  "homepage": "https://getsharex.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["ShareX.ShareX"],
+    "choco": ["sharex"],
+    "scoop": ["extras/sharex"],
+    "registry": ["ShareX"],
+    "paths": {
+      "config": "%USERPROFILE%/Documents/ShareX"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["Logs", "*.log", "Screenshots", "Backup"],
+    "notes": "Windows only. ApplicationConfig.json and HotkeysConfig.json describe workflows built on Windows-only capture and automation; UploadersConfig.json holds upload tokens and is treated as a secret. The Screenshots folder underneath is personal data, carried with the rest of the pictures."
+  },
+  "equivalents": ["flameshot", "ksnip", "greenshot"]
+}

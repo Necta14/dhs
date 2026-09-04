@@ -1,0 +1,24 @@
+{
+  "id": "fractal",
+  "name": "Fractal",
+  "summary": "GNOME Matrix client",
+  "category": "chat",
+  "homepage": "https://apps.gnome.org/Fractal/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["fractal"],
+    "dnf": ["fractal"],
+    "zypper": ["fractal"],
+    "apk": ["fractal"],
+    "flatpak": ["org.gnome.Fractal"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/fractal"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["cache", "*.lock"],
+    "notes": "Linux only; the window settings live in dconf. The session store holds device-bound encryption keys, so the session is verified again after a move."
+  },
+  "equivalents": ["element", "neochat", "nheko"]
+}

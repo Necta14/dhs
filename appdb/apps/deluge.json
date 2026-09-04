@@ -1,0 +1,34 @@
+{
+  "id": "deluge",
+  "name": "Deluge",
+  "summary": "BitTorrent client with a daemon and several interfaces",
+  "category": "torrent",
+  "homepage": "https://deluge-torrent.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["DelugeTeam.Deluge"],
+    "choco": ["deluge"],
+    "scoop": ["extras/deluge"],
+    "registry": ["Deluge"],
+    "paths": {
+      "config": "%APPDATA%/deluge"
+    }
+  },
+  "linux": {
+    "pacman": ["deluge"],
+    "apt": ["deluge"],
+    "dnf": ["deluge"],
+    "zypper": ["deluge"],
+    "apk": ["deluge"],
+    "flatpak": ["org.deluge_torrent.deluge"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/deluge"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.lock", "logs", "*.log", "icons", "ssl"],
+    "notes": "core.conf holds absolute download paths and the plugin list, so the directory is kept aside. state/ holds the torrent list."
+  },
+  "equivalents": ["qbittorrent", "transmission", "ktorrent"]
+}

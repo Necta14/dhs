@@ -1,0 +1,22 @@
+{
+  "id": "bottles",
+  "name": "Bottles",
+  "summary": "Runs Windows software on Linux in managed Wine prefixes",
+  "category": "utility",
+  "homepage": "https://usebottles.com/",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["bottles"],
+    "dnf": ["bottles"],
+    "flatpak": ["com.usebottles.bottles"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/bottles"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["drive_c", "runners", "dxvk", "vkd3d", "nvapi", "latencyflex", "temp", "cache", "*.log"],
+    "notes": "Linux only. Each bottle's definition (bottle.yml) is carried; the Wine prefix itself (drive_c) and the downloaded runners are not, because Bottles rebuilds them."
+  },
+  "equivalents": ["lutris", "heroic-games-launcher"]
+}

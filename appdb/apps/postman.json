@@ -1,0 +1,59 @@
+{
+  "id": "postman",
+  "name": "Postman",
+  "summary": "HTTP API client and test runner",
+  "category": "devtool",
+  "homepage": "https://www.postman.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "Postman.Postman"
+    ],
+    "choco": [
+      "postman"
+    ],
+    "scoop": [
+      "extras/postman"
+    ],
+    "registry": [
+      "Postman"
+    ],
+    "paths": {
+      "config": "%APPDATA%/Postman"
+    }
+  },
+  "linux": {
+    "aur": [
+      "postman-bin"
+    ],
+    "flatpak": [
+      "com.getpostman.Postman"
+    ],
+    "snap": [
+      "postman"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Postman"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "Cache",
+      "Code Cache",
+      "GPUCache",
+      "DawnCache",
+      "blob_storage",
+      "logs",
+      "*.log",
+      "Crashpad",
+      "Service Worker"
+    ],
+    "notes": "An Electron application; the local workspaces and settings have the same layout on both platforms. Collections that were synced to a Postman account come back on sign-in."
+  },
+  "equivalents": [
+    "insomnia",
+    "bruno",
+    "httpie"
+  ]
+}

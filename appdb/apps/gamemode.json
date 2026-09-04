@@ -1,0 +1,22 @@
+{
+  "id": "gamemode",
+  "name": "Feral GameMode",
+  "summary": "Applies CPU and I/O optimisations while a game runs",
+  "category": "utility",
+  "homepage": "https://github.com/FeralInteractive/gamemode",
+  "license": "BSD-3-Clause",
+  "linux": {
+    "pacman": ["gamemode", "lib32-gamemode"],
+    "apt": ["gamemode"],
+    "dnf": ["gamemode"],
+    "zypper": ["gamemode"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/gamemode.ini"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. gamemode.ini names CPU governors and kernel knobs that exist nowhere else."
+  },
+  "equivalents": []
+}

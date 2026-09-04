@@ -1,0 +1,57 @@
+{
+  "id": "webstorm",
+  "name": "WebStorm",
+  "summary": "JavaScript and TypeScript IDE",
+  "category": "ide",
+  "homepage": "https://www.jetbrains.com/webstorm/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "JetBrains.WebStorm"
+    ],
+    "choco": [
+      "WebStorm"
+    ],
+    "scoop": [
+      "extras/webstorm"
+    ],
+    "registry": [
+      "WebStorm"
+    ],
+    "paths": {
+      "config": "%APPDATA%/JetBrains"
+    }
+  },
+  "linux": {
+    "aur": [
+      "webstorm"
+    ],
+    "flatpak": [
+      "com.jetbrains.WebStorm"
+    ],
+    "snap": [
+      "webstorm --classic"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/JetBrains"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "log",
+      "logs",
+      "*.log",
+      "*.lock",
+      "port",
+      "system",
+      "caches",
+      "index"
+    ],
+    "notes": "IntelliJ-platform settings, kept per version under the JetBrains directory. They name JDKs, SDKs and projects by absolute path, so they are kept aside on the other platform rather than restored in place."
+  },
+  "equivalents": [
+    "vscodium",
+    "vscode"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "firewalld",
+  "name": "firewalld",
+  "summary": "Dynamic firewall daemon with zones",
+  "category": "security",
+  "homepage": "https://firewalld.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["firewalld"],
+    "apt": ["firewalld"],
+    "dnf": ["firewalld"],
+    "zypper": ["firewalld"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "A system daemon; its zones live under /etc/firewalld."
+  },
+  "equivalents": ["gufw"]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mgba",
+  "name": "mGBA",
+  "summary": "Game Boy Advance emulator",
+  "category": "emulator",
+  "homepage": "https://mgba.io/",
+  "license": "MPL-2.0",
+  "windows": {
+    "choco": ["mgba"],
+    "scoop": ["games/mgba"],
+    "registry": ["mGBA"],
+    "paths": {
+      "config": "%APPDATA%/mGBA"
+    }
+  },
+  "linux": {
+    "pacman": ["mgba-qt", "mgba-sdl"],
+    "apt": ["mgba"],
+    "apk": ["mgba"],
+    "flatpak": ["io.mgba.mGBA"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/mgba"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "config.ini and qt.ini have the same keys on both platforms but hold the last-used ROM directories as absolute paths."
+  },
+  "equivalents": []
+}

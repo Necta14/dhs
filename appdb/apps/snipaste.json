@@ -1,0 +1,19 @@
+{
+  "id": "snipaste",
+  "name": "Snipaste",
+  "summary": "Screenshot tool that pins captures on screen",
+  "category": "screenshot",
+  "homepage": "https://www.snipaste.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["liule.Snipaste"],
+    "choco": ["snipaste"],
+    "scoop": ["extras/snipaste"],
+    "registry": ["Snipaste"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. The hotkeys and preferences live in the registry under HKCU, which DHS does not carry in v1."
+  },
+  "equivalents": ["flameshot", "ksnip", "spectacle"]
+}

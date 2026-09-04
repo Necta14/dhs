@@ -1,0 +1,24 @@
+{
+  "id": "fs-uae",
+  "name": "FS-UAE",
+  "summary": "Amiga emulator",
+  "category": "emulator",
+  "homepage": "https://fs-uae.net/",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["fs-uae"],
+    "registry": ["FS-UAE"]
+  },
+  "linux": {
+    "pacman": ["fs-uae"],
+    "apt": ["fs-uae"],
+    "zypper": ["fs-uae"],
+    "apk": ["fs-uae"],
+    "flatpak": ["net.fsuae.FS-UAE"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "FS-UAE keeps its configurations, floppy images and save states in a documents folder the user chooses on first start, so there is no fixed location for DHS to read. The Kickstart ROMs are the user's own and stay where they are."
+  },
+  "equivalents": []
+}

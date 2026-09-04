@@ -1,0 +1,35 @@
+{
+  "id": "thunderbird",
+  "name": "Mozilla Thunderbird",
+  "summary": "Mail, calendar and newsgroup client",
+  "category": "email",
+  "homepage": "https://www.thunderbird.net/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": ["Mozilla.Thunderbird"],
+    "choco": ["thunderbird"],
+    "scoop": ["extras/thunderbird"],
+    "registry": ["Mozilla Thunderbird"],
+    "paths": {
+      "profiles": "%APPDATA%/Thunderbird"
+    }
+  },
+  "linux": {
+    "pacman": ["thunderbird"],
+    "apt": ["thunderbird"],
+    "dnf": ["thunderbird"],
+    "zypper": ["MozillaThunderbird"],
+    "apk": ["thunderbird"],
+    "flatpak": ["org.mozilla.Thunderbird"],
+    "snap": ["thunderbird"],
+    "paths": {
+      "profiles": "~/.thunderbird"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache2", "startupCache", "crashes", "minidumps", "datareporting", "saved-telemetry-pings", "ImapMail", "global-messages-db.sqlite", "*.msf", "*.lock", "lock", "parent.lock"],
+    "notes": "The profile has the same layout on every platform. IMAP mail is left behind because the server still has it, and the *.msf indexes are rebuilt on first start; POP and Local Folders mail under Mail/ is carried, being the only copy."
+  },
+  "equivalents": ["betterbird", "evolution", "claws-mail"]
+}

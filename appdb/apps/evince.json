@@ -1,0 +1,24 @@
+{
+  "id": "evince",
+  "name": "Evince",
+  "summary": "GNOME document viewer for PDF and PostScript",
+  "category": "pdf",
+  "homepage": "https://apps.gnome.org/Evince/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["evince"],
+    "apt": ["evince"],
+    "dnf": ["evince"],
+    "zypper": ["evince"],
+    "apk": ["evince"],
+    "flatpak": ["org.gnome.Evince"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/evince"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "Almost everything Evince remembers lives in dconf; only the print settings are a file. Recent GNOME releases ship the same viewer under the name Papers."
+  },
+  "equivalents": ["okular", "zathura", "sumatrapdf"]
+}

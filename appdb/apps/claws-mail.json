@@ -1,0 +1,28 @@
+{
+  "id": "claws-mail",
+  "name": "Claws Mail",
+  "summary": "Fast GTK mail client with many plugins",
+  "category": "email",
+  "homepage": "https://www.claws-mail.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "choco": ["claws-mail"],
+    "registry": ["Claws Mail"]
+  },
+  "linux": {
+    "pacman": ["claws-mail"],
+    "apt": ["claws-mail"],
+    "dnf": ["claws-mail"],
+    "zypper": ["claws-mail"],
+    "apk": ["claws-mail"],
+    "paths": {
+      "config": "~/.claws-mail"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.lock", "*.log", "tagsdb", "mimetmp"],
+    "notes": "clawsrc and accountrc are plain text but hold absolute mailbox and command paths, and the plugin list names shared objects that differ per platform, so the directory is kept aside."
+  },
+  "equivalents": ["thunderbird", "sylpheed", "evolution"]
+}

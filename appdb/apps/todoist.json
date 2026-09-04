@@ -1,0 +1,22 @@
+{
+  "id": "todoist",
+  "name": "Todoist",
+  "summary": "Task manager with projects, labels and reminders",
+  "category": "productivity",
+  "homepage": "https://todoist.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Doist.Todoist"],
+    "choco": ["todoist"],
+    "registry": ["Todoist"]
+  },
+  "linux": {
+    "aur": ["todoist-appimage"],
+    "flatpak": ["com.todoist.Todoist"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Every task lives in the Todoist account and comes back on sign-in; the local directory is only a cache."
+  },
+  "equivalents": ["ticktick", "super-productivity", "planner"]
+}

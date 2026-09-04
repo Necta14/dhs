@@ -1,0 +1,20 @@
+{
+  "id": "directory-opus",
+  "name": "Directory Opus",
+  "summary": "File manager for Windows",
+  "category": "file-manager",
+  "homepage": "https://www.gpsoft.com.au/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["GPSoftware.DirectoryOpus"],
+    "registry": ["Directory Opus"],
+    "paths": {
+      "config": "%APPDATA%/GPSoftware/Directory Opus"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Windows only. The layouts and toolbars name drive letters and Windows shell verbs."
+  },
+  "equivalents": ["dolphin", "krusader", "double-commander", "nemo"]
+}

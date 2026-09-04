@@ -1,0 +1,22 @@
+{
+  "id": "microsoft-office",
+  "name": "Microsoft Office",
+  "summary": "Word, Excel, PowerPoint and Outlook",
+  "category": "office",
+  "homepage": "https://www.microsoft.com/microsoft-365",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Microsoft.Office"],
+    "registry": ["Microsoft 365 Apps for enterprise", "Microsoft 365 Apps for business", "Microsoft Office Professional Plus", "Microsoft Office Home and Business", "Microsoft Office Home and Student", "Microsoft Office Standard"],
+    "paths": {
+      "templates": "%APPDATA%/Microsoft/Templates",
+      "dictionaries": "%APPDATA%/Microsoft/UProof",
+      "quickstyles": "%APPDATA%/Microsoft/QuickStyles"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Windows only, and almost everything it remembers lives in the registry. Only the user templates (Normal.dotm and friends), the custom dictionary and the saved style sets are files; they are kept aside on Linux, where the equivalents below open the same documents."
+  },
+  "equivalents": ["libreoffice", "onlyoffice-desktopeditors", "wps-office", "softmaker-freeoffice"]
+}

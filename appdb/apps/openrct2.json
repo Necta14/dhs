@@ -1,0 +1,33 @@
+{
+  "id": "openrct2",
+  "name": "OpenRCT2",
+  "summary": "Open source remake of RollerCoaster Tycoon 2",
+  "category": "gaming",
+  "homepage": "https://openrct2.io/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["OpenRCT2.OpenRCT2"],
+    "choco": ["openrct2"],
+    "scoop": ["games/openrct2"],
+    "registry": ["OpenRCT2"],
+    "paths": {
+      "config": "%USERPROFILE%/Documents/OpenRCT2"
+    }
+  },
+  "linux": {
+    "pacman": ["openrct2"],
+    "apt": ["openrct2"],
+    "zypper": ["openrct2"],
+    "apk": ["openrct2"],
+    "flatpak": ["io.openrct2.OpenRCT2"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/OpenRCT2"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache", "screenshot"],
+    "notes": "The saved parks, the scenarios and the keyboard shortcuts travel; config.ini points at the original RollerCoaster Tycoon 2 installation by absolute path."
+  },
+  "equivalents": []
+}

@@ -1,0 +1,29 @@
+{
+  "id": "cataclysm-dda",
+  "name": "Cataclysm: Dark Days Ahead",
+  "summary": "Open source post-apocalyptic survival roguelike",
+  "category": "gaming",
+  "homepage": "https://cataclysmdda.org/",
+  "license": "CC-BY-SA-3.0",
+  "windows": {
+    "winget": ["CleverRaven.CataclysmDarkDaysAhead"],
+    "scoop": ["games/cataclysm-dda-tiles", "games/cataclysm-dda"],
+    "registry": ["Cataclysm-DDA"]
+  },
+  "linux": {
+    "pacman": ["cataclysm-dda-tiles", "cataclysm-dda"],
+    "apt": ["cataclysm-dda"],
+    "dnf": ["cataclysm-dda"],
+    "flatpak": ["org.cataclysmdda.CataclysmDDA"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/cataclysm-dda",
+      "data": "$XDG_DATA_HOME/cataclysm-dda"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache", "memorial"],
+    "notes": "The worlds, the saves and the keybindings travel. The Windows build is portable and keeps everything in its own folder, so only the Linux locations are named here."
+  },
+  "equivalents": []
+}

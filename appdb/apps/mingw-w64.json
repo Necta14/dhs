@@ -1,0 +1,35 @@
+{
+  "id": "mingw-w64",
+  "name": "MinGW-w64",
+  "summary": "GCC toolchain that produces Windows binaries",
+  "category": "devtool",
+  "homepage": "https://www.mingw-w64.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "choco": [
+      "mingw"
+    ],
+    "scoop": [
+      "mingw"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "mingw-w64-gcc"
+    ],
+    "apt": [
+      "mingw-w64"
+    ],
+    "dnf": [
+      "mingw64-gcc"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "On Linux the packages are the cross-compiler that targets Windows; on Windows they are the native GCC toolchain."
+  },
+  "equivalents": [
+    "gcc",
+    "llvm"
+  ]
+}

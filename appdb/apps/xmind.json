@@ -1,0 +1,30 @@
+{
+  "id": "xmind",
+  "name": "Xmind",
+  "summary": "Mind mapping with presentation and outline views",
+  "category": "productivity",
+  "homepage": "https://xmind.app/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Xmind.Xmind"],
+    "choco": ["xmind"],
+    "scoop": ["extras/xmind"],
+    "registry": ["Xmind"],
+    "paths": {
+      "config": "%APPDATA%/Xmind"
+    }
+  },
+  "linux": {
+    "aur": ["xmind"],
+    "flatpak": ["net.xmind.XMind"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Xmind"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "The settings and the local workbook index have the same layout on both platforms; the maps themselves are .xmind files wherever the user saved them."
+  },
+  "equivalents": ["freeplane", "minder", "drawio"]
+}

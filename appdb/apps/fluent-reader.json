@@ -1,0 +1,28 @@
+{
+  "id": "fluent-reader",
+  "name": "Fluent Reader",
+  "summary": "Cross-platform desktop feed reader",
+  "category": "feed-reader",
+  "homepage": "https://hyliu.me/fluent-reader/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": ["yang991178.fluent-reader"],
+    "choco": ["fluent-reader"],
+    "scoop": ["extras/fluent-reader"],
+    "registry": ["Fluent Reader"],
+    "paths": {
+      "config": "%APPDATA%/fluent-reader"
+    }
+  },
+  "linux": {
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/fluent-reader"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker"],
+    "notes": "An Electron application: the subscription list and settings are JSON and travel unchanged. On Linux it is installed from the AppImage or .deb the project publishes, not from a distribution repository."
+  },
+  "equivalents": ["rssguard", "newsflash", "liferea"]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "gnuplot",
+  "name": "gnuplot",
+  "summary": "Command-driven plotting program",
+  "category": "science",
+  "homepage": "https://www.gnuplot.info/",
+  "windows": {
+    "winget": ["gnuplot.gnuplot"],
+    "choco": ["gnuplot"],
+    "scoop": ["gnuplot"],
+    "registry": ["gnuplot"],
+    "paths": {
+      "init": "%USERPROFILE%/.gnuplot"
+    }
+  },
+  "linux": {
+    "pacman": ["gnuplot"],
+    "apt": ["gnuplot"],
+    "dnf": ["gnuplot"],
+    "zypper": ["gnuplot"],
+    "apk": ["gnuplot"],
+    "paths": {
+      "init": "~/.gnuplot"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The init file is a plain gnuplot script. It may select a terminal that exists only on one platform (windows vs. qt or wxt); gnuplot falls back if it is missing."
+  }
+}

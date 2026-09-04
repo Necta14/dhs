@@ -1,0 +1,24 @@
+{
+  "id": "flowblade",
+  "name": "Flowblade",
+  "summary": "Multitrack video editor for Linux",
+  "category": "video-editor",
+  "homepage": "https://jliljebl.github.io/flowblade/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["flowblade"],
+    "apt": ["flowblade"],
+    "dnf": ["flowblade"],
+    "flatpak": ["io.github.jliljebl.Flowblade"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/flowblade",
+      "config-legacy": "~/.flowblade"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["thumbnails", "render", "*.log", "audio_levels"],
+    "notes": "Linux only. The user folder moved from ~/.flowblade to the XDG directories during the 2.x series, so both are named here and DHS takes whichever exists."
+  },
+  "equivalents": ["kdenlive", "shotcut", "pitivi"]
+}

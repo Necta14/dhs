@@ -1,0 +1,28 @@
+{
+  "id": "ares",
+  "name": "ares",
+  "summary": "Multi-system emulator focused on accuracy",
+  "category": "emulator",
+  "homepage": "https://ares-emu.net/",
+  "license": "ISC",
+  "windows": {
+    "winget": ["ares-emulator.ares"],
+    "scoop": ["games/ares"],
+    "registry": ["ares"],
+    "paths": {
+      "data": "%LOCALAPPDATA%/ares"
+    }
+  },
+  "linux": {
+    "flatpak": ["dev.ares.ares"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/ares"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "settings.bml and the per-system saves sit in the same folder on both platforms, but the game and firmware directories inside it are absolute paths."
+  },
+  "equivalents": ["bsnes", "retroarch"]
+}

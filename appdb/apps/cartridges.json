@@ -1,0 +1,22 @@
+{
+  "id": "cartridges",
+  "name": "Cartridges",
+  "summary": "GTK application that gathers games from several launchers into one library",
+  "category": "launcher",
+  "homepage": "https://apps.gnome.org/Cartridges/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["cartridges"],
+    "zypper": ["cartridges"],
+    "flatpak": ["page.kramo.Cartridges"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/cartridges"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["cache", "*.log"],
+    "notes": "Linux only. Each game is a small file with its cover and the command that starts it, and that command is a Linux one."
+  },
+  "equivalents": ["playnite", "lutris", "gamehub"]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "naev",
+  "name": "Naev",
+  "summary": "Open source 2D space trading and combat game",
+  "category": "gaming",
+  "homepage": "https://naev.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "scoop": ["games/naev"],
+    "registry": ["Naev"]
+  },
+  "linux": {
+    "pacman": ["naev"],
+    "apt": ["naev"],
+    "dnf": ["naev"],
+    "zypper": ["naev"],
+    "flatpak": ["org.naev.Naev"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/naev",
+      "data": "$XDG_DATA_HOME/naev"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache", "screenshots"],
+    "notes": "conf.lua and the pilot saves travel; the Windows build keeps the same files in a single folder of its own."
+  },
+  "equivalents": ["endless-sky"]
+}

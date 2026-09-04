@@ -1,0 +1,23 @@
+{
+  "id": "battle-net",
+  "name": "Battle.net",
+  "summary": "Game store and launcher by Blizzard",
+  "category": "launcher",
+  "homepage": "https://battle.net/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Blizzard.BattleNet"],
+    "choco": ["battle.net"],
+    "scoop": ["games/battlenet"],
+    "registry": ["Battle.net"],
+    "paths": {
+      "config": "%APPDATA%/Battle.net"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["Cache", "BrowserCache", "Logs", "*.log", "Errors"],
+    "notes": "Windows only. Battle.net.config keeps the client settings and the install locations; on Linux the games run through the equivalents below."
+  },
+  "equivalents": ["lutris", "bottles"]
+}

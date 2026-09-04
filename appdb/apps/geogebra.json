@@ -1,0 +1,24 @@
+{
+  "id": "geogebra",
+  "name": "GeoGebra Classic",
+  "summary": "Interactive geometry, algebra and calculus",
+  "category": "education",
+  "homepage": "https://www.geogebra.org/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["GeoGebra.Classic"],
+    "choco": ["geogebra"],
+    "scoop": ["extras/geogebra"],
+    "registry": ["GeoGebra Classic", "GeoGebra"]
+  },
+  "linux": {
+    "pacman": ["geogebra"],
+    "aur": ["geogebra-6-bin"],
+    "apt": ["geogebra"],
+    "flatpak": ["org.geogebra.GeoGebra"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "GeoGebra keeps only window and language settings, in the Java preference store; the constructions are .ggb files wherever the user saved them."
+  }
+}

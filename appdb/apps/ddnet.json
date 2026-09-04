@@ -1,0 +1,31 @@
+{
+  "id": "ddnet",
+  "name": "DDNet",
+  "summary": "Cooperative multiplayer platformer built on the Teeworlds engine",
+  "category": "gaming",
+  "homepage": "https://ddnet.org/",
+  "license": "Zlib",
+  "windows": {
+    "scoop": ["games/ddnet"],
+    "registry": ["DDNet"],
+    "paths": {
+      "data": "%APPDATA%/DDNet"
+    }
+  },
+  "linux": {
+    "aur": ["ddnet"],
+    "apt": ["ddnet"],
+    "dnf": ["ddnet"],
+    "zypper": ["ddnet"],
+    "flatpak": ["tw.ddnet.ddnet"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/ddnet"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "dumps", "screenshots", "demos/auto"],
+    "notes": "settings_ddnet.cfg, the skins and the demos are the same files on both platforms; only the folder differs."
+  },
+  "equivalents": ["teeworlds"]
+}

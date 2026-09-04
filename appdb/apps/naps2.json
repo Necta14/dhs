@@ -1,0 +1,22 @@
+{
+  "id": "naps2",
+  "name": "NAPS2",
+  "summary": "Scan documents to PDF, with OCR",
+  "category": "utility",
+  "homepage": "https://www.naps2.com/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Cyanfish.NAPS2"],
+    "choco": ["naps2"],
+    "scoop": ["extras/naps2"],
+    "registry": ["NAPS2"]
+  },
+  "linux": {
+    "aur": ["naps2"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The scanner profiles name a device as the platform's driver reports it, so they are not carried."
+  },
+  "equivalents": ["simple-scan", "gscan2pdf", "skanlite"]
+}

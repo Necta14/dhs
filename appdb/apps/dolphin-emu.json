@@ -1,0 +1,35 @@
+{
+  "id": "dolphin-emu",
+  "name": "Dolphin",
+  "summary": "GameCube and Wii emulator",
+  "category": "emulator",
+  "homepage": "https://dolphin-emu.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["DolphinEmulator.Dolphin"],
+    "choco": ["dolphin"],
+    "scoop": ["games/dolphin"],
+    "registry": ["Dolphin"],
+    "paths": {
+      "config": "%USERPROFILE%/Documents/Dolphin Emulator"
+    }
+  },
+  "linux": {
+    "pacman": ["dolphin-emu"],
+    "apt": ["dolphin-emu"],
+    "dnf": ["dolphin-emu"],
+    "zypper": ["dolphin-emu"],
+    "apk": ["dolphin-emu"],
+    "flatpak": ["org.DolphinEmu.dolphin-emu"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/dolphin-emu",
+      "data": "$XDG_DATA_HOME/dolphin-emu"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["Cache", "ShaderCache", "Logs", "*.log", "Dump", "Wii/title"],
+    "notes": "The memory cards, the Wii NAND saves and the save states are carried. Dolphin keeps one user directory on Windows and splits it between config and data on Linux, and Dolphin.ini names the ISO folders by absolute path."
+  },
+  "equivalents": []
+}

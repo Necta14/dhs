@@ -1,0 +1,17 @@
+{
+  "id": "minder",
+  "name": "Minder",
+  "summary": "Mind mapping for the GNOME desktop",
+  "category": "productivity",
+  "homepage": "https://github.com/phase1geo/Minder",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["minder"],
+    "flatpak": ["com.github.phase1geo.minder"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The interface settings live in dconf; the maps are .minder files wherever the user saved them."
+  },
+  "equivalents": ["freeplane", "xmind", "drawio"]
+}

@@ -1,0 +1,29 @@
+{
+  "id": "xnview-mp",
+  "name": "XnView MP",
+  "summary": "Image viewer, converter and browser",
+  "category": "photo",
+  "homepage": "https://www.xnview.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["XnSoft.XnViewMP"],
+    "choco": ["xnviewmp"],
+    "scoop": ["extras/xnviewmp"],
+    "registry": ["XnView MP"],
+    "paths": {
+      "config": "%APPDATA%/XnViewMP"
+    }
+  },
+  "linux": {
+    "flatpak": ["com.xnview.XnViewMP"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/xnviewmp"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "thumb*", "*.log"],
+    "notes": "The profile holds the layout, the categories and the catalogue database, and the catalogue names files by absolute path. Free for private use, not open source."
+  },
+  "equivalents": ["nomacs", "irfanview", "gwenview"]
+}

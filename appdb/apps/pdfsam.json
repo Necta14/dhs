@@ -1,0 +1,23 @@
+{
+  "id": "pdfsam",
+  "name": "PDFsam Basic",
+  "summary": "Splits, merges, rotates and extracts pages from PDF files",
+  "category": "pdf",
+  "homepage": "https://pdfsam.org/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["PDFsam.PDFsam"],
+    "choco": ["pdfsam"],
+    "scoop": ["extras/pdfsam"],
+    "registry": ["PDFsam Basic"]
+  },
+  "linux": {
+    "aur": ["pdfsam"],
+    "apt": ["pdfsam"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "It remembers only the window layout and the last used folder, through the Java preferences store; nothing worth carrying between systems."
+  },
+  "equivalents": ["pdf-arranger"]
+}

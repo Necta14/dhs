@@ -1,0 +1,16 @@
+{
+  "id": "adobe-lightroom",
+  "name": "Adobe Lightroom Classic",
+  "summary": "Photo catalogue and raw developer",
+  "category": "photo",
+  "homepage": "https://www.adobe.com/products/photoshop-lightroom-classic.html",
+  "license": "proprietary",
+  "windows": {
+    "registry": ["Adobe Lightroom"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, installed through the Creative Cloud desktop application, which no package manager drives; DHS only detects it. The catalogue is an .lrcat file the user keeps with the photographs and travels as personal data; the presets and the preferences stay behind. darktable and RawTherapee read the raw files but not the catalogue."
+  },
+  "equivalents": ["darktable", "rawtherapee", "digikam"]
+}

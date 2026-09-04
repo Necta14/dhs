@@ -1,0 +1,31 @@
+{
+  "id": "keepass",
+  "name": "KeePass",
+  "summary": "The original KeePass password manager, written in .NET",
+  "category": "password-manager",
+  "homepage": "https://keepass.info/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["DominikReichl.KeePass"],
+    "choco": ["keepass"],
+    "scoop": ["extras/keepass"],
+    "registry": ["KeePass Password Safe"],
+    "paths": {
+      "config": "%APPDATA%/KeePass"
+    }
+  },
+  "linux": {
+    "pacman": ["keepass"],
+    "apt": ["keepass2"],
+    "dnf": ["keepass"],
+    "zypper": ["keepass"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/KeePass"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "KeePass.config.xml lists the recent databases and the loaded plugins by absolute path, and the Linux build runs under Mono with a different plugin set, so the settings are kept aside. The .kdbx database is a secret and travels only with --secrets."
+  },
+  "equivalents": ["keepassxc", "keeweb"]
+}

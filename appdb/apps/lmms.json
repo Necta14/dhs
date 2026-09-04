@@ -1,0 +1,30 @@
+{
+  "id": "lmms",
+  "name": "LMMS",
+  "summary": "Pattern-based music production studio",
+  "category": "audio-editor",
+  "homepage": "https://lmms.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["LMMS.LMMS"],
+    "choco": ["lmms"],
+    "scoop": ["extras/lmms"],
+    "registry": ["LMMS"]
+  },
+  "linux": {
+    "pacman": ["lmms"],
+    "apt": ["lmms"],
+    "dnf": ["lmms"],
+    "zypper": ["lmms"],
+    "apk": ["lmms"],
+    "flatpak": ["io.lmms.LMMS"],
+    "paths": {
+      "config": "~/.lmmsrc.xml"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "lmmsrc.xml is a single XML file holding the working directory, the VST and SoundFont folders and the audio backend, all of them absolute and platform-bound. The projects themselves live in the working directory and are personal files."
+  },
+  "equivalents": ["ardour", "reaper"]
+}

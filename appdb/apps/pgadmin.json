@@ -1,0 +1,47 @@
+{
+  "id": "pgadmin",
+  "name": "pgAdmin 4",
+  "summary": "Administration and development platform for PostgreSQL",
+  "category": "database",
+  "homepage": "https://www.pgadmin.org/",
+  "license": "PostgreSQL",
+  "windows": {
+    "winget": [
+      "PostgreSQL.pgAdmin"
+    ],
+    "choco": [
+      "pgadmin4"
+    ],
+    "registry": [
+      "pgAdmin 4"
+    ],
+    "paths": {
+      "config": "%APPDATA%/pgadmin"
+    }
+  },
+  "linux": {
+    "aur": [
+      "pgadmin4"
+    ],
+    "flatpak": [
+      "org.pgadmin.pgadmin4"
+    ],
+    "paths": {
+      "config": "~/.pgadmin"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "sessions",
+      "storage",
+      "*.log",
+      "logs"
+    ],
+    "notes": "pgadmin4.db is a SQLite file with the same schema on both platforms; it holds the server list and, if the user saved them, their passwords."
+  },
+  "equivalents": [
+    "dbeaver",
+    "datagrip"
+  ]
+}

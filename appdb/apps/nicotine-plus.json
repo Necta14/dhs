@@ -1,0 +1,32 @@
+{
+  "id": "nicotine-plus",
+  "name": "Nicotine+",
+  "summary": "Client for the Soulseek file-sharing network",
+  "category": "download",
+  "homepage": "https://nicotine-plus.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Nicotine+.Nicotine+"],
+    "choco": ["nicotine-plus"],
+    "scoop": ["extras/nicotine-plus"],
+    "registry": ["Nicotine+"],
+    "paths": {
+      "config": "%APPDATA%/nicotine"
+    }
+  },
+  "linux": {
+    "pacman": ["nicotine+"],
+    "apt": ["nicotine"],
+    "dnf": ["nicotine+"],
+    "flatpak": ["org.nicotine_plus.Nicotine"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/nicotine"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["logs", "*.log", "*.lock"],
+    "notes": "The config file names the shared and download folders by absolute path, so it is kept aside; the account itself is on the Soulseek server."
+  },
+  "equivalents": ["qbittorrent", "transmission"]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "bizhawk",
+  "name": "BizHawk",
+  "summary": "Multi-system emulator built for tool-assisted speedruns",
+  "category": "emulator",
+  "homepage": "https://tasvideos.org/BizHawk",
+  "license": "MIT",
+  "windows": {
+    "choco": ["bizhawk"],
+    "scoop": ["extras/bizhawk"],
+    "registry": ["BizHawk"]
+  },
+  "linux": {
+    "aur": ["bizhawk-bin"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "BizHawk is portable by design: config.ini, the movies and the save states sit in the folder it was unpacked into, on both platforms."
+  },
+  "equivalents": ["retroarch", "ares"]
+}

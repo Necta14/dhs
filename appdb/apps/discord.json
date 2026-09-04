@@ -1,0 +1,32 @@
+{
+  "id": "discord",
+  "name": "Discord",
+  "summary": "Voice, video and text chat for communities",
+  "category": "chat",
+  "homepage": "https://discord.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Discord.Discord"],
+    "choco": ["discord"],
+    "scoop": ["extras/discord"],
+    "registry": ["Discord"],
+    "paths": {
+      "config": "%APPDATA%/discord"
+    }
+  },
+  "linux": {
+    "pacman": ["discord"],
+    "aur": ["discord_arch_electron"],
+    "flatpak": ["com.discordapp.Discord"],
+    "snap": ["discord"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/discord"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker", "Local Storage/leveldb/*.log"],
+    "notes": "An Electron application: the settings files are JSON and read the same on both platforms. settings.json keeps the window and audio preferences; the account itself lives on the server, so a fresh login is enough."
+  },
+  "equivalents": ["vesktop"]
+}

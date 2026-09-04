@@ -1,0 +1,17 @@
+{
+  "id": "nvidia-app",
+  "name": "NVIDIA App",
+  "summary": "Driver, game settings and overlay utility for NVIDIA graphics cards",
+  "category": "utility",
+  "homepage": "https://www.nvidia.com/en-us/software/nvidia-app/",
+  "license": "proprietary",
+  "windows": {
+    "choco": ["nvidia-app"],
+    "registry": ["NVIDIA App"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, and bound to the driver: the per-game settings live in the driver profile database, not in a file that means anything on another system."
+  },
+  "equivalents": []
+}

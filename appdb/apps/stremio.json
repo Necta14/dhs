@@ -1,0 +1,22 @@
+{
+  "id": "stremio",
+  "name": "Stremio",
+  "summary": "Media centre for streaming add-ons",
+  "category": "media-player",
+  "homepage": "https://www.stremio.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Stremio.Stremio"],
+    "choco": ["stremio"],
+    "scoop": ["extras/stremio"],
+    "registry": ["Stremio"]
+  },
+  "linux": {
+    "aur": ["stremio"],
+    "flatpak": ["com.stremio.Stremio"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The library, the add-ons and the settings follow the Stremio account; what stays on disk is a stream cache worth nothing on the new machine."
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "gufw",
+  "name": "Gufw",
+  "summary": "Graphical front end for the ufw firewall",
+  "category": "security",
+  "homepage": "https://costales.github.io/projects/gufw/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["gufw"],
+    "apt": ["gufw"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Edits the system ufw rules; nothing per user."
+  },
+  "equivalents": ["firewalld", "opensnitch"]
+}

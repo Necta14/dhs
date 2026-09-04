@@ -1,0 +1,30 @@
+{
+  "id": "wps-office",
+  "name": "WPS Office",
+  "summary": "Office suite with a Microsoft Office-like interface",
+  "category": "office",
+  "homepage": "https://www.wps.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Kingsoft.WPSOffice"],
+    "choco": ["wps-office-free"],
+    "scoop": ["extras/wpsoffice"],
+    "registry": ["WPS Office"],
+    "paths": {
+      "config": "%APPDATA%/kingsoft"
+    }
+  },
+  "linux": {
+    "aur": ["wps-office"],
+    "flatpak": ["com.wps.Office"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Kingsoft"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.log", "logs"],
+    "notes": "The Linux build keeps its settings in ~/.config/Kingsoft and the Windows build under %APPDATA%/kingsoft/office6; the files hold absolute paths and Windows font names."
+  },
+  "equivalents": ["libreoffice", "onlyoffice-desktopeditors"]
+}

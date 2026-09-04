@@ -1,0 +1,31 @@
+{
+  "id": "azahar",
+  "name": "Azahar",
+  "summary": "Nintendo 3DS emulator, successor to Citra",
+  "category": "emulator",
+  "homepage": "https://azahar-emu.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["AzaharEmu.Azahar"],
+    "choco": ["azahar"],
+    "scoop": ["games/azahar"],
+    "registry": ["Azahar"],
+    "paths": {
+      "data": "%APPDATA%/Azahar"
+    }
+  },
+  "linux": {
+    "aur": ["azahar"],
+    "flatpak": ["org.azahar_emu.Azahar"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/azahar-emu",
+      "data": "$XDG_DATA_HOME/azahar-emu"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "log", "*.log", "shaders", "dump", "external_dlls", "states"],
+    "notes": "The emulated SD card and NAND, which hold the savegames, are under the data directory. Azahar keeps one folder on Windows and splits config from data on Linux, and qt-config.ini points at the game folders by absolute path."
+  },
+  "equivalents": []
+}

@@ -1,0 +1,41 @@
+{
+  "id": "gedit",
+  "name": "gedit",
+  "summary": "GNOME text editor",
+  "category": "editor",
+  "homepage": "https://gedit-text-editor.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": [
+      "gedit"
+    ],
+    "apt": [
+      "gedit"
+    ],
+    "dnf": [
+      "gedit"
+    ],
+    "zypper": [
+      "gedit"
+    ],
+    "apk": [
+      "gedit"
+    ],
+    "flatpak": [
+      "org.gnome.gedit"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/gedit",
+      "data": "$XDG_DATA_HOME/gedit"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "Snippets, styles and external tools are files; the preferences themselves are in dconf and are not carried."
+  },
+  "equivalents": [
+    "gnome-text-editor",
+    "kate",
+    "notepad-plus-plus"
+  ]
+}

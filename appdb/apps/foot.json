@@ -1,0 +1,37 @@
+{
+  "id": "foot",
+  "name": "foot",
+  "summary": "Lightweight Wayland terminal emulator",
+  "category": "terminal",
+  "homepage": "https://codeberg.org/dnkl/foot",
+  "license": "MIT",
+  "linux": {
+    "pacman": [
+      "foot"
+    ],
+    "apt": [
+      "foot"
+    ],
+    "dnf": [
+      "foot"
+    ],
+    "zypper": [
+      "foot"
+    ],
+    "apk": [
+      "foot"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/foot"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "foot.ini is plain text. Wayland only, so there is no Windows counterpart."
+  },
+  "equivalents": [
+    "alacritty",
+    "kitty",
+    "windows-terminal"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "firejail",
+  "name": "Firejail",
+  "summary": "SUID sandbox for desktop applications",
+  "category": "security",
+  "homepage": "https://firejail.wordpress.com/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["firejail"],
+    "apt": ["firejail"],
+    "dnf": ["firejail"],
+    "zypper": ["firejail"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/firejail"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The user profiles in the config directory override the system ones and name Linux paths."
+  },
+  "equivalents": ["flatseal"]
+}

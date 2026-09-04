@@ -1,0 +1,18 @@
+{
+  "id": "rivatuner",
+  "name": "RivaTuner Statistics Server",
+  "summary": "Frame rate limiter and on-screen display for games",
+  "category": "utility",
+  "homepage": "https://www.guru3d.com/download/rtss-rivatuner-statistics-server-download/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Guru3D.RTSS"],
+    "scoop": ["extras/rtss"],
+    "registry": ["RivaTuner Statistics Server"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. The profiles live under the installation directory, which DHS does not address."
+  },
+  "equivalents": ["mangohud", "goverlay"]
+}

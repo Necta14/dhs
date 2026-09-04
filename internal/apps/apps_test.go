@@ -155,6 +155,12 @@ func TestDesktopEntries(t *testing.T) {
 	if lib.reportable() || !app.reportable() || !(Source{Manager: appdb.Flatpak, Package: "x.y"}).reportable() {
 		t.Error("reportable is wrong")
 	}
+	// Windows: redistributables and runtimes are not applications; everything else is.
+	rt := Source{Manager: appdb.Registry, Name: "Microsoft Visual C++ 2015-2022 Redistributable (x64) - 14.40.33810"}
+	real := Source{Manager: appdb.Registry, Name: "Internal Program Ltd v3"}
+	if rt.reportable() || !real.reportable() {
+		t.Error("windows runtime filter is wrong")
+	}
 }
 
 func TestSnapYAMLVersion(t *testing.T) {

@@ -1,0 +1,44 @@
+{
+  "id": "helm",
+  "name": "Helm",
+  "summary": "Package manager for Kubernetes",
+  "category": "devtool",
+  "homepage": "https://helm.sh/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Helm.Helm"
+    ],
+    "choco": [
+      "kubernetes-helm"
+    ],
+    "scoop": [
+      "helm"
+    ],
+    "paths": {
+      "config": "%APPDATA%/helm"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "helm"
+    ],
+    "apk": [
+      "helm"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/helm"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.lock",
+      "*.log"
+    ],
+    "notes": "repositories.yaml lists the chart repositories in the same form on both platforms; the downloaded charts are a cache."
+  },
+  "equivalents": [
+    "kubectl"
+  ]
+}

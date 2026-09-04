@@ -1,0 +1,17 @@
+{
+  "id": "bandicam",
+  "name": "Bandicam",
+  "summary": "Game and screen recorder for Windows",
+  "category": "screen-recorder",
+  "homepage": "https://www.bandicam.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["BandicamCompany.Bandicam"],
+    "registry": ["Bandicam"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, and its settings live in the registry under HKCU. The recordings are personal files and travel with the rest of the videos."
+  },
+  "equivalents": ["obs-studio", "gpu-screen-recorder", "simplescreenrecorder"]
+}

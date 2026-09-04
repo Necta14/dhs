@@ -1,0 +1,22 @@
+{
+  "id": "gsmartcontrol",
+  "name": "GSmartControl",
+  "summary": "Reads S.M.A.R.T. disk health and runs self-tests",
+  "category": "system",
+  "homepage": "https://gsmartcontrol.shaduri.dev/",
+  "license": "GPL-3.0",
+  "windows": {
+    "choco": ["gsmartcontrol"],
+    "registry": ["GSmartControl"]
+  },
+  "linux": {
+    "pacman": ["gsmartcontrol"],
+    "apt": ["gsmartcontrol"],
+    "dnf": ["gsmartcontrol"],
+    "zypper": ["gsmartcontrol"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["crystaldiskinfo"]
+}

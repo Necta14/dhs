@@ -1,0 +1,39 @@
+{
+  "id": "hyper",
+  "name": "Hyper",
+  "summary": "Terminal emulator built on web technologies",
+  "category": "terminal",
+  "homepage": "https://hyper.is/",
+  "license": "MIT",
+  "windows": {
+    "choco": [
+      "hyper"
+    ],
+    "scoop": [
+      "extras/hyper"
+    ],
+    "registry": [
+      "Hyper"
+    ],
+    "paths": {
+      "config": "%USERPROFILE%/.hyper.js"
+    }
+  },
+  "linux": {
+    "aur": [
+      "hyper"
+    ],
+    "paths": {
+      "config": "~/.hyper.js"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": ".hyper.js is a JavaScript file with the same keys on both platforms; the shell it names differs."
+  },
+  "equivalents": [
+    "tabby",
+    "wezterm",
+    "alacritty"
+  ]
+}

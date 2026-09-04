@@ -1,0 +1,33 @@
+{
+  "id": "endless-sky",
+  "name": "Endless Sky",
+  "summary": "Open source space trading and exploration game",
+  "category": "gaming",
+  "homepage": "https://endless-sky.github.io/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["EndlessSky.EndlessSky"],
+    "choco": ["endless-sky"],
+    "scoop": ["games/endless-sky"],
+    "registry": ["Endless Sky"],
+    "paths": {
+      "data": "%APPDATA%/endless-sky"
+    }
+  },
+  "linux": {
+    "pacman": ["endless-sky"],
+    "apt": ["endless-sky"],
+    "dnf": ["endless-sky"],
+    "zypper": ["endless-sky"],
+    "flatpak": ["io.github.endless_sky.endless_sky"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/endless-sky"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log", "cache"],
+    "notes": "The pilot saves and preferences.txt are plain text with the same layout everywhere; installed plugins are data files and travel with them."
+  },
+  "equivalents": []
+}

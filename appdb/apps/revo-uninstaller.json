@@ -1,0 +1,17 @@
+{
+  "id": "revo-uninstaller",
+  "name": "Revo Uninstaller",
+  "summary": "Removes Windows programs and their leftovers",
+  "category": "utility",
+  "homepage": "https://www.revouninstaller.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["RevoUninstaller.RevoUninstaller"],
+    "choco": ["revo-uninstaller"],
+    "registry": ["Revo Uninstaller"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, and there is nothing to replace it with on Linux: the package manager removes what it installed."
+  }
+}

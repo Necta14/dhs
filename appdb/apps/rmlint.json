@@ -1,0 +1,18 @@
+{
+  "id": "rmlint",
+  "name": "rmlint",
+  "summary": "Finds duplicates and other filesystem lint",
+  "category": "utility",
+  "homepage": "https://rmlint.readthedocs.io/",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["rmlint"],
+    "apt": ["rmlint"],
+    "dnf": ["rmlint"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Writes a shell script of proposed deletions rather than keeping settings."
+  },
+  "equivalents": ["fdupes", "czkawka", "dupeguru"]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "gnumeric",
+  "name": "Gnumeric",
+  "summary": "Lightweight spreadsheet",
+  "category": "office",
+  "homepage": "https://www.gnumeric.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["gnumeric"],
+    "apt": ["gnumeric"],
+    "dnf": ["gnumeric"],
+    "zypper": ["gnumeric"],
+    "apk": ["gnumeric"],
+    "flatpak": ["org.gnumeric.Gnumeric"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/gnumeric"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "Autoformat templates and plugin settings. There is no maintained Windows build any more, so on Windows DHS proposes the equivalents below."
+  },
+  "equivalents": ["libreoffice", "onlyoffice-desktopeditors"]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "winetricks",
+  "name": "Winetricks",
+  "summary": "Installs libraries and tweaks into Wine prefixes",
+  "category": "virtualization",
+  "homepage": "https://github.com/Winetricks/winetricks",
+  "license": "LGPL-2.1",
+  "linux": {
+    "pacman": ["winetricks"],
+    "apt": ["winetricks"],
+    "dnf": ["winetricks"],
+    "zypper": ["winetricks"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Acts on a Wine prefix; it keeps no settings of its own worth carrying."
+  },
+  "equivalents": ["wine"]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "vkbasalt",
+  "name": "vkBasalt",
+  "summary": "Vulkan post-processing layer for sharpening and colour correction",
+  "category": "utility",
+  "homepage": "https://github.com/DadSchoorse/vkBasalt",
+  "license": "Zlib",
+  "linux": {
+    "aur": ["vkbasalt"],
+    "apt": ["vkbasalt"],
+    "dnf": ["vkBasalt"],
+    "zypper": ["vkbasalt"],
+    "apk": ["vkbasalt"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/vkBasalt"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. vkBasalt.conf points at ReShade shader files by absolute path and configures a Vulkan layer."
+  },
+  "equivalents": ["reshade"]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "zerotier",
+  "name": "ZeroTier One",
+  "summary": "Virtual network that joins machines into one LAN",
+  "category": "vpn",
+  "homepage": "https://www.zerotier.com/",
+  "windows": {
+    "winget": ["ZeroTier.ZeroTierOne"],
+    "choco": ["zerotier-one"],
+    "registry": ["ZeroTier One"]
+  },
+  "linux": {
+    "pacman": ["zerotier-one"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The node identity belongs to the machine and is regenerated on a new install."
+  },
+  "equivalents": ["tailscale", "wireguard"]
+}

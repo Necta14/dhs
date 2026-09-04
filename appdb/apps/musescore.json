@@ -1,0 +1,35 @@
+{
+  "id": "musescore",
+  "name": "MuseScore",
+  "summary": "Music notation editor",
+  "category": "audio-editor",
+  "homepage": "https://musescore.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Musescore.Musescore"],
+    "choco": ["musescore"],
+    "scoop": ["extras/musescore"],
+    "registry": ["MuseScore"],
+    "paths": {
+      "config": "%APPDATA%/MuseScore"
+    }
+  },
+  "linux": {
+    "pacman": ["musescore"],
+    "apt": ["musescore"],
+    "dnf": ["musescore"],
+    "zypper": ["musescore"],
+    "apk": ["musescore"],
+    "flatpak": ["org.musescore.MuseScore"],
+    "snap": ["musescore"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/MuseScore"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "The MuseScore4.ini in there points at the score, template and SoundFont folders by absolute path. The scores themselves live in the documents folder and travel as personal files."
+  },
+  "equivalents": ["lmms"]
+}

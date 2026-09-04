@@ -1,0 +1,20 @@
+{
+  "id": "goverlay",
+  "name": "GOverlay",
+  "summary": "Graphical front end for MangoHud and vkBasalt",
+  "category": "utility",
+  "homepage": "https://github.com/benjamimgois/goverlay",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["goverlay"],
+    "apt": ["goverlay"],
+    "dnf": ["goverlay"],
+    "zypper": ["goverlay"],
+    "flatpak": ["io.github.benjamimgois.goverlay"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only. It edits the configuration files of MangoHud and vkBasalt, which have their own entries here."
+  },
+  "equivalents": []
+}

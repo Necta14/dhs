@@ -1,0 +1,33 @@
+{
+  "id": "umbrello",
+  "name": "Umbrello",
+  "summary": "UML modeller with code generation",
+  "category": "productivity",
+  "homepage": "https://apps.kde.org/umbrello/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["KDE.Umbrello"],
+    "choco": ["umbrello"],
+    "scoop": ["extras/umbrello"],
+    "registry": ["Umbrello"],
+    "paths": {
+      "config": "%APPDATA%/umbrellorc"
+    }
+  },
+  "linux": {
+    "pacman": ["umbrello"],
+    "apt": ["umbrello"],
+    "dnf": ["umbrello"],
+    "zypper": ["umbrello"],
+    "apk": ["umbrello"],
+    "flatpak": ["org.kde.umbrello"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/umbrellorc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "umbrellorc is an INI file with the same keys everywhere; the models are .xmi files wherever the user saved them."
+  },
+  "equivalents": ["drawio", "dia"]
+}

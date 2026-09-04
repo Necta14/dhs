@@ -1,0 +1,23 @@
+{
+  "id": "hatari",
+  "name": "Hatari",
+  "summary": "Atari ST, STE, TT and Falcon emulator",
+  "category": "emulator",
+  "homepage": "https://www.hatari-emu.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["hatari"],
+    "apt": ["hatari"],
+    "dnf": ["hatari"],
+    "flatpak": ["org.tuxfamily.hatari"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/hatari"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "hatari.cfg names the TOS image and the emulated hard-disk directories by absolute path. Those images are the user's own and stay where they are."
+  },
+  "equivalents": ["retroarch"]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "mattermost",
+  "name": "Mattermost",
+  "summary": "Desktop client for Mattermost team chat",
+  "category": "chat",
+  "homepage": "https://mattermost.com/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": ["Mattermost.MattermostDesktop"],
+    "choco": ["mattermost-desktop"],
+    "registry": ["Mattermost"],
+    "paths": {
+      "config": "%APPDATA%/Mattermost"
+    }
+  },
+  "linux": {
+    "pacman": ["mattermost-desktop"],
+    "aur": ["mattermost-desktop-bin"],
+    "flatpak": ["com.mattermost.Desktop"],
+    "snap": ["mattermost-desktop"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Mattermost"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker"],
+    "notes": "An Electron application: the settings files are JSON and read the same on both platforms. config.json holds the server list, which is exactly what is worth carrying."
+  },
+  "equivalents": ["rocketchat", "slack", "element"]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "steam",
+  "name": "Steam",
+  "summary": "Game store and launcher by Valve",
+  "category": "launcher",
+  "homepage": "https://store.steampowered.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Valve.Steam"],
+    "choco": ["steam"],
+    "scoop": ["games/steam"],
+    "registry": ["Steam"]
+  },
+  "linux": {
+    "pacman": ["steam"],
+    "apt": ["steam-installer", "steam"],
+    "zypper": ["steam"],
+    "flatpak": ["com.valvesoftware.Steam"],
+    "paths": {
+      "config": "$XDG_DATA_HOME/Steam/config",
+      "userdata": "$XDG_DATA_HOME/Steam/userdata"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["steamapps", "shadercache", "appcache", "htmlcache", "depotcache", "music", "logs", "dumps", "*.log", "*.crash"],
+    "notes": "The game library (steamapps) is never carried: Steam re-downloads it from the account. On Windows the settings and the per-user data live under the installation directory (Program Files (x86)/Steam/config and /userdata), which DHS is not allowed to address, so the Windows section carries only the identifiers; on Linux the same files are under the data directory and are backed up. Cloud saves come back from Steam Cloud on their own."
+  },
+  "equivalents": []
+}

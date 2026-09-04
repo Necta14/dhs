@@ -1,0 +1,32 @@
+{
+  "id": "yt-dlp",
+  "name": "yt-dlp",
+  "summary": "Command-line downloader for video and audio sites",
+  "category": "download",
+  "homepage": "https://github.com/yt-dlp/yt-dlp",
+  "license": "Unlicense",
+  "windows": {
+    "winget": ["yt-dlp.yt-dlp"],
+    "choco": ["yt-dlp"],
+    "scoop": ["yt-dlp"],
+    "paths": {
+      "config": "%APPDATA%/yt-dlp"
+    }
+  },
+  "linux": {
+    "pacman": ["yt-dlp"],
+    "apt": ["yt-dlp"],
+    "dnf": ["yt-dlp"],
+    "zypper": ["yt-dlp"],
+    "apk": ["yt-dlp"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/yt-dlp"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log", "cache"],
+    "notes": "The config file is a list of command-line options, read the same way on both platforms. Only an output template with an absolute path needs a second look."
+  },
+  "equivalents": ["aria2", "motrix"]
+}

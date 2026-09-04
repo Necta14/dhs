@@ -1,0 +1,28 @@
+{
+  "id": "melonds",
+  "name": "melonDS",
+  "summary": "Nintendo DS emulator",
+  "category": "emulator",
+  "homepage": "https://melonds.kuribo64.net/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["melonDS.melonDS"],
+    "scoop": ["games/melonds"],
+    "registry": ["melonDS"]
+  },
+  "linux": {
+    "aur": ["melonds"],
+    "zypper": ["melonds"],
+    "apk": ["melonds"],
+    "flatpak": ["net.kuribo64.melonDS"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/melonDS"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "melonDS.ini and the save files sit in the configuration directory on Linux; the official Windows build is portable and keeps them next to the executable, where DHS does not reach. The DS BIOS and firmware dumps are the user's own and stay where they are."
+  },
+  "equivalents": []
+}

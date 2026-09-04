@@ -1,0 +1,21 @@
+{
+  "id": "gamehub",
+  "name": "GameHub",
+  "summary": "Unified library for Steam, GOG, Humble Bundle and itch.io games",
+  "category": "launcher",
+  "homepage": "https://tkashkin.github.io/projects/gamehub/",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["gamehub"],
+    "dnf": ["gamehub"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/com.github.tkashkin.gamehub"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["cache", "*.log", "compat"],
+    "notes": "Linux only, and no longer developed upstream. games.db records where each game was installed."
+  },
+  "equivalents": ["lutris", "cartridges", "playnite"]
+}

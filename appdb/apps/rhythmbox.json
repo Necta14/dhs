@@ -1,0 +1,25 @@
+{
+  "id": "rhythmbox",
+  "name": "Rhythmbox",
+  "summary": "GNOME music player and library",
+  "category": "music",
+  "homepage": "https://gitlab.gnome.org/GNOME/rhythmbox",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["rhythmbox"],
+    "apt": ["rhythmbox"],
+    "dnf": ["rhythmbox"],
+    "zypper": ["rhythmbox"],
+    "apk": ["rhythmbox"],
+    "flatpak": ["org.gnome.Rhythmbox3"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/rhythmbox"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["rhythmdb.xml", "podcasts", "*.log"],
+    "notes": "Linux only. The settings are in dconf; the data directory is kept for playlists.xml, since rhythmdb.xml is only the scanned library."
+  },
+  "equivalents": ["lollypop", "elisa", "strawberry"]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "winrar",
+  "name": "WinRAR",
+  "summary": "Archiver for RAR and ZIP",
+  "category": "archive",
+  "homepage": "https://www.win-rar.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["RARLab.WinRAR"],
+    "choco": ["winrar"],
+    "registry": ["WinRAR"],
+    "paths": {
+      "config": "%APPDATA%/WinRAR"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Windows only. Most settings are in the registry; the profile directory holds the licence key and the saved dialogs. Nothing on Linux writes RAR archives, only reads them."
+  },
+  "equivalents": ["7zip", "ark", "file-roller", "peazip"]
+}

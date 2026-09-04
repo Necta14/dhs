@@ -1,0 +1,32 @@
+{
+  "id": "openshot",
+  "name": "OpenShot",
+  "summary": "Simple video editor",
+  "category": "video-editor",
+  "homepage": "https://www.openshot.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["OpenShot.OpenShot"],
+    "choco": ["openshot"],
+    "scoop": ["extras/openshot"],
+    "registry": ["OpenShot Video Editor"],
+    "paths": {
+      "config": "%USERPROFILE%/.openshot_qt"
+    }
+  },
+  "linux": {
+    "apt": ["openshot-qt"],
+    "dnf": ["openshot"],
+    "zypper": ["openshot-qt"],
+    "flatpak": ["org.openshot.OpenShot"],
+    "paths": {
+      "config": "~/.openshot_qt"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["blender", "thumbnail", "cache", "*.log", "backup"],
+    "notes": "The same .openshot_qt folder on both platforms, holding openshot.settings and the recent projects. It points at the Blender and ffmpeg executables by absolute path, so it is kept aside rather than dropped in place."
+  },
+  "equivalents": ["shotcut", "kdenlive"]
+}

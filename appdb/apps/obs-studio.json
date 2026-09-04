@@ -1,0 +1,35 @@
+{
+  "id": "obs-studio",
+  "name": "OBS Studio",
+  "summary": "Live streaming and screen recording",
+  "category": "screen-recorder",
+  "homepage": "https://obsproject.com/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["OBSProject.OBSStudio"],
+    "choco": ["obs-studio"],
+    "scoop": ["extras/obs-studio"],
+    "registry": ["OBS Studio"],
+    "paths": {
+      "config": "%APPDATA%/obs-studio"
+    }
+  },
+  "linux": {
+    "pacman": ["obs-studio"],
+    "apt": ["obs-studio"],
+    "dnf": ["obs-studio"],
+    "zypper": ["obs-studio"],
+    "apk": ["obs-studio"],
+    "flatpak": ["com.obsproject.Studio"],
+    "snap": ["obs-studio"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/obs-studio"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["logs", "crashes", "profiler_data", "updates", "plugin_config/*/cache", "*.log"],
+    "notes": "The scene collections and profiles are JSON with the same schema on both platforms, but the sources inside them are platform-bound - game capture and DirectShow on Windows against PipeWire, xcomposite and PulseAudio on Linux - and the media sources hold absolute paths. The stream key is a secret and is left out. Encoder settings naming NVENC or AMF survive if the same card is in the new machine."
+  },
+  "equivalents": ["simplescreenrecorder", "gpu-screen-recorder"]
+}

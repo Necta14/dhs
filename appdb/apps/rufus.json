@@ -1,0 +1,19 @@
+{
+  "id": "rufus",
+  "name": "Rufus",
+  "summary": "Creates bootable USB drives on Windows",
+  "category": "utility",
+  "homepage": "https://rufus.ie/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Rufus.Rufus"],
+    "choco": ["rufus"],
+    "scoop": ["extras/rufus"],
+    "registry": ["Rufus"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only; the few settings sit in the registry or in a rufus.ini next to the executable."
+  },
+  "equivalents": ["ventoy", "popsicle", "impression", "balena-etcher"]
+}

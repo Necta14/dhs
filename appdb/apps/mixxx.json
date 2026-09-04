@@ -1,0 +1,33 @@
+{
+  "id": "mixxx",
+  "name": "Mixxx",
+  "summary": "DJ mixing software",
+  "category": "audio-editor",
+  "homepage": "https://mixxx.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Mixxx.Mixxx"],
+    "choco": ["mixxx"],
+    "registry": ["Mixxx"],
+    "paths": {
+      "settings": "%LOCALAPPDATA%/Mixxx"
+    }
+  },
+  "linux": {
+    "pacman": ["mixxx"],
+    "apt": ["mixxx"],
+    "dnf": ["mixxx"],
+    "zypper": ["mixxx"],
+    "apk": ["mixxx"],
+    "flatpak": ["org.mixxx.Mixxx"],
+    "paths": {
+      "settings": "$XDG_DATA_HOME/mixxx"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["analysis", "*.log", "lost+found"],
+    "notes": "The settings directory carries mixxx.cfg, the controller mappings and mixxxdb.sqlite with the crates, playlists and cue points - the part a DJ cannot rebuild. mixxx.cfg names sound cards and holds absolute library paths, so the directory is kept aside instead of dropped in place. The analysis folder is only waveform cache."
+  },
+  "equivalents": ["reaper"]
+}

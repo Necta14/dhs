@@ -1,0 +1,35 @@
+{
+  "id": "freecad",
+  "name": "FreeCAD",
+  "summary": "Parametric 3D modeller for engineering",
+  "category": "cad",
+  "homepage": "https://www.freecad.org/",
+  "license": "LGPL-2.1",
+  "windows": {
+    "winget": ["FreeCAD.FreeCAD"],
+    "choco": ["freecad"],
+    "scoop": ["extras/freecad"],
+    "registry": ["FreeCAD"],
+    "paths": {
+      "config": "%APPDATA%/FreeCAD"
+    }
+  },
+  "linux": {
+    "pacman": ["freecad"],
+    "apt": ["freecad"],
+    "zypper": ["FreeCAD"],
+    "apk": ["freecad"],
+    "flatpak": ["org.freecad.FreeCAD"],
+    "snap": ["freecad"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/FreeCAD",
+      "data": "$XDG_DATA_HOME/FreeCAD"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["Cache", "*.log", "*.lock"],
+    "notes": "user.cfg holds the preferences and the workbench list, with absolute paths to the macro and Mod directories. The add-ons under Mod are Python and travel; openSUSE calls the package FreeCAD, with capitals."
+  },
+  "equivalents": ["openscad", "librecad", "blender"]
+}

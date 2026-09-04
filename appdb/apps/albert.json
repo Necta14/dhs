@@ -1,0 +1,19 @@
+{
+  "id": "albert",
+  "name": "Albert",
+  "summary": "Keyboard launcher for Linux",
+  "category": "launcher",
+  "homepage": "https://albertlauncher.github.io/",
+  "linux": {
+    "aur": ["albert"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/albert",
+      "data": "$XDG_DATA_HOME/albert"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The plugin settings name binaries and paths on the machine."
+  },
+  "equivalents": ["ulauncher", "rofi", "flow-launcher"]
+}

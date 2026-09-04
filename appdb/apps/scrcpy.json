@@ -1,0 +1,24 @@
+{
+  "id": "scrcpy",
+  "name": "scrcpy",
+  "summary": "Shows and controls an Android phone from the desktop",
+  "category": "utility",
+  "homepage": "https://github.com/Genymobile/scrcpy",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": ["Genymobile.scrcpy"],
+    "choco": ["scrcpy"],
+    "scoop": ["extras/scrcpy"]
+  },
+  "linux": {
+    "pacman": ["scrcpy"],
+    "apt": ["scrcpy"],
+    "zypper": ["scrcpy"],
+    "apk": ["scrcpy"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Everything is given on the command line."
+  },
+  "equivalents": ["android-tools"]
+}

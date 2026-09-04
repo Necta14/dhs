@@ -1,0 +1,28 @@
+{
+  "id": "dosbox-staging",
+  "name": "DOSBox Staging",
+  "summary": "Modernised fork of DOSBox",
+  "category": "emulator",
+  "homepage": "https://www.dosbox-staging.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["DOSBoxStaging.DOSBoxStaging"],
+    "scoop": ["extras/dosbox-staging"],
+    "registry": ["DOSBox Staging"]
+  },
+  "linux": {
+    "aur": ["dosbox-staging"],
+    "dnf": ["dosbox-staging"],
+    "apk": ["dosbox-staging"],
+    "flatpak": ["io.github.dosbox-staging"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/dosbox"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "plugins"],
+    "notes": "dosbox-staging.conf shares the configuration directory with DOSBox on Linux. Its mount lines are absolute host paths."
+  },
+  "equivalents": ["dosbox", "dosbox-x"]
+}

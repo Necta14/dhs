@@ -1,0 +1,36 @@
+{
+  "id": "gdb",
+  "name": "GDB",
+  "summary": "GNU debugger",
+  "category": "devtool",
+  "homepage": "https://www.sourceware.org/gdb/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": [
+      "gdb"
+    ],
+    "apt": [
+      "gdb"
+    ],
+    "dnf": [
+      "gdb"
+    ],
+    "zypper": [
+      "gdb"
+    ],
+    "apk": [
+      "gdb"
+    ],
+    "paths": {
+      "gdbinit": "~/.gdbinit",
+      "config": "$XDG_CONFIG_HOME/gdb"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": ".gdbinit is a plain script. On Windows GDB comes with a MinGW or MSYS2 toolchain rather than as a package of its own."
+  },
+  "equivalents": [
+    "mingw-w64"
+  ]
+}

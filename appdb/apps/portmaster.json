@@ -1,0 +1,20 @@
+{
+  "id": "portmaster",
+  "name": "Portmaster",
+  "summary": "Application firewall and DNS filter",
+  "category": "security",
+  "homepage": "https://safing.io/portmaster/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Safing.Portmaster"],
+    "registry": ["Portmaster"]
+  },
+  "linux": {
+    "aur": ["portmaster-bin"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Settings and rules live in the service's own data directory outside the user's home."
+  },
+  "equivalents": ["opensnitch", "gufw"]
+}

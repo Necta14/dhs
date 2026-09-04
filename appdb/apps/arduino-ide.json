@@ -1,0 +1,55 @@
+{
+  "id": "arduino-ide",
+  "name": "Arduino IDE",
+  "summary": "Editor and toolchain front end for Arduino boards",
+  "category": "ide",
+  "homepage": "https://www.arduino.cc/en/software",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": [
+      "ArduinoSA.IDE.stable"
+    ],
+    "choco": [
+      "arduino"
+    ],
+    "scoop": [
+      "extras/arduino"
+    ],
+    "registry": [
+      "Arduino IDE"
+    ],
+    "paths": {
+      "config": "%APPDATA%/arduino-ide"
+    }
+  },
+  "linux": {
+    "aur": [
+      "arduino-ide-bin"
+    ],
+    "flatpak": [
+      "cc.arduino.IDE2"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/arduino-ide"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "Cache",
+      "Code Cache",
+      "GPUCache",
+      "DawnCache",
+      "blob_storage",
+      "logs",
+      "*.log",
+      "Crashpad",
+      "Service Worker"
+    ],
+    "notes": "Arduino IDE 2 is an Electron application and keeps its settings as JSON. The downloaded board cores and libraries under .arduino15 are per-platform toolchains and are re-installed by the IDE, not carried."
+  },
+  "equivalents": [
+    "vscodium",
+    "geany"
+  ]
+}

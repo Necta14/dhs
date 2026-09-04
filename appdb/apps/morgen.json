@@ -1,0 +1,21 @@
+{
+  "id": "morgen",
+  "name": "Morgen",
+  "summary": "Calendar and task planner that pulls several accounts together",
+  "category": "productivity",
+  "homepage": "https://www.morgen.so/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Morgen.Morgen"],
+    "choco": ["morgen"],
+    "registry": ["Morgen"]
+  },
+  "linux": {
+    "aur": ["morgen-bin"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The calendars and tasks come from the connected accounts and are fetched again after sign-in."
+  },
+  "equivalents": ["gnome-calendar", "merkuro"]
+}

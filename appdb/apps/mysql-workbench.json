@@ -1,0 +1,49 @@
+{
+  "id": "mysql-workbench",
+  "name": "MySQL Workbench",
+  "summary": "Visual tool for MySQL and MariaDB",
+  "category": "database",
+  "homepage": "https://www.mysql.com/products/workbench/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": [
+      "Oracle.MySQLWorkbench"
+    ],
+    "choco": [
+      "mysql.workbench"
+    ],
+    "scoop": [
+      "mysql-workbench"
+    ],
+    "registry": [
+      "MySQL Workbench"
+    ],
+    "paths": {
+      "config": "%APPDATA%/MySQL/Workbench"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "mysql-workbench"
+    ],
+    "paths": {
+      "config": "~/.mysql/workbench"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "log",
+      "logs",
+      "*.log",
+      "cache",
+      "sql_history"
+    ],
+    "notes": "connections.xml records driver names and file paths that differ between the platforms."
+  },
+  "equivalents": [
+    "dbeaver",
+    "beekeeper-studio",
+    "datagrip"
+  ]
+}

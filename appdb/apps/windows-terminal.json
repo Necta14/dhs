@@ -1,0 +1,40 @@
+{
+  "id": "windows-terminal",
+  "name": "Windows Terminal",
+  "summary": "Tabbed terminal host for Windows",
+  "category": "terminal",
+  "homepage": "https://github.com/microsoft/terminal",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "Microsoft.WindowsTerminal"
+    ],
+    "choco": [
+      "microsoft-windows-terminal"
+    ],
+    "scoop": [
+      "extras/windows-terminal"
+    ],
+    "registry": [
+      "Windows Terminal"
+    ],
+    "paths": {
+      "settings": "%LOCALAPPDATA%/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState",
+      "settings-unpackaged": "%LOCALAPPDATA%/Microsoft/Windows Terminal"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": [
+      "*.log",
+      "state.json"
+    ],
+    "notes": "Windows only. settings.json describes profiles by Windows GUID and by command line (PowerShell, WSL), none of which mean anything on Linux, so it is kept aside."
+  },
+  "equivalents": [
+    "kitty",
+    "konsole",
+    "gnome-terminal",
+    "alacritty"
+  ]
+}

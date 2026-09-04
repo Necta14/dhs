@@ -1,0 +1,23 @@
+{
+  "id": "autokey",
+  "name": "AutoKey",
+  "summary": "Keyboard automation and text expansion for Linux",
+  "category": "utility",
+  "homepage": "https://github.com/autokey/autokey",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["autokey-gtk"],
+    "apt": ["autokey-gtk", "autokey-qt"],
+    "dnf": ["autokey-gtk"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/autokey",
+      "data": "$XDG_DATA_HOME/autokey"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "logs"],
+    "notes": "Linux and X11 only. The phrases and scripts live under the data directory."
+  },
+  "equivalents": ["espanso", "autohotkey"]
+}

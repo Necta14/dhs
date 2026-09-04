@@ -1,0 +1,32 @@
+{
+  "id": "hedgewars",
+  "name": "Hedgewars",
+  "summary": "Open source turn-based artillery game",
+  "category": "gaming",
+  "homepage": "https://www.hedgewars.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Hedgewars.Hedgewars"],
+    "choco": ["hedgewars"],
+    "scoop": ["games/hedgewars"],
+    "registry": ["Hedgewars"],
+    "paths": {
+      "data": "%APPDATA%/Hedgewars"
+    }
+  },
+  "linux": {
+    "pacman": ["hedgewars"],
+    "apt": ["hedgewars"],
+    "dnf": ["hedgewars"],
+    "flatpak": ["org.hedgewars.Hedgewars"],
+    "paths": {
+      "data": "~/.hedgewars"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["Logs", "logs", "*.log", "VideoTemp", "Videos"],
+    "notes": "The teams, the schemes and the saved games are the same files on both platforms; only the folder they live in differs."
+  },
+  "equivalents": []
+}

@@ -1,0 +1,29 @@
+{
+  "id": "clementine",
+  "name": "Clementine",
+  "summary": "Music player and library organiser",
+  "category": "music",
+  "homepage": "https://www.clementine-player.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Clementine.Clementine"],
+    "scoop": ["extras/clementine"],
+    "registry": ["Clementine"],
+    "paths": {
+      "config": "%APPDATA%/Clementine"
+    }
+  },
+  "linux": {
+    "flatpak": ["org.clementine_player.Clementine"],
+    "snap": ["clementine"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Clementine"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["clementine.db", "clementine.db-*", "albumcovers", "*.log"],
+    "notes": "Clementine.conf keeps the same keys everywhere, but the audio engine it names is a GStreamer sink on Linux and a DirectSound device on Windows. clementine.db is the scanned library, rebuilt from the music itself."
+  },
+  "equivalents": ["strawberry", "quodlibet", "musicbee"]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "openrgb",
+  "name": "OpenRGB",
+  "summary": "Controls RGB lighting without vendor software",
+  "category": "utility",
+  "homepage": "https://openrgb.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["CalcProgrammer.OpenRGB"],
+    "choco": ["openrgb"],
+    "scoop": ["extras/openrgb"],
+    "registry": ["OpenRGB"]
+  },
+  "linux": {
+    "pacman": ["openrgb"],
+    "dnf": ["openrgb"],
+    "zypper": ["OpenRGB"],
+    "apk": ["openrgb"],
+    "flatpak": ["org.openrgb.OpenRGB"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/OpenRGB"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "logs"],
+    "notes": "The profiles are the same JSON, but the Windows build keeps them beside the executable by default and the device list depends on the hardware found."
+  },
+  "equivalents": ["openrazer", "msi-afterburner"]
+}

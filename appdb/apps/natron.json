@@ -1,0 +1,22 @@
+{
+  "id": "natron",
+  "name": "Natron",
+  "summary": "Node-based compositing for visual effects",
+  "category": "video-editor",
+  "homepage": "https://natrongithub.github.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Natron.Natron"],
+    "choco": ["natron"],
+    "scoop": ["extras/natron"],
+    "registry": ["Natron"]
+  },
+  "linux": {
+    "flatpak": ["fr.natron.Natron"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Preferences are a short list of Qt settings plus the OFX plugin search paths, and those paths name directories that do not exist on the other machine. Nothing is carried; the projects themselves are files."
+  },
+  "equivalents": ["blender", "kdenlive"]
+}

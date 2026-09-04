@@ -1,0 +1,18 @@
+{
+  "id": "tlpui",
+  "name": "TLP UI",
+  "summary": "Graphical editor for the TLP configuration",
+  "category": "system",
+  "homepage": "https://github.com/d4nj1/TLP-UI",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["tlpui"],
+    "aur": ["tlpui"],
+    "zypper": ["tlpui"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Edits /etc/tlp.conf; it keeps nothing of its own."
+  },
+  "equivalents": ["tlp"]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "betterbird",
+  "name": "Betterbird",
+  "summary": "Thunderbird fork with extra fixes and features",
+  "category": "email",
+  "homepage": "https://www.betterbird.eu/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": ["Betterbird.Betterbird"],
+    "choco": ["betterbird"],
+    "scoop": ["extras/betterbird"],
+    "registry": ["Betterbird"],
+    "paths": {
+      "profiles": "%APPDATA%/Betterbird"
+    }
+  },
+  "linux": {
+    "aur": ["betterbird-bin"],
+    "flatpak": ["eu.betterbird.Betterbird"],
+    "paths": {
+      "profiles": "~/.betterbird"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache2", "startupCache", "crashes", "minidumps", "ImapMail", "global-messages-db.sqlite", "*.msf", "*.lock", "lock", "parent.lock"],
+    "notes": "A Thunderbird profile in every respect; the same rules apply."
+  },
+  "equivalents": ["thunderbird", "evolution"]
+}

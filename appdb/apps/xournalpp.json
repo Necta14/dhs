@@ -1,0 +1,33 @@
+{
+  "id": "xournalpp",
+  "name": "Xournal++",
+  "summary": "Handwritten notes and PDF annotation with a stylus",
+  "category": "pdf",
+  "homepage": "https://xournalpp.github.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Xournal++.Xournal++"],
+    "scoop": ["extras/xournalpp"],
+    "registry": ["Xournal++"],
+    "paths": {
+      "config": "%APPDATA%/xournalpp"
+    }
+  },
+  "linux": {
+    "pacman": ["xournalpp"],
+    "apt": ["xournalpp"],
+    "dnf": ["xournalpp"],
+    "zypper": ["xournalpp"],
+    "apk": ["xournalpp"],
+    "flatpak": ["com.github.xournalpp.xournalpp"],
+    "snap": ["xournalpp"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/xournalpp"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["errorlogs", "*.log"],
+    "notes": "settings.xml, the toolbar layout, palettes and templates have the same format on both platforms. Lua plugins travel with them."
+  }
+}

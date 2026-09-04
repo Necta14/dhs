@@ -1,0 +1,32 @@
+{
+  "id": "teeworlds",
+  "name": "Teeworlds",
+  "summary": "Open source 2D multiplayer shooter",
+  "category": "gaming",
+  "homepage": "https://www.teeworlds.com/",
+  "license": "Zlib",
+  "windows": {
+    "choco": ["teeworlds"],
+    "scoop": ["games/teeworlds"],
+    "registry": ["Teeworlds"],
+    "paths": {
+      "data": "%APPDATA%/Teeworlds"
+    }
+  },
+  "linux": {
+    "pacman": ["teeworlds"],
+    "apt": ["teeworlds"],
+    "dnf": ["teeworlds"],
+    "zypper": ["teeworlds"],
+    "flatpak": ["com.teeworlds.Teeworlds"],
+    "paths": {
+      "data": "~/.teeworlds"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "screenshots", "dumps"],
+    "notes": "settings.cfg holds the player name, the key bindings and the server favourites in the same syntax everywhere; only the folder differs."
+  },
+  "equivalents": ["ddnet"]
+}

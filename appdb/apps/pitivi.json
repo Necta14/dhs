@@ -1,0 +1,24 @@
+{
+  "id": "pitivi",
+  "name": "Pitivi",
+  "summary": "GNOME video editor",
+  "category": "video-editor",
+  "homepage": "https://www.pitivi.org/",
+  "license": "LGPL-2.1",
+  "linux": {
+    "pacman": ["pitivi"],
+    "apt": ["pitivi"],
+    "dnf": ["pitivi"],
+    "zypper": ["pitivi"],
+    "flatpak": ["org.pitivi.Pitivi"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/pitivi"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log"],
+    "notes": "Linux only. The configuration directory holds pitivi.conf and the custom presets for rendering."
+  },
+  "equivalents": ["kdenlive", "shotcut", "flowblade"]
+}

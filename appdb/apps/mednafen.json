@@ -1,0 +1,29 @@
+{
+  "id": "mednafen",
+  "name": "Mednafen",
+  "summary": "Multi-system command-line emulator",
+  "category": "emulator",
+  "homepage": "https://mednafen.github.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["mednafen"],
+    "scoop": ["games/mednafen"],
+    "registry": ["Mednafen"]
+  },
+  "linux": {
+    "pacman": ["mednafen"],
+    "apt": ["mednafen"],
+    "dnf": ["mednafen"],
+    "zypper": ["mednafen"],
+    "apk": ["mednafen"],
+    "paths": {
+      "config": "~/.mednafen"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cheats", "snaps", "pgcache"],
+    "notes": "mednafen.cfg, the save states and the battery saves are in this directory on Linux; the Windows build keeps the same files next to its own executable."
+  },
+  "equivalents": ["retroarch", "ares"]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "conky",
+  "name": "Conky",
+  "summary": "Draws system information on the desktop",
+  "category": "system",
+  "homepage": "https://github.com/brndnmtthws/conky",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["conky"],
+    "apt": ["conky"],
+    "dnf": ["conky"],
+    "zypper": ["conky"],
+    "apk": ["conky"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/conky"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The configuration is a Lua script that reads /proc and /sys."
+  },
+  "equivalents": ["fastfetch"]
+}

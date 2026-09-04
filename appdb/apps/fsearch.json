@@ -1,0 +1,22 @@
+{
+  "id": "fsearch",
+  "name": "FSearch",
+  "summary": "Instant file name search for Linux",
+  "category": "utility",
+  "homepage": "https://github.com/cboxdoerfer/fsearch",
+  "license": "GPL-2.0",
+  "linux": {
+    "aur": ["fsearch"],
+    "apt": ["fsearch"],
+    "flatpak": ["io.github.cboxdoerfer.FSearch"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/fsearch"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["database.db"],
+    "notes": "Linux only. The indexed folders are absolute paths; the database itself is rebuilt on first start."
+  },
+  "equivalents": ["everything"]
+}

@@ -1,0 +1,53 @@
+{
+  "id": "tabby",
+  "name": "Tabby",
+  "summary": "Configurable terminal and SSH client",
+  "category": "terminal",
+  "homepage": "https://tabby.sh/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "Eugeny.Tabby"
+    ],
+    "choco": [
+      "tabby"
+    ],
+    "scoop": [
+      "extras/tabby"
+    ],
+    "registry": [
+      "Tabby"
+    ],
+    "paths": {
+      "config": "%APPDATA%/tabby"
+    }
+  },
+  "linux": {
+    "aur": [
+      "tabby-bin"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/tabby"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "Cache",
+      "Code Cache",
+      "GPUCache",
+      "DawnCache",
+      "blob_storage",
+      "logs",
+      "*.log",
+      "Crashpad",
+      "Service Worker"
+    ],
+    "notes": "config.yaml holds the profiles and the saved SSH connections in the same form on both platforms."
+  },
+  "equivalents": [
+    "hyper",
+    "wezterm",
+    "windows-terminal"
+  ]
+}

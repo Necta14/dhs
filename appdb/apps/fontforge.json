@@ -1,0 +1,31 @@
+{
+  "id": "fontforge",
+  "name": "FontForge",
+  "summary": "Font editor",
+  "category": "fonts",
+  "homepage": "https://fontforge.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["FontForge.FontForge"],
+    "choco": ["fontforge"],
+    "scoop": ["extras/fontforge"],
+    "registry": ["FontForge"]
+  },
+  "linux": {
+    "pacman": ["fontforge"],
+    "apt": ["fontforge"],
+    "dnf": ["fontforge"],
+    "zypper": ["fontforge"],
+    "apk": ["fontforge"],
+    "flatpak": ["org.fontforge.FontForge"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/fontforge"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "autosave"],
+    "notes": "The configuration directory keeps the preferences, the scripting menu and the recent files. The Windows build runs under MSYS2 and puts them elsewhere, so the directory is kept aside."
+  },
+  "equivalents": ["birdfont"]
+}

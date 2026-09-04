@@ -1,0 +1,21 @@
+{
+  "id": "gnome-system-monitor",
+  "name": "System Monitor",
+  "summary": "GNOME process and resource monitor",
+  "category": "system",
+  "homepage": "https://apps.gnome.org/SystemMonitor/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["gnome-system-monitor"],
+    "apt": ["gnome-system-monitor"],
+    "dnf": ["gnome-system-monitor"],
+    "zypper": ["gnome-system-monitor"],
+    "apk": ["gnome-system-monitor"],
+    "flatpak": ["org.gnome.SystemMonitor"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Column choices live in dconf."
+  },
+  "equivalents": ["plasma-systemmonitor", "mission-center", "resources", "htop"]
+}

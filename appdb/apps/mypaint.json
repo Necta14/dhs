@@ -1,0 +1,34 @@
+{
+  "id": "mypaint",
+  "name": "MyPaint",
+  "summary": "Painting program for graphics tablets",
+  "category": "graphics",
+  "homepage": "https://mypaint.app/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["MyPaint.MyPaint"],
+    "choco": ["mypaint"],
+    "scoop": ["extras/mypaint"],
+    "registry": ["MyPaint"],
+    "paths": {
+      "config": "%APPDATA%/mypaint"
+    }
+  },
+  "linux": {
+    "pacman": ["mypaint"],
+    "apt": ["mypaint"],
+    "dnf": ["mypaint"],
+    "zypper": ["mypaint"],
+    "apk": ["mypaint"],
+    "flatpak": ["org.mypaint.MyPaint"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/mypaint"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log", "backgrounds/cache"],
+    "notes": "settings.json and the brush directory are the same files on both platforms; a brush the user drew with on Windows behaves identically on Linux."
+  },
+  "equivalents": ["krita", "gimp", "drawing"]
+}

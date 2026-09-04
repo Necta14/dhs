@@ -1,0 +1,29 @@
+{
+  "id": "openssh",
+  "name": "OpenSSH",
+  "summary": "SSH client and server",
+  "category": "remote-desktop",
+  "homepage": "https://www.openssh.com/",
+  "windows": {
+    "choco": ["openssh"],
+    "paths": {
+      "ssh": "%USERPROFILE%/.ssh"
+    }
+  },
+  "linux": {
+    "pacman": ["openssh"],
+    "apt": ["openssh-client"],
+    "dnf": ["openssh-clients"],
+    "zypper": ["openssh"],
+    "apk": ["openssh"],
+    "paths": {
+      "ssh": "~/.ssh"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["known_hosts.old", "*.sock", "environment"],
+    "notes": "config and known_hosts are the same text on both platforms; only ProxyCommand lines and absolute IdentityFile paths may need a look. The private keys are secrets and travel only with --secrets. Windows ships OpenSSH as an optional feature, which is why no winget name is given."
+  },
+  "equivalents": ["putty"]
+}

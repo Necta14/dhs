@@ -1,0 +1,23 @@
+{
+  "id": "pcmanfm-qt",
+  "name": "PCManFM-Qt",
+  "summary": "LXQt file manager",
+  "category": "file-manager",
+  "homepage": "https://github.com/lxqt/pcmanfm-qt",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["pcmanfm-qt"],
+    "apt": ["pcmanfm-qt"],
+    "dnf": ["pcmanfm-qt"],
+    "zypper": ["pcmanfm-qt"],
+    "apk": ["pcmanfm-qt"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/pcmanfm-qt"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only."
+  },
+  "equivalents": ["thunar", "dolphin", "nautilus"]
+}

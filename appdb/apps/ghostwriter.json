@@ -1,0 +1,33 @@
+{
+  "id": "ghostwriter",
+  "name": "ghostwriter",
+  "summary": "Distraction-free Markdown editor",
+  "category": "notes",
+  "homepage": "https://ghostwriter.kde.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["KDE.ghostwriter"],
+    "choco": ["ghostwriter"],
+    "scoop": ["extras/ghostwriter"],
+    "registry": ["ghostwriter"],
+    "paths": {
+      "config": "%APPDATA%/ghostwriter"
+    }
+  },
+  "linux": {
+    "pacman": ["ghostwriter"],
+    "apt": ["ghostwriter"],
+    "dnf": ["ghostwriter"],
+    "zypper": ["ghostwriter"],
+    "apk": ["ghostwriter"],
+    "flatpak": ["org.kde.ghostwriter"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ghostwriter"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The settings file and the user themes and dictionaries have the same layout on both platforms."
+  },
+  "equivalents": ["marktext", "typora", "focuswriter"]
+}

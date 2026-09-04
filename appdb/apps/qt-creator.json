@@ -1,0 +1,55 @@
+{
+  "id": "qt-creator",
+  "name": "Qt Creator",
+  "summary": "IDE for Qt and C++ development",
+  "category": "ide",
+  "homepage": "https://www.qt.io/product/development-tools",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": [
+      "TheQtCompanyLtd.QtCreator"
+    ],
+    "choco": [
+      "qtcreator"
+    ],
+    "scoop": [
+      "extras/qt-creator"
+    ],
+    "registry": [
+      "Qt Creator"
+    ],
+    "paths": {
+      "config": "%APPDATA%/QtProject"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "qtcreator"
+    ],
+    "apt": [
+      "qtcreator"
+    ],
+    "dnf": [
+      "qt-creator"
+    ],
+    "flatpak": [
+      "io.qt.QtCreator"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/QtProject"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "*.lock",
+      "qtc-*"
+    ],
+    "notes": "The QtProject directory is a set of Qt INI files that name kits, compilers and Qt versions by absolute path; those paths do not exist on the other system."
+  },
+  "equivalents": [
+    "kdevelop",
+    "clion",
+    "codeblocks"
+  ]
+}

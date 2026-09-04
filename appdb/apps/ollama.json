@@ -1,0 +1,35 @@
+{
+  "id": "ollama",
+  "name": "Ollama",
+  "summary": "Runs large language models locally",
+  "category": "devtool",
+  "homepage": "https://ollama.com/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "Ollama.Ollama"
+    ],
+    "scoop": [
+      "ollama"
+    ],
+    "registry": [
+      "Ollama"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "ollama"
+    ],
+    "dnf": [
+      "ollama"
+    ],
+    "zypper": [
+      "ollama"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The models are many gigabytes and are pulled again with ollama pull; what remains is a key pair that identifies the machine."
+  },
+  "equivalents": []
+}

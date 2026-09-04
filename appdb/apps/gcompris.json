@@ -1,0 +1,33 @@
+{
+  "id": "gcompris",
+  "name": "GCompris",
+  "summary": "Educational activity suite for children aged 2 to 10",
+  "category": "education",
+  "homepage": "https://gcompris.net/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["KDE.GCompris"],
+    "registry": ["GCompris"],
+    "paths": {
+      "config": "%APPDATA%/gcompris",
+      "data": "%LOCALAPPDATA%/gcompris"
+    }
+  },
+  "linux": {
+    "pacman": ["gcompris-qt"],
+    "apt": ["gcompris-qt"],
+    "dnf": ["gcompris-qt"],
+    "zypper": ["gcompris-qt"],
+    "apk": ["gcompris-qt"],
+    "flatpak": ["org.kde.gcompris"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/gcompris",
+      "data": "$XDG_DATA_HOME/gcompris"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log"],
+    "notes": "gcompris.conf keeps the difficulty settings and the enabled activities; the data directory holds the children's profiles and their progress."
+  }
+}

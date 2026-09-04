@@ -1,0 +1,30 @@
+{
+  "id": "teamspeak",
+  "name": "TeamSpeak",
+  "summary": "Voice chat for gaming communities",
+  "category": "chat",
+  "homepage": "https://www.teamspeak.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["TeamSpeakSystems.TeamSpeakClient"],
+    "choco": ["teamspeak"],
+    "scoop": ["extras/teamspeak3"],
+    "registry": ["TeamSpeak 3 Client"],
+    "paths": {
+      "config": "%APPDATA%/TS3Client"
+    }
+  },
+  "linux": {
+    "aur": ["teamspeak"],
+    "flatpak": ["com.teamspeak.TeamSpeak"],
+    "paths": {
+      "config": "~/.ts3client"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "logs", "*.log", "crashdumps"],
+    "notes": "The bookmark list and the identities are in SQLite files with the same schema, but settings.db also holds absolute plugin and sound-pack paths, so the directory is kept aside. The identity can be exported from inside the client."
+  },
+  "equivalents": ["mumble", "discord"]
+}

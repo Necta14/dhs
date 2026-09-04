@@ -1,0 +1,34 @@
+{
+  "id": "hexchat",
+  "name": "HexChat",
+  "summary": "GTK IRC client",
+  "category": "chat",
+  "homepage": "https://hexchat.github.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["HexChat.HexChat"],
+    "choco": ["hexchat"],
+    "scoop": ["extras/hexchat"],
+    "registry": ["HexChat"],
+    "paths": {
+      "config": "%APPDATA%/HexChat"
+    }
+  },
+  "linux": {
+    "aur": ["hexchat"],
+    "apt": ["hexchat"],
+    "dnf": ["hexchat"],
+    "zypper": ["hexchat"],
+    "apk": ["hexchat"],
+    "flatpak": ["io.github.Hexchat"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/hexchat"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["logs", "*.log", "scrollback"],
+    "notes": "hexchat.conf and servlist.conf are plain text with the same keys on both platforms. Arch dropped HexChat from the official repositories; on Arch it comes from the AUR."
+  },
+  "equivalents": ["konversation", "quassel", "weechat"]
+}

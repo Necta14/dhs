@@ -1,0 +1,23 @@
+{
+  "id": "spotube",
+  "name": "Spotube",
+  "summary": "Spotify client that plays from open sources",
+  "category": "music",
+  "homepage": "https://spotube.krtirtho.dev/",
+  "license": "BSD-4-Clause",
+  "windows": {
+    "winget": ["KRTirtho.Spotube"],
+    "choco": ["spotube"],
+    "scoop": ["extras/spotube"],
+    "registry": ["Spotube"]
+  },
+  "linux": {
+    "aur": ["spotube-bin"],
+    "flatpak": ["com.github.KRTirtho.Spotube"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The library follows the linked Spotify account; the local state is a download cache and a login token, and the token is not something to carry to another machine."
+  },
+  "equivalents": ["nuclear", "spotify"]
+}

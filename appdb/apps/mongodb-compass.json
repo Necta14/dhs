@@ -1,0 +1,55 @@
+{
+  "id": "mongodb-compass",
+  "name": "MongoDB Compass",
+  "summary": "Graphical client for MongoDB",
+  "category": "database",
+  "homepage": "https://www.mongodb.com/products/tools/compass",
+  "license": "SSPL-1.0",
+  "windows": {
+    "winget": [
+      "MongoDB.Compass.Full"
+    ],
+    "choco": [
+      "mongodb-compass"
+    ],
+    "scoop": [
+      "extras/mongodb-compass"
+    ],
+    "registry": [
+      "MongoDB Compass"
+    ],
+    "paths": {
+      "config": "%APPDATA%/MongoDB Compass"
+    }
+  },
+  "linux": {
+    "aur": [
+      "mongodb-compass"
+    ],
+    "flatpak": [
+      "com.mongodb.Compass"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/MongoDB Compass"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "Cache",
+      "Code Cache",
+      "GPUCache",
+      "DawnCache",
+      "blob_storage",
+      "logs",
+      "*.log",
+      "Crashpad",
+      "Service Worker"
+    ],
+    "notes": "An Electron application; the saved connections and preferences are JSON in the same layout."
+  },
+  "equivalents": [
+    "dbeaver",
+    "datagrip"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "id": "krdc",
+  "name": "KRDC",
+  "summary": "KDE remote desktop client for RDP and VNC",
+  "category": "remote-desktop",
+  "homepage": "https://apps.kde.org/krdc/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["krdc"],
+    "apt": ["krdc"],
+    "dnf": ["krdc"],
+    "zypper": ["krdc"],
+    "apk": ["krdc"],
+    "flatpak": ["org.kde.krdc"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/krdcrc"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only."
+  },
+  "equivalents": ["remmina", "gnome-connections", "tigervnc"]
+}

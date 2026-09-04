@@ -1,0 +1,32 @@
+{
+  "id": "skrooge",
+  "name": "Skrooge",
+  "summary": "KDE personal finance manager",
+  "category": "finance",
+  "homepage": "https://skrooge.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["KDE.Skrooge"],
+    "registry": ["Skrooge"],
+    "paths": {
+      "config": "%APPDATA%/skroogerc",
+      "data": "%LOCALAPPDATA%/skrooge"
+    }
+  },
+  "linux": {
+    "pacman": ["skrooge"],
+    "apt": ["skrooge"],
+    "dnf": ["skrooge"],
+    "zypper": ["skrooge"],
+    "flatpak": ["org.kde.skrooge"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/skroogerc",
+      "data": "$XDG_DATA_HOME/skrooge"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "skroogerc is an INI file with the same keys everywhere; the documents are .skg files wherever the user saved them."
+  },
+  "equivalents": ["kmymoney", "gnucash", "homebank"]
+}

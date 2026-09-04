@@ -1,0 +1,31 @@
+{
+  "id": "chatterino",
+  "name": "Chatterino",
+  "summary": "Desktop chat client for Twitch",
+  "category": "streaming",
+  "homepage": "https://chatterino.com/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["ChatterinoTeam.Chatterino"],
+    "choco": ["chatterino"],
+    "scoop": ["extras/chatterino"],
+    "registry": ["Chatterino"],
+    "paths": {
+      "data": "%APPDATA%/Chatterino2"
+    }
+  },
+  "linux": {
+    "dnf": ["chatterino"],
+    "apk": ["chatterino2"],
+    "flatpak": ["com.chatterino.chatterino"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/chatterino"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Logs", "*.log", "Misc"],
+    "notes": "settings.json, the window layout and the per-channel settings are the same files on both platforms. The account token beside them is a secret and travels only with --secrets."
+  },
+  "equivalents": ["streamlink"]
+}

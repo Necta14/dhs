@@ -1,0 +1,30 @@
+{
+  "id": "scilab",
+  "name": "Scilab",
+  "summary": "Numerical computing environment and programming language",
+  "category": "science",
+  "homepage": "https://www.scilab.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Scilab.Scilab"],
+    "choco": ["scilab"],
+    "registry": ["Scilab"],
+    "paths": {
+      "config": "%APPDATA%/Scilab"
+    }
+  },
+  "linux": {
+    "aur": ["scilab-bin", "scilab"],
+    "apt": ["scilab"],
+    "flatpak": ["org.scilab.Scilab"],
+    "paths": {
+      "config": "~/.Scilab"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "history.txt"],
+    "notes": "The per-version user directory holds the preferences and the installed modules, but records absolute paths, so it is kept aside on the other platform."
+  },
+  "equivalents": ["octave"]
+}

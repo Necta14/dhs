@@ -1,0 +1,35 @@
+{
+  "id": "konversation",
+  "name": "Konversation",
+  "summary": "KDE IRC client",
+  "category": "chat",
+  "homepage": "https://apps.kde.org/konversation/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["KDE.Konversation"],
+    "choco": ["konversation"],
+    "registry": ["Konversation"],
+    "paths": {
+      "config": "%APPDATA%/konversationrc",
+      "data": "%LOCALAPPDATA%/konversation"
+    }
+  },
+  "linux": {
+    "pacman": ["konversation"],
+    "apt": ["konversation"],
+    "dnf": ["konversation"],
+    "zypper": ["konversation"],
+    "apk": ["konversation"],
+    "flatpak": ["org.kde.konversation"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/konversationrc",
+      "data": "$XDG_DATA_HOME/konversation"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["logs", "*.log"],
+    "notes": "konversationrc is an INI file with the same keys everywhere: server list, identities, aliases and highlight rules all carry over."
+  },
+  "equivalents": ["hexchat", "quassel", "weechat"]
+}

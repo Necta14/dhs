@@ -1,0 +1,17 @@
+{
+  "id": "opensnitch",
+  "name": "OpenSnitch",
+  "summary": "Interactive outbound firewall for Linux",
+  "category": "security",
+  "homepage": "https://github.com/evilsocket/opensnitch",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["opensnitch"],
+    "apt": ["opensnitch"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The rules belong to the daemon under /etc/opensnitchd and are not user configuration."
+  },
+  "equivalents": ["portmaster", "gufw"]
+}

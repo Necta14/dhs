@@ -1,0 +1,28 @@
+{
+  "id": "legendary",
+  "name": "Legendary",
+  "summary": "Command-line client for the Epic Games store",
+  "category": "launcher",
+  "homepage": "https://github.com/derrod/legendary",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["derrod.legendary"],
+    "scoop": ["games/legendary"],
+    "paths": {
+      "config": "%USERPROFILE%/.config/legendary"
+    }
+  },
+  "linux": {
+    "aur": ["legendary"],
+    "zypper": ["legendary"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/legendary"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["tmp", "metadata", "manifests", "*.log"],
+    "notes": "config.ini and installed.json use the same format on both platforms, but installed.json records where every game was unpacked."
+  },
+  "equivalents": ["heroic-games-launcher", "rare", "epic-games-launcher"]
+}

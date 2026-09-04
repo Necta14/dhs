@@ -1,0 +1,34 @@
+{
+  "id": "labplot",
+  "name": "LabPlot",
+  "summary": "Interactive plotting and analysis of scientific data",
+  "category": "science",
+  "homepage": "https://labplot.kde.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["KDE.LabPlot"],
+    "choco": ["labplot"],
+    "scoop": ["extras/labplot"],
+    "registry": ["LabPlot2", "LabPlot"],
+    "paths": {
+      "config": "%APPDATA%/labplotrc",
+      "data": "%LOCALAPPDATA%/labplot"
+    }
+  },
+  "linux": {
+    "pacman": ["labplot"],
+    "apt": ["labplot"],
+    "dnf": ["LabPlot"],
+    "zypper": ["labplot"],
+    "flatpak": ["org.kde.labplot"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/labplotrc",
+      "data": "$XDG_DATA_HOME/labplot"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "labplotrc is an INI file with the same keys everywhere; the data directory holds the colour maps, templates and example datasets the user added."
+  },
+  "equivalents": ["gnuplot", "octave"]
+}

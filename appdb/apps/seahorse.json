@@ -1,0 +1,21 @@
+{
+  "id": "seahorse",
+  "name": "Passwords and Keys",
+  "summary": "GNOME manager for the login keyring, GPG and SSH keys",
+  "category": "password-manager",
+  "homepage": "https://apps.gnome.org/Seahorse/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["seahorse"],
+    "apt": ["seahorse"],
+    "dnf": ["seahorse"],
+    "zypper": ["seahorse"],
+    "apk": ["seahorse"],
+    "flatpak": ["org.gnome.seahorse.Application"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Seahorse is only a front end: the passwords are in gnome-keyring and the keys in ~/.gnupg and ~/.ssh. All of those are secrets and are handled separately by DHS."
+  },
+  "equivalents": ["kwalletmanager", "gnome-secrets"]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "total-commander",
+  "name": "Total Commander",
+  "summary": "Two-panel file manager for Windows",
+  "category": "file-manager",
+  "homepage": "https://www.ghisler.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Ghisler.TotalCommander"],
+    "choco": ["totalcommander"],
+    "registry": ["Total Commander"],
+    "paths": {
+      "config": "%APPDATA%/GHISLER"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Windows only. wincmd.ini names drive letters, plugins and external tools; it is kept aside on Linux."
+  },
+  "equivalents": ["double-commander", "krusader", "midnight-commander", "dolphin"]
+}

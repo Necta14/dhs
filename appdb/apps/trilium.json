@@ -1,0 +1,30 @@
+{
+  "id": "trilium",
+  "name": "Trilium Notes",
+  "summary": "Hierarchical note taking with scripting and a local database",
+  "category": "notes",
+  "homepage": "https://github.com/TriliumNext/Trilium",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["TriliumNext.Notes"],
+    "choco": ["trilium-notes"],
+    "scoop": ["extras/trilium"],
+    "registry": ["Trilium Notes", "TriliumNext Notes"],
+    "paths": {
+      "data": "%APPDATA%/trilium-data"
+    }
+  },
+  "linux": {
+    "aur": ["triliumnext-bin", "trilium-next"],
+    "flatpak": ["org.triliumnotes.Trilium"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/trilium-data"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["log", "logs", "*.log", "tmp", "backup"],
+    "notes": "trilium-data holds config.ini and document.db, the whole note tree, in the same layout on both platforms."
+  },
+  "equivalents": ["joplin", "cherrytree", "obsidian"]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "snes9x",
+  "name": "Snes9x",
+  "summary": "Super Nintendo emulator",
+  "category": "emulator",
+  "homepage": "https://www.snes9x.com/",
+  "windows": {
+    "choco": ["snes9x"],
+    "scoop": ["games/snes9x"],
+    "registry": ["Snes9x"]
+  },
+  "linux": {
+    "pacman": ["snes9x-gtk", "snes9x"],
+    "flatpak": ["com.snes9x.Snes9x"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/snes9x"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "The Linux build keeps snes9x.conf, the SRAM saves and the save states in the configuration directory; the Windows build is portable and stores them next to the executable."
+  },
+  "equivalents": []
+}

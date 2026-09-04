@@ -1,0 +1,49 @@
+{
+  "id": "pulsar",
+  "name": "Pulsar",
+  "summary": "Community-maintained continuation of the Atom editor",
+  "category": "editor",
+  "homepage": "https://pulsar-edit.dev/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "Pulsar-Edit.Pulsar"
+    ],
+    "scoop": [
+      "extras/pulsar"
+    ],
+    "registry": [
+      "Pulsar"
+    ],
+    "paths": {
+      "config": "%USERPROFILE%/.pulsar"
+    }
+  },
+  "linux": {
+    "aur": [
+      "pulsar-bin"
+    ],
+    "flatpak": [
+      "dev.pulsar_edit.Pulsar"
+    ],
+    "paths": {
+      "config": "~/.pulsar"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "blob-store",
+      "compile-cache",
+      "storage",
+      "*.log",
+      "packages/*/node_modules"
+    ],
+    "notes": "config.cson, keymap.cson, styles.less and init.js are the same on both platforms. Community packages with native parts are re-installed on the target system."
+  },
+  "equivalents": [
+    "vscodium",
+    "zed",
+    "sublime-text"
+  ]
+}

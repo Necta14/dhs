@@ -1,0 +1,25 @@
+{
+  "id": "meshlab",
+  "name": "MeshLab",
+  "summary": "Processing and cleaning of 3D meshes",
+  "category": "3d",
+  "homepage": "https://www.meshlab.net/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["CNRISTI.MeshLab"],
+    "choco": ["meshlab"],
+    "scoop": ["extras/meshlab"],
+    "registry": ["MeshLab"]
+  },
+  "linux": {
+    "apt": ["meshlab"],
+    "dnf": ["meshlab"],
+    "zypper": ["meshlab"],
+    "flatpak": ["net.meshlab.MeshLab"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "What it remembers between runs is the window layout, the recent files and the last filter parameters, kept in the registry on Windows and in a Qt settings file on Linux. Nothing worth carrying across."
+  },
+  "equivalents": ["blender", "freecad"]
+}

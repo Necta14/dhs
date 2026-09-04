@@ -1,0 +1,21 @@
+{
+  "id": "camtasia",
+  "name": "Camtasia",
+  "summary": "Screen recorder with a video editor",
+  "category": "screen-recorder",
+  "homepage": "https://www.techsmith.com/camtasia/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["TechSmith.Camtasia"],
+    "registry": ["Camtasia"],
+    "paths": {
+      "config": "%APPDATA%/TechSmith"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "Cache", "Updates"],
+    "notes": "Windows only. The folder holds the presets, the themes and the library of intros; the recordings and .camrec projects are personal files kept elsewhere."
+  },
+  "equivalents": ["obs-studio", "kdenlive", "shotcut"]
+}

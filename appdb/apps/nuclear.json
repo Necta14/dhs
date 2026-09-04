@@ -1,0 +1,29 @@
+{
+  "id": "nuclear",
+  "name": "Nuclear",
+  "summary": "Desktop player that streams from free sources",
+  "category": "music",
+  "homepage": "https://nuclear.js.org/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["nukeop.nuclear"],
+    "choco": ["nuclear"],
+    "scoop": ["extras/nuclear"],
+    "registry": ["nuclear"],
+    "paths": {
+      "config": "%APPDATA%/nuclear"
+    }
+  },
+  "linux": {
+    "flatpak": ["com.nuclearplayer.Nuclear"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/nuclear"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker"],
+    "notes": "An Electron application: the settings, the playlists and the plugin list are JSON files that read the same on both platforms."
+  },
+  "equivalents": ["spotify", "spotube"]
+}

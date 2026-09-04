@@ -1,0 +1,27 @@
+{
+  "id": "pomatez",
+  "name": "Pomatez",
+  "summary": "Pomodoro timer with session tracking",
+  "category": "productivity",
+  "homepage": "https://roldanjr.github.io/pomatez/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Zidoro.Pomatez"],
+    "registry": ["Pomatez"],
+    "paths": {
+      "config": "%APPDATA%/pomatez"
+    }
+  },
+  "linux": {
+    "aur": ["pomatez"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/pomatez"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "The timer settings and the session history are stored in the same layout on both platforms."
+  },
+  "equivalents": ["super-productivity"]
+}

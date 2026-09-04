@@ -1,0 +1,30 @@
+{
+  "id": "opentoonz",
+  "name": "OpenToonz",
+  "summary": "2D animation production software",
+  "category": "graphics",
+  "homepage": "https://opentoonz.github.io/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": ["DWANGO.OpenToonz"],
+    "choco": ["opentoonz"],
+    "scoop": ["extras/opentoonz"],
+    "registry": ["OpenToonz"]
+  },
+  "linux": {
+    "pacman": ["opentoonz"],
+    "dnf": ["opentoonz"],
+    "zypper": ["opentoonz"],
+    "flatpak": ["io.github.OpenToonz"],
+    "snap": ["opentoonz"],
+    "paths": {
+      "stuff": "$XDG_CONFIG_HOME/OpenToonz/stuff"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.log", "temp"],
+    "notes": "Everything user-made lives in the stuff folder: the projects, the brushes, the studio palettes and the room layouts. Windows puts the same folder outside the user profile, so it is kept aside and pointed at by hand on the new system."
+  },
+  "equivalents": ["synfig", "pencil2d", "krita"]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "pdf-arranger",
+  "name": "PDF Arranger",
+  "summary": "Reorders, rotates, splits and merges PDF pages",
+  "category": "pdf",
+  "homepage": "https://github.com/pdfarranger/pdfarranger",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["PDFArranger.PDFArranger"],
+    "choco": ["pdfarranger"],
+    "scoop": ["extras/pdfarranger"],
+    "registry": ["PDF Arranger"]
+  },
+  "linux": {
+    "pacman": ["pdfarranger"],
+    "apt": ["pdfarranger"],
+    "dnf": ["pdfarranger"],
+    "zypper": ["pdfarranger"],
+    "apk": ["pdfarranger"],
+    "flatpak": ["com.github.jeromerobert.pdfarranger"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "It keeps only the window size and the last export folder; nothing worth carrying between systems."
+  },
+  "equivalents": ["pdfsam"]
+}

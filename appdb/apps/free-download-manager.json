@@ -1,0 +1,17 @@
+{
+  "id": "free-download-manager",
+  "name": "Free Download Manager",
+  "summary": "Download manager for HTTP and BitTorrent",
+  "category": "download",
+  "homepage": "https://www.freedownloadmanager.org/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["SoftDeluxe.FreeDownloadManager"],
+    "registry": ["Free Download Manager"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The vendor publishes a .deb for Linux from its own site, which no distribution carries, so no Linux section is claimed. The download list and the settings are bound to the installation and are not carried."
+  },
+  "equivalents": ["motrix", "uget", "persepolis"]
+}

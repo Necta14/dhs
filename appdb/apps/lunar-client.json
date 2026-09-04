@@ -1,0 +1,27 @@
+{
+  "id": "lunar-client",
+  "name": "Lunar Client",
+  "summary": "Minecraft client with performance mods and a built-in launcher",
+  "category": "launcher",
+  "homepage": "https://www.lunarclient.com/",
+  "license": "proprietary",
+  "windows": {
+    "registry": ["Lunar Client"],
+    "paths": {
+      "data": "%USERPROFILE%/.lunarclient"
+    }
+  },
+  "linux": {
+    "aur": ["lunar-client"],
+    "flatpak": ["com.lunarclient.LunarClient"],
+    "paths": {
+      "data": "~/.lunarclient"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["offline", "jre", "licenses", "logs", "*.log", "launcher-cache", "textures"],
+    "notes": "The settings and the profiles are carried; the downloaded Java runtimes and game files are re-fetched by the launcher on the first start."
+  },
+  "equivalents": ["prismlauncher", "minecraft-launcher"]
+}

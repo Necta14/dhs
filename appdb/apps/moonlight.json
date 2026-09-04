@@ -1,0 +1,23 @@
+{
+  "id": "moonlight",
+  "name": "Moonlight",
+  "summary": "Client for NVIDIA GameStream and Sunshine",
+  "category": "remote-desktop",
+  "homepage": "https://moonlight-stream.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["MoonlightGameStreamingProject.Moonlight"],
+    "choco": ["moonlight-qt"],
+    "registry": ["Moonlight Game Streaming"]
+  },
+  "linux": {
+    "pacman": ["moonlight-qt"],
+    "apk": ["moonlight-qt"],
+    "flatpak": ["com.moonlight_stream.Moonlight"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The paired hosts are stored with a client certificate tied to the installation; pairing is done again on a new machine."
+  },
+  "equivalents": ["parsec", "sunshine"]
+}

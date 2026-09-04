@@ -1,0 +1,33 @@
+{
+  "id": "kstars",
+  "name": "KStars",
+  "summary": "Desktop planetarium and telescope control",
+  "category": "science",
+  "homepage": "https://kstars.kde.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["KDE.KStars"],
+    "registry": ["KStars"],
+    "paths": {
+      "config": "%APPDATA%/kstarsrc",
+      "data": "%LOCALAPPDATA%/kstars"
+    }
+  },
+  "linux": {
+    "pacman": ["kstars"],
+    "apt": ["kstars"],
+    "dnf": ["kstars"],
+    "zypper": ["kstars"],
+    "apk": ["kstars"],
+    "flatpak": ["org.kde.kstars"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kstarsrc",
+      "data": "$XDG_DATA_HOME/kstars"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log", "logs"],
+    "notes": "kstarsrc is an INI file; the data directory holds the observation log, the user's own sky objects and the equipment profiles. Downloaded star catalogues are large and are fetched again by KStars if missing."
+  }
+}

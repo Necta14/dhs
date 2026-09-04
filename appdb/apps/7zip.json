@@ -1,0 +1,26 @@
+{
+  "id": "7zip",
+  "name": "7-Zip",
+  "summary": "Archiver for 7z, zip, rar and most other formats",
+  "category": "archive",
+  "homepage": "https://www.7-zip.org/",
+  "license": "LGPL-2.1",
+  "windows": {
+    "winget": ["7zip.7zip"],
+    "choco": ["7zip"],
+    "scoop": ["7zip"],
+    "registry": ["7-Zip"]
+  },
+  "linux": {
+    "pacman": ["7zip"],
+    "apt": ["7zip", "p7zip-full"],
+    "dnf": ["7zip", "p7zip"],
+    "zypper": ["7zip"],
+    "apk": ["7zip"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The Windows build keeps its settings in the registry; the Linux 7zz has none. Nothing is carried."
+  },
+  "equivalents": ["ark", "file-roller", "peazip", "xarchiver"]
+}

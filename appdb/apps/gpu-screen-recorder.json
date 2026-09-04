@@ -1,0 +1,18 @@
+{
+  "id": "gpu-screen-recorder",
+  "name": "GPU Screen Recorder",
+  "summary": "Low-overhead screen recorder with instant replay",
+  "category": "screen-recorder",
+  "homepage": "https://git.dec05eba.com/gpu-screen-recorder/about/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["gpu-screen-recorder"],
+    "zypper": ["gpu-screen-recorder"],
+    "flatpak": ["com.dec05eba.gpu_screen_recorder"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only, and driven by command-line flags or by the separate interface. What it stores is the chosen encoder and output folder, both tied to the hardware of the old machine."
+  },
+  "equivalents": ["obs-studio", "simplescreenrecorder", "kooha"]
+}

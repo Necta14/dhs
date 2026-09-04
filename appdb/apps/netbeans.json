@@ -1,0 +1,53 @@
+{
+  "id": "netbeans",
+  "name": "Apache NetBeans",
+  "summary": "Java, PHP and C/C++ integrated development environment",
+  "category": "ide",
+  "homepage": "https://netbeans.apache.org/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Apache.NetBeans"
+    ],
+    "choco": [
+      "NetBeans"
+    ],
+    "scoop": [
+      "extras/netbeans"
+    ],
+    "registry": [
+      "Apache NetBeans"
+    ],
+    "paths": {
+      "userdir": "%APPDATA%/NetBeans"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "netbeans"
+    ],
+    "flatpak": [
+      "org.apache.netbeans"
+    ],
+    "snap": [
+      "netbeans --classic"
+    ],
+    "paths": {
+      "userdir": "~/.netbeans"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "var",
+      "index",
+      "*.log",
+      "logs"
+    ],
+    "notes": "The user directory holds one subdirectory per NetBeans version, with absolute paths to the JDK and to the projects inside."
+  },
+  "equivalents": [
+    "intellij-idea-community",
+    "eclipse"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "ds4windows",
+  "name": "DS4Windows",
+  "summary": "Uses DualShock and DualSense controllers as Xbox controllers on Windows",
+  "category": "utility",
+  "homepage": "https://ds4-windows.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "choco": ["ds4windows"],
+    "scoop": ["extras/ds4windows"],
+    "registry": ["DS4Windows"],
+    "paths": {
+      "config": "%APPDATA%/DS4Windows"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "Logs"],
+    "notes": "Windows only. The profiles drive the ViGEm virtual-controller driver; Linux handles the same controllers in the kernel and needs no equivalent mapping."
+  },
+  "equivalents": ["antimicrox", "sc-controller"]
+}

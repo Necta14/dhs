@@ -1,0 +1,31 @@
+{
+  "id": "librewolf",
+  "name": "LibreWolf",
+  "summary": "Firefox fork without telemetry, hardened by default",
+  "category": "browser",
+  "homepage": "https://librewolf.net/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": ["LibreWolf.LibreWolf"],
+    "choco": ["librewolf"],
+    "scoop": ["extras/librewolf"],
+    "registry": ["LibreWolf"],
+    "paths": {
+      "profiles": "%APPDATA%/librewolf"
+    }
+  },
+  "linux": {
+    "pacman": ["librewolf"],
+    "apk": ["librewolf"],
+    "flatpak": ["io.gitlab.librewolf-community"],
+    "paths": {
+      "profiles": "~/.librewolf"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache2", "startupCache", "thumbnails", "crashes", "minidumps", "datareporting", "saved-telemetry-pings", "storage/default/*/cache", "*.lock", "lock", "parent.lock"],
+    "notes": "A Firefox-style profile directory: the same layout on every platform, and profiles.ini points at profiles by a relative path."
+  },
+  "equivalents": ["firefox", "floorp", "waterfox"]
+}

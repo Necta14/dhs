@@ -1,0 +1,64 @@
+{
+  "id": "vim",
+  "name": "Vim",
+  "summary": "Modal text editor",
+  "category": "editor",
+  "homepage": "https://www.vim.org/",
+  "license": "Vim",
+  "windows": {
+    "winget": [
+      "vim.vim"
+    ],
+    "choco": [
+      "vim"
+    ],
+    "scoop": [
+      "vim"
+    ],
+    "registry": [
+      "Vim"
+    ],
+    "paths": {
+      "vimrc": "%USERPROFILE%/_vimrc",
+      "runtime": "%USERPROFILE%/vimfiles"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "vim",
+      "gvim"
+    ],
+    "apt": [
+      "vim",
+      "vim-gtk3"
+    ],
+    "dnf": [
+      "vim-enhanced"
+    ],
+    "zypper": [
+      "vim"
+    ],
+    "apk": [
+      "vim"
+    ],
+    "paths": {
+      "vimrc": "~/.vimrc",
+      "runtime": "~/.vim"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "undo",
+      "swap",
+      "view",
+      "*.swp",
+      "*.log"
+    ],
+    "notes": "The same Vim script on both platforms; only the names differ (_vimrc and vimfiles on Windows). Plugins with compiled parts have to be rebuilt on the target system."
+  },
+  "equivalents": [
+    "neovim",
+    "helix"
+  ]
+}

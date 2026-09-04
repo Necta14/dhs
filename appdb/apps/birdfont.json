@@ -1,0 +1,20 @@
+{
+  "id": "birdfont",
+  "name": "BirdFont",
+  "summary": "Font editor for TTF, EOT and SVG fonts",
+  "category": "fonts",
+  "homepage": "https://birdfont.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "registry": ["BirdFont"]
+  },
+  "linux": {
+    "pacman": ["birdfont"],
+    "apt": ["birdfont"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "What it stores between runs is the recent files and the window state. The fonts are .bf project files the user keeps wherever they like, and those travel as personal files."
+  },
+  "equivalents": ["fontforge"]
+}

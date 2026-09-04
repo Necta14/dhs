@@ -1,0 +1,52 @@
+{
+  "id": "kubectl",
+  "name": "kubectl",
+  "summary": "Kubernetes command line client",
+  "category": "devtool",
+  "homepage": "https://kubernetes.io/docs/reference/kubectl/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Kubernetes.kubectl"
+    ],
+    "choco": [
+      "kubernetes-cli"
+    ],
+    "scoop": [
+      "kubectl"
+    ],
+    "paths": {
+      "kube": "%USERPROFILE%/.kube"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "kubectl"
+    ],
+    "apt": [
+      "kubectl",
+      "kubernetes-client"
+    ],
+    "zypper": [
+      "kubernetes-client"
+    ],
+    "apk": [
+      "kubectl"
+    ],
+    "paths": {
+      "kube": "~/.kube"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "cache",
+      "http-cache",
+      "*.log"
+    ],
+    "notes": "The kubeconfig file is YAML with the same keys everywhere. It holds cluster credentials, so DHS treats it as a secret and leaves it out unless it is asked for them."
+  },
+  "equivalents": [
+    "helm"
+  ]
+}

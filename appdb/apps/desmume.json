@@ -1,0 +1,27 @@
+{
+  "id": "desmume",
+  "name": "DeSmuME",
+  "summary": "Nintendo DS emulator",
+  "category": "emulator",
+  "homepage": "https://desmume.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["DeSmuMETeam.DeSmuME"],
+    "registry": ["DeSmuME"]
+  },
+  "linux": {
+    "pacman": ["desmume"],
+    "apt": ["desmume"],
+    "apk": ["desmume"],
+    "flatpak": ["org.desmume.DeSmuME"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/desmume"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log"],
+    "notes": "The Linux build keeps its configuration and the battery saves in the configuration directory; the Windows build stores the same settings in the registry and next to its executable."
+  },
+  "equivalents": ["melonds", "retroarch"]
+}

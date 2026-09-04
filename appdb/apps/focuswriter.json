@@ -1,0 +1,31 @@
+{
+  "id": "focuswriter",
+  "name": "FocusWriter",
+  "summary": "Full-screen, distraction-free word processor",
+  "category": "office",
+  "homepage": "https://gottcode.org/focuswriter/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["GottCode.FocusWriter"],
+    "choco": ["focuswriter"],
+    "registry": ["FocusWriter"],
+    "paths": {
+      "config": "%APPDATA%/GottCode"
+    }
+  },
+  "linux": {
+    "pacman": ["focuswriter"],
+    "apt": ["focuswriter"],
+    "dnf": ["focuswriter"],
+    "zypper": ["focuswriter"],
+    "flatpak": ["org.gottcode.FocusWriter"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/GottCode"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "The themes, sounds and daily-goal statistics travel, but the settings name fonts and the session documents by absolute path, so they are kept aside on the other platform."
+  },
+  "equivalents": ["ghostwriter", "libreoffice"]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "pandoc",
+  "name": "Pandoc",
+  "summary": "Converts documents between markup formats",
+  "category": "office",
+  "homepage": "https://pandoc.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["JohnMacFarlane.Pandoc"],
+    "choco": ["pandoc"],
+    "scoop": ["pandoc"],
+    "registry": ["Pandoc"],
+    "paths": {
+      "userdata": "%APPDATA%/pandoc"
+    }
+  },
+  "linux": {
+    "pacman": ["pandoc-cli"],
+    "aur": ["pandoc-bin"],
+    "apt": ["pandoc"],
+    "dnf": ["pandoc"],
+    "paths": {
+      "userdata": "$XDG_DATA_HOME/pandoc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The user data directory holds the custom templates, reference documents, filters and CSL styles, with the same layout on both platforms. Lua filters travel as they are; filters written in another language need that language installed."
+  }
+}

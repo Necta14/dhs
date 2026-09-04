@@ -1,0 +1,31 @@
+{
+  "id": "gnupg",
+  "name": "GnuPG",
+  "summary": "OpenPGP encryption and signing",
+  "category": "security",
+  "homepage": "https://gnupg.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["GnuPG.GnuPG"],
+    "choco": ["gnupg"],
+    "paths": {
+      "gnupg": "%APPDATA%/gnupg"
+    }
+  },
+  "linux": {
+    "pacman": ["gnupg"],
+    "apt": ["gnupg"],
+    "dnf": ["gnupg2"],
+    "zypper": ["gpg2"],
+    "apk": ["gnupg"],
+    "paths": {
+      "gnupg": "~/.gnupg"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["S.gpg-agent", "S.gpg-agent.*", "S.dirmngr", "S.scdaemon", "random_seed", "*.lock", "*.log", "crls.d"],
+    "notes": "The home directory has the same layout on both platforms: gpg.conf, the trust database and the keyrings. The private keys under private-keys-v1.d are secrets and travel only with --secrets."
+  },
+  "equivalents": ["gpg4win", "kleopatra"]
+}

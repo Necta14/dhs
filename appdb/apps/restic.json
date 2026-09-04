@@ -1,0 +1,25 @@
+{
+  "id": "restic",
+  "name": "restic",
+  "summary": "Fast encrypted backup to local disks and object storage",
+  "category": "backup",
+  "homepage": "https://restic.net/",
+  "license": "BSD-2-Clause",
+  "windows": {
+    "winget": ["restic.restic"],
+    "choco": ["restic"],
+    "scoop": ["restic"]
+  },
+  "linux": {
+    "pacman": ["restic"],
+    "apt": ["restic"],
+    "dnf": ["restic"],
+    "zypper": ["restic"],
+    "apk": ["restic"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Repository and password come from the command line or environment variables; restic writes no user configuration."
+  },
+  "equivalents": ["kopia", "borgbackup", "duplicati"]
+}

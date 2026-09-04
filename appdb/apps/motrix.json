@@ -1,0 +1,30 @@
+{
+  "id": "motrix",
+  "name": "Motrix",
+  "summary": "Download manager for HTTP, BitTorrent and magnet links",
+  "category": "download",
+  "homepage": "https://motrix.app/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["agalwood.Motrix"],
+    "choco": ["motrix"],
+    "scoop": ["extras/motrix"],
+    "registry": ["Motrix"],
+    "paths": {
+      "config": "%APPDATA%/Motrix"
+    }
+  },
+  "linux": {
+    "aur": ["motrix-bin", "motrix"],
+    "flatpak": ["net.agalwood.Motrix"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Motrix"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "blob_storage", "logs", "*.log", "Crashpad", "Service Worker", "Sessions"],
+    "notes": "The settings are JSON, but they name the download directory by absolute path and carry an aria2 session, so the directory is kept aside."
+  },
+  "equivalents": ["persepolis", "uget", "jdownloader"]
+}

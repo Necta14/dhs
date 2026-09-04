@@ -1,0 +1,18 @@
+{
+  "id": "ccleaner",
+  "name": "CCleaner",
+  "summary": "Cleans temporary files and the registry on Windows",
+  "category": "utility",
+  "homepage": "https://www.ccleaner.com/ccleaner",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Piriform.CCleaner"],
+    "choco": ["ccleaner"],
+    "registry": ["CCleaner"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only; half of what it cleans is the registry, which does not exist on Linux."
+  },
+  "equivalents": ["bleachbit", "stacer"]
+}

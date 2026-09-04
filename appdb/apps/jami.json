@@ -1,0 +1,30 @@
+{
+  "id": "jami",
+  "name": "Jami",
+  "summary": "Peer-to-peer calls and messaging with no server",
+  "category": "video-call",
+  "homepage": "https://jami.net/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["SFLinux.Jami"],
+    "choco": ["jami"],
+    "scoop": ["extras/jami"],
+    "registry": ["Jami"],
+    "paths": {
+      "data": "%LOCALAPPDATA%/jami"
+    }
+  },
+  "linux": {
+    "apt": ["jami"],
+    "flatpak": ["net.jami.Jami"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/jami"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "logs", "*.log"],
+    "notes": "The account is a key pair kept in this directory, and it is the only copy: losing it loses the account. It is carried, but kept aside rather than dropped in place, because the directory also holds absolute paths. Jami's own account export produces a single file that is the safer way to move."
+  },
+  "equivalents": ["jitsi-meet", "element", "zoom"]
+}

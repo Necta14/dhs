@@ -1,0 +1,30 @@
+{
+  "id": "typora",
+  "name": "Typora",
+  "summary": "Markdown editor that renders as you type",
+  "category": "notes",
+  "homepage": "https://typora.io/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["appmakes.Typora"],
+    "choco": ["typora"],
+    "scoop": ["extras/typora"],
+    "registry": ["Typora"],
+    "paths": {
+      "config": "%APPDATA%/Typora"
+    }
+  },
+  "linux": {
+    "aur": ["typora"],
+    "flatpak": ["io.typora.Typora"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Typora"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log"],
+    "notes": "conf/conf.user.json and the themes folder move unchanged. The licence key is in the settings and is treated as a secret."
+  },
+  "equivalents": ["marktext", "ghostwriter", "zettlr"]
+}

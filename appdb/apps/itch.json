@@ -1,0 +1,30 @@
+{
+  "id": "itch",
+  "name": "itch",
+  "summary": "Desktop client for the itch.io game store",
+  "category": "launcher",
+  "homepage": "https://itch.io/app",
+  "license": "MIT",
+  "windows": {
+    "winget": ["ItchIo.Itch"],
+    "choco": ["itch"],
+    "scoop": ["games/itch"],
+    "registry": ["itch"],
+    "paths": {
+      "config": "%APPDATA%/itch"
+    }
+  },
+  "linux": {
+    "aur": ["itch-bin"],
+    "flatpak": ["io.itch.itch"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/itch"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log", "prereqs", "broth"],
+    "notes": "An Electron client, but its database records where every game was installed, so the paths do not survive a change of operating system."
+  },
+  "equivalents": []
+}

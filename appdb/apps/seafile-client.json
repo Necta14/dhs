@@ -1,0 +1,29 @@
+{
+  "id": "seafile-client",
+  "name": "Seafile Client",
+  "summary": "Sync client for Seafile servers",
+  "category": "file-sync",
+  "homepage": "https://www.seafile.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Seafile.Seafile"],
+    "choco": ["seafile-client"],
+    "registry": ["Seafile"]
+  },
+  "linux": {
+    "aur": ["seafile-client"],
+    "apt": ["seafile-client"],
+    "dnf": ["seafile-client"],
+    "zypper": ["seafile-client"],
+    "flatpak": ["com.seafile.Client"],
+    "paths": {
+      "config": "~/.ccnet"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["logs", "*.log", "*.lock"],
+    "notes": "The client keeps its account and library list under .ccnet, with the local library paths written out in full, so it is kept aside and the libraries are synced again."
+  },
+  "equivalents": ["nextcloud-desktop", "owncloud-client", "syncthing"]
+}

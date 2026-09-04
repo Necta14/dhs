@@ -1,0 +1,18 @@
+{
+  "id": "xenia",
+  "name": "Xenia",
+  "summary": "Xbox 360 emulator",
+  "category": "emulator",
+  "homepage": "https://xenia.jp/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": ["Xenia.Xenia"],
+    "scoop": ["games/xenia"],
+    "registry": ["Xenia"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, and portable: xenia.config.toml and the content folder sit next to the executable."
+  },
+  "equivalents": []
+}

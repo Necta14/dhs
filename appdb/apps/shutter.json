@@ -1,0 +1,22 @@
+{
+  "id": "shutter",
+  "name": "Shutter",
+  "summary": "Screenshot tool with a built-in editor",
+  "category": "screenshot",
+  "homepage": "https://shutter-project.org/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["shutter"],
+    "apt": ["shutter"],
+    "dnf": ["shutter"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/shutter"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["profiles/*.log", "*.log"],
+    "notes": "Linux only, and written in Perl. The configuration directory holds the settings and the named profiles."
+  },
+  "equivalents": ["flameshot", "ksnip", "spectacle"]
+}

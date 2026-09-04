@@ -1,0 +1,56 @@
+{
+  "id": "bruno",
+  "name": "Bruno",
+  "summary": "Offline, file-based API client",
+  "category": "devtool",
+  "homepage": "https://www.usebruno.com/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "Bruno.Bruno"
+    ],
+    "choco": [
+      "bruno"
+    ],
+    "scoop": [
+      "extras/bruno"
+    ],
+    "registry": [
+      "Bruno"
+    ],
+    "paths": {
+      "config": "%APPDATA%/bruno"
+    }
+  },
+  "linux": {
+    "aur": [
+      "bruno-bin"
+    ],
+    "flatpak": [
+      "com.usebruno.Bruno"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/bruno"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "Cache",
+      "Code Cache",
+      "GPUCache",
+      "DawnCache",
+      "blob_storage",
+      "logs",
+      "*.log",
+      "Crashpad",
+      "Service Worker"
+    ],
+    "notes": "Bruno keeps the collections as .bru files in folders the user chooses; only the application preferences live here."
+  },
+  "equivalents": [
+    "insomnia",
+    "postman",
+    "httpie"
+  ]
+}

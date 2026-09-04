@@ -1,0 +1,25 @@
+{
+  "id": "evolution",
+  "name": "Evolution",
+  "summary": "GNOME mail, calendar and address book client",
+  "category": "email",
+  "homepage": "https://apps.gnome.org/Evolution/",
+  "license": "LGPL-2.1",
+  "linux": {
+    "pacman": ["evolution"],
+    "apt": ["evolution"],
+    "dnf": ["evolution"],
+    "zypper": ["evolution"],
+    "apk": ["evolution"],
+    "flatpak": ["org.gnome.Evolution"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/evolution"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.lock", "*.log"],
+    "notes": "Linux only. The account definitions live in config/evolution/sources; the downloaded mail under $XDG_DATA_HOME/evolution is deliberately left behind, since it can run to gigabytes and the server still holds it."
+  },
+  "equivalents": ["thunderbird", "geary", "kmail"]
+}

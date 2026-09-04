@@ -1,0 +1,19 @@
+{
+  "id": "blueman",
+  "name": "Blueman",
+  "summary": "Bluetooth manager for the Linux desktop",
+  "category": "system",
+  "homepage": "https://github.com/blueman-project/blueman",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["blueman"],
+    "apt": ["blueman"],
+    "dnf": ["blueman"],
+    "zypper": ["blueman"],
+    "apk": ["blueman"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Paired devices belong to BlueZ under /var/lib/bluetooth; the rest is dconf."
+  }
+}

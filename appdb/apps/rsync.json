@@ -1,0 +1,20 @@
+{
+  "id": "rsync",
+  "name": "rsync",
+  "summary": "Incremental file copy over local paths and SSH",
+  "category": "backup",
+  "homepage": "https://rsync.samba.org/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["rsync"],
+    "apt": ["rsync"],
+    "dnf": ["rsync"],
+    "zypper": ["rsync"],
+    "apk": ["rsync"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "A command-line tool with no per-user configuration."
+  },
+  "equivalents": ["grsync", "freefilesync"]
+}

@@ -1,0 +1,34 @@
+{
+  "id": "gnucash",
+  "name": "GnuCash",
+  "summary": "Double-entry personal and small-business accounting",
+  "category": "finance",
+  "homepage": "https://www.gnucash.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["GnuCash.GnuCash"],
+    "choco": ["gnucash"],
+    "scoop": ["extras/gnucash"],
+    "registry": ["GnuCash"],
+    "paths": {
+      "config": "%APPDATA%/GnuCash"
+    }
+  },
+  "linux": {
+    "pacman": ["gnucash"],
+    "apt": ["gnucash"],
+    "dnf": ["gnucash"],
+    "zypper": ["gnucash"],
+    "apk": ["gnucash"],
+    "flatpak": ["org.gnucash.GnuCash"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/gnucash"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "logs", "translog"],
+    "notes": "The saved reports, the account templates and the import maps travel, but the state files name the open books by absolute path, so the directory is kept aside. The book itself is a .gnucash file wherever the user saved it."
+  },
+  "equivalents": ["kmymoney", "homebank", "skrooge"]
+}

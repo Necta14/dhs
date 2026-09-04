@@ -1,0 +1,29 @@
+{
+  "id": "heroic-games-launcher",
+  "name": "Heroic Games Launcher",
+  "summary": "Open source launcher for Epic Games, GOG and Amazon libraries",
+  "category": "launcher",
+  "homepage": "https://heroicgameslauncher.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["HeroicGamesLauncher.HeroicGamesLauncher"],
+    "choco": ["heroic-games-launcher"],
+    "registry": ["Heroic Games Launcher"],
+    "paths": {
+      "config": "%APPDATA%/heroic"
+    }
+  },
+  "linux": {
+    "aur": ["heroic-games-launcher-bin"],
+    "flatpak": ["com.heroicgameslauncher.hgl"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/heroic"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "DawnCache", "DawnGraphiteCache", "DawnWebGPUCache", "blob_storage", "Service Worker", "Crashpad", "logs", "*.log", "tools", "icons"],
+    "notes": "config.json and the game list are JSON, but they hold absolute install paths and, on Linux, Wine prefix and Proton build names that do not exist on Windows."
+  },
+  "equivalents": []
+}

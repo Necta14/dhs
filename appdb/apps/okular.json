@@ -1,0 +1,36 @@
+{
+  "id": "okular",
+  "name": "Okular",
+  "summary": "KDE document viewer: PDF, EPUB, DjVu, comics",
+  "category": "pdf",
+  "homepage": "https://okular.kde.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["KDE.Okular"],
+    "choco": ["okular"],
+    "scoop": ["extras/okular"],
+    "registry": ["Okular"],
+    "paths": {
+      "config": "%APPDATA%/okularrc",
+      "data": "%LOCALAPPDATA%/okular"
+    }
+  },
+  "linux": {
+    "pacman": ["okular"],
+    "apt": ["okular"],
+    "dnf": ["okular"],
+    "zypper": ["okular"],
+    "apk": ["okular"],
+    "flatpak": ["org.kde.okular"],
+    "snap": ["okular"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/okularrc",
+      "data": "$XDG_DATA_HOME/okular"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "okularrc is an INI file with the same keys everywhere. The data directory holds docdata, where annotations and bookmarks made on read-only documents are kept."
+  },
+  "equivalents": ["evince", "sumatrapdf"]
+}

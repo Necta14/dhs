@@ -1,0 +1,33 @@
+{
+  "id": "ksnip",
+  "name": "ksnip",
+  "summary": "Cross-platform screenshot tool with annotation",
+  "category": "screenshot",
+  "homepage": "https://github.com/ksnip/ksnip",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["ksnip.ksnip"],
+    "choco": ["ksnip"],
+    "scoop": ["extras/ksnip"],
+    "registry": ["ksnip"],
+    "paths": {
+      "config": "%APPDATA%/ksnip"
+    }
+  },
+  "linux": {
+    "pacman": ["ksnip"],
+    "apt": ["ksnip"],
+    "dnf": ["ksnip"],
+    "zypper": ["ksnip"],
+    "flatpak": ["org.ksnip.ksnip"],
+    "snap": ["ksnip"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ksnip"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "ksnip.conf is the same INI on both platforms, but it stores the save directory and the uploader settings as absolute paths, so it is kept aside."
+  },
+  "equivalents": ["flameshot", "greenshot", "spectacle"]
+}

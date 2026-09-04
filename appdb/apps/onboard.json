@@ -1,0 +1,18 @@
+{
+  "id": "onboard",
+  "name": "Onboard",
+  "summary": "On-screen keyboard for Linux",
+  "category": "accessibility",
+  "homepage": "https://launchpad.net/onboard",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["onboard"],
+    "apt": ["onboard"],
+    "zypper": ["onboard"],
+    "apk": ["onboard"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Layout and theme are stored in dconf."
+  }
+}

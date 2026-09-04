@@ -1,0 +1,19 @@
+{
+  "id": "gnome-tweaks",
+  "name": "Tweaks",
+  "summary": "Changes GNOME settings the Settings app does not show",
+  "category": "system",
+  "homepage": "https://gitlab.gnome.org/GNOME/gnome-tweaks",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["gnome-tweaks"],
+    "apt": ["gnome-tweaks"],
+    "dnf": ["gnome-tweaks"],
+    "zypper": ["gnome-tweaks"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "It only edits GSettings keys; it keeps nothing of its own."
+  },
+  "equivalents": ["dconf-editor"]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "haruna",
+  "name": "Haruna",
+  "summary": "KDE video player built on mpv",
+  "category": "media-player",
+  "homepage": "https://haruna.kde.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["KDE.Haruna"],
+    "choco": ["haruna"],
+    "scoop": ["extras/haruna"],
+    "registry": ["Haruna"],
+    "paths": {
+      "config": "%APPDATA%/harunarc"
+    }
+  },
+  "linux": {
+    "pacman": ["haruna"],
+    "apt": ["haruna"],
+    "dnf": ["haruna"],
+    "zypper": ["haruna"],
+    "apk": ["haruna"],
+    "flatpak": ["org.kde.haruna"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/harunarc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "harunarc is a KConfig INI file with the same keys on both platforms. The recent-files list inside it points at paths that will not exist on the other system; Haruna drops those entries by itself."
+  }
+}

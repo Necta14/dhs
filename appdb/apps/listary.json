@@ -1,0 +1,16 @@
+{
+  "id": "listary",
+  "name": "Listary",
+  "summary": "File search and launcher for Windows",
+  "category": "utility",
+  "homepage": "https://www.listary.com/",
+  "license": "proprietary",
+  "windows": {
+    "registry": ["Listary"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, and tied to the Windows file dialogs."
+  },
+  "equivalents": ["fsearch", "albert", "ulauncher"]
+}

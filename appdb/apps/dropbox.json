@@ -1,0 +1,29 @@
+{
+  "id": "dropbox",
+  "name": "Dropbox",
+  "summary": "Cloud storage with a desktop sync client",
+  "category": "cloud-storage",
+  "homepage": "https://www.dropbox.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Dropbox.Dropbox"],
+    "choco": ["dropbox"],
+    "registry": ["Dropbox"],
+    "paths": {
+      "config": "%APPDATA%/Dropbox"
+    }
+  },
+  "linux": {
+    "aur": ["dropbox"],
+    "flatpak": ["com.dropbox.Client"],
+    "paths": {
+      "config": "~/.dropbox"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "logs", "*.log", "*.lock", "instance*"],
+    "notes": "The host database ties the installation to the machine, so it is kept aside and the account is linked again. The synced folder itself is ordinary data and is carried like any other directory."
+  },
+  "equivalents": ["nextcloud-desktop", "megasync", "syncthing"]
+}

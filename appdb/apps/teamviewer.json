@@ -1,0 +1,21 @@
+{
+  "id": "teamviewer",
+  "name": "TeamViewer",
+  "summary": "Remote desktop and support",
+  "category": "remote-desktop",
+  "homepage": "https://www.teamviewer.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["TeamViewer.TeamViewer"],
+    "choco": ["teamviewer"],
+    "registry": ["TeamViewer"]
+  },
+  "linux": {
+    "aur": ["teamviewer"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The TeamViewer ID is derived from the machine and is not carried."
+  },
+  "equivalents": ["anydesk", "rustdesk", "remmina"]
+}

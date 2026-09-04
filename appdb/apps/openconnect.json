@@ -1,0 +1,23 @@
+{
+  "id": "openconnect",
+  "name": "OpenConnect",
+  "summary": "Client for Cisco AnyConnect, GlobalProtect and Pulse VPNs",
+  "category": "vpn",
+  "homepage": "https://www.infradead.org/openconnect/",
+  "license": "LGPL-2.1",
+  "windows": {
+    "choco": ["openconnect"]
+  },
+  "linux": {
+    "pacman": ["openconnect"],
+    "apt": ["openconnect"],
+    "dnf": ["openconnect"],
+    "zypper": ["openconnect"],
+    "apk": ["openconnect"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Servers are given on the command line or through NetworkManager."
+  },
+  "equivalents": ["openvpn", "wireguard"]
+}

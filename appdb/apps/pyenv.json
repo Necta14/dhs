@@ -1,0 +1,31 @@
+{
+  "id": "pyenv",
+  "name": "pyenv",
+  "summary": "Installs and switches between Python versions",
+  "category": "devtool",
+  "homepage": "https://github.com/pyenv/pyenv",
+  "license": "MIT",
+  "windows": {
+    "scoop": [
+      "pyenv"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "pyenv"
+    ],
+    "apt": [
+      "pyenv"
+    ],
+    "zypper": [
+      "pyenv"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The versions under .pyenv are interpreters compiled for one machine and are installed again on the target system; the .python-version files live in the projects. On Windows this is the separate pyenv-win port."
+  },
+  "equivalents": [
+    "mise"
+  ]
+}

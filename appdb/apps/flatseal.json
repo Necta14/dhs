@@ -1,0 +1,20 @@
+{
+  "id": "flatseal",
+  "name": "Flatseal",
+  "summary": "Reviews and changes Flatpak permissions",
+  "category": "security",
+  "homepage": "https://github.com/tchx84/Flatseal",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["flatseal"],
+    "apt": ["flatseal"],
+    "dnf": ["flatseal"],
+    "zypper": ["flatseal"],
+    "flatpak": ["com.github.tchx84.Flatseal"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Writes Flatpak overrides under the Flatpak installation, not its own configuration."
+  },
+  "equivalents": ["firejail"]
+}

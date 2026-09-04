@@ -1,0 +1,24 @@
+{
+  "id": "irssi",
+  "name": "Irssi",
+  "summary": "Terminal IRC client",
+  "category": "chat",
+  "homepage": "https://irssi.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["irssi"],
+    "apt": ["irssi"],
+    "dnf": ["irssi"],
+    "zypper": ["irssi"],
+    "apk": ["irssi"],
+    "paths": {
+      "config": "~/.irssi"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["logs", "*.log"],
+    "notes": "No packaged Windows build. The config file names Perl scripts by absolute path."
+  },
+  "equivalents": ["weechat", "hexchat"]
+}

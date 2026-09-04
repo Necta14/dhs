@@ -1,0 +1,30 @@
+{
+  "id": "anki",
+  "name": "Anki",
+  "summary": "Spaced-repetition flashcards",
+  "category": "education",
+  "homepage": "https://apps.ankiweb.net/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["Anki.Anki"],
+    "choco": ["anki"],
+    "scoop": ["extras/anki"],
+    "registry": ["Anki"],
+    "paths": {
+      "data": "%APPDATA%/Anki2"
+    }
+  },
+  "linux": {
+    "pacman": ["anki"],
+    "apk": ["anki"],
+    "flatpak": ["net.ankiweb.Anki"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/Anki2"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["backups", "*.log", "collection.media.db2-journal"],
+    "notes": "Anki2 holds the collection, the media folder and the add-ons, in the same layout on both platforms. Add-ons with compiled parts are refetched by Anki on first start."
+  }
+}

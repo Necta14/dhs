@@ -1,0 +1,33 @@
+{
+  "id": "neochat",
+  "name": "NeoChat",
+  "summary": "KDE Matrix client",
+  "category": "chat",
+  "homepage": "https://apps.kde.org/neochat/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["KDE.NeoChat"],
+    "choco": ["neochat"],
+    "registry": ["NeoChat"],
+    "paths": {
+      "config": "%APPDATA%/neochatrc"
+    }
+  },
+  "linux": {
+    "pacman": ["neochat"],
+    "apt": ["neochat"],
+    "dnf": ["neochat"],
+    "zypper": ["neochat"],
+    "apk": ["neochat"],
+    "flatpak": ["org.kde.neochat"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/neochatrc"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.lock"],
+    "notes": "neochatrc is an INI file with the same keys everywhere. The encryption keys belong to the device and are not in it, so the session is verified again."
+  },
+  "equivalents": ["element", "nheko", "fractal"]
+}

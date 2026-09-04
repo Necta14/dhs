@@ -1,0 +1,19 @@
+{
+  "id": "simple-scan",
+  "name": "Document Scanner",
+  "summary": "GNOME scanning application",
+  "category": "utility",
+  "homepage": "https://apps.gnome.org/SimpleScan/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["simple-scan"],
+    "apt": ["simple-scan"],
+    "dnf": ["simple-scan"],
+    "zypper": ["simple-scan"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Resolution and paper defaults live in dconf."
+  },
+  "equivalents": ["skanlite", "naps2", "gscan2pdf"]
+}

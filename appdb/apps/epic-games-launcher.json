@@ -1,0 +1,23 @@
+{
+  "id": "epic-games-launcher",
+  "name": "Epic Games Launcher",
+  "summary": "Game store and launcher by Epic Games",
+  "category": "launcher",
+  "homepage": "https://store.epicgames.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["EpicGames.EpicGamesLauncher"],
+    "choco": ["epicgameslauncher"],
+    "scoop": ["games/epic-games-launcher"],
+    "registry": ["Epic Games Launcher"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/EpicGamesLauncher/Saved/Config"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["Logs", "*.log", "webcache", "webcache_4147", "Crashes"],
+    "notes": "Windows only. The library itself is re-downloaded from the account; on Linux the same games are reached through the equivalents below."
+  },
+  "equivalents": ["heroic-games-launcher", "legendary", "rare", "lutris"]
+}

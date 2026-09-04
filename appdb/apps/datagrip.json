@@ -1,0 +1,54 @@
+{
+  "id": "datagrip",
+  "name": "DataGrip",
+  "summary": "Database IDE for SQL and NoSQL engines",
+  "category": "database",
+  "homepage": "https://www.jetbrains.com/datagrip/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "JetBrains.DataGrip"
+    ],
+    "choco": [
+      "datagrip"
+    ],
+    "scoop": [
+      "extras/datagrip"
+    ],
+    "registry": [
+      "DataGrip"
+    ],
+    "paths": {
+      "config": "%APPDATA%/JetBrains"
+    }
+  },
+  "linux": {
+    "aur": [
+      "datagrip"
+    ],
+    "snap": [
+      "datagrip --classic"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/JetBrains"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "log",
+      "logs",
+      "*.log",
+      "*.lock",
+      "port",
+      "system",
+      "caches",
+      "index"
+    ],
+    "notes": "IntelliJ-platform settings, kept per version under the JetBrains directory. They name JDKs, SDKs and projects by absolute path, so they are kept aside on the other platform rather than restored in place."
+  },
+  "equivalents": [
+    "dbeaver",
+    "beekeeper-studio"
+  ]
+}

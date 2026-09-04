@@ -1,0 +1,53 @@
+{
+  "id": "helix",
+  "name": "Helix",
+  "summary": "Modal terminal editor with built-in language support",
+  "category": "editor",
+  "homepage": "https://helix-editor.com/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": [
+      "Helix.Helix"
+    ],
+    "choco": [
+      "helix"
+    ],
+    "scoop": [
+      "helix"
+    ],
+    "paths": {
+      "config": "%APPDATA%/helix"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "helix"
+    ],
+    "apt": [
+      "hx"
+    ],
+    "dnf": [
+      "helix"
+    ],
+    "zypper": [
+      "helix"
+    ],
+    "apk": [
+      "helix"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/helix"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.log"
+    ],
+    "notes": "config.toml, languages.toml and the themes are identical. Language servers named in languages.toml must be installed separately on the target system. Debian and Ubuntu call the package hx."
+  },
+  "equivalents": [
+    "neovim",
+    "vim"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "wiztree",
+  "name": "WizTree",
+  "summary": "Very fast disk space analyser for Windows",
+  "category": "utility",
+  "homepage": "https://diskanalyzer.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["AntibodySoftware.WizTree"],
+    "choco": ["wiztree"],
+    "registry": ["WizTree"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only; reads the NTFS master file table directly."
+  },
+  "equivalents": ["filelight", "baobab", "qdirstat", "ncdu"]
+}

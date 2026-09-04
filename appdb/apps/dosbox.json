@@ -1,0 +1,31 @@
+{
+  "id": "dosbox",
+  "name": "DOSBox",
+  "summary": "DOS emulator for running old PC games",
+  "category": "emulator",
+  "homepage": "https://www.dosbox.com/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["DOSBox.DOSBox"],
+    "choco": ["dosbox"],
+    "scoop": ["dosbox"],
+    "registry": ["DOSBox"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/DOSBox"
+    }
+  },
+  "linux": {
+    "pacman": ["dosbox"],
+    "apt": ["dosbox"],
+    "flatpak": ["com.dosbox.DOSBox"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/dosbox"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log"],
+    "notes": "The .conf file has the same keys everywhere, but its [autoexec] section mounts host directories by absolute path and names Windows drive letters."
+  },
+  "equivalents": ["dosbox-staging", "dosbox-x"]
+}

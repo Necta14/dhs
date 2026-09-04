@@ -1,0 +1,28 @@
+{
+  "id": "veracrypt",
+  "name": "VeraCrypt",
+  "summary": "On-the-fly disk and container encryption",
+  "category": "security",
+  "homepage": "https://www.veracrypt.fr/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": ["IDRIX.VeraCrypt"],
+    "choco": ["veracrypt"],
+    "registry": ["VeraCrypt"],
+    "paths": {
+      "config": "%APPDATA%/VeraCrypt"
+    }
+  },
+  "linux": {
+    "pacman": ["veracrypt"],
+    "paths": {
+      "config": "~/.VeraCrypt"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log"],
+    "notes": "Configuration.xml and the favourites use the same XML on both platforms, but every favourite names a volume by drive letter or by device node. The container files themselves are ordinary files and travel untouched."
+  },
+  "equivalents": ["cryptomator"]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "lutris",
+  "name": "Lutris",
+  "summary": "Game manager for Linux that installs and runs games through Wine, Proton and emulators",
+  "category": "launcher",
+  "homepage": "https://lutris.net/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["lutris"],
+    "apt": ["lutris"],
+    "dnf": ["lutris"],
+    "zypper": ["lutris"],
+    "flatpak": ["net.lutris.Lutris"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/lutris",
+      "data": "$XDG_DATA_HOME/lutris"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["runners", "runtime", "banners", "coverart", "icons", "cache", "*.log"],
+    "notes": "Linux only. The game configurations (games/*.yml) and the installed-game database are small; the runners and the runtime are re-downloaded by Lutris."
+  },
+  "equivalents": ["playnite", "heroic-games-launcher", "bottles"]
+}

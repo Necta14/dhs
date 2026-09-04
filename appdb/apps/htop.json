@@ -1,0 +1,23 @@
+{
+  "id": "htop",
+  "name": "htop",
+  "summary": "Interactive process viewer for the terminal",
+  "category": "system",
+  "homepage": "https://htop.dev/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["htop"],
+    "apt": ["htop"],
+    "dnf": ["htop"],
+    "zypper": ["htop"],
+    "apk": ["htop"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/htop"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Unix only. htoprc lists the columns and meters by name."
+  },
+  "equivalents": ["btop", "bottom", "process-explorer"]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "celestia",
+  "name": "Celestia",
+  "summary": "Three-dimensional space simulator",
+  "category": "science",
+  "homepage": "https://celestiaproject.space/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Celestia.Celestia"],
+    "choco": ["celestia"],
+    "scoop": ["extras/celestia"],
+    "registry": ["Celestia"]
+  },
+  "linux": {
+    "aur": ["celestia", "celestia-bin"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Bookmarks and favourites are kept next to the installation, and the add-ons the user installed are separate downloads; nothing under the home directory is worth carrying."
+  },
+  "equivalents": ["stellarium", "kstars"]
+}

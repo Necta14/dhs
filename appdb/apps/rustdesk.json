@@ -1,0 +1,22 @@
+{
+  "id": "rustdesk",
+  "name": "RustDesk",
+  "summary": "Open source remote desktop, self-hostable",
+  "category": "remote-desktop",
+  "homepage": "https://rustdesk.com/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["RustDesk.RustDesk"],
+    "choco": ["rustdesk"],
+    "registry": ["RustDesk"]
+  },
+  "linux": {
+    "aur": ["rustdesk-bin"],
+    "flatpak": ["com.rustdesk.RustDesk"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The device ID and its key belong to the installation; a new machine gets a new ID."
+  },
+  "equivalents": ["anydesk", "teamviewer", "remmina"]
+}

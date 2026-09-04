@@ -1,0 +1,22 @@
+{
+  "id": "spectacle",
+  "name": "Spectacle",
+  "summary": "KDE screenshot tool",
+  "category": "screenshot",
+  "homepage": "https://apps.kde.org/spectacle/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["spectacle"],
+    "apt": ["kde-spectacle"],
+    "dnf": ["spectacle"],
+    "zypper": ["spectacle"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/spectaclerc"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. spectaclerc holds the capture mode, the delay, the filename template and the save folder. Debian and Ubuntu call the package kde-spectacle."
+  },
+  "equivalents": ["flameshot", "ksnip", "greenshot"]
+}

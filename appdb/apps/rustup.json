@@ -1,0 +1,49 @@
+{
+  "id": "rustup",
+  "name": "rustup",
+  "summary": "Installer and version manager for the Rust toolchain",
+  "category": "devtool",
+  "homepage": "https://rustup.rs/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "Rustlang.Rustup"
+    ],
+    "choco": [
+      "rustup.install"
+    ],
+    "scoop": [
+      "rustup"
+    ],
+    "paths": {
+      "settings": "%USERPROFILE%/.rustup/settings.toml",
+      "cargo-config": "%USERPROFILE%/.cargo/config.toml"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "rustup"
+    ],
+    "apt": [
+      "rustup"
+    ],
+    "dnf": [
+      "rustup"
+    ],
+    "zypper": [
+      "rustup"
+    ],
+    "apk": [
+      "rustup"
+    ],
+    "paths": {
+      "settings": "~/.rustup/settings.toml",
+      "cargo-config": "~/.cargo/config.toml"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "settings.toml names the installed toolchains by name; rustup downloads them again on the target system. The toolchains and the registry cache themselves are not carried."
+  },
+  "equivalents": []
+}

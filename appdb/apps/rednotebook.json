@@ -1,0 +1,33 @@
+{
+  "id": "rednotebook",
+  "name": "RedNotebook",
+  "summary": "Daily journal with tagging and search",
+  "category": "notes",
+  "homepage": "https://rednotebook.app/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["jendrikseipp.RedNotebook"],
+    "choco": ["rednotebook"],
+    "scoop": ["extras/rednotebook"],
+    "registry": ["RedNotebook"],
+    "paths": {
+      "config": "%APPDATA%/rednotebook"
+    }
+  },
+  "linux": {
+    "pacman": ["rednotebook"],
+    "apt": ["rednotebook"],
+    "dnf": ["rednotebook"],
+    "zypper": ["rednotebook"],
+    "flatpak": ["app.rednotebook.RedNotebook"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/rednotebook"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log"],
+    "notes": "configuration.cfg is plain text; the journal itself is a folder of monthly text files, by default under the user's home."
+  },
+  "equivalents": ["zim", "cherrytree"]
+}

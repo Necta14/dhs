@@ -1,0 +1,22 @@
+{
+  "id": "anytype",
+  "name": "Anytype",
+  "summary": "Local-first, encrypted workspace of linked objects",
+  "category": "notes",
+  "homepage": "https://anytype.io/",
+  "windows": {
+    "winget": ["AnyAssociation.Anytype"],
+    "choco": ["anytype"],
+    "scoop": ["extras/anytype"],
+    "registry": ["Anytype"]
+  },
+  "linux": {
+    "aur": ["anytype-bin"],
+    "flatpak": ["io.anytype.anytype"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The workspace is an encrypted local repository tied to the account key. On a new machine the user signs in with the recovery phrase and the data comes back, so nothing is carried in the package."
+  },
+  "equivalents": ["appflowy", "obsidian", "logseq"]
+}

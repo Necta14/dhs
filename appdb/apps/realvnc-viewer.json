@@ -1,0 +1,20 @@
+{
+  "id": "realvnc-viewer",
+  "name": "RealVNC Viewer",
+  "summary": "VNC client from RealVNC",
+  "category": "remote-desktop",
+  "homepage": "https://www.realvnc.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["RealVNC.VNCViewer"],
+    "choco": ["vnc-viewer"],
+    "registry": ["VNC Viewer"]
+  },
+  "linux": {
+    "aur": ["realvnc-vnc-viewer"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["tigervnc", "remmina", "krdc"]
+}

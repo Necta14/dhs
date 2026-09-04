@@ -1,0 +1,24 @@
+{
+  "id": "kolourpaint",
+  "name": "KolourPaint",
+  "summary": "Simple KDE painting program",
+  "category": "graphics",
+  "homepage": "https://apps.kde.org/kolourpaint/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["kolourpaint"],
+    "apt": ["kolourpaint"],
+    "dnf": ["kolourpaint"],
+    "zypper": ["kolourpaint"],
+    "apk": ["kolourpaint"],
+    "flatpak": ["org.kde.kolourpaint"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kolourpaintrc"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. kolourpaintrc is a handful of KConfig keys: the tool settings, the thumbnail position and the recent files."
+  },
+  "equivalents": ["drawing", "pinta", "paint-net"]
+}

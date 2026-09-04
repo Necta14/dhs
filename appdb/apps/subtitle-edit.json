@@ -1,0 +1,23 @@
+{
+  "id": "subtitle-edit",
+  "name": "Subtitle Edit",
+  "summary": "Creates, syncs and translates subtitles",
+  "category": "video-editor",
+  "homepage": "https://www.nikse.dk/subtitleedit",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Nikse.SubtitleEdit"],
+    "choco": ["subtitleedit"],
+    "scoop": ["extras/subtitleedit"],
+    "registry": ["Subtitle Edit"],
+    "paths": {
+      "config": "%APPDATA%/Subtitle Edit"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "Waveforms", "SpectrogramCache", "Dictionaries"],
+    "notes": "Windows only as a package: Settings.xml holds the shortcuts, the profiles and the OCR settings, and the waveform folder beside it is a cache rebuilt from the video."
+  },
+  "equivalents": ["aegisub"]
+}

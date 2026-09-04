@@ -1,0 +1,24 @@
+{
+  "id": "krusader",
+  "name": "Krusader",
+  "summary": "Two-panel file manager for KDE",
+  "category": "file-manager",
+  "homepage": "https://krusader.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["krusader"],
+    "apt": ["krusader"],
+    "dnf": ["krusader"],
+    "zypper": ["krusader"],
+    "flatpak": ["org.kde.krusader"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/krusaderrc",
+      "data": "$XDG_DATA_HOME/krusader"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The bookmarks and user actions hold absolute paths."
+  },
+  "equivalents": ["double-commander", "midnight-commander", "dolphin"]
+}

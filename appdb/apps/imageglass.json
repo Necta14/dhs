@@ -1,0 +1,23 @@
+{
+  "id": "imageglass",
+  "name": "ImageGlass",
+  "summary": "Modern image viewer for Windows",
+  "category": "photo",
+  "homepage": "https://imageglass.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["DuongDieuPhap.ImageGlass"],
+    "choco": ["imageglass"],
+    "scoop": ["extras/imageglass"],
+    "registry": ["ImageGlass"],
+    "paths": {
+      "config": "%APPDATA%/ImageGlass"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["*.log", "Cache"],
+    "notes": "Windows only. igconfig.json holds the theme, the toolbar and the file associations, none of which mean anything to a Linux viewer."
+  },
+  "equivalents": ["nomacs", "gwenview", "loupe"]
+}

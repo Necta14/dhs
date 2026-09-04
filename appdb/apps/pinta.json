@@ -1,0 +1,34 @@
+{
+  "id": "pinta",
+  "name": "Pinta",
+  "summary": "Simple drawing and image editing",
+  "category": "graphics",
+  "homepage": "https://www.pinta-project.com/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["Pinta.Pinta"],
+    "choco": ["pinta"],
+    "scoop": ["extras/pinta"],
+    "registry": ["Pinta"],
+    "paths": {
+      "config": "%APPDATA%/Pinta"
+    }
+  },
+  "linux": {
+    "pacman": ["pinta"],
+    "dnf": ["pinta"],
+    "zypper": ["pinta"],
+    "apk": ["pinta"],
+    "flatpak": ["com.github.PintaProject.Pinta"],
+    "snap": ["pinta"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Pinta"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["*.log"],
+    "notes": "settings.xml holds the palette, the tool defaults and the window layout in the same format on both platforms."
+  },
+  "equivalents": ["paint-net", "krita", "gimp"]
+}

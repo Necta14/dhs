@@ -1,0 +1,41 @@
+{
+  "id": "pnpm",
+  "name": "pnpm",
+  "summary": "Fast, disk-efficient JavaScript package manager",
+  "category": "devtool",
+  "homepage": "https://pnpm.io/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "pnpm.pnpm"
+    ],
+    "choco": [
+      "pnpm"
+    ],
+    "scoop": [
+      "pnpm"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "pnpm"
+    ],
+    "dnf": [
+      "pnpm"
+    ],
+    "zypper": [
+      "pnpm"
+    ],
+    "apk": [
+      "pnpm"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "pnpm reads the same .npmrc as npm, which the Node.js entry carries; its own store is a content-addressed cache and is rebuilt."
+  },
+  "equivalents": [
+    "yarn",
+    "nodejs"
+  ]
+}

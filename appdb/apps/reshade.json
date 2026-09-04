@@ -1,0 +1,19 @@
+{
+  "id": "reshade",
+  "name": "ReShade",
+  "summary": "Post-processing injector that adds shader effects to games",
+  "category": "utility",
+  "homepage": "https://reshade.me/",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": ["Reshade.Setup"],
+    "choco": ["reshade"],
+    "scoop": ["extras/reshade"],
+    "registry": ["ReShade"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only, and installed per game: ReShade.ini and the shader presets sit next to each game's executable, not in a user directory."
+  },
+  "equivalents": ["vkbasalt"]
+}

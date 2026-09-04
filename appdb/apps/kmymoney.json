@@ -1,0 +1,34 @@
+{
+  "id": "kmymoney",
+  "name": "KMyMoney",
+  "summary": "Personal finance manager in the style of a chequebook",
+  "category": "finance",
+  "homepage": "https://kmymoney.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["KDE.kmymoney"],
+    "choco": ["kmymoney"],
+    "registry": ["KMyMoney"],
+    "paths": {
+      "config": "%APPDATA%/kmymoneyrc",
+      "data": "%LOCALAPPDATA%/kmymoney"
+    }
+  },
+  "linux": {
+    "pacman": ["kmymoney"],
+    "apt": ["kmymoney"],
+    "dnf": ["kmymoney"],
+    "zypper": ["kmymoney"],
+    "apk": ["kmymoney"],
+    "flatpak": ["org.kde.kmymoney"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kmymoneyrc",
+      "data": "$XDG_DATA_HOME/kmymoney"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "kmymoneyrc is an INI file with the same keys everywhere. The ledger itself is a .kmy file wherever the user saved it, and its path is recorded in the settings."
+  },
+  "equivalents": ["gnucash", "homebank", "skrooge"]
+}

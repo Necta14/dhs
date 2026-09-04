@@ -1,0 +1,26 @@
+{
+  "id": "flycast",
+  "name": "Flycast",
+  "summary": "Dreamcast, Naomi and Atomiswave emulator",
+  "category": "emulator",
+  "homepage": "https://github.com/flyinghead/flycast",
+  "license": "GPL-2.0",
+  "windows": {
+    "scoop": ["games/flycast"],
+    "registry": ["Flycast"]
+  },
+  "linux": {
+    "aur": ["flycast"],
+    "flatpak": ["org.flycast.Flycast"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/flycast",
+      "data": "$XDG_DATA_HOME/flycast"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "texdump", "*.log", "shadercache"],
+    "notes": "The VMU saves are under the data directory and emu.cfg under the configuration one. The Windows build keeps both next to the executable. The Dreamcast BIOS is the user's own dump and stays where it is."
+  },
+  "equivalents": ["retroarch"]
+}

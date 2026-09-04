@@ -1,0 +1,22 @@
+{
+  "id": "dust",
+  "name": "dust",
+  "summary": "du written in Rust, with a bar chart",
+  "category": "utility",
+  "homepage": "https://github.com/bootandy/dust",
+  "license": "Apache-2.0",
+  "windows": {
+    "choco": ["dust"],
+    "scoop": ["dust"]
+  },
+  "linux": {
+    "pacman": ["dust"],
+    "dnf": ["du-dust"],
+    "zypper": ["dust"],
+    "apk": ["dust"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["ncdu", "gdu"]
+}

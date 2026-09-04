@@ -1,0 +1,16 @@
+{
+  "id": "kmonad",
+  "name": "KMonad",
+  "summary": "Keyboard layout engine with layers",
+  "category": "utility",
+  "homepage": "https://github.com/kmonad/kmonad",
+  "license": "MIT",
+  "linux": {
+    "aur": ["kmonad"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The .kbd configuration is a file the user keeps wherever they like and names a device node, so it is carried as a document rather than as configuration."
+  },
+  "equivalents": ["keyd", "input-remapper"]
+}

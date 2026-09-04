@@ -1,0 +1,29 @@
+{
+  "id": "jellyfin-media-player",
+  "name": "Jellyfin Media Player",
+  "summary": "Desktop client for a Jellyfin server",
+  "category": "media-player",
+  "homepage": "https://github.com/jellyfin/jellyfin-media-player",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Jellyfin.JellyfinMediaPlayer"],
+    "choco": ["jellyfin-media-player"],
+    "scoop": ["extras/jellyfin-media-player"],
+    "registry": ["Jellyfin Media Player"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/JellyfinMediaPlayer"
+    }
+  },
+  "linux": {
+    "aur": ["jellyfin-media-player"],
+    "paths": {
+      "config": "$XDG_DATA_HOME/jellyfinmediaplayer"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "QtWebEngine", "logs", "*.log"],
+    "notes": "jellyfinmediaplayer.conf keeps the server address and the client settings; the audio and video device names in it are platform-specific. The library itself lives on the server."
+  },
+  "equivalents": ["kodi", "plex-desktop"]
+}

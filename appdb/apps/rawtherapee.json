@@ -1,0 +1,34 @@
+{
+  "id": "rawtherapee",
+  "name": "RawTherapee",
+  "summary": "Raw photo developer",
+  "category": "photo",
+  "homepage": "https://www.rawtherapee.com/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["RawTherapee.RawTherapee"],
+    "choco": ["rawtherapee"],
+    "scoop": ["extras/rawtherapee"],
+    "registry": ["RawTherapee"],
+    "paths": {
+      "config": "%LOCALAPPDATA%/RawTherapee"
+    }
+  },
+  "linux": {
+    "pacman": ["rawtherapee"],
+    "apt": ["rawtherapee"],
+    "dnf": ["rawtherapee"],
+    "zypper": ["rawtherapee"],
+    "apk": ["rawtherapee"],
+    "flatpak": ["com.rawtherapee.RawTherapee"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/RawTherapee"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.log"],
+    "notes": "The options file names the last folder, the output directory and the profile folder by absolute path, so it is kept aside; the processing profiles beside it are plain text and can be dropped into the new profile directory."
+  },
+  "equivalents": ["darktable", "digikam"]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "clamav",
+  "name": "ClamAV",
+  "summary": "Open source antivirus engine",
+  "category": "security",
+  "homepage": "https://www.clamav.net/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["clamav"],
+    "apt": ["clamav"],
+    "dnf": ["clamav"],
+    "zypper": ["clamav"],
+    "apk": ["clamav"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "A daemon configured under /etc, with no per-user settings."
+  },
+  "equivalents": ["clamtk"]
+}

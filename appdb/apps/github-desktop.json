@@ -1,0 +1,56 @@
+{
+  "id": "github-desktop",
+  "name": "GitHub Desktop",
+  "summary": "Graphical Git client for GitHub",
+  "category": "vcs",
+  "homepage": "https://github.com/apps/desktop",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "GitHub.GitHubDesktop"
+    ],
+    "choco": [
+      "github-desktop"
+    ],
+    "scoop": [
+      "extras/github"
+    ],
+    "registry": [
+      "GitHub Desktop"
+    ],
+    "paths": {
+      "config": "%APPDATA%/GitHub Desktop"
+    }
+  },
+  "linux": {
+    "aur": [
+      "github-desktop-bin"
+    ],
+    "flatpak": [
+      "io.github.shiftey.Desktop"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/GitHub Desktop"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "Cache",
+      "Code Cache",
+      "GPUCache",
+      "DawnCache",
+      "blob_storage",
+      "logs",
+      "*.log",
+      "Crashpad",
+      "Service Worker"
+    ],
+    "notes": "An Electron application. The repository list inside it points at absolute paths that will differ on the other system, but the file itself is plain JSON."
+  },
+  "equivalents": [
+    "gitkraken",
+    "sublime-merge",
+    "git-cola"
+  ]
+}

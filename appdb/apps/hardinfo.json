@@ -1,0 +1,19 @@
+{
+  "id": "hardinfo",
+  "name": "HardInfo",
+  "summary": "System profiler and benchmark for Linux",
+  "category": "system",
+  "homepage": "https://github.com/hardinfo2/hardinfo2",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["hardinfo2"],
+    "apt": ["hardinfo"],
+    "dnf": ["hardinfo2"],
+    "zypper": ["hardinfo2", "hardinfo"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Arch, Fedora and openSUSE ship the maintained hardinfo2; Debian and Ubuntu still carry the older hardinfo."
+  },
+  "equivalents": ["cpu-x", "hwinfo", "cpu-z"]
+}

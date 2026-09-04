@@ -1,0 +1,24 @@
+{
+  "id": "btop",
+  "name": "btop++",
+  "summary": "Resource monitor for the terminal",
+  "category": "system",
+  "homepage": "https://github.com/aristocratos/btop",
+  "license": "Apache-2.0",
+  "linux": {
+    "pacman": ["btop"],
+    "apt": ["btop"],
+    "dnf": ["btop"],
+    "zypper": ["btop"],
+    "apk": ["btop"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/btop"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["btop.log", "*.log"],
+    "notes": "Unix only. btop.conf holds the theme name and the selected boxes."
+  },
+  "equivalents": ["htop", "bottom", "mission-center"]
+}

@@ -1,0 +1,18 @@
+{
+  "id": "mendeley",
+  "name": "Mendeley Reference Manager",
+  "summary": "Reference manager and PDF library by Elsevier",
+  "category": "science",
+  "homepage": "https://www.mendeley.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Elsevier.MendeleyReferenceManager"],
+    "scoop": ["extras/mendeley"],
+    "registry": ["Mendeley Reference Manager"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The library lives in the Mendeley account and is downloaded again after sign-in; the local directory is a cache. The Linux desktop build was discontinued, so DHS proposes the equivalents below."
+  },
+  "equivalents": ["zotero", "jabref"]
+}

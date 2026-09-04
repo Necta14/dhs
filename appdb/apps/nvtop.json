@@ -1,0 +1,21 @@
+{
+  "id": "nvtop",
+  "name": "nvtop",
+  "summary": "GPU process monitor for the terminal",
+  "category": "system",
+  "homepage": "https://github.com/Syllo/nvtop",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["nvtop"],
+    "apt": ["nvtop"],
+    "dnf": ["nvtop"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/nvtop"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. interface.ini remembers which columns and devices are shown."
+  },
+  "equivalents": ["btop", "htop", "gpu-z"]
+}

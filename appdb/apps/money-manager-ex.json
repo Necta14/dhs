@@ -1,0 +1,23 @@
+{
+  "id": "money-manager-ex",
+  "name": "Money Manager EX",
+  "summary": "Personal finance manager with accounts, budgets and reports",
+  "category": "finance",
+  "homepage": "https://moneymanagerex.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["moneymanagerex.moneymanagerex"],
+    "choco": ["money-manager-ex"],
+    "scoop": ["extras/moneymanagerex"],
+    "registry": ["Money Manager EX"]
+  },
+  "linux": {
+    "aur": ["moneymanagerex", "moneymanagerex-bin"],
+    "flatpak": ["org.moneymanagerex.MMEX"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The settings, the currencies and the report layouts are kept inside the .mmb database file the user chose, so nothing separate has to travel."
+  },
+  "equivalents": ["homebank", "gnucash", "kmymoney"]
+}

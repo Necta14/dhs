@@ -1,0 +1,32 @@
+{
+  "id": "texmaker",
+  "name": "Texmaker",
+  "summary": "Cross-platform LaTeX editor",
+  "category": "office",
+  "homepage": "https://www.xm1math.net/texmaker/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Texmaker.Texmaker"],
+    "choco": ["texmaker"],
+    "scoop": ["extras/texmaker"],
+    "registry": ["Texmaker"],
+    "paths": {
+      "config": "%APPDATA%/xm1"
+    }
+  },
+  "linux": {
+    "pacman": ["texmaker"],
+    "apt": ["texmaker"],
+    "dnf": ["texmaker"],
+    "zypper": ["texmaker"],
+    "flatpak": ["net.xm1math.Texmaker"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/xm1"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "texmaker.ini has the same keys everywhere but stores the LaTeX, viewer and bibliography commands as absolute paths, so it is kept aside on the other platform."
+  },
+  "equivalents": ["texstudio", "kile", "lyx"]
+}

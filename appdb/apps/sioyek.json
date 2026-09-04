@@ -1,0 +1,29 @@
+{
+  "id": "sioyek",
+  "name": "Sioyek",
+  "summary": "PDF reader built for research papers and technical books",
+  "category": "pdf",
+  "homepage": "https://sioyek.info/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["ahrm.sioyek"],
+    "choco": ["sioyek"],
+    "scoop": ["extras/sioyek"],
+    "registry": ["sioyek"]
+  },
+  "linux": {
+    "aur": ["sioyek-appimage"],
+    "apt": ["sioyek"],
+    "apk": ["sioyek"],
+    "flatpak": ["com.github.ahrm.sioyek"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/sioyek"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log"],
+    "notes": "prefs_user.config and keys_user.config are plain text, but the Windows build keeps them next to the executable and the shared database records absolute document paths, so they are kept aside."
+  },
+  "equivalents": ["zathura", "okular"]
+}

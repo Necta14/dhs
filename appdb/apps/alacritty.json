@@ -1,0 +1,54 @@
+{
+  "id": "alacritty",
+  "name": "Alacritty",
+  "summary": "GPU-accelerated terminal emulator",
+  "category": "terminal",
+  "homepage": "https://alacritty.org/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": [
+      "Alacritty.Alacritty"
+    ],
+    "choco": [
+      "alacritty"
+    ],
+    "scoop": [
+      "extras/alacritty"
+    ],
+    "registry": [
+      "Alacritty"
+    ],
+    "paths": {
+      "config": "%APPDATA%/alacritty"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "alacritty"
+    ],
+    "apt": [
+      "alacritty"
+    ],
+    "dnf": [
+      "alacritty"
+    ],
+    "zypper": [
+      "alacritty"
+    ],
+    "apk": [
+      "alacritty"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/alacritty"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "alacritty.toml has the same keys on both platforms. The font family and the shell it names have to exist on the target system."
+  },
+  "equivalents": [
+    "wezterm",
+    "kitty",
+    "windows-terminal"
+  ]
+}

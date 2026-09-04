@@ -1,0 +1,34 @@
+{
+  "id": "0ad",
+  "name": "0 A.D.",
+  "summary": "Open source historical real-time strategy game",
+  "category": "gaming",
+  "homepage": "https://play0ad.com/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["WildfireGames.0AD"],
+    "choco": ["0ad"],
+    "scoop": ["games/0ad"],
+    "registry": ["0 A.D."],
+    "paths": {
+      "config": "%APPDATA%/0ad"
+    }
+  },
+  "linux": {
+    "pacman": ["0ad"],
+    "apt": ["0ad"],
+    "dnf": ["0ad"],
+    "zypper": ["0ad"],
+    "flatpak": ["com.play0ad.zeroad"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/0ad",
+      "data": "$XDG_DATA_HOME/0ad"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "logs", "*.log", "screenshots"],
+    "notes": "The saved games, the hotkeys and the mod list travel; Windows keeps them in a single folder and Linux splits configuration from data."
+  },
+  "equivalents": []
+}

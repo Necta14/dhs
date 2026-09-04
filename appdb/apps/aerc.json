@@ -1,0 +1,23 @@
+{
+  "id": "aerc",
+  "name": "aerc",
+  "summary": "Terminal mail client with a tabbed interface",
+  "category": "email",
+  "homepage": "https://aerc-mail.org/",
+  "license": "MIT",
+  "linux": {
+    "pacman": ["aerc"],
+    "apt": ["aerc"],
+    "dnf": ["aerc"],
+    "zypper": ["aerc"],
+    "apk": ["aerc"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/aerc"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "No packaged Windows build. accounts.conf names local maildir paths and external commands for passwords."
+  },
+  "equivalents": ["neomutt", "thunderbird"]
+}

@@ -1,0 +1,32 @@
+{
+  "id": "kodi",
+  "name": "Kodi",
+  "summary": "Media centre for a television screen",
+  "category": "media-player",
+  "homepage": "https://kodi.tv/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["XBMCFoundation.Kodi"],
+    "choco": ["kodi"],
+    "scoop": ["extras/kodi"],
+    "registry": ["Kodi"],
+    "paths": {
+      "userdata": "%APPDATA%/Kodi/userdata"
+    }
+  },
+  "linux": {
+    "pacman": ["kodi"],
+    "apt": ["kodi"],
+    "apk": ["kodi"],
+    "flatpak": ["tv.kodi.Kodi"],
+    "paths": {
+      "userdata": "~/.kodi/userdata"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["Thumbnails", "Database/Textures*.db", "addon_data/*/cache", "temp", "*.log"],
+    "notes": "The userdata directory carries settings, add-ons and the library database. sources.xml and guisettings.xml hold absolute media paths and platform-specific audio devices, so it is kept aside. On Fedora and openSUSE Kodi comes from RPM Fusion and Packman, which are not official repositories; use the Flatpak there."
+  },
+  "equivalents": ["jellyfin-media-player", "plex-desktop"]
+}

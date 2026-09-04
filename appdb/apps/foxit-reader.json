@@ -1,0 +1,22 @@
+{
+  "id": "foxit-reader",
+  "name": "Foxit PDF Reader",
+  "summary": "PDF reader with commenting and form filling",
+  "category": "pdf",
+  "homepage": "https://www.foxit.com/pdf-reader/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Foxit.FoxitReader"],
+    "scoop": ["extras/foxit-reader"],
+    "registry": ["Foxit PDF Reader", "Foxit Reader"],
+    "paths": {
+      "config": "%APPDATA%/Foxit Software"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["Cache", "cache", "*.log", "logs"],
+    "notes": "Windows only; most preferences are in the registry rather than in files. The Linux build was discontinued, so DHS proposes the equivalents below."
+  },
+  "equivalents": ["okular", "evince", "zathura", "sumatrapdf"]
+}

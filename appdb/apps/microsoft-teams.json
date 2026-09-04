@@ -1,0 +1,18 @@
+{
+  "id": "microsoft-teams",
+  "name": "Microsoft Teams",
+  "summary": "Team chat and meetings by Microsoft",
+  "category": "chat",
+  "homepage": "https://www.microsoft.com/microsoft-teams/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Microsoft.Teams"],
+    "choco": ["microsoft-teams"],
+    "registry": ["Microsoft Teams"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Microsoft stopped shipping a Linux client in 2022. The new Windows client is a packaged app whose state sits inside its own package directory, and every setting that matters is stored on the account, so nothing is carried."
+  },
+  "equivalents": ["teams-for-linux", "element", "slack"]
+}

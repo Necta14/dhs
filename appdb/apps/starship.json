@@ -1,0 +1,46 @@
+{
+  "id": "starship",
+  "name": "Starship",
+  "summary": "Cross-shell prompt",
+  "category": "shell",
+  "homepage": "https://starship.rs/",
+  "license": "ISC",
+  "windows": {
+    "winget": [
+      "Starship.Starship"
+    ],
+    "choco": [
+      "starship"
+    ],
+    "scoop": [
+      "starship"
+    ],
+    "paths": {
+      "config": "%USERPROFILE%/.config/starship.toml"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "starship"
+    ],
+    "apt": [
+      "starship"
+    ],
+    "zypper": [
+      "starship"
+    ],
+    "apk": [
+      "starship"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/starship.toml"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "starship.toml is one file with the same keys everywhere."
+  },
+  "equivalents": [
+    "oh-my-posh"
+  ]
+}

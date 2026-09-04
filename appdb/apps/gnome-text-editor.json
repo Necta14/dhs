@@ -1,0 +1,37 @@
+{
+  "id": "gnome-text-editor",
+  "name": "GNOME Text Editor",
+  "summary": "Default GNOME text editor",
+  "category": "editor",
+  "homepage": "https://apps.gnome.org/TextEditor/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": [
+      "gnome-text-editor"
+    ],
+    "apt": [
+      "gnome-text-editor"
+    ],
+    "dnf": [
+      "gnome-text-editor"
+    ],
+    "zypper": [
+      "gnome-text-editor"
+    ],
+    "apk": [
+      "gnome-text-editor"
+    ],
+    "flatpak": [
+      "org.gnome.TextEditor"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Every setting lives in dconf; there is no configuration file to carry."
+  },
+  "equivalents": [
+    "gedit",
+    "kate",
+    "notepad-plus-plus"
+  ]
+}

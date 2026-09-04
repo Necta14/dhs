@@ -1,0 +1,31 @@
+{
+  "id": "freeciv",
+  "name": "Freeciv",
+  "summary": "Open source turn-based empire-building strategy game",
+  "category": "gaming",
+  "homepage": "https://www.freeciv.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["FreeCiv.FreeCiv"],
+    "choco": ["freeciv"],
+    "scoop": ["games/freeciv"],
+    "registry": ["Freeciv"]
+  },
+  "linux": {
+    "pacman": ["freeciv-gtk4", "freeciv-qt", "freeciv-gtk3"],
+    "apt": ["freeciv"],
+    "dnf": ["freeciv"],
+    "zypper": ["freeciv"],
+    "apk": ["freeciv"],
+    "flatpak": ["org.freeciv.gtk4"],
+    "paths": {
+      "data": "~/.freeciv"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "The saved games and the client settings live in this directory on Linux; the Windows build keeps them under its own installation folder. Arch splits the game by client toolkit, hence the several package names."
+  },
+  "equivalents": []
+}

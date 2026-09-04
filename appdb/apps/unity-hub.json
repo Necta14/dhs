@@ -1,0 +1,48 @@
+{
+  "id": "unity-hub",
+  "name": "Unity Hub",
+  "summary": "Installer and project launcher for the Unity editor",
+  "category": "ide",
+  "homepage": "https://unity.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "Unity.UnityHub"
+    ],
+    "choco": [
+      "unity-hub"
+    ],
+    "scoop": [
+      "nonportable/unity-hub-np"
+    ],
+    "registry": [
+      "Unity Hub"
+    ],
+    "paths": {
+      "config": "%APPDATA%/UnityHub"
+    }
+  },
+  "linux": {
+    "aur": [
+      "unityhub"
+    ],
+    "flatpak": [
+      "com.unity.UnityHub"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/UnityHub"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "logs",
+      "*.log",
+      "Cache"
+    ],
+    "notes": "The Hub records the install locations of the editors and the licence state, both tied to the machine."
+  },
+  "equivalents": [
+    "godot"
+  ]
+}

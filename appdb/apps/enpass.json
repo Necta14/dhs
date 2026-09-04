@@ -1,0 +1,23 @@
+{
+  "id": "enpass",
+  "name": "Enpass",
+  "summary": "Password manager that keeps the vault in the user's own cloud folder",
+  "category": "password-manager",
+  "homepage": "https://www.enpass.io/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Sinew.Enpass"],
+    "choco": ["enpass.install"],
+    "scoop": ["extras/enpass"],
+    "registry": ["Enpass"]
+  },
+  "linux": {
+    "aur": ["enpass-bin"],
+    "flatpak": ["io.enpass.Enpass"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The vault is an encrypted file in the folder or cloud service the user chose, and it is opened again on the new machine with the master password. Nothing in the application directory has to travel."
+  },
+  "equivalents": ["keepassxc", "bitwarden", "1password"]
+}

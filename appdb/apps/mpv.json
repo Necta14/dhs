@@ -1,0 +1,32 @@
+{
+  "id": "mpv",
+  "name": "mpv",
+  "summary": "Minimal command-driven media player",
+  "category": "media-player",
+  "homepage": "https://mpv.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["shinchiro.mpv"],
+    "choco": ["mpv"],
+    "scoop": ["extras/mpv"],
+    "paths": {
+      "config": "%APPDATA%/mpv"
+    }
+  },
+  "linux": {
+    "pacman": ["mpv"],
+    "apt": ["mpv"],
+    "dnf": ["mpv"],
+    "zypper": ["mpv"],
+    "apk": ["mpv"],
+    "flatpak": ["io.mpv.Mpv"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/mpv"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["watch_later", "cache", "*.log"],
+    "notes": "mpv.conf and input.conf have the same syntax everywhere, but they name platform video and audio outputs (wasapi and d3d11 against pulse and vulkan) and often absolute script paths, so the directory is kept aside rather than dropped in place. watch_later holds absolute file names."
+  }
+}

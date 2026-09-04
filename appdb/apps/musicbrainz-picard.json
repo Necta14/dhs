@@ -1,0 +1,31 @@
+{
+  "id": "musicbrainz-picard",
+  "name": "MusicBrainz Picard",
+  "summary": "Tags music files from the MusicBrainz database",
+  "category": "music",
+  "homepage": "https://picard.musicbrainz.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["MusicBrainz.Picard"],
+    "scoop": ["extras/picard"],
+    "registry": ["MusicBrainz Picard"],
+    "paths": {
+      "config": "%APPDATA%/MusicBrainz"
+    }
+  },
+  "linux": {
+    "pacman": ["picard"],
+    "apt": ["picard"],
+    "flatpak": ["org.musicbrainz.Picard"],
+    "snap": ["picard"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/MusicBrainz"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "Picard.ini holds the file-naming script, the tagging options and the plugin list, all of them worth carrying, alongside the absolute path of the folder files are moved into, which is not. The plugins beside it are Python and work on both platforms."
+  },
+  "equivalents": ["mp3tag", "easytag"]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "double-commander",
+  "name": "Double Commander",
+  "summary": "Two-panel file manager in the Total Commander tradition",
+  "category": "file-manager",
+  "homepage": "https://doublecmd.sourceforge.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["doublecmd"],
+    "scoop": ["extras/doublecmd"],
+    "registry": ["Double Commander"],
+    "paths": {
+      "config": "%APPDATA%/doublecmd"
+    }
+  },
+  "linux": {
+    "pacman": ["doublecmd-qt6", "doublecmd-qt5"],
+    "apt": ["doublecmd-qt", "doublecmd-gtk"],
+    "dnf": ["doublecmd-qt"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/doublecmd"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "doublecmd.xml keeps the same structure on both platforms but stores absolute paths, drive letters and external tool commands."
+  },
+  "equivalents": ["krusader", "total-commander"]
+}

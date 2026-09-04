@@ -1,0 +1,17 @@
+{
+  "id": "diodon",
+  "name": "Diodon",
+  "summary": "Lightweight GTK clipboard manager",
+  "category": "utility",
+  "homepage": "https://launchpad.net/diodon",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["diodon"],
+    "apt": ["diodon"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Preferences live in dconf; the history is deliberately not carried."
+  },
+  "equivalents": ["copyq", "gpaste"]
+}

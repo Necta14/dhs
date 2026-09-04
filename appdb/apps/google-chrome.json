@@ -1,0 +1,30 @@
+{
+  "id": "google-chrome",
+  "name": "Google Chrome",
+  "summary": "Web browser by Google",
+  "category": "browser",
+  "homepage": "https://www.google.com/chrome/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Google.Chrome"],
+    "choco": ["googlechrome"],
+    "scoop": ["extras/googlechrome"],
+    "registry": ["Google Chrome"],
+    "paths": {
+      "user-data": "%LOCALAPPDATA%/Google/Chrome/User Data"
+    }
+  },
+  "linux": {
+    "aur": ["google-chrome"],
+    "flatpak": ["com.google.Chrome"],
+    "paths": {
+      "user-data": "$XDG_CONFIG_HOME/google-chrome"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "ShaderCache", "GrShaderCache", "GraphiteDawnCache", "DawnCache", "Crashpad", "Crash Reports", "component_crx_cache", "extensions_crx_cache", "Service Worker", "BrowserMetrics", "optimization_guide_model_store", "*.log"],
+    "notes": "The user-data directory has the same layout on both platforms: Preferences, Bookmarks, extensions and per-profile directories all carry over. Cookies and saved passwords are sealed with the Windows DPAPI, so those are re-entered on Linux; they are secrets anyway and travel only with --secrets. Google ships no package for the Debian, Fedora, openSUSE or Alpine repositories; on Linux it comes from the AUR or Flathub."
+  },
+  "equivalents": ["chromium", "brave", "firefox"]
+}

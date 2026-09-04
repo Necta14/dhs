@@ -1,0 +1,16 @@
+{
+  "id": "openrazer",
+  "name": "OpenRazer",
+  "summary": "Open source driver for Razer peripherals",
+  "category": "utility",
+  "homepage": "https://openrazer.github.io/",
+  "license": "GPL-2.0",
+  "linux": {
+    "aur": ["openrazer-meta"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "A kernel driver and daemon; the lighting is set by front ends such as Polychromatic."
+  },
+  "equivalents": ["openrgb", "piper"]
+}

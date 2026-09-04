@@ -1,0 +1,28 @@
+{
+  "id": "mpd",
+  "name": "Music Player Daemon",
+  "summary": "Music server controlled by a separate client",
+  "category": "music",
+  "homepage": "https://www.musicpd.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "choco": ["mpd"],
+    "scoop": ["mpd"]
+  },
+  "linux": {
+    "pacman": ["mpd"],
+    "apt": ["mpd"],
+    "dnf": ["mpd"],
+    "zypper": ["mpd"],
+    "apk": ["mpd"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/mpd"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["database", "state", "sticker.sql", "pid", "*.log", "socket"],
+    "notes": "mpd.conf names the music directory by absolute path and the audio output by platform type, ALSA or PulseAudio against WinMM, so it is kept aside. The database file is a scan and rebuilds itself."
+  },
+  "equivalents": ["ncmpcpp", "cmus"]
+}

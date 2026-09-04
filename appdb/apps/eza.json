@@ -1,0 +1,44 @@
+{
+  "id": "eza",
+  "name": "eza",
+  "summary": "Modern replacement for ls",
+  "category": "devtool",
+  "homepage": "https://eza.rocks/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "eza-community.eza"
+    ],
+    "choco": [
+      "eza"
+    ],
+    "scoop": [
+      "eza"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "eza"
+    ],
+    "apt": [
+      "eza"
+    ],
+    "dnf": [
+      "eza"
+    ],
+    "zypper": [
+      "eza"
+    ],
+    "apk": [
+      "eza"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/eza"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "theme.yml is the only file eza reads, and it is plain YAML."
+  },
+  "equivalents": []
+}

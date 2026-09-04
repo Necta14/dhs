@@ -1,0 +1,37 @@
+{
+  "id": "nano",
+  "name": "GNU nano",
+  "summary": "Small terminal text editor",
+  "category": "editor",
+  "homepage": "https://www.nano-editor.org/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": [
+      "nano"
+    ],
+    "apt": [
+      "nano"
+    ],
+    "dnf": [
+      "nano"
+    ],
+    "zypper": [
+      "nano"
+    ],
+    "apk": [
+      "nano"
+    ],
+    "paths": {
+      "nanorc": "~/.nanorc",
+      "config": "$XDG_CONFIG_HOME/nano"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "nanorc is plain text. Syntax definitions referred to by absolute path have to exist on the target system."
+  },
+  "equivalents": [
+    "micro",
+    "vim"
+  ]
+}

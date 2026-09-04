@@ -1,0 +1,57 @@
+{
+  "id": "gitkraken",
+  "name": "GitKraken Desktop",
+  "summary": "Graphical Git client",
+  "category": "vcs",
+  "homepage": "https://www.gitkraken.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "Axosoft.GitKraken"
+    ],
+    "choco": [
+      "gitkraken"
+    ],
+    "scoop": [
+      "extras/gitkraken"
+    ],
+    "registry": [
+      "GitKraken"
+    ],
+    "paths": {
+      "config": "%APPDATA%/.gitkraken"
+    }
+  },
+  "linux": {
+    "aur": [
+      "gitkraken"
+    ],
+    "flatpak": [
+      "com.axosoft.GitKraken"
+    ],
+    "paths": {
+      "config": "~/.gitkraken"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "Cache",
+      "Code Cache",
+      "GPUCache",
+      "DawnCache",
+      "blob_storage",
+      "logs",
+      "*.log",
+      "Crashpad",
+      "Service Worker",
+      "cache"
+    ],
+    "notes": "profiles and config are JSON in the same layout on both platforms."
+  },
+  "equivalents": [
+    "github-desktop",
+    "sublime-merge",
+    "lazygit"
+  ]
+}

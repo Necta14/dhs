@@ -1,0 +1,24 @@
+{
+  "id": "jabref",
+  "name": "JabRef",
+  "summary": "BibTeX reference manager",
+  "category": "science",
+  "homepage": "https://www.jabref.org/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["JabRef.JabRef"],
+    "choco": ["jabref"],
+    "scoop": ["extras/jabref"],
+    "registry": ["JabRef"]
+  },
+  "linux": {
+    "aur": ["jabref"],
+    "apt": ["jabref"],
+    "flatpak": ["org.jabref.jabref"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The preferences are in the Java preference store, which is the registry on Windows and ~/.java/.userPrefs on Linux, and they record absolute library paths. The bibliography itself is a .bib file wherever the user keeps it."
+  },
+  "equivalents": ["zotero", "mendeley"]
+}

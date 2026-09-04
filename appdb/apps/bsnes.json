@@ -1,0 +1,29 @@
+{
+  "id": "bsnes",
+  "name": "bsnes",
+  "summary": "Cycle-accurate Super Nintendo emulator",
+  "category": "emulator",
+  "homepage": "https://github.com/bsnes-emu/bsnes",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["bsnes-emu.BSNES"],
+    "choco": ["bsnes"],
+    "scoop": ["games/bsnes"],
+    "registry": ["bsnes"],
+    "paths": {
+      "data": "%LOCALAPPDATA%/bsnes"
+    }
+  },
+  "linux": {
+    "flatpak": ["dev.bsnes.bsnes"],
+    "paths": {
+      "data": "$XDG_DATA_HOME/bsnes"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["*.log", "cache"],
+    "notes": "settings.bml and the saves live in the user data directory on both platforms; the paths it records for the game folders are absolute."
+  },
+  "equivalents": ["ares", "snes9x"]
+}

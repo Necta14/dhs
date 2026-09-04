@@ -1,0 +1,58 @@
+{
+  "id": "insomnia",
+  "name": "Insomnia",
+  "summary": "HTTP and GraphQL API client",
+  "category": "devtool",
+  "homepage": "https://insomnia.rest/",
+  "windows": {
+    "winget": [
+      "Insomnia.Insomnia"
+    ],
+    "choco": [
+      "insomnia"
+    ],
+    "scoop": [
+      "extras/insomnia"
+    ],
+    "registry": [
+      "Insomnia"
+    ],
+    "paths": {
+      "config": "%APPDATA%/Insomnia"
+    }
+  },
+  "linux": {
+    "aur": [
+      "insomnia-bin"
+    ],
+    "flatpak": [
+      "rest.insomnia.Insomnia"
+    ],
+    "snap": [
+      "insomnia"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Insomnia"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "Cache",
+      "Code Cache",
+      "GPUCache",
+      "DawnCache",
+      "blob_storage",
+      "logs",
+      "*.log",
+      "Crashpad",
+      "Service Worker"
+    ],
+    "notes": "An Electron application; the workspace database and the settings are the same files on both platforms."
+  },
+  "equivalents": [
+    "bruno",
+    "postman",
+    "httpie"
+  ]
+}

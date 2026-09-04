@@ -1,0 +1,22 @@
+{
+  "id": "proton-pass",
+  "name": "Proton Pass",
+  "summary": "End-to-end encrypted password manager by Proton",
+  "category": "password-manager",
+  "homepage": "https://proton.me/pass",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Proton.ProtonPass"],
+    "scoop": ["extras/proton-pass"],
+    "registry": ["Proton Pass"]
+  },
+  "linux": {
+    "aur": ["proton-pass-bin", "proton-pass"],
+    "flatpak": ["me.proton.Pass"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The vault is encrypted in the Proton account and is downloaded again after sign-in; the local directory is only a cache."
+  },
+  "equivalents": ["bitwarden", "1password", "keepassxc"]
+}

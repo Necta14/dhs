@@ -1,0 +1,40 @@
+{
+  "id": "virt-manager",
+  "name": "Virtual Machine Manager",
+  "summary": "Desktop front end for libvirt and QEMU/KVM",
+  "category": "virtualization",
+  "homepage": "https://virt-manager.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": [
+      "virt-manager"
+    ],
+    "apt": [
+      "virt-manager"
+    ],
+    "dnf": [
+      "virt-manager"
+    ],
+    "zypper": [
+      "virt-manager"
+    ],
+    "apk": [
+      "virt-manager"
+    ],
+    "flatpak": [
+      "org.virt_manager.virt-manager"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/virt-manager"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The connection list and the interface settings are small text files. The machines themselves are libvirt domains and are not part of this entry."
+  },
+  "equivalents": [
+    "gnome-boxes",
+    "virtualbox",
+    "vmware-workstation"
+  ]
+}

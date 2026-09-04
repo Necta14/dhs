@@ -1,0 +1,28 @@
+{
+  "id": "freefilesync",
+  "name": "FreeFileSync",
+  "summary": "Folder comparison and synchronisation",
+  "category": "file-sync",
+  "homepage": "https://freefilesync.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "registry": ["FreeFileSync"],
+    "paths": {
+      "config": "%APPDATA%/FreeFileSync"
+    }
+  },
+  "linux": {
+    "aur": ["freefilesync"],
+    "apt": ["freefilesync"],
+    "zypper": ["FreeFileSync"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/FreeFileSync"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["Logs", "*.log"],
+    "notes": "The .ffs_gui and .ffs_batch jobs keep the same XML on both platforms, but every pair of folders in them is an absolute path or a drive letter."
+  },
+  "equivalents": ["rsync", "grsync"]
+}

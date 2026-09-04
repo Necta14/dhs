@@ -1,0 +1,29 @@
+{
+  "id": "klavaro",
+  "name": "Klavaro",
+  "summary": "Touch typing tutor",
+  "category": "education",
+  "homepage": "https://klavaro.sourceforge.io/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["FelipeEFdeCastro.Klavaro"],
+    "registry": ["Klavaro"],
+    "paths": {
+      "config": "%APPDATA%/klavaro"
+    }
+  },
+  "linux": {
+    "pacman": ["klavaro"],
+    "apt": ["klavaro"],
+    "dnf": ["klavaro"],
+    "zypper": ["klavaro"],
+    "flatpak": ["net.sourceforge.Klavaro"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/klavaro"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "The progress statistics and the chosen keyboard layout are plain text files with the same names on both platforms."
+  }
+}

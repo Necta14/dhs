@@ -1,0 +1,24 @@
+{
+  "id": "yubikey-manager",
+  "name": "YubiKey Manager",
+  "summary": "Configures YubiKey security keys",
+  "category": "security",
+  "homepage": "https://www.yubico.com/support/download/yubikey-manager/",
+  "license": "BSD-2-Clause",
+  "windows": {
+    "winget": ["Yubico.YubiKeyManager"],
+    "choco": ["yubikey-manager"],
+    "registry": ["YubiKey Manager"]
+  },
+  "linux": {
+    "pacman": ["yubikey-manager"],
+    "apt": ["yubikey-manager"],
+    "dnf": ["yubikey-manager"],
+    "zypper": ["yubikey-manager"],
+    "apk": ["yubikey-manager"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Everything it configures is stored on the key itself."
+  }
+}

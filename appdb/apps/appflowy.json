@@ -1,0 +1,22 @@
+{
+  "id": "appflowy",
+  "name": "AppFlowy",
+  "summary": "Open-source workspace for notes, tasks and databases",
+  "category": "notes",
+  "homepage": "https://appflowy.io/",
+  "license": "AGPL-3.0",
+  "windows": {
+    "winget": ["AppFlowy.AppFlowy"],
+    "scoop": ["extras/appflowy"],
+    "registry": ["AppFlowy"]
+  },
+  "linux": {
+    "aur": ["appflowy-bin", "appflowy"],
+    "flatpak": ["io.appflowy.AppFlowy"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The workspace folder is chosen by the user at first start and is backed up as ordinary personal files; the application itself keeps nothing else worth carrying."
+  },
+  "equivalents": ["anytype", "notion", "obsidian"]
+}

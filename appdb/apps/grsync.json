@@ -1,0 +1,22 @@
+{
+  "id": "grsync",
+  "name": "Grsync",
+  "summary": "Graphical front end for rsync",
+  "category": "backup",
+  "homepage": "https://sourceforge.net/projects/grsync/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["grsync"],
+    "apt": ["grsync"],
+    "dnf": ["grsync"],
+    "zypper": ["grsync"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/grsync"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The saved sessions are source and destination paths."
+  },
+  "equivalents": ["freefilesync", "rsync"]
+}

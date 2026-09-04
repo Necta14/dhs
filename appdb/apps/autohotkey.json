@@ -1,0 +1,19 @@
+{
+  "id": "autohotkey",
+  "name": "AutoHotkey",
+  "summary": "Scripting for keyboard shortcuts and automation on Windows",
+  "category": "utility",
+  "homepage": "https://www.autohotkey.com/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["AutoHotkey.AutoHotkey"],
+    "choco": ["autohotkey"],
+    "scoop": ["extras/autohotkey"],
+    "registry": ["AutoHotkey"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Windows only. The scripts are ordinary .ahk files wherever the user keeps them, and they drive the Windows API; they are backed up as documents, not as configuration."
+  },
+  "equivalents": ["autokey", "espanso", "keyd"]
+}

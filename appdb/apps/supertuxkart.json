@@ -1,0 +1,35 @@
+{
+  "id": "supertuxkart",
+  "name": "SuperTuxKart",
+  "summary": "Open source kart racing game",
+  "category": "gaming",
+  "homepage": "https://supertuxkart.net/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["SuperTuxKart.SuperTuxKart"],
+    "choco": ["supertuxkart"],
+    "scoop": ["games/supertuxkart"],
+    "registry": ["SuperTuxKart"],
+    "paths": {
+      "config": "%APPDATA%/supertuxkart"
+    }
+  },
+  "linux": {
+    "pacman": ["supertuxkart"],
+    "apt": ["supertuxkart"],
+    "dnf": ["supertuxkart"],
+    "zypper": ["supertuxkart"],
+    "apk": ["supertuxkart"],
+    "flatpak": ["net.supertuxkart.SuperTuxKart"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/supertuxkart",
+      "data": "$XDG_DATA_HOME/supertuxkart"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["cache", "*.log", "grandprix/cache"],
+    "notes": "config.xml, the player profiles and the unlocked-track progress are the same everywhere, but Windows keeps them in one folder while Linux splits configuration from add-ons."
+  },
+  "equivalents": []
+}

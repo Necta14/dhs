@@ -1,0 +1,37 @@
+{
+  "id": "zellij",
+  "name": "Zellij",
+  "summary": "Terminal workspace and multiplexer",
+  "category": "terminal",
+  "homepage": "https://zellij.dev/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "Zellij.Zellij"
+    ],
+    "scoop": [
+      "zellij"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "zellij"
+    ],
+    "zypper": [
+      "zellij"
+    ],
+    "apk": [
+      "zellij"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/zellij"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "config.kdl and the layouts are plain text."
+  },
+  "equivalents": [
+    "tmux"
+  ]
+}

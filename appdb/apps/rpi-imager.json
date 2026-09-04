@@ -1,0 +1,25 @@
+{
+  "id": "rpi-imager",
+  "name": "Raspberry Pi Imager",
+  "summary": "Writes Raspberry Pi images to SD cards",
+  "category": "utility",
+  "homepage": "https://www.raspberrypi.com/software/",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": ["RaspberryPiFoundation.RaspberryPiImager"],
+    "choco": ["rpi-imager"],
+    "registry": ["Raspberry Pi Imager"]
+  },
+  "linux": {
+    "pacman": ["rpi-imager"],
+    "apt": ["rpi-imager"],
+    "dnf": ["rpi-imager"],
+    "zypper": ["rpi-imager"],
+    "flatpak": ["org.raspberrypi.rpi-imager"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Keeps only the last used image and the customisation defaults, which include a password hash; nothing is carried."
+  },
+  "equivalents": ["balena-etcher", "impression", "popsicle"]
+}

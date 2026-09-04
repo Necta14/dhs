@@ -1,0 +1,43 @@
+{
+  "id": "perl",
+  "name": "Perl",
+  "summary": "Perl interpreter",
+  "category": "devtool",
+  "homepage": "https://www.perl.org/",
+  "windows": {
+    "winget": [
+      "StrawberryPerl.StrawberryPerl"
+    ],
+    "choco": [
+      "StrawberryPerl"
+    ],
+    "scoop": [
+      "perl"
+    ],
+    "registry": [
+      "Strawberry Perl"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "perl"
+    ],
+    "apt": [
+      "perl"
+    ],
+    "dnf": [
+      "perl"
+    ],
+    "zypper": [
+      "perl"
+    ],
+    "apk": [
+      "perl"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Perl itself keeps no user configuration; the CPAN client's directory is a build cache and is left behind."
+  },
+  "equivalents": []
+}

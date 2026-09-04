@@ -1,0 +1,21 @@
+{
+  "id": "ticktick",
+  "name": "TickTick",
+  "summary": "Task manager and calendar with a built-in pomodoro timer",
+  "category": "productivity",
+  "homepage": "https://ticktick.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Appest.TickTick"],
+    "registry": ["TickTick"]
+  },
+  "linux": {
+    "aur": ["ticktick"],
+    "flatpak": ["com.ticktick.TickTick"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Everything is stored in the TickTick account and returns on sign-in."
+  },
+  "equivalents": ["todoist", "super-productivity", "planner"]
+}

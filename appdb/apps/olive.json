@@ -1,0 +1,19 @@
+{
+  "id": "olive",
+  "name": "Olive",
+  "summary": "Non-linear video editor, still in alpha",
+  "category": "video-editor",
+  "homepage": "https://olivevideoeditor.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "scoop": ["extras/olive-editor"]
+  },
+  "linux": {
+    "flatpak": ["org.olivevideoeditor.Olive"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Alpha software: what it stores between runs is the window layout and a list of recent projects, and the format still changes from build to build. Nothing is carried."
+  },
+  "equivalents": ["kdenlive", "shotcut"]
+}

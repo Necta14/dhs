@@ -1,0 +1,41 @@
+{
+  "id": "dotnet-sdk",
+  "name": ".NET SDK",
+  "summary": "Microsoft .NET compiler and runtime",
+  "category": "devtool",
+  "homepage": "https://dotnet.microsoft.com/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "Microsoft.DotNet.SDK.8"
+    ],
+    "choco": [
+      "dotnet-sdk"
+    ],
+    "scoop": [
+      "dotnet-sdk"
+    ],
+    "registry": [
+      "Microsoft .NET SDK"
+    ],
+    "paths": {
+      "nuget": "%APPDATA%/NuGet"
+    }
+  },
+  "linux": {
+    "pacman": [
+      "dotnet-sdk"
+    ],
+    "apk": [
+      "dotnet8-sdk"
+    ],
+    "paths": {
+      "nuget": "~/.nuget/NuGet"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "NuGet.Config lists the package sources in the same XML on both platforms. The package cache under .nuget/packages is re-downloaded on restore. On Debian, Ubuntu and Fedora the SDK comes from Microsoft's own repository, which DHS does not add."
+  },
+  "equivalents": []
+}

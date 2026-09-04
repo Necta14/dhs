@@ -1,0 +1,19 @@
+{
+  "id": "tlp",
+  "name": "TLP",
+  "summary": "Power management tuning for laptops",
+  "category": "system",
+  "homepage": "https://linrunner.de/tlp/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["tlp"],
+    "apt": ["tlp"],
+    "dnf": ["tlp"],
+    "zypper": ["tlp"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Configured in /etc/tlp.conf, which belongs to the system and to that particular laptop."
+  },
+  "equivalents": ["tlpui", "powertop", "auto-cpufreq"]
+}

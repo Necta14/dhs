@@ -1,0 +1,30 @@
+{
+  "id": "valgrind",
+  "name": "Valgrind",
+  "summary": "Memory and threading error detector",
+  "category": "devtool",
+  "homepage": "https://valgrind.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": [
+      "valgrind"
+    ],
+    "apt": [
+      "valgrind"
+    ],
+    "dnf": [
+      "valgrind"
+    ],
+    "zypper": [
+      "valgrind"
+    ],
+    "apk": [
+      "valgrind"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only, and with no user configuration; the suppression files belong to the projects."
+  },
+  "equivalents": []
+}

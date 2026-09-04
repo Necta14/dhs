@@ -1,0 +1,25 @@
+{
+  "id": "hugin",
+  "name": "Hugin",
+  "summary": "Stitches photographs into panoramas",
+  "category": "photo",
+  "homepage": "https://hugin.sourceforge.io/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Hugin.Hugin"],
+    "choco": ["hugin"],
+    "registry": ["Hugin"]
+  },
+  "linux": {
+    "pacman": ["hugin"],
+    "apt": ["hugin"],
+    "dnf": ["hugin"],
+    "zypper": ["hugin"],
+    "flatpak": ["net.sourceforge.Hugin"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Its preferences are mostly the paths of the external tools it drives - enblend, enfuse, exiftool - and those live somewhere else on the new system. The projects are .pto files the user keeps with the photographs."
+  },
+  "equivalents": ["darktable", "gimp"]
+}

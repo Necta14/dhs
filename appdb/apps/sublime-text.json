@@ -1,0 +1,50 @@
+{
+  "id": "sublime-text",
+  "name": "Sublime Text",
+  "summary": "Proprietary source code editor",
+  "category": "editor",
+  "homepage": "https://www.sublimetext.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "SublimeHQ.SublimeText.4"
+    ],
+    "choco": [
+      "sublimetext4"
+    ],
+    "scoop": [
+      "extras/sublime-text"
+    ],
+    "registry": [
+      "Sublime Text"
+    ],
+    "paths": {
+      "user": "%APPDATA%/Sublime Text/Packages/User"
+    }
+  },
+  "linux": {
+    "aur": [
+      "sublime-text-4"
+    ],
+    "snap": [
+      "sublime-text --classic"
+    ],
+    "paths": {
+      "user": "$XDG_CONFIG_HOME/sublime-text/Packages/User"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.cache",
+      "Package Control.cache",
+      "*.log"
+    ],
+    "notes": "The Packages/User directory holds the settings, key bindings and installed packages as plain files, in the same layout on both platforms. The licence key is stored separately and is not carried."
+  },
+  "equivalents": [
+    "vscodium",
+    "vscode",
+    "zed"
+  ]
+}

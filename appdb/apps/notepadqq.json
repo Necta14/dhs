@@ -1,0 +1,37 @@
+{
+  "id": "notepadqq",
+  "name": "Notepadqq",
+  "summary": "Notepad++-like editor for Linux",
+  "category": "editor",
+  "homepage": "https://notepadqq.com/",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": [
+      "notepadqq"
+    ],
+    "apt": [
+      "notepadqq"
+    ],
+    "zypper": [
+      "notepadqq"
+    ],
+    "flatpak": [
+      "com.notepadqq.Notepadqq"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/Notepadqq"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "*.log"
+    ],
+    "notes": "Linux only. Built as an answer to Notepad++ and reads the same kinds of files."
+  },
+  "equivalents": [
+    "notepad-plus-plus",
+    "kate",
+    "vscodium"
+  ]
+}

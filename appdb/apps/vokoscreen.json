@@ -1,0 +1,20 @@
+{
+  "id": "vokoscreen",
+  "name": "vokoscreenNG",
+  "summary": "Screen recorder with camera and microphone",
+  "category": "screen-recorder",
+  "homepage": "https://linuxecke.volkoh.de/vokoscreen/vokoscreen.html",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["vokoscreen"],
+    "apt": ["vokoscreen-ng"],
+    "dnf": ["vokoscreenNG"],
+    "zypper": ["vokoscreenNG"],
+    "flatpak": ["com.github.vkohaupt.vokoscreenNG"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The settings are the output folder, the codec and the chosen input devices, and the device names do not exist on another machine. The package is called vokoscreen on Arch, vokoscreen-ng on Debian and vokoscreenNG on Fedora and openSUSE."
+  },
+  "equivalents": ["obs-studio", "simplescreenrecorder", "kooha"]
+}

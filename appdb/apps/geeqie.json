@@ -1,0 +1,26 @@
+{
+  "id": "geeqie",
+  "name": "Geeqie",
+  "summary": "Fast image viewer for sorting photographs",
+  "category": "photo",
+  "homepage": "https://www.geeqie.org/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["geeqie"],
+    "apt": ["geeqie"],
+    "dnf": ["geeqie"],
+    "zypper": ["geeqie"],
+    "apk": ["geeqie"],
+    "flatpak": ["org.geeqie.Geeqie"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/geeqie",
+      "collections": "$XDG_DATA_HOME/geeqie"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["thumbnails", "*.log", "metadata"],
+    "notes": "Linux only. geeqierc.xml holds the layout, the key bindings and the external editors; the collections beside it are lists of absolute file names."
+  },
+  "equivalents": ["gthumb", "nomacs", "gwenview"]
+}

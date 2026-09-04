@@ -1,0 +1,33 @@
+{
+  "id": "kile",
+  "name": "Kile",
+  "summary": "KDE LaTeX editor",
+  "category": "office",
+  "homepage": "https://apps.kde.org/kile/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["KDE.Kile"],
+    "choco": ["kile"],
+    "registry": ["Kile"],
+    "paths": {
+      "config": "%APPDATA%/kilerc",
+      "data": "%LOCALAPPDATA%/kile"
+    }
+  },
+  "linux": {
+    "pacman": ["kile"],
+    "apt": ["kile"],
+    "dnf": ["kile"],
+    "zypper": ["kile"],
+    "flatpak": ["org.kde.kile"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kilerc",
+      "data": "$XDG_DATA_HOME/kile"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "notes": "kilerc is an INI file, but the build tools it defines are absolute commands of the local TeX distribution, so it is kept aside on the other platform. Templates and scripts in the data directory travel unchanged."
+  },
+  "equivalents": ["texstudio", "texmaker", "lyx"]
+}

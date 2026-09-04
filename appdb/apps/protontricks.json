@@ -1,0 +1,20 @@
+{
+  "id": "protontricks",
+  "name": "Protontricks",
+  "summary": "Runs winetricks against the Wine prefixes of Steam Proton games",
+  "category": "utility",
+  "homepage": "https://github.com/Matoking/protontricks",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["protontricks"],
+    "apt": ["protontricks"],
+    "dnf": ["protontricks"],
+    "zypper": ["protontricks"],
+    "flatpak": ["com.github.Matoking.protontricks"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only. It writes into the prefixes Steam owns and keeps no configuration of its own."
+  },
+  "equivalents": []
+}

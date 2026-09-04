@@ -1,0 +1,20 @@
+{
+  "id": "nomachine",
+  "name": "NoMachine",
+  "summary": "Remote desktop over the NX protocol",
+  "category": "remote-desktop",
+  "homepage": "https://www.nomachine.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["NoMachine.NoMachine"],
+    "choco": ["nomachine"],
+    "registry": ["NoMachine"]
+  },
+  "linux": {
+    "aur": ["nomachine"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["remmina", "anydesk", "rustdesk"]
+}

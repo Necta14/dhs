@@ -1,0 +1,17 @@
+{
+  "id": "protonup-qt",
+  "name": "ProtonUp-Qt",
+  "summary": "Installs and manages Proton-GE and Wine-GE builds for Steam and Lutris",
+  "category": "utility",
+  "homepage": "https://davidotek.github.io/protonup-qt/",
+  "license": "GPL-3.0",
+  "linux": {
+    "aur": ["protonup-qt"],
+    "flatpak": ["net.davidotek.pupgui2"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only, and a front end for other tools: what it installs belongs to Steam and Lutris, and it keeps nothing of its own worth carrying."
+  },
+  "equivalents": []
+}

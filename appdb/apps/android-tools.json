@@ -1,0 +1,31 @@
+{
+  "id": "android-tools",
+  "name": "Android platform tools",
+  "summary": "adb and fastboot",
+  "category": "utility",
+  "homepage": "https://developer.android.com/tools/releases/platform-tools",
+  "license": "Apache-2.0",
+  "windows": {
+    "winget": ["Google.PlatformTools"],
+    "choco": ["adb"],
+    "paths": {
+      "android": "%USERPROFILE%/.android"
+    }
+  },
+  "linux": {
+    "pacman": ["android-tools"],
+    "apt": ["adb", "fastboot"],
+    "dnf": ["android-tools"],
+    "zypper": ["android-tools"],
+    "apk": ["android-tools"],
+    "paths": {
+      "android": "~/.android"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["avd", "cache", "*.log", "adb.*"],
+    "notes": "The adb key pair in this directory is what phones remember as an authorised computer; DHS treats adbkey as a secret. Emulator images under avd are excluded, they are gigabytes."
+  },
+  "equivalents": ["scrcpy"]
+}

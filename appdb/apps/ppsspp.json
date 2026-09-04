@@ -1,0 +1,32 @@
+{
+  "id": "ppsspp",
+  "name": "PPSSPP",
+  "summary": "PlayStation Portable emulator",
+  "category": "emulator",
+  "homepage": "https://www.ppsspp.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["PPSSPPTeam.PPSSPP"],
+    "choco": ["ppsspp"],
+    "scoop": ["games/ppsspp"],
+    "registry": ["PPSSPP"],
+    "paths": {
+      "config": "%USERPROFILE%/Documents/PPSSPP"
+    }
+  },
+  "linux": {
+    "pacman": ["ppsspp"],
+    "zypper": ["ppsspp"],
+    "apk": ["ppsspp"],
+    "flatpak": ["org.ppsspp.PPSSPP"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/ppsspp"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["PSP/SYSTEM/CACHE", "cache", "logs", "*.log", "PSP/SYSTEM/ppsspp_state"],
+    "notes": "The emulated memory stick, with the save data and the save states, lives under this directory on both platforms; ppsspp.ini records the ISO folders by absolute path."
+  },
+  "equivalents": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "totem",
+  "name": "Videos",
+  "summary": "GNOME video player",
+  "category": "media-player",
+  "homepage": "https://apps.gnome.org/Totem/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["totem"],
+    "apt": ["totem"],
+    "dnf": ["totem"],
+    "zypper": ["totem"],
+    "apk": ["totem"],
+    "flatpak": ["org.gnome.Totem"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only, and everything it remembers is a handful of GSettings keys in dconf. Nothing on disk is worth carrying."
+  },
+  "equivalents": ["celluloid", "mpv", "vlc"]
+}

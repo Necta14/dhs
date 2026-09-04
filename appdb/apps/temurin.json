@@ -1,0 +1,31 @@
+{
+  "id": "temurin",
+  "name": "Eclipse Temurin",
+  "summary": "Prebuilt OpenJDK distribution from Adoptium",
+  "category": "devtool",
+  "homepage": "https://adoptium.net/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": [
+      "EclipseAdoptium.Temurin.21.JDK"
+    ],
+    "choco": [
+      "Temurin"
+    ],
+    "registry": [
+      "Eclipse Temurin JDK"
+    ]
+  },
+  "linux": {
+    "aur": [
+      "jdk-temurin"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "A JDK keeps no user configuration. On Linux the distribution's own OpenJDK package is usually the better choice."
+  },
+  "equivalents": [
+    "openjdk"
+  ]
+}

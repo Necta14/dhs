@@ -1,0 +1,31 @@
+{
+  "id": "zoom",
+  "name": "Zoom",
+  "summary": "Video meetings",
+  "category": "video-call",
+  "homepage": "https://zoom.us/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Zoom.Zoom"],
+    "choco": ["zoom"],
+    "scoop": ["extras/zoom"],
+    "registry": ["Zoom"],
+    "paths": {
+      "config": "%APPDATA%/Zoom"
+    }
+  },
+  "linux": {
+    "aur": ["zoom"],
+    "flatpak": ["us.zoom.Zoom"],
+    "snap": ["zoom-client"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/zoomus.conf"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["logs", "*.log", "data"],
+    "notes": "Linux keeps a single zoomus.conf; Windows keeps a directory and part of the settings in the registry. The two forms do not match, so what is found is kept aside."
+  },
+  "equivalents": ["jitsi-meet", "webex", "jami"]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "musicbee",
+  "name": "MusicBee",
+  "summary": "Windows music manager and player",
+  "category": "music",
+  "homepage": "https://www.getmusicbee.com/",
+  "license": "proprietary",
+  "windows": {
+    "choco": ["musicbee"],
+    "scoop": ["extras/musicbee"],
+    "registry": ["MusicBee"],
+    "paths": {
+      "config": "%APPDATA%/MusicBee"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["InternetCache", "Cache", "*.log"],
+    "notes": "Windows only. MusicBee3Settings.ini and the .mbl library file describe a collection by absolute path; the audio files themselves are personal data, carried separately."
+  },
+  "equivalents": ["strawberry", "clementine", "quodlibet"]
+}

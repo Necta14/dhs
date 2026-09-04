@@ -1,0 +1,29 @@
+{
+  "id": "ungoogled-chromium",
+  "name": "ungoogled-chromium",
+  "summary": "Chromium with the Google integration removed",
+  "category": "browser",
+  "homepage": "https://github.com/ungoogled-software/ungoogled-chromium",
+  "license": "BSD-3-Clause",
+  "windows": {
+    "winget": ["eloston.ungoogled-chromium"],
+    "choco": ["ungoogled-chromium"],
+    "scoop": ["extras/ungoogled-chromium"],
+    "paths": {
+      "user-data": "%LOCALAPPDATA%/Chromium/User Data"
+    }
+  },
+  "linux": {
+    "aur": ["ungoogled-chromium-bin", "ungoogled-chromium"],
+    "flatpak": ["io.github.ungoogled_software.ungoogled_chromium"],
+    "paths": {
+      "user-data": "$XDG_CONFIG_HOME/chromium"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["Cache", "Code Cache", "GPUCache", "ShaderCache", "GrShaderCache", "GraphiteDawnCache", "DawnCache", "Crashpad", "Crash Reports", "component_crx_cache", "extensions_crx_cache", "Service Worker", "BrowserMetrics", "optimization_guide_model_store", "*.log"],
+    "notes": "The user-data directory has the same layout on both platforms: Preferences, Bookmarks, extensions and per-profile directories all carry over. Cookies and saved passwords are sealed with the Windows DPAPI, so those are re-entered on Linux; they are secrets anyway and travel only with --secrets. It shares the user-data directory name with plain Chromium, so only one of the two should be restored into it."
+  },
+  "equivalents": ["chromium", "brave", "firefox"]
+}

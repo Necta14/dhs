@@ -1,0 +1,18 @@
+{
+  "id": "notion",
+  "name": "Notion",
+  "summary": "Notes, documents and databases in a hosted workspace",
+  "category": "notes",
+  "homepage": "https://www.notion.so/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Notion.Notion"],
+    "scoop": ["extras/notion"],
+    "registry": ["Notion"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Everything is on Notion's servers and comes back on sign-in; the local directory is only a cache. There is no official Linux build, so DHS proposes the equivalents below."
+  },
+  "equivalents": ["anytype", "appflowy", "obsidian", "joplin"]
+}

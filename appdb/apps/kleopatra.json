@@ -1,0 +1,22 @@
+{
+  "id": "kleopatra",
+  "name": "Kleopatra",
+  "summary": "Certificate manager for OpenPGP and S/MIME",
+  "category": "security",
+  "homepage": "https://apps.kde.org/kleopatra/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["kleopatra"],
+    "apt": ["kleopatra"],
+    "dnf": ["kleopatra"],
+    "zypper": ["kleopatra"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/kleopatrarc"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Only the window and view settings; the keys themselves belong to the gnupg entry. On Windows Kleopatra ships as part of Gpg4win."
+  },
+  "equivalents": ["gpg4win", "gnupg"]
+}

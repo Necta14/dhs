@@ -1,0 +1,34 @@
+{
+  "id": "oh-my-posh",
+  "name": "Oh My Posh",
+  "summary": "Prompt theme engine for any shell",
+  "category": "shell",
+  "homepage": "https://ohmyposh.dev/",
+  "license": "MIT",
+  "windows": {
+    "winget": [
+      "JanDeDobbeleer.OhMyPosh"
+    ],
+    "choco": [
+      "oh-my-posh"
+    ],
+    "scoop": [
+      "oh-my-posh"
+    ],
+    "registry": [
+      "Oh My Posh"
+    ]
+  },
+  "linux": {
+    "aur": [
+      "oh-my-posh-bin"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The theme is a JSON, YAML or TOML file the user keeps wherever they like and points at with an environment variable; it travels with their documents, not with the application."
+  },
+  "equivalents": [
+    "starship"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "openscad",
+  "name": "OpenSCAD",
+  "summary": "3D modelling described in code",
+  "category": "cad",
+  "homepage": "https://openscad.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["OpenSCAD.OpenSCAD"],
+    "choco": ["openscad"],
+    "scoop": ["extras/openscad"],
+    "registry": ["OpenSCAD"],
+    "paths": {
+      "config": "%APPDATA%/OpenSCAD"
+    }
+  },
+  "linux": {
+    "pacman": ["openscad"],
+    "apt": ["openscad"],
+    "dnf": ["openscad"],
+    "zypper": ["openscad"],
+    "apk": ["openscad"],
+    "flatpak": ["org.openscad.OpenSCAD"],
+    "snap": ["openscad"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/OpenSCAD",
+      "libraries": "$XDG_DATA_HOME/OpenSCAD"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["backups", "*.log"],
+    "notes": "The settings file keeps the editor colours, the recent files and the customiser presets; the libraries directory holds the .scad files that use statements resolve against, and those are worth carrying."
+  },
+  "equivalents": ["freecad", "librecad"]
+}

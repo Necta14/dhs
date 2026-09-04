@@ -1,0 +1,25 @@
+{
+  "id": "weechat",
+  "name": "WeeChat",
+  "summary": "Terminal chat client, mainly for IRC",
+  "category": "chat",
+  "homepage": "https://weechat.org/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["weechat"],
+    "apt": ["weechat"],
+    "dnf": ["weechat"],
+    "zypper": ["weechat"],
+    "apk": ["weechat"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/weechat",
+      "config-legacy": "~/.weechat"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["logs", "*.log", "*.upgrade"],
+    "notes": "No packaged Windows build. Installations made before WeeChat 3.2 keep everything in ~/.weechat; newer ones split across the XDG directories, so both are looked for."
+  },
+  "equivalents": ["irssi", "hexchat", "konversation"]
+}

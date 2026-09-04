@@ -1,0 +1,29 @@
+{
+  "id": "putty",
+  "name": "PuTTY",
+  "summary": "SSH and telnet client",
+  "category": "remote-desktop",
+  "homepage": "https://www.chiark.greenend.org.uk/~sgtatham/putty/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["PuTTY.PuTTY"],
+    "choco": ["putty"],
+    "scoop": ["extras/putty"],
+    "registry": ["PuTTY"]
+  },
+  "linux": {
+    "pacman": ["putty"],
+    "apt": ["putty"],
+    "dnf": ["putty"],
+    "zypper": ["putty"],
+    "apk": ["putty"],
+    "paths": {
+      "config": "~/.putty"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "On Windows the saved sessions and host keys are in the registry under Software/SimonTatham, not in files, so nothing crosses from there. The Unix build keeps the same data in ~/.putty."
+  },
+  "equivalents": ["openssh", "termius", "remmina"]
+}

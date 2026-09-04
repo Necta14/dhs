@@ -1,0 +1,20 @@
+{
+  "id": "ventoy",
+  "name": "Ventoy",
+  "summary": "Boots ISO files straight from a USB drive",
+  "category": "utility",
+  "homepage": "https://www.ventoy.net/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Ventoy.Ventoy"],
+    "choco": ["ventoy"]
+  },
+  "linux": {
+    "aur": ["ventoy-bin"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The configuration lives on the prepared USB drive, not in the user's home."
+  },
+  "equivalents": ["balena-etcher", "rufus", "popsicle"]
+}

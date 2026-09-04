@@ -1,0 +1,19 @@
+{
+  "id": "plasma-systemmonitor",
+  "name": "System Monitor",
+  "summary": "KDE Plasma system monitor",
+  "category": "system",
+  "homepage": "https://apps.kde.org/plasma-systemmonitor/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": ["plasma-systemmonitor"],
+    "apt": ["plasma-systemmonitor"],
+    "dnf": ["plasma-systemmonitor"],
+    "zypper": ["plasma-systemmonitor"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "The custom pages are stored in the Plasma configuration, alongside the rest of the desktop."
+  },
+  "equivalents": ["gnome-system-monitor", "mission-center", "htop"]
+}

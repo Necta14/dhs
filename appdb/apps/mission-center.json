@@ -1,0 +1,16 @@
+{
+  "id": "mission-center",
+  "name": "Mission Center",
+  "summary": "Task-manager style system monitor for GNOME",
+  "category": "system",
+  "homepage": "https://missioncenter.io/",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["mission-center"],
+    "flatpak": ["io.missioncenter.MissionCenter"]
+  },
+  "config": {
+    "portability": "none"
+  },
+  "equivalents": ["resources", "gnome-system-monitor", "process-explorer"]
+}

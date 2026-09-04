@@ -1,0 +1,18 @@
+{
+  "id": "warpinator",
+  "name": "Warpinator",
+  "summary": "Send files between computers on a local network",
+  "category": "file-sync",
+  "homepage": "https://github.com/linuxmint/warpinator",
+  "license": "GPL-3.0",
+  "linux": {
+    "pacman": ["warpinator"],
+    "zypper": ["warpinator"],
+    "flatpak": ["org.x.Warpinator"]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "Linux only, from Linux Mint. The settings live in dconf and amount to a group code and a save folder, so nothing is carried."
+  },
+  "equivalents": ["localsend", "kde-connect"]
+}

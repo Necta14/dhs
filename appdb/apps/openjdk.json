@@ -1,0 +1,40 @@
+{
+  "id": "openjdk",
+  "name": "OpenJDK",
+  "summary": "Java development kit",
+  "category": "devtool",
+  "homepage": "https://openjdk.org/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": [
+      "Microsoft.OpenJDK.21"
+    ],
+    "choco": [
+      "openjdk"
+    ],
+    "registry": [
+      "Microsoft Build of OpenJDK"
+    ]
+  },
+  "linux": {
+    "pacman": [
+      "jdk-openjdk"
+    ],
+    "apt": [
+      "default-jdk"
+    ],
+    "dnf": [
+      "java-21-openjdk-devel"
+    ],
+    "apk": [
+      "openjdk21"
+    ]
+  },
+  "config": {
+    "portability": "none",
+    "notes": "A JDK keeps no user configuration. The IDE or the build tool records which JDK it uses."
+  },
+  "equivalents": [
+    "temurin"
+  ]
+}

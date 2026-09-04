@@ -1,0 +1,22 @@
+{
+  "id": "qt6ct",
+  "name": "Qt6 Configuration Tool",
+  "summary": "Sets the theme and fonts for Qt applications outside KDE",
+  "category": "system",
+  "homepage": "https://github.com/trialuser02/qt6ct",
+  "license": "BSD-2-Clause",
+  "linux": {
+    "pacman": ["qt6ct"],
+    "apt": ["qt6ct"],
+    "dnf": ["qt6ct"],
+    "zypper": ["qt6ct"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/qt6ct"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "notes": "Linux only. The chosen style and icon theme name packages installed on the machine."
+  },
+  "equivalents": ["gnome-tweaks"]
+}

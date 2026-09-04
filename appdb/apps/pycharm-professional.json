@@ -1,0 +1,50 @@
+{
+  "id": "pycharm-professional",
+  "name": "PyCharm Professional",
+  "summary": "Python and web IDE, commercial edition",
+  "category": "ide",
+  "homepage": "https://www.jetbrains.com/pycharm/",
+  "license": "proprietary",
+  "windows": {
+    "winget": [
+      "JetBrains.PyCharm"
+    ],
+    "registry": [
+      "PyCharm"
+    ],
+    "paths": {
+      "config": "%APPDATA%/JetBrains"
+    }
+  },
+  "linux": {
+    "aur": [
+      "pycharm-professional"
+    ],
+    "flatpak": [
+      "com.jetbrains.PyCharm-Professional"
+    ],
+    "snap": [
+      "pycharm-professional --classic"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/JetBrains"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": [
+      "log",
+      "logs",
+      "*.log",
+      "*.lock",
+      "port",
+      "system",
+      "caches",
+      "index"
+    ],
+    "notes": "IntelliJ-platform settings, kept per version under the JetBrains directory. They name JDKs, SDKs and projects by absolute path, so they are kept aside on the other platform rather than restored in place."
+  },
+  "equivalents": [
+    "pycharm-community"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "fish",
+  "name": "fish",
+  "summary": "User-friendly interactive shell",
+  "category": "shell",
+  "homepage": "https://fishshell.com/",
+  "license": "GPL-2.0",
+  "linux": {
+    "pacman": [
+      "fish"
+    ],
+    "apt": [
+      "fish"
+    ],
+    "dnf": [
+      "fish"
+    ],
+    "zypper": [
+      "fish"
+    ],
+    "apk": [
+      "fish"
+    ],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/fish"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": [
+      "fish_variables",
+      "generated_completions"
+    ],
+    "notes": "config.fish, the functions and the completions are plain scripts. fish has no native Windows build."
+  },
+  "equivalents": [
+    "zsh",
+    "nushell",
+    "powershell"
+  ]
+}
