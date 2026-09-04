@@ -15,6 +15,56 @@ type Root string
 // RootOther is for files outside the standard locations; they keep their original path.
 const RootOther Root = "other"
 
+// RootMeta holds what DHS writes about the package itself — today the application manifest,
+// "dhs/apps.json". It is encrypted like everything else, verified like everything else, and
+// never restored to disk as a file.
+const RootMeta Root = "dhs"
+
+// RootAppsPrefix starts the roots of application configuration: "apps/<id>/<key>", or
+// "apps/<id>/<key>@flatpak" when the files came from a sandboxed build.
+const RootAppsPrefix = "apps/"
+
+// IsApp says whether a root belongs to an application's configuration.
+func (r Root) IsApp() bool {
+	return len(r) > len(RootAppsPrefix) && r[:len(RootAppsPrefix)] == RootAppsPrefix
+}
+
+// AppRoot builds the root for one configuration location. variant is "" for the native build,
+// or the sandbox it came from ("flatpak", "snap").
+func AppRoot(id, key, variant string) Root {
+	r := RootAppsPrefix + id + "/" + key
+	if variant != "" {
+		r += "@" + variant
+	}
+	return Root(r)
+}
+
+// SplitAppRoot is the reverse of AppRoot. ok is false for a root that is not an application's.
+func (r Root) SplitAppRoot() (id, key, variant string, ok bool) {
+	if !r.IsApp() {
+		return "", "", "", false
+	}
+	rest := string(r[len(RootAppsPrefix):])
+	slash := -1
+	for i := 0; i < len(rest); i++ {
+		if rest[i] == '/' {
+			slash = i
+			break
+		}
+	}
+	if slash <= 0 || slash == len(rest)-1 {
+		return "", "", "", false
+	}
+	id, key = rest[:slash], rest[slash+1:]
+	for i := 0; i < len(key); i++ {
+		if key[i] == '@' {
+			key, variant = key[:i], key[i+1:]
+			break
+		}
+	}
+	return id, key, variant, true
+}
+
 // Manifest is dhs.json — unencrypted, hence strictly without file names, paths or user.
 type Manifest struct {
 	Format   uint16     `json:"format"`

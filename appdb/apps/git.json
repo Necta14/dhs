@@ -1,0 +1,33 @@
+{
+  "id": "git",
+  "name": "Git",
+  "summary": "Distributed version control",
+  "category": "vcs",
+  "homepage": "https://git-scm.com/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["Git.Git"],
+    "choco": ["git"],
+    "scoop": ["git"],
+    "registry": ["Git"],
+    "paths": {
+      "gitconfig": "%USERPROFILE%/.gitconfig",
+      "config-dir": "%USERPROFILE%/.config/git"
+    }
+  },
+  "linux": {
+    "pacman": ["git"],
+    "apt": ["git"],
+    "dnf": ["git"],
+    "zypper": ["git"],
+    "apk": ["git"],
+    "paths": {
+      "gitconfig": "~/.gitconfig",
+      "config-dir": "$XDG_CONFIG_HOME/git"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "notes": "~/.gitconfig is plain text and portable. Credential helpers named in it may not exist on the other platform; git then falls back to asking."
+  }
+}

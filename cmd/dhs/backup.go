@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"flag"
@@ -14,6 +15,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/Necta14/dhs/appdb"
+	"github.com/Necta14/dhs/internal/apps"
 	"github.com/Necta14/dhs/internal/i18n"
 	"github.com/Necta14/dhs/internal/pack"
 	"github.com/Necta14/dhs/internal/report"
@@ -36,6 +39,7 @@ Options
   --level <1|2|3>     compression: 1 compatible, 2 balanced (default), 3 maximum
   --secrets           include keys, passwords and .env files — excluded by default
   --all               exclude nothing (caches, games, virtual machines)
+  --no-apps           do not detect applications and do not carry their configuration
   --no-encrypt        write the package unencrypted. With level 1 it gives a package that opens without DHS
   --passphrase-file <path>   read the passphrase from a file (for automation); otherwise it is asked
   --yes               do not ask for confirmation
@@ -52,6 +56,7 @@ type backupOutput struct {
 	Stored   int64              `json:"stored_bytes"`
 	Dedup    int64              `json:"dedup_bytes"`
 	Skipped  []skippedFile      `json:"skipped,omitempty"`
+	Apps     *apps.Inventory    `json:"apps,omitempty"`
 	Duration time.Duration      `json:"duration_ns"`
 	Verify   *pack.VerifyReport `json:"verification,omitempty"`
 }
@@ -71,6 +76,7 @@ func runBackup(args []string) error {
 	level := fs.Int("level", int(scan.LevelBalanced), "")
 	secrets := fs.Bool("secrets", false, "")
 	all := fs.Bool("all", false, "")
+	noApps := fs.Bool("no-apps", false, "")
 	noCrypt := fs.Bool("no-encrypt", false, "")
 	passFile := fs.String("passphrase-file", "", "")
 	yes := fs.Bool("yes", false, "")
@@ -134,6 +140,34 @@ func runBackup(args []string) error {
 		return fmt.Errorf(i18n.T("cannot read the free space on %s: %w"), *dest, err)
 	}
 
+	// 0. Applications: what is installed, and where their configuration lives. The locations
+	// become roots of their own ("apps/<id>/<key>"), so that the files can be placed on another
+	// system by what they are, not by where they happened to be.
+	rm := pack.NewRootMap(info.Home, locs)
+	var appInv *apps.Inventory
+	var db *appdb.DB
+	if !*noApps {
+		db, err = appdb.Load()
+		if err != nil {
+			return err
+		}
+		appInv, err = apps.Detect(db, info)
+		if err != nil {
+			return fmt.Errorf(i18n.T("cannot detect the applications: %w"), err)
+		}
+		var extra []string
+		for _, a := range appInv.Apps {
+			for _, l := range a.Config {
+				rm.Add(l.Root(a.ID), l.Path)
+				if !insideAny(l.Path, roots) {
+					extra = append(extra, l.Path)
+				}
+			}
+		}
+		roots = append(roots, scan.HomeRoots(extra)...)
+		roots = append(roots, filesOnly(extra)...)
+	}
+
 	// 1. Inventory — the same as dhs scan, but we keep the entries in order to pack them.
 	var entries []scan.Entry
 	sizes := make(map[int64]int)
@@ -144,6 +178,9 @@ func runBackup(args []string) error {
 			entries = append(entries, e)
 			sizes[e.Size]++
 		},
+	}
+	if appInv != nil {
+		opts.Filter = appInv.Filter(db)
 	}
 	if *all {
 		opts.Excluder = scan.NewExcluder(nil)
@@ -163,7 +200,7 @@ func runBackup(args []string) error {
 
 	// 2. Show what comes next and ask for confirmation — before the passphrase, so it is not asked in vain.
 	if !*asJSON {
-		printScan(scanOutput{System: info, Inventory: inv, Estimate: est, Dest: &vol, Fits: &fits}, 0)
+		printScan(scanOutput{System: info, Inventory: inv, Estimate: est, Dest: &vol, Fits: &fits, Apps: appInv}, 0)
 		fmt.Println()
 	}
 	if !fits {
@@ -233,8 +270,22 @@ func runBackup(args []string) error {
 		return err
 	}
 
-	rm := pack.NewRootMap(info.Home, locs)
 	var skipped []skippedFile
+	if appInv != nil {
+		// The application manifest goes in first, so it sits in the first volume.
+		mb, err := apps.NewManifest(appInv, db.Len(), time.Now()).Encode()
+		if err != nil {
+			return err
+		}
+		err = w.Add(ctx, pack.File{
+			Root: pack.RootMeta, Path: apps.ManifestPath, Orig: "", Size: int64(len(mb)), Mode: 0o644, ModTime: time.Now(),
+			Class: scan.Text, Open: func() (io.ReadCloser, error) { return io.NopCloser(bytes.NewReader(mb)), nil },
+		})
+		if err != nil {
+			w.Abort(err)
+			return fmt.Errorf(i18n.T("writing failed: %w"), err)
+		}
+	}
 	for _, e := range entries {
 		if err := ctx.Err(); err != nil {
 			w.Abort(err)
@@ -276,7 +327,7 @@ func runBackup(args []string) error {
 	if err != nil {
 		return fmt.Errorf(i18n.T("the package was written but cannot be reopened: %w"), err)
 	}
-	out := backupOutput{Package: pkgDir, Manifest: r.Manifest, Files: r.Manifest.Files, Bytes: r.Manifest.Raw, Stored: r.Manifest.Stored, Skipped: skipped, Duration: elapsed}
+	out := backupOutput{Package: pkgDir, Manifest: r.Manifest, Files: r.Manifest.Files, Bytes: r.Manifest.Raw, Stored: r.Manifest.Stored, Skipped: skipped, Apps: appInv, Duration: elapsed}
 	if *verify {
 		rep, err := r.Verify(ctx, verifyProgress(live))
 		if err != nil {
@@ -293,6 +344,10 @@ func runBackup(args []string) error {
 		report.Count(out.Files), report.Bytes(out.Bytes), report.Bytes(out.Stored), r.Manifest.Volumes, report.Duration(elapsed))
 	if len(skipped) > 0 {
 		fmt.Printf(i18n.T("%s%d files could not be read (see --json for the list)\n"), report.Pad(i18n.T("Skipped"), 14), len(skipped))
+	}
+	if appInv != nil {
+		fmt.Printf(i18n.T("%s%d recognised · %d unknown · dhs plan %s shows what would be installed elsewhere\n"),
+			report.Pad(i18n.T("Applications"), 14), len(appInv.Apps), len(appInv.Unknown), pkgDir)
 	}
 	if out.Verify != nil {
 		if out.Verify.OK() {
@@ -324,4 +379,26 @@ func verifyProgress(live bool) func(done, total int64) {
 			fmt.Fprint(os.Stderr, "\r\033[K")
 		}
 	}
+}
+
+// insideAny says whether path lies under one of the roots already being scanned.
+func insideAny(path string, roots []string) bool {
+	for _, r := range roots {
+		if _, ok := apps.Under(path, r); ok {
+			return true
+		}
+	}
+	return false
+}
+
+// filesOnly keeps the paths that are regular files: HomeRoots drops them, and a configuration
+// location may well be a single file (~/.gitconfig).
+func filesOnly(paths []string) []string {
+	var out []string
+	for _, p := range paths {
+		if st, err := os.Stat(p); err == nil && !st.IsDir() {
+			out = append(out, p)
+		}
+	}
+	return out
 }

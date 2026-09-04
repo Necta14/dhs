@@ -1,0 +1,32 @@
+{
+  "id": "vscodium",
+  "name": "VSCodium",
+  "summary": "Visual Studio Code without Microsoft branding and telemetry",
+  "category": "editor",
+  "homepage": "https://vscodium.com/",
+  "license": "MIT",
+  "windows": {
+    "winget": ["VSCodium.VSCodium"],
+    "choco": ["vscodium"],
+    "scoop": ["extras/vscodium"],
+    "registry": ["VSCodium"],
+    "paths": {
+      "user": "%APPDATA%/VSCodium/User",
+      "extensions": "%USERPROFILE%/.vscode-oss/extensions"
+    }
+  },
+  "linux": {
+    "aur": ["vscodium-bin"],
+    "flatpak": ["com.vscodium.codium"],
+    "snap": ["codium --classic"],
+    "paths": {
+      "user": "$XDG_CONFIG_HOME/VSCodium/User",
+      "extensions": "~/.vscode-oss/extensions"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["workspaceStorage", "History", "logs", "*.log"]
+  },
+  "equivalents": ["vscode"]
+}

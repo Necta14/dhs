@@ -92,6 +92,9 @@ var secretNames = map[string]string{
 	"id_ed25519": "SSH key", "identity": "SSH key",
 	"credentials": "credentials", ".netrc": "network credentials", ".pgpass": "PostgreSQL passwords",
 	".htpasswd": "HTTP passwords",
+	// Browser credential stores: passwords and the key that decrypts them (D4).
+	"logins.json": "browser passwords", "key4.db": "browser password key", "key3.db": "browser password key",
+	"login data": "browser passwords", "login data for account": "browser passwords",
 }
 
 // Excluder decides what enters the inventory and what does not.

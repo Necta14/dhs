@@ -2,6 +2,35 @@
 
 Session journal. Newest at the top. Decisions live in `CLAUDE.md`; this is *what happened*.
 
+## 2026-09-04 — applications: the database, detection, `plan` and `install`
+
+The side of the product that gives it its name is written. `appdb/` holds the application
+database — JSON, one file per application, embedded with `go:embed`, no parser dependency, a test
+that refuses a database that does not validate, and CC-BY-4.0 for the data so that anyone may reuse
+it. TOML was the plan; JSON won on Rule #4 (no new dependency) and on tooling: every editor
+validates it against `appdb/schema.json`, and `appdb/tools/validate.py` applies the same rules as
+the Go test for contributors who do not have Go.
+
+`internal/apps` detects what is installed by reading the package databases that are plain text
+(pacman, dpkg, apk, the Flatpak and Snap deployment directories) and running only what is binary
+(`rpm -qa`, `winget export`); on Windows the three `Uninstall` registry keys give what the Settings
+app shows. Configuration is carried under roots of its own, `apps/<id>/<key>`, keyed the way the
+database keys it, so the target places a directory by what it is rather than by where it was — and
+a Flatpak's sandbox home is derived, not listed. `dhs plan` is a pure function of manifest,
+database and target; `dhs install` runs the commands it printed, batch first and one by one on
+failure, so the report names exactly what did not install. `dhs restore` places application
+configuration through the same plan and keeps the rest aside with the reason.
+
+Two things are deliberately not done: DHS does not propose an install for an application it only
+knows by a leftover configuration directory, and it never places a `translatable` configuration on
+the other operating system, however tempting a VLC `vlcrc` looks. Both are the honest reading of
+D3.
+
+The database itself is being filled by six writers working from a shared brief
+(`appdb/README.md` is the contract), a few hundred entries across browsers, development, office,
+media, system tools and gaming, with identifiers checked against Repology where doubtful. Every
+entry needs a second pair of eyes before 1.0; that is the backlog item.
+
 ## 2026-09-03 - 0.1.3, and a native interface on Windows
 
 The Windows interface exists: `gui/windows`, one portable executable under 3 MiB, Win32 drawn by

@@ -20,13 +20,18 @@ const (
 
 // Info describes the current system, as much as the manifest and the restore plan need.
 type Info struct {
-	OS       OS     `json:"os"`
-	Name     string `json:"name"`    // "Arch Linux", "Windows 11 Pro"
-	Version  string `json:"version"` // "rolling", "23H2"
-	Arch     string `json:"arch"`    // amd64, arm64
-	User     string `json:"user"`
-	Home     string `json:"home"`
-	Hostname string `json:"hostname"`
+	OS      OS     `json:"os"`
+	Name    string `json:"name"`    // "Arch Linux", "Windows 11 Pro"
+	Version string `json:"version"` // "rolling", "23H2"
+	Arch    string `json:"arch"`    // amd64, arm64
+	// Distro is the ID from /etc/os-release ("arch", "ubuntu", "fedora"); Like is ID_LIKE, the
+	// families it descends from ("debian", "rhel fedora"). Both empty on Windows. They decide
+	// which package manager is native to the system.
+	Distro   string   `json:"distro,omitempty"`
+	Like     []string `json:"distro_like,omitempty"`
+	User     string   `json:"user"`
+	Home     string   `json:"home"`
+	Hostname string   `json:"hostname"`
 }
 
 func (i Info) String() string {

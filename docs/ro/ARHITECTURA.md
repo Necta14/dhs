@@ -2,9 +2,12 @@
 
 > Traducere în română. Versiunea de referință e cea în engleză: [`../ARCHITECTURE.md`](../ARCHITECTURE.md)
 
-> Stare la 03.09.2026: `scan`, `backup`, `verify`, `list`, `restore` sunt implementate și **verzi
-> pe Codespaces** ([`TESTARE.md`](TESTARE.md)); `appdb`, detectarea aplicațiilor și `plan` nu sunt
-> scrise. Punctele ⚠️ mai au nevoie de confirmare.
+> Stare la 04.09.2026: `scan`, `backup`, `verify`, `list`, `restore` sunt implementate și **verzi
+> pe Codespaces** ([`TESTARE.md`](TESTARE.md)). Partea de aplicații — baza de date (`appdb/`),
+> detectarea, `plan` și `install` — e scrisă și acoperită de teste unitare și de scriptul e2e.
+> **Secțiunile despre aplicații de mai jos sunt depășite**: forma actuală (JSON în loc de TOML,
+> rădăcinile `apps/<id>/<cheie>`, comanda `install`) e descrisă în versiunea engleză, care rămâne
+> referința. Punctele ⚠️ mai au nevoie de confirmare.
 >
 > Context și decizii: [`CLAUDE.md`](CLAUDE.md).
 

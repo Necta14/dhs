@@ -14,11 +14,14 @@ What does not go into v1. The order within each section is a proposal, not a com
 - [x] `dhs verify` — full verification, without extraction — **green on Codespaces**
 - [x] `dhs list` — package contents, summary or full — **green on Codespaces**
 - [x] `dhs restore` — plan (destinations, conflicts, adapted names, case collisions) → confirmation → write through a temporary file + hash check + rename — **green on Codespaces**
-- [ ] `internal/appdb` — the app database (TOML + `go:embed`) and its queries
-- [ ] Detection of installed apps: `pacman`/`dpkg`/`rpm`/`flatpak`/`snap` on Linux, registry + `winget` on Windows
-- [ ] `dhs plan` — manifest + appdb → restore plan, without touching anything
-- [ ] `dhs report` — what stayed unknown or untranslated
-- [ ] The 10–15 apps with portable configurations (D3)
+- [x] `appdb/` — the app database (JSON + `go:embed`), validation and queries — written 2026-09-04
+- [x] Detection of installed apps: `pacman`/`dpkg`/`rpm`/`apk`/`flatpak`/`snap` on Linux, registry + `winget` + `scoop` + `choco` on Windows — written 2026-09-04
+- [x] `dhs plan` — manifest + appdb → what to install and where each configuration goes, without touching anything — written 2026-09-04
+- [x] `dhs install` — the approved plan's commands, batch with one-by-one retry — written 2026-09-04
+- [x] `dhs report` — folded into `dhs plan`: its unknown / no-source / kept-aside sections are the report
+- [x] Application configuration under `apps/<id>/<key>` roots, placed by key on the target — written 2026-09-04
+- [ ] Filling the database: hundreds of entries in progress; every entry needs a second pair of eyes on its identifiers
+- [ ] Windows detection and `dhs install` exercised on the real Windows VM (the Linux side runs in `scripts/e2e.sh`)
 - [ ] Splitting the package across several media
 
 ## Quality and infrastructure

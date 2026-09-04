@@ -1,8 +1,9 @@
 # DHS architecture — proposal for v1
 
-> State as of 2026-09-03: `scan`, `backup`, `verify`, `list`, `restore` are implemented and
-> **green on Codespaces** ([`TESTING.md`](TESTING.md)); `appdb`, app detection and `plan` are not
-> written. Points marked ⚠️ still need confirmation.
+> State as of 2026-09-04: `scan`, `backup`, `verify`, `list`, `restore` are implemented and
+> **green on Codespaces** ([`TESTING.md`](TESTING.md)). The application side — the database
+> (`appdb/`), detection, `plan` and `install` — is written and covered by unit tests and the e2e
+> script; see the notes for the state of its verification. Points marked ⚠️ still need confirmation.
 >
 > Context and decisions: [`../CLAUDE.md`](../CLAUDE.md).
 
@@ -119,67 +120,127 @@ to be decided (proposal: double confirmation at creation, plus a warning that ca
 
 ## The app manifest
 
-Lives encrypted, in the first volume.
+`dhs/apps.json`, an ordinary entry of the package under the reserved root `dhs`: encrypted like
+everything else, checksummed like everything else, never written to disk at restore time. It goes
+in first, so it sits in the first volume and `dhs plan` can read it without touching the others.
 
 ```json
 {
-  "system": { "os": "windows", "version": "11 Pro 23H2", "user": "you" },
+  "format": 1,
+  "created": "2026-09-04T10:12:00Z",
+  "database_entries": 512,
+  "os": "windows",
+  "managers": ["winget"],
   "apps": [
     {
-      "id": "mozilla.firefox",
-      "name": "Mozilla Firefox",
-      "version": "142.0",
-      "detected_via": "winget",
-      "config": { "state": "captured", "portability": "identical" }
+      "id": "firefox", "name": "Mozilla Firefox", "category": "browser", "version": "142.0.1",
+      "sources": [
+        {"via": "registry", "package": "Mozilla Firefox (x64 en-US)", "name": "Mozilla Firefox (x64 en-US)", "version": "142.0.1"},
+        {"via": "winget", "package": "Mozilla.Firefox", "version": "142.0.1"}
+      ],
+      "config": [{"key": "profiles", "path": "C:\\Users\\you\\AppData\\Roaming\\Mozilla\\Firefox"}]
     },
     {
-      "id": null,
-      "name": "Internal Program Ltd v3",
-      "detected_via": "registry",
-      "unknown": true
+      "id": "git", "name": "Git", "category": "vcs", "config_only": true,
+      "config": [{"key": "gitconfig", "path": "C:\\Users\\you\\.gitconfig", "file": true}]
     }
+  ],
+  "unknown": [
+    {"via": "registry", "package": "Internal Program Ltd v3", "name": "Internal Program Ltd v3", "version": "3.0"}
   ]
 }
 ```
 
-Unknown applications stay in the manifest with `id: null`. DHS **does not invent** an equivalent —
-it lists them in the final report as "I don't know what this is, you deal with it".
+An application appears with every manager that reported it. `config_only` marks one that no
+manager reported but whose configuration is on disk — a portable build, an AppImage, a leftover:
+its files travel, nothing is proposed for installation on its account. Unknown applications stay
+in `unknown`, with what the manager said about them. DHS **does not invent** an equivalent — it
+lists them in the plan as "not in the database, nothing is installed for them".
+
+### Configuration roots
+
+The files of a configuration location are stored under a root of their own, `apps/<id>/<key>`,
+with `@flatpak` or `@snap` appended when they came out of a sandboxed build's home. The key is
+the one from the database, identical on every platform, so `apps/firefox/profiles` means "the
+Firefox profiles, wherever this system keeps them". On the source, the location's absolute path is
+registered as a root, so a directory such as `~/.config/Code/User` is filed under
+`apps/vscode/user` rather than under `config`. On the target, `dhs plan` decides where each root
+goes (below), and `dhs restore` registers those decisions before building its own file plan;
+whatever is not placed lands under `~/DHS-restored/apps/<id>/<key>/`, with the reason.
+
+A location that is a single file (`~/.gitconfig`) is stored with the path `.` under its root,
+exactly like a file given directly to `dhs backup`.
 
 ## The app database
 
-TOML files, one per application, embedded in the binary with `go:embed`. Contributable through pull
-requests, with no service needed.
+JSON, one file per application, in [`appdb/apps/`](../appdb/apps/), embedded in the binary with
+`go:embed` and loaded once per process. No parser dependency: the standard library reads it, and a
+test refuses to build a database that does not validate. The data is CC-BY-4.0, apart from the
+code; the format, the rules and how to contribute are in [`appdb/README.md`](../appdb/README.md).
 
-```toml
-id = "mozilla.firefox"
-name = "Mozilla Firefox"
-category = "browser"
-
-[windows]
-detect   = { winget = "Mozilla.Firefox", registry = ["HKLM\\SOFTWARE\\Mozilla\\Mozilla Firefox"] }
-install  = [{ manager = "winget", id = "Mozilla.Firefox" }, { manager = "choco", id = "firefox" }]
-config   = ["%APPDATA%/Mozilla/Firefox/Profiles"]
-
-[linux]
-detect   = { pacman = "firefox", dpkg = "firefox", flatpak = "org.mozilla.firefox" }
-install  = [{ manager = "pacman", id = "firefox" }, { manager = "apt", id = "firefox" },
-            { manager = "flatpak", id = "org.mozilla.firefox" }]
-config   = ["~/.mozilla/firefox"]
-
-[portability]
-config = "identical"      # identical | translatable | untranslatable
-notes  = "The profile is portable across platforms; the profile directory is copied."
-
-# For applications that do not exist on the other platform:
-# equivalents = ["kde.kate", "vscodium"]
+```json
+{
+  "id": "firefox",
+  "name": "Mozilla Firefox",
+  "category": "browser",
+  "windows": {
+    "winget": ["Mozilla.Firefox"], "choco": ["firefox"], "scoop": ["extras/firefox"],
+    "registry": ["Mozilla Firefox"],
+    "paths": { "profiles": "%APPDATA%/Mozilla/Firefox" }
+  },
+  "linux": {
+    "pacman": ["firefox"], "apt": ["firefox", "firefox-esr"], "dnf": ["firefox"],
+    "zypper": ["MozillaFirefox"], "apk": ["firefox"],
+    "flatpak": ["org.mozilla.firefox"], "snap": ["firefox"],
+    "paths": { "profiles": "~/.mozilla/firefox" }
+  },
+  "config": { "portability": "identical", "exclude": ["cache2", "startupCache", "*.lock"] },
+  "equivalents": []
+}
 ```
 
-The 10–15 applications of v1 (D3), proposal: Firefox, Chrome/Chromium, VSCode/VSCodium, Git, SSH
-(`~/.ssh/config`, no keys), Thunderbird, VLC, Obsidian, KeePassXC ⚠️, GIMP, LibreOffice, Discord,
-Steam ⚠️ (configuration only, not the game library).
+Each manager's list is both detection and installation: the names are what the manager reports
+when the application is installed, and the first one is what DHS installs. `registry` is the
+display name in Windows' *Apps & features* and only detects. `paths` are keyed, and the keys tie
+the platforms together. `portability` says how far the configuration travels **between operating
+systems**: `identical` is restored in place, `translatable` and `untranslatable` are kept aside
+(v1 translates nothing, D3), `none` has no paths. On the same operating system everything is
+restored in place. `equivalents` are the ids that stand in for the application where it does not
+exist — curated, never guessed.
 
-⚠️ To discuss: KeePassXC holds the password database — it belongs under "secrets", so opt-in. Steam
-can have hundreds of GB; it must be excluded by default, with a separate opt-in.
+### Detection
+
+- **Linux**: `/var/lib/pacman/local/*/desc`, `/var/lib/dpkg/status`, `/lib/apk/db/installed` and
+  the Flatpak and Snap deployment directories are read directly; the rpm database is binary, so
+  `rpm -qa` is run. Which manager is *native* comes from `ID` / `ID_LIKE` in `/etc/os-release`,
+  not from which binaries exist.
+- **Windows**: the three `Uninstall` registry keys (both architectures, machine and user), minus
+  system components and updates — what the Settings app shows; then `winget export`, which is
+  JSON and complete where `winget list` truncates; then the `scoop` and `choco` directories.
+- Then, for every application the database knows on this platform, whether its configuration
+  locations exist — natively, and inside the sandbox homes of the Flatpak or Snap builds it was
+  seen in (`~/.var/app/<id>/config/…`, `~/snap/<name>/current/.config/…`).
+
+### The plan
+
+`dhs plan` is a pure function of the manifest, the database and the target system (its managers,
+what is installed). For every application in the manifest: already installed here → nothing;
+has a version here → the first manager in the target's order of preference that names it; no
+version here → the first equivalent that can be installed, once, however many applications point
+to it; otherwise reported as missing, with the reason. Managers not present on the target
+(`flatpak` not installed) make an application "no way to install here", with what would do it.
+For every configuration location: placed if the application is installed or being installed here
+and, across operating systems, if its portability is `identical`; otherwise kept aside. When the
+package holds both the native and the Flatpak copy of a profile, the one matching how the
+application is present here is placed and the other kept aside.
+
+The commands are part of the plan and are shown verbatim before anything runs (D5): `pacman -Syu
+--needed` (never `-Sy`), `apt-get update` then `apt-get install -y`, `dnf install -y`,
+`zypper --non-interactive install`, `apk add`, `flatpak install -y --noninteractive flathub`,
+`snap install` per snap (some need `--classic`), `winget install --id … --exact --silent` per
+package, `choco install -y`, `scoop install`. A batch that fails is retried one package at a time,
+so the report names exactly what did not install. Root comes through `sudo`, `doas` or `run0`,
+whichever exists; on Windows the installers raise their own prompts.
 
 ## Code structure
 
@@ -199,16 +260,17 @@ internal/
   passphrase/             age with a passphrase                                     ✅
   restore/                restore plan + execution through a temporary file         ✅
   i18n/                   CLI messages: English default + Romanian catalog (DHS_LANG)   ✅
-  appdb/                  the app database (go:embed) + queries
-  apps/                   detection of installed apps, install plan
+  apps/                   detection, the manifest, the install plan, running the commands ✅
+appdb/                    the app database: JSON entries (CC-BY-4.0), loader, queries     ✅
 ```
 
 OS-specific code lives **only** in files with the `_linux.go` and `_windows.go` suffix. Thanks to
 build tags, the Linux binary contains not a single byte of the Windows code — hence the sizes:
-4.2 MiB on Linux, 4.5 MiB on Windows.
+4.9 MiB on Linux, 5.2 MiB on Windows, database included.
 
-The rule: the `_linux.go` / `_windows.go` files in `internal/system` are the only places with
-OS-specific code. The rest is shared and testable on any machine.
+The rule: the `_linux.go` / `_windows.go` files in `internal/system` and `internal/apps` are the
+only places with OS-specific code. The rest is shared and testable on any machine; the parsers of
+the Linux package databases deliberately carry no build tag, so their tests run everywhere.
 
 ## CLI surface
 
@@ -217,20 +279,23 @@ dhs scan                                    # what would be included, how much i
            --dest /run/media/you/SSD        # checks whether it fits, estimated compression included
            --level 2                        # 1 compatible | 2 balanced | 3 maximum
            --secrets | --all                # include secrets | exclude nothing
+           --no-apps                        # skip application detection
            --precise                        # sampling + dedup: measured estimate, not assumed (not yet implemented)
 dhs backup --dest /run/media/you/SSD        # creates the package (asks for the passphrase)
            --name test                      # default: migration-<date>
-           --level 2 --secrets --all
+           --level 2 --secrets --all --no-apps
            --no-encrypt                     # unencrypted package, with a visible warning (D7)
            --passphrase-file <path> --yes --verify
 dhs verify <package>                        # checks every checksum, extracts nothing
 dhs list   <package> [--all]                # contents: summary or full listing
 dhs restore <package>                       # default: shows the plan and asks for approval
             --dry-run                       # plan only, writes nothing
-            --only documents,pictures       # only these roots
+            --only documents,pictures,apps  # only these roots; "apps" is every application's configuration
             --conflicts keep-both|skip|overwrite
-dhs plan   <package>                        # (planned) what would be installed and restored; touches nothing
-dhs report <package>                        # (planned) what stayed unknown or untranslated
+dhs plan    <package>                       # what would be installed here and where each configuration goes; touches nothing
+dhs install <package>                       # shows the plan with its commands, asks once, runs them
+            --skip vlc,spotify              # leave applications out
+            --dry-run --yes
 dhs version
 ```
 
@@ -242,14 +307,17 @@ the suffix " (DHS)", unless `--conflicts` says otherwise. Environment: `DHS_LANG
 default from the locale) and `DHS_DEBUG` (diagnostic output for bug reports).
 
 `dhs restore` with no extra arguments **executes nothing** until it sees the plan approved. `plan`
-is the command anyone can run, at any time, with no risk.
+is the command anyone can run, at any time, with no risk: it reads, detects, decides, prints.
+`install` runs exactly the commands `plan` printed, after one confirmation. What `plan` reports as
+unknown or kept aside is the "report" the earlier design had as a separate command.
 
 ## Privileges
 
 - **Backup** runs as a regular user. Your own profile does not require administrator.
 - **Restoring files** also runs as a regular user.
 - **Installing applications** is the only step that requires `sudo` / administrator, and it is
-  isolated exactly there, after the plan is approved.
+  isolated exactly there: `dhs install`, after the plan is approved. Restoring application
+  configuration is part of `dhs restore` and needs nothing.
 
 ## What v1 does NOT do
 

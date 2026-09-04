@@ -16,6 +16,8 @@ Commands
   verify     verify a package, block by block, without extracting anything
   list       show what is inside a package
   restore    put the files back in place on the current system, following an approved plan
+  plan       what would be installed here and where each configuration goes; touches nothing
+  install    install the applications from a package, following an approved plan
   version    version and detected system
 
 Help for a command
@@ -31,6 +33,8 @@ Comenzi
   verify     verifică un pachet, bloc cu bloc, fără să extragă nimic
   list       arată ce e într-un pachet
   restore    pune fișierele la locul lor pe sistemul curent, după un plan aprobat
+  plan       ce s-ar instala aici și unde ajunge fiecare configurare; nu atinge nimic
+  install    instalează aplicațiile dintr-un pachet, după un plan aprobat
   version    versiunea și sistemul detectat
 
 Ajutor pentru o comandă
@@ -50,6 +54,7 @@ Options
   --level <1|2|3>  compression level: 1 compatible, 2 balanced (default), 3 maximum
   --secrets        include keys, passwords and .env files (by default they are only counted)
   --all            exclude nothing; also show caches, games, virtual machines
+  --no-apps        do not detect applications
   --json           JSON output, for graphical interfaces and scripts
   --help
 `: `dhs scan — arată ce s-ar salva și cât ar ocupa, fără să scrie nimic
@@ -65,6 +70,7 @@ Opțiuni
   --level <1|2|3>  nivelul de compresie: 1 compatibil, 2 echilibrat (implicit), 3 maxim
   --secrets        include chei, parole și fișiere .env (implicit sunt doar numărate)
   --all            nu exclude nimic; arată și cache-urile, jocurile, mașinile virtuale
+  --no-apps        nu detectează aplicațiile
   --json           ieșire JSON, pentru interfețe grafice și scripturi
   --help
 `,
@@ -84,6 +90,7 @@ Options
   --level <1|2|3>     compression: 1 compatible, 2 balanced (default), 3 maximum
   --secrets           include keys, passwords and .env files — excluded by default
   --all               exclude nothing (caches, games, virtual machines)
+  --no-apps           do not detect applications and do not carry their configuration
   --no-encrypt        write the package unencrypted. With level 1 it gives a package that opens without DHS
   --passphrase-file <path>   read the passphrase from a file (for automation); otherwise it is asked
   --yes               do not ask for confirmation
@@ -104,6 +111,7 @@ Opțiuni
   --level <1|2|3>     compresie: 1 compatibil, 2 echilibrat (implicit), 3 maxim
   --secrets           include chei, parole și fișiere .env — excluse implicit
   --all               nu exclude nimic (cache-uri, jocuri, mașini virtuale)
+  --no-apps           nu detectează aplicațiile și nu le poartă configurările
   --no-encrypt        scrie pachetul necriptat. Cu nivelul 1 dă un pachet deschizabil fără DHS
   --passphrase-file <cale>   citește fraza de acces din fișier (pentru automatizare); altfel o cere
   --yes               nu cere confirmare
@@ -169,10 +177,14 @@ First shows the plan: what goes where, what already exists, which names had to b
 nothing without confirmation. Every file is written to a temporary, checked against the checksum
 from the package, and only then put in its place. A file that fails never reaches the destination.
 
+Application configuration is placed where this system keeps it, for the applications that are
+installed here or that dhs install would install; the rest is kept under ~/DHS-restored/apps/.
+Applications themselves are installed by dhs install, not here.
+
 Options
   --dry-run                  only the plan, without confirmation and without writing
   --only <root,root>         restore only these places: documents, pictures, videos, music,
-                             downloads, desktop, config, other
+                             downloads, desktop, config, apps, other
   --conflicts <policy>       what to do when the file already exists:
                                keep-both   keep the existing one, write the restored one with a " (DHS)" suffix (default)
                                skip        do not write the restored one
@@ -190,10 +202,14 @@ Utilizare
 fără confirmare. Fiecare fișier se scrie într-un temporar, se verifică față de suma din pachet și
 abia apoi e pus la locul lui. Un fișier care nu trece nu ajunge niciodată la destinație.
 
+Configurările aplicațiilor sunt puse unde le ține acest sistem, pentru aplicațiile instalate aici
+sau pe care dhs install le-ar instala; restul rămâne sub ~/DHS-restored/apps/. Aplicațiile în
+sine le instalează dhs install, nu comanda de față.
+
 Opțiuni
   --dry-run                  doar planul, fără confirmare și fără scriere
   --only <rad,rad>           restaurează doar aceste locuri: documents, pictures, videos, music,
-                             downloads, desktop, config, other
+                             downloads, desktop, config, apps, other
   --conflicts <politica>     ce facem când fișierul există deja:
                                keep-both   păstrează existentul, scrie restauratul cu sufix „ (DHS)” (implicit)
                                skip        nu scrie restauratul
@@ -422,4 +438,123 @@ Opțiuni
 	// ---- version -----------------------------------------------------------------------------
 	"system: %s\n": "sistem: %s\n",
 	"home:   %s\n": "acasă:  %s\n",
+
+	// ---- plan / install --------------------------------------------------------------------
+
+	`dhs plan — what would be installed and where each configuration would go, touching nothing
+
+Usage
+  dhs plan <package> [options]
+
+Reads the application manifest of the package, looks at what this system has and can install, and
+shows: the applications to install and through which manager, the ones already here, the ones with
+no way to install them here, the ones with no version for this platform (with their equivalents),
+the ones the database does not know, and where every configuration goes. Then the exact commands.
+Nothing runs. The same plan is what dhs install executes after your approval.
+
+Options
+  --passphrase-file <path>   read the passphrase from a file; otherwise it is asked
+  --json
+  --help
+`: `dhs plan — ce s-ar instala și unde ar ajunge fiecare configurare, fără să atingă nimic
+
+Utilizare
+  dhs plan <pachet> [opțiuni]
+
+Citește manifestul de aplicații al pachetului, se uită ce are și ce poate instala acest sistem și
+arată: aplicațiile de instalat și prin ce manager, cele deja prezente, cele fără nicio cale de
+instalare aici, cele fără versiune pentru platforma asta (cu echivalentele lor), cele pe care baza
+de date nu le cunoaște și unde ajunge fiecare configurare. Apoi comenzile exacte. Nu rulează nimic.
+Același plan e ceea ce dhs install execută după aprobarea ta.
+
+Opțiuni
+  --passphrase-file <cale>   citește fraza de acces din fișier; altfel o cere
+  --json
+  --help
+`,
+
+	`dhs install — install the applications from a package, following an approved plan
+
+Usage
+  dhs install <package> [options]
+
+Shows the plan (the same as dhs plan), including every command, and asks once. Then runs the
+commands in order, output visible, and reports what did not install. Installing needs the
+system's package manager: sudo on Linux, an administrator prompt on Windows. Files and
+configuration are restored by dhs restore, not here.
+
+Options
+  --skip <id,id>             leave these applications out (ids as shown by dhs plan)
+  --passphrase-file <path>   read the passphrase from a file; otherwise it is asked
+  --dry-run                  show the plan and stop; the same as dhs plan
+  --yes                      do not ask for confirmation
+  --json
+  --help
+`: `dhs install — instalează aplicațiile dintr-un pachet, după un plan aprobat
+
+Utilizare
+  dhs install <pachet> [opțiuni]
+
+Arată planul (același ca dhs plan), cu fiecare comandă, și întreabă o singură dată. Apoi rulează
+comenzile în ordine, cu ieșirea vizibilă, și raportează ce nu s-a instalat. Instalarea are nevoie
+de managerul de pachete al sistemului: sudo pe Linux, o confirmare de administrator pe Windows.
+Fișierele și configurările le restaurează dhs restore, nu comanda de față.
+
+Opțiuni
+  --skip <id,id>             lasă deoparte aceste aplicații (id-urile arătate de dhs plan)
+  --passphrase-file <cale>   citește fraza de acces din fișier; altfel o cere
+  --dry-run                  arată planul și se oprește; același lucru ca dhs plan
+  --yes                      nu cere confirmare
+  --json
+  --help
+`,
+
+	"  %d in place · %d kept aside under DHS-restored/apps": "  %d la locul lor · %d puse deoparte sub DHS-restored/apps",
+	"  stands in for ": "  ține locul pentru ",
+	"  — not in the database; nothing is installed for them":                                               "  — nu sunt în baza de date; pentru ele nu se instalează nimic",
+	"%d configuration locations, placed where this system keeps them":                                      "%d locuri de configurare, puse unde le ține acest sistem",
+	"%d packages did not install:":                                                                         "%d pachete nu s-au instalat:",
+	"%s%d in the package · %d recognised · %d unknown\n":                                                   "%s%d în pachet · %d recunoscute · %d necunoscute\n",
+	"%s%d recognised (%d installed) · %d configuration locations · %d unknown · from %s\n":                 "%s%d recunoscute (%d instalate) · %d locuri de configurare · %d necunoscute · de pe %s\n",
+	"%s%d recognised (%d installed, %d by configuration only) · %d configuration locations · %d unknown\n": "%s%d recunoscute (%d instalate, %d doar după configurare) · %d locuri de configurare · %d necunoscute\n",
+	"%s%d recognised · %d unknown · dhs plan %s shows what would be installed elsewhere\n":                 "%s%d recunoscute · %d necunoscute · dhs plan %s arată ce s-ar instala în altă parte\n",
+	"%s: give exactly one package":                                                                         "%s: dă exact un pachet",
+	"--dry-run: nothing was run.":                                                                          "--dry-run: nu s-a rulat nimic.",
+	"Already here (%d)":                                                                                    "Deja aici (%d)",
+	"Applications":                                                                                         "Aplicații",
+	"Commands":                                                                                             "Comenzi",
+	"Configuration":                                                                                        "Configurări",
+	"Install (%d)":                                                                                         "De instalat (%d)",
+	"Installed":                                                                                            "Instalate",
+	"No way to install here (%d)":                                                                          "Fără cale de instalare aici (%d)",
+	"Not available on this platform (%d)":                                                                  "Indisponibile pe platforma asta (%d)",
+	"Not running as administrator: expect a permission prompt for every installation.": "Nu rulează ca administrator: așteaptă-te la o cerere de permisiune la fiecare instalare.",
+	"Nothing to install.":                                "Nimic de instalat.",
+	"Run these %d commands and install %d applications?": "Rulez aceste %d comenzi și instalez %d aplicații?",
+	"Unknown (%d)":                                       "Necunoscute (%d)",
+	"application configuration kept aside under DHS-restored/apps (%d) — dhs plan says why": "configurări de aplicații puse deoparte sub DHS-restored/apps (%d) — dhs plan spune de ce",
+	"aside: ":                            "deoparte: ",
+	"cannot detect the applications: %w": "nu pot detecta aplicațiile: %w",
+	"could not query: ":                  "nu am putut interoga: ",
+	"dhs plan <package> shows what would be installed on this system":                       "dhs plan <pachet> arată ce s-ar instala pe acest sistem",
+	"install --json requires --yes or --dry-run":                                            "install --json cere --yes sau --dry-run",
+	"installing needs root and neither sudo nor doas is available; run dhs install as root": "instalarea cere root și nu există nici sudo, nici doas; rulează dhs install ca root",
+	"needs one of: ": "are nevoie de unul dintre: ",
+	"no known way to install it on this platform": "nicio cale cunoscută de instalare pe platforma asta",
+	"some applications did not install":           "unele aplicații nu s-au instalat",
+	"this package has no application manifest: it was made with --no-apps, or by a DHS from before applications": "pachetul nu are manifest de aplicații: a fost făcut cu --no-apps sau cu un DHS dinainte de aplicații",
+	"✓ %d applications": "✓ %d aplicații",
+
+	// reasons produced by internal/apps and shown through T
+	"not in this database":                                                               "nu e în această bază de date",
+	"no version for this platform and no equivalent listed":                              "fără versiune pentru platforma asta și fără echivalent listat",
+	"no version for this platform; none of the listed equivalents can be installed here": "fără versiune pentru platforma asta; niciun echivalent listat nu se poate instala aici",
+	"another copy of this configuration is placed instead":                               "e pusă în loc altă copie a acestei configurări",
+	"the application has no version for this platform":                                   "aplicația nu are versiune pentru platforma asta",
+	"no location for this configuration on this platform":                                "configurarea nu are un loc pe platforma asta",
+	"the configuration needs translating between platforms; DHS does not translate":      "configurarea ar trebui tradusă între platforme; DHS nu traduce",
+	"the configuration is bound to the platform it came from":                            "configurarea e legată de platforma de pe care vine",
+	"the configuration does not travel between platforms":                                "configurarea nu trece de pe o platformă pe alta",
+	"the application is not installed here and is not being installed":                   "aplicația nu e instalată aici și nu se instalează",
+	"the location cannot be resolved on this system":                                     "locul nu poate fi rezolvat pe acest sistem",
 }

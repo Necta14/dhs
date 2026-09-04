@@ -1,0 +1,34 @@
+{
+  "id": "vlc",
+  "name": "VLC media player",
+  "summary": "Media player that plays almost everything",
+  "category": "media-player",
+  "homepage": "https://www.videolan.org/vlc/",
+  "license": "GPL-2.0",
+  "windows": {
+    "winget": ["VideoLAN.VLC"],
+    "choco": ["vlc"],
+    "scoop": ["extras/vlc"],
+    "registry": ["VLC media player"],
+    "paths": {
+      "config": "%APPDATA%/vlc"
+    }
+  },
+  "linux": {
+    "pacman": ["vlc"],
+    "apt": ["vlc"],
+    "dnf": ["vlc"],
+    "zypper": ["vlc"],
+    "apk": ["vlc"],
+    "flatpak": ["org.videolan.VLC"],
+    "snap": ["vlc"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/vlc"
+    }
+  },
+  "config": {
+    "portability": "translatable",
+    "exclude": ["art", "*.dat-*"],
+    "notes": "vlcrc has the same keys on both platforms but holds absolute paths and platform module names (DirectX vs. PulseAudio), so it is kept aside rather than dropped in place."
+  }
+}

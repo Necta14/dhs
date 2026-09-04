@@ -1,0 +1,78 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/Necta14/dhs/appdb/schema.json",
+  "title": "DHS application database entry",
+  "description": "One application: how each platform's package managers know it, where it keeps its configuration, what replaces it elsewhere. See README.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "name", "category", "config"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,63}$", "description": "Equals the file name without .json" },
+    "name": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string" },
+    "category": {
+      "type": "string",
+      "enum": ["browser", "email", "chat", "video-call", "feed-reader",
+               "office", "pdf", "notes", "ebook", "education", "science", "finance", "productivity",
+               "editor", "ide", "terminal", "shell", "devtool", "vcs", "database", "virtualization", "container",
+               "media-player", "music", "video-editor", "audio-editor", "graphics", "photo", "3d", "cad",
+               "screenshot", "screen-recorder", "streaming",
+               "gaming", "launcher", "emulator",
+               "password-manager", "security", "vpn", "network", "remote-desktop",
+               "file-manager", "file-sync", "cloud-storage", "backup", "archive", "download", "torrent",
+               "system", "utility", "fonts", "accessibility", "other"]
+    },
+    "homepage": { "type": "string", "pattern": "^https?://" },
+    "license": { "type": "string", "description": "SPDX identifier or 'proprietary'" },
+    "windows": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "winget": { "$ref": "#/definitions/ids" },
+        "choco": { "$ref": "#/definitions/ids" },
+        "scoop": { "$ref": "#/definitions/ids" },
+        "registry": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "paths": { "$ref": "#/definitions/windowsPaths" }
+      }
+    },
+    "linux": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "pacman": { "$ref": "#/definitions/ids" },
+        "aur": { "$ref": "#/definitions/ids" },
+        "apt": { "$ref": "#/definitions/ids" },
+        "dnf": { "$ref": "#/definitions/ids" },
+        "zypper": { "$ref": "#/definitions/ids" },
+        "apk": { "$ref": "#/definitions/ids" },
+        "flatpak": { "$ref": "#/definitions/ids" },
+        "snap": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*( --classic)?$" } },
+        "paths": { "$ref": "#/definitions/linuxPaths" }
+      }
+    },
+    "config": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["portability"],
+      "properties": {
+        "portability": { "type": "string", "enum": ["identical", "translatable", "untranslatable", "none"] },
+        "exclude": { "type": "array", "items": { "type": "string", "pattern": "^[^/].*[^/]$|^[^/]$" } },
+        "notes": { "type": "string" }
+      }
+    },
+    "equivalents": { "type": "array", "items": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,63}$" }, "uniqueItems": true }
+  },
+  "definitions": {
+    "ids": { "type": "array", "items": { "type": "string", "pattern": "^\\S+$" } },
+    "linuxPaths": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z0-9][a-z0-9-]{0,63}$" },
+      "additionalProperties": { "type": "string", "pattern": "^(~|\\$XDG_CONFIG_HOME|\\$XDG_DATA_HOME|\\$XDG_STATE_HOME)/[^\\\\]+[^/\\\\]$" }
+    },
+    "windowsPaths": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z0-9][a-z0-9-]{0,63}$" },
+      "additionalProperties": { "type": "string", "pattern": "^(%APPDATA%|%LOCALAPPDATA%|%USERPROFILE%)/[^\\\\]+[^/\\\\]$" }
+    }
+  }
+}

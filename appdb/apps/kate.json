@@ -1,0 +1,36 @@
+{
+  "id": "kate",
+  "name": "Kate",
+  "summary": "KDE advanced text editor",
+  "category": "editor",
+  "homepage": "https://kate-editor.org/",
+  "license": "LGPL-2.0",
+  "windows": {
+    "winget": ["KDE.Kate"],
+    "choco": ["kate"],
+    "registry": ["Kate"],
+    "paths": {
+      "config": "%APPDATA%/katerc",
+      "data": "%LOCALAPPDATA%/kate"
+    }
+  },
+  "linux": {
+    "pacman": ["kate"],
+    "apt": ["kate"],
+    "dnf": ["kate"],
+    "zypper": ["kate"],
+    "apk": ["kate"],
+    "flatpak": ["org.kde.kate"],
+    "snap": ["kate --classic"],
+    "paths": {
+      "config": "$XDG_CONFIG_HOME/katerc",
+      "data": "$XDG_DATA_HOME/kate"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["sessions/*.lock"],
+    "notes": "katerc is an INI file with the same keys everywhere; sessions and snippets live in the data directory."
+  },
+  "equivalents": ["notepad-plus-plus"]
+}

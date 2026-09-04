@@ -31,6 +31,8 @@ Commands
   verify     verify a package, block by block, without extracting anything
   list       show what is inside a package
   restore    put the files back in place on the current system, following an approved plan
+  plan       what would be installed here and where each configuration goes; touches nothing
+  install    install the applications from a package, following an approved plan
   version    version and detected system
 
 Help for a command
@@ -55,6 +57,10 @@ func main() {
 		err = runList(os.Args[2:])
 	case "restore":
 		err = runRestore(os.Args[2:])
+	case "plan":
+		err = runPlan(os.Args[2:])
+	case "install":
+		err = runInstall(os.Args[2:])
 	case "version", "--version", "-v":
 		err = runVersion()
 	case "help", "--help", "-h":

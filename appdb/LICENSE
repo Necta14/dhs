@@ -1,0 +1,12 @@
+The application database — every file under appdb/apps/ — is licensed under the
+Creative Commons Attribution 4.0 International licence (CC BY 4.0).
+
+You may share and adapt it for any purpose, including commercially, as long as you give
+appropriate credit to the DHS project (https://github.com/Necta14/dhs) and indicate whether
+changes were made.
+
+Full licence text: https://creativecommons.org/licenses/by/4.0/legalcode
+Human-readable summary: https://creativecommons.org/licenses/by/4.0/
+
+The Go code in this directory (appdb.go and the tests) is part of DHS and is licensed under
+the Apache License 2.0, like the rest of the project (see ../LICENSE).

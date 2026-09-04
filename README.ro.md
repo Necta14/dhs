@@ -54,12 +54,25 @@ dhs backup --dest /run/media/you/SSD --name laptop --level 2   # scrie migration
 dhs verify /run/media/you/SSD/laptop.dhs                        # fiecare sumă de control, fără să extragă nimic
 dhs list   /run/media/you/SSD/laptop.dhs --all                  # ce e înăuntru
 dhs restore /run/media/you/SSD/laptop.dhs --dry-run             # planul, fără să scrie nimic
-dhs restore /run/media/you/SSD/laptop.dhs                       # arată planul, întreabă, apoi scrie
+dhs restore /run/media/you/SSD/laptop.dhs                       # arată planul, întreabă, apoi scriedhs plan    /run/media/you/SSD/laptop.dhs                       # ce aplicații s-ar instala aici, și cum
+dhs install /run/media/you/SSD/laptop.dhs                       # arată comenzile, întreabă o dată, le rulează
 ```
 
 Restaurarea nu suprascrie niciodată: fișierul existent rămâne, iar cel restaurat apare alături, cu
 sufixul ` (DHS)` — dacă nu spui `--conflicts skip` sau `--conflicts overwrite`. Fișierele a căror
 rădăcină nu există pe sistemul nou ajung sub `~/DHS-restored/`. Fiecare comandă acceptă `--json`.
+
+**Aplicații.** `scan` și `backup` se uită și la ce e instalat — prin managerele de pachete pe
+Linux, prin *Aplicații și caracteristici*, winget, scoop și choco pe Windows — și potrivesc
+rezultatul cu [baza de aplicații](appdb/README.md) proprie a DHS: un fișier JSON per aplicație,
+care spune sub ce nume o cunosc managerele fiecărei platforme, unde își ține configurările și ce
+îi ține locul acolo unde nu există. Configurările călătoresc cu pachetul, îndosariate după
+aplicație, nu după cale, așa că un profil Firefox din `%APPDATA%` ajunge în `~/.mozilla/firefox`
+pe Linux. Pe sistemul nou, `dhs plan` spune ce s-ar instala și prin ce manager, ce e deja acolo,
+ce n-are versiune pentru platforma asta și ce echivalent l-ar înlocui, și ce nu cunoaște baza de
+date — DHS nu ghicește niciodată o aplicație. `dhs install` rulează exact comenzile arătate de
+`plan`, după o singură confirmare. Baza e întreținută de comunitate; o aplicație nouă înseamnă un
+pull request cu un fișier.
 
 ## Instalare
 

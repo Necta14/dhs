@@ -44,6 +44,10 @@ type Options struct {
 	Excluder *Excluder
 	// IncludeSecrets brings secrets into the main inventory. By default they are only counted separately.
 	IncludeSecrets bool
+	// Filter, if set, is asked about every directory and file under the roots; false leaves it
+	// out silently. It is how application-specific exclusions (a browser's cache inside its
+	// profile) are applied without turning them into global rules.
+	Filter func(path string, dir bool) bool
 	// TopN is how many of the largest files are kept, so the user can see what takes up the space.
 	TopN int
 	// OnEntry, if given, receives every included file. It lets the following phases (hashing,
@@ -128,6 +132,9 @@ func Walk(opts Options) (*Result, error) {
 
 			if d.IsDir() {
 				if path != abs {
+					if opts.Filter != nil && !opts.Filter(path, true) {
+						return fs.SkipDir
+					}
 					if rule, hit := ex.Dir(d.Name()); hit {
 						s := skipped[rule.Dir]
 						if s == nil {
@@ -150,6 +157,9 @@ func Walk(opts Options) (*Result, error) {
 				return nil
 			}
 			if !d.Type().IsRegular() {
+				return nil
+			}
+			if opts.Filter != nil && !opts.Filter(path, false) {
 				return nil
 			}
 

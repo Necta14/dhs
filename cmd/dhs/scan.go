@@ -11,6 +11,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Necta14/dhs/appdb"
+	"github.com/Necta14/dhs/internal/apps"
 	"github.com/Necta14/dhs/internal/i18n"
 	"github.com/Necta14/dhs/internal/report"
 	"github.com/Necta14/dhs/internal/scan"
@@ -30,16 +32,18 @@ Options
   --level <1|2|3>  compression level: 1 compatible, 2 balanced (default), 3 maximum
   --secrets        include keys, passwords and .env files (by default they are only counted)
   --all            exclude nothing; also show caches, games, virtual machines
+  --no-apps        do not detect applications
   --json           JSON output, for graphical interfaces and scripts
   --help
 `
 
 type scanOutput struct {
-	System    system.Info    `json:"system"`
-	Inventory *scan.Result   `json:"inventory"`
-	Estimate  scan.Estimate  `json:"estimate"`
-	Dest      *system.Volume `json:"destination,omitempty"`
-	Fits      *bool          `json:"fits,omitempty"`
+	System    system.Info     `json:"system"`
+	Inventory *scan.Result    `json:"inventory"`
+	Estimate  scan.Estimate   `json:"estimate"`
+	Dest      *system.Volume  `json:"destination,omitempty"`
+	Fits      *bool           `json:"fits,omitempty"`
+	Apps      *apps.Inventory `json:"apps,omitempty"`
 }
 
 func runScan(args []string) error {
@@ -51,6 +55,7 @@ func runScan(args []string) error {
 	level := fs.Int("level", int(scan.LevelBalanced), "compression level (1-3)")
 	secrets := fs.Bool("secrets", false, "include secrets")
 	all := fs.Bool("all", false, "exclude nothing")
+	noApps := fs.Bool("no-apps", false, "do not detect applications")
 	asJSON := fs.Bool("json", false, "JSON output")
 
 	// The flag package stops at the first path, so "dhs scan ~/Documents --json" would take
@@ -117,6 +122,16 @@ func runScan(args []string) error {
 	est := scan.Estimator{Workers: runtime.NumCPU()}.Estimate(inv, lvl)
 
 	out := scanOutput{System: info, Inventory: inv, Estimate: est}
+	if !*noApps {
+		db, err := appdb.Load()
+		if err != nil {
+			return err
+		}
+		out.Apps, err = apps.Detect(db, info)
+		if err != nil {
+			return fmt.Errorf(i18n.T("cannot detect the applications: %w"), err)
+		}
+	}
 	if *dest != "" {
 		v, err := system.SpaceOf(*dest)
 		if err != nil {
@@ -246,6 +261,10 @@ func printScan(o scanOutput, elapsed time.Duration) {
 	if n := len(inv.Errors); n > 0 {
 		fmt.Println()
 		fmt.Printf("%s%s\n", report.Pad(i18n.T("Inaccessible"), w), dim(i18n.Tf("%d places skipped (missing permissions)", n)))
+	}
+	if o.Apps != nil {
+		fmt.Println()
+		printAppsSummary(o.Apps, w)
 	}
 }
 

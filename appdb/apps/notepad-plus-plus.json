@@ -1,0 +1,23 @@
+{
+  "id": "notepad-plus-plus",
+  "name": "Notepad++",
+  "summary": "Text and source editor for Windows",
+  "category": "editor",
+  "homepage": "https://notepad-plus-plus.org/",
+  "license": "GPL-3.0",
+  "windows": {
+    "winget": ["Notepad++.Notepad++"],
+    "choco": ["notepadplusplus"],
+    "scoop": ["extras/notepadplusplus"],
+    "registry": ["Notepad++"],
+    "paths": {
+      "config": "%APPDATA%/Notepad++"
+    }
+  },
+  "config": {
+    "portability": "untranslatable",
+    "exclude": ["backup", "plugins/Config/*.log"],
+    "notes": "Windows only. The configuration is kept aside on Linux; the equivalents below open the same files."
+  },
+  "equivalents": ["kate", "vscodium"]
+}

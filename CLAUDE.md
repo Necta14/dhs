@@ -4,10 +4,12 @@
 > [`AGENTS.md`](AGENTS.md), the journal in [`docs/NOTES.md`](docs/NOTES.md), the tasks in
 > [`docs/BACKLOG.md`](docs/BACKLOG.md).
 >
-> **State as of 2026-09-03.** The file core is implemented and **green on Codespaces**: `scan`,
+> **State as of 2026-09-04.** The file core is implemented and **green on Codespaces**: `scan`,
 > `backup`, `verify`, `list`, `restore` — unit tests, race detector and a complete backup → restore
-> flow with bit-for-bit comparison. Missing: the app database, app detection and `plan`. Tests run
-> **only** on Codespaces (AGENTS.md, rule 7); how: [`docs/TESTING.md`](docs/TESTING.md).
+> flow with bit-for-bit comparison. The application side is written: the database in `appdb/`
+> (JSON, `go:embed`, CC-BY-4.0), detection on both platforms, configuration carried under
+> `apps/<id>/<key>` roots, `dhs plan` and `dhs install`. Tests run **only** on Codespaces
+> (AGENTS.md, rule 7); how: [`docs/TESTING.md`](docs/TESTING.md).
 
 ## What DHS is
 
@@ -42,7 +44,8 @@ compatible files and configurations.
 
 ### The app database
 
-Our own, not borrowed. It holds, per application:
+Our own, not borrowed: [`appdb/`](appdb/), one JSON file per application, embedded in the binary,
+contributed through pull requests ([`appdb/README.md`](appdb/README.md)). It holds, per application:
 
 - whether it is supported and under which identifiers it is known on each platform
 - the equivalents across platforms (e.g. Notepad++ → Kate / VSCodium)

@@ -34,6 +34,16 @@ func NewRootMap(home string, locs []system.Location) *RootMap {
 	return m
 }
 
+// Add registers one more root: an application's configuration location, "apps/<id>/<key>",
+// tied to its path on this system. On the source it makes Split file those paths under the
+// application instead of under "config" or "other"; on the target it tells Join where they go.
+func (m *RootMap) Add(root Root, path string) {
+	p := filepath.Clean(path)
+	m.byRoot[root] = p
+	m.byLen = append(m.byLen, rootPath{root: root, path: p})
+	sort.Slice(m.byLen, func(i, j int) bool { return len(m.byLen[i].path) > len(m.byLen[j].path) })
+}
+
 // Split breaks an absolute path into (root, relative path with "/"). Whatever is not under any
 // standard location gets RootOther and keeps its absolute path, normalized to "/".
 func (m *RootMap) Split(abs string) (Root, string) {

@@ -1,0 +1,36 @@
+{
+  "id": "vscode",
+  "name": "Visual Studio Code",
+  "summary": "Source code editor by Microsoft",
+  "category": "editor",
+  "homepage": "https://code.visualstudio.com/",
+  "license": "proprietary",
+  "windows": {
+    "winget": ["Microsoft.VisualStudioCode"],
+    "choco": ["vscode"],
+    "scoop": ["extras/vscode"],
+    "registry": ["Microsoft Visual Studio Code"],
+    "paths": {
+      "user": "%APPDATA%/Code/User",
+      "extensions": "%USERPROFILE%/.vscode/extensions"
+    }
+  },
+  "linux": {
+    "aur": ["visual-studio-code-bin"],
+    "apt": ["code"],
+    "dnf": ["code"],
+    "zypper": ["code"],
+    "flatpak": ["com.visualstudio.code"],
+    "snap": ["code --classic"],
+    "paths": {
+      "user": "$XDG_CONFIG_HOME/Code/User",
+      "extensions": "~/.vscode/extensions"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["workspaceStorage", "globalStorage/state.vscdb.backup", "History", "logs", "*.log"],
+    "notes": "settings.json, keybindings.json and snippets are the same on every platform. Extensions are carried as files; native ones are re-downloaded by the editor on first start."
+  },
+  "equivalents": ["vscodium"]
+}

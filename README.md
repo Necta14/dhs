@@ -55,12 +55,26 @@ dhs verify /run/media/you/SSD/laptop.dhs                        # every checksum
 dhs list   /run/media/you/SSD/laptop.dhs --all                  # what is inside
 dhs restore /run/media/you/SSD/laptop.dhs --dry-run             # the plan, writes nothing
 dhs restore /run/media/you/SSD/laptop.dhs                       # shows the plan, asks, then writes
+dhs plan    /run/media/you/SSD/laptop.dhs                       # which applications would be installed here, and how
+dhs install /run/media/you/SSD/laptop.dhs                       # shows the commands, asks once, runs them
 ```
 
 Restoring never overwrites: an existing file stays, and the restored one lands beside it with the
 suffix ` (DHS)` — unless you say `--conflicts skip` or `--conflicts overwrite`. Files whose root does
 not exist on the new system go under `~/DHS-restored/`. Every command takes `--json`;
 `DHS_LANG=ro` switches the messages to Romanian.
+
+**Applications.** `scan` and `backup` also look at what is installed — through the package
+managers on Linux, through *Apps & features*, winget, scoop and choco on Windows — and match it
+against DHS's own [application database](appdb/README.md): one JSON file per application, saying
+how each platform's managers know it, where it keeps its configuration, and what stands in for it
+where it does not exist. Configuration travels with the package, filed by application rather than
+by path, so a Firefox profile from `%APPDATA%` lands in `~/.mozilla/firefox` on Linux. On the new
+system, `dhs plan` says what would be installed and through which manager, what is already there,
+what has no version for this platform and which equivalent would replace it, and what the database
+does not know — DHS never guesses an application. `dhs install` runs exactly the commands `plan`
+showed, after one confirmation. The database is community-maintained; adding an application is a
+pull request with one file.
 
 ## Install
 

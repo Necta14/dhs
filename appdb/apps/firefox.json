@@ -1,0 +1,34 @@
+{
+  "id": "firefox",
+  "name": "Mozilla Firefox",
+  "summary": "Web browser",
+  "category": "browser",
+  "homepage": "https://www.mozilla.org/firefox/",
+  "license": "MPL-2.0",
+  "windows": {
+    "winget": ["Mozilla.Firefox"],
+    "choco": ["firefox"],
+    "scoop": ["extras/firefox"],
+    "registry": ["Mozilla Firefox"],
+    "paths": {
+      "profiles": "%APPDATA%/Mozilla/Firefox"
+    }
+  },
+  "linux": {
+    "pacman": ["firefox"],
+    "apt": ["firefox", "firefox-esr"],
+    "dnf": ["firefox"],
+    "zypper": ["MozillaFirefox"],
+    "apk": ["firefox"],
+    "flatpak": ["org.mozilla.firefox"],
+    "snap": ["firefox"],
+    "paths": {
+      "profiles": "~/.mozilla/firefox"
+    }
+  },
+  "config": {
+    "portability": "identical",
+    "exclude": ["cache2", "startupCache", "thumbnails", "crashes", "minidumps", "datareporting", "saved-telemetry-pings", "storage/default/*/cache", "*.lock", "lock", "parent.lock"],
+    "notes": "The profile directory has the same layout on every platform, and profiles.ini points at profiles by a relative path. Saved passwords (logins.json, key4.db) are secrets and travel only with --secrets."
+  }
+}

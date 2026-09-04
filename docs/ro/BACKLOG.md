@@ -4,6 +4,10 @@
 
 Ce nu intră în v1. Ordinea în fiecare secțiune e o propunere, nu un angajament.
 
+> **04.09.2026:** baza de aplicații, detectarea, `dhs plan` și `dhs install` sunt scrise; vezi
+> secțiunea „v1” din versiunea engleză pentru starea la zi. Rămân: umplerea și verificarea bazei,
+> detectarea pe Windows real.
+
 ## v1 — ce mai lipsește din nucleu
 
 - [x] `dhs scan` — inventar, clasificare, excluderi, estimare, verificarea destinației

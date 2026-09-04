@@ -89,6 +89,9 @@ type Options struct {
 	// Filter chooses what gets restored; nil = everything.
 	Filter   func(*pack.Entry) bool
 	Conflict Conflict
+	// Note, if set, explains why a root has no place on this system; used for the entries that
+	// end up under DHS-restored. Nil gives the generic wording.
+	Note func(root pack.Root) string
 	// Suffix is what gets added to the name when we keep both. Defaults to " (DHS)".
 	Suffix string
 }
@@ -132,8 +135,13 @@ func Build(o Options) (*Plan, error) {
 		if _, ok := o.Roots.Join(root, "."); !ok && root != pack.RootOther {
 			unknown[root] = true
 			rel = string(root) + "/" + rel
-			root = pack.RootOther
 			item.Note = "standard location does not exist here"
+			if o.Note != nil {
+				if n := o.Note(root); n != "" {
+					item.Note = n
+				}
+			}
+			root = pack.RootOther
 		}
 
 		clean, renamed := Sanitize(rel, o.Target)

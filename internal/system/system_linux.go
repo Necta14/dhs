@@ -31,6 +31,10 @@ func detect() (Info, error) {
 		if n := rel["NAME"]; n != "" {
 			i.Name = n
 		}
+		i.Distro = rel["ID"]
+		if like := strings.Fields(rel["ID_LIKE"]); len(like) > 0 {
+			i.Like = like
+		}
 		// Arch and its derivatives have no VERSION_ID; VERSION is missing too. It stays empty, which is fine.
 		if v := rel["VERSION_ID"]; v != "" {
 			i.Version = v

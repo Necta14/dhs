@@ -9,6 +9,20 @@
 > fixed: a nil pointer at creation, four data races in index serialisation, a doubled counter, and
 > production-strength scrypt that made the suite take 10 minutes.
 
+## Applications — the tail of `scripts/e2e.sh`
+
+The same script ends with the application flow, on a synthetic profile holding the configuration
+of two applications the database knows (Git as a single file, VS Code as a directory with a cache
+inside): `scan` must report them, `backup` must file them under `apps/git/gitconfig` and
+`apps/vscode/user` and leave the cache behind, `list` must show the manifest, `plan` must propose
+nothing to install (they were found by configuration only) and `restore` into another HOME must
+place `.gitconfig` in place — Git is installed on every Codespace — and keep the VS Code settings
+aside, since the editor is not. `install --dry-run` is run; `install` itself never is: the tests
+do not modify the Codespace.
+
+What this does not cover: detection through a real package manager other than dpkg, and the
+Windows side — those need the VM described below.
+
 ## Migration between distributions — `scripts/e2e-distro.sh`
 
 Backup on the Ubuntu host, restore inside Docker containers of **Arch, Fedora, Debian, openSUSE

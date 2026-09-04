@@ -1,12 +1,15 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"flag"
 	"fmt"
 	"os"
 	"sort"
+	"strings"
 
+	"github.com/Necta14/dhs/internal/apps"
 	"github.com/Necta14/dhs/internal/i18n"
 	"github.com/Necta14/dhs/internal/pack"
 	"github.com/Necta14/dhs/internal/report"
@@ -66,11 +69,16 @@ func runList(args []string) error {
 		return err
 	}
 
+	// The application manifest is small and sits in the first volume; a failure to read it is
+	// not a reason to hide the rest.
+	appsMan, _ := apps.ReadManifest(context.Background(), r)
+
 	if *asJSON {
 		return writeJSON(struct {
-			Manifest pack.Manifest `json:"manifest"`
-			Index    pack.Index    `json:"index"`
-		}{r.Manifest, r.Index})
+			Manifest pack.Manifest  `json:"manifest"`
+			Apps     *apps.Manifest `json:"apps,omitempty"`
+			Index    pack.Index     `json:"index"`
+		}{r.Manifest, appsMan, r.Index})
 	}
 
 	const w = 14
@@ -92,11 +100,17 @@ func runList(args []string) error {
 	}
 	byRoot := map[pack.Root]*agg{}
 	var dups int
+	appRoots := map[pack.Root]bool{}
 	for _, e := range r.Index.Entries {
-		a := byRoot[e.Root]
+		root := e.Root
+		if root.IsApp() {
+			appRoots[root] = true
+			root = "apps"
+		}
+		a := byRoot[root]
 		if a == nil {
 			a = &agg{}
-			byRoot[e.Root] = a
+			byRoot[root] = a
 		}
 		a.files++
 		a.bytes += e.Size
@@ -116,6 +130,17 @@ func runList(args []string) error {
 	}
 	if dups > 0 {
 		fmt.Printf("%s%s\n", report.Pad("", 2), dim(i18n.Tf("%d files are duplicates of others and take up space only once", dups)))
+	}
+	if appsMan != nil {
+		fmt.Println()
+		fmt.Printf(i18n.T("%s%d recognised (%d installed) · %d configuration locations · %d unknown · from %s\n"), report.Pad(i18n.T("Applications"), w),
+			len(appsMan.Apps), appsMan.Installed(), len(appRoots), len(appsMan.Unknown), appsMan.OS)
+		names := make([]string, 0, len(appsMan.Apps))
+		for _, a := range appsMan.Apps {
+			names = append(names, a.Name)
+		}
+		fmt.Printf("%s%s\n", report.Pad("", w), dim(wrap(strings.Join(names, ", "), 90, w)))
+		fmt.Printf("%s%s\n", report.Pad("", w), dim(i18n.T("dhs plan <package> shows what would be installed on this system")))
 	}
 
 	if *all {
@@ -139,4 +164,26 @@ func runList(args []string) error {
 		}
 	}
 	return nil
+}
+
+// wrap breaks a long comma-separated list into lines of at most width characters, indenting the
+// continuation lines.
+func wrap(s string, width, indent int) string {
+	words := strings.Split(s, ", ")
+	var b strings.Builder
+	line := 0
+	for i, w := range words {
+		if i > 0 {
+			if line+len(w)+2 > width {
+				b.WriteString(",\n" + report.Pad("", indent))
+				line = 0
+			} else {
+				b.WriteString(", ")
+				line += 2
+			}
+		}
+		b.WriteString(w)
+		line += len(w)
+	}
+	return b.String()
 }

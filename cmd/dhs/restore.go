@@ -11,6 +11,8 @@ import (
 	"syscall"
 	"time"
 
+	"github.com/Necta14/dhs/appdb"
+	"github.com/Necta14/dhs/internal/apps"
 	"github.com/Necta14/dhs/internal/i18n"
 	"github.com/Necta14/dhs/internal/pack"
 	"github.com/Necta14/dhs/internal/report"
@@ -27,10 +29,14 @@ First shows the plan: what goes where, what already exists, which names had to b
 nothing without confirmation. Every file is written to a temporary, checked against the checksum
 from the package, and only then put in its place. A file that fails never reaches the destination.
 
+Application configuration is placed where this system keeps it, for the applications that are
+installed here or that dhs install would install; the rest is kept under ~/DHS-restored/apps/.
+Applications themselves are installed by dhs install, not here.
+
 Options
   --dry-run                  only the plan, without confirmation and without writing
   --only <root,root>         restore only these places: documents, pictures, videos, music,
-                             downloads, desktop, config, other
+                             downloads, desktop, config, apps, other
   --conflicts <policy>       what to do when the file already exists:
                                keep-both   keep the existing one, write the restored one with a " (DHS)" suffix (default)
                                skip        do not write the restored one
@@ -45,6 +51,7 @@ type restoreOutput struct {
 	Package  string              `json:"package"`
 	Target   system.Info         `json:"target"`
 	Plan     restorePlanJSON     `json:"plan"`
+	Apps     *apps.Plan          `json:"apps,omitempty"`
 	Report   *pack.ExtractReport `json:"result,omitempty"`
 	Failed   []restoreFailure    `json:"failed,omitempty"`
 	Duration time.Duration       `json:"duration_ns,omitempty"`
@@ -111,7 +118,8 @@ func runRestore(args []string) error {
 	if err != nil {
 		return err
 	}
-	var filter func(*pack.Entry) bool
+	// The manifest is DHS's own; it is never written to disk as a file.
+	filter := func(e *pack.Entry) bool { return e.Root != pack.RootMeta }
 	if *only != "" {
 		want := map[pack.Root]bool{}
 		for _, r := range strings.Split(*only, ",") {
@@ -119,7 +127,15 @@ func runRestore(args []string) error {
 				want[pack.Root(r)] = true
 			}
 		}
-		filter = func(e *pack.Entry) bool { return want[e.Root] }
+		filter = func(e *pack.Entry) bool {
+			if e.Root == pack.RootMeta {
+				return false
+			}
+			if e.Root.IsApp() {
+				return want["apps"]
+			}
+			return want[e.Root]
+		}
 	}
 
 	r, err := openPackage(dir, *passFile, *asJSON)
@@ -136,12 +152,46 @@ func runRestore(args []string) error {
 	}
 	rm := pack.NewRootMap(info.Home, system.Locations(info))
 
-	plan, err := restore.Build(restore.Options{Reader: r, Roots: rm, Target: info.OS, Filter: filter, Conflict: policy})
+	// Application configuration: the same decisions dhs plan shows, applied as roots.
+	var appPlan *apps.Plan
+	reasons := map[pack.Root]string{}
+	if m, err := apps.ReadManifest(context.Background(), r); err == nil {
+		db, err := appdb.Load()
+		if err != nil {
+			return err
+		}
+		here, err := apps.Detect(db, info)
+		if err != nil {
+			return fmt.Errorf(i18n.T("cannot detect the applications: %w"), err)
+		}
+		appPlan = apps.BuildPlan(m, apps.TargetFrom(info, here), db)
+		for root, dest := range appPlan.AppRoots() {
+			rm.Add(root, dest)
+		}
+		for _, c := range appPlan.Configs {
+			if c.Action == apps.Aside {
+				reasons[c.Root] = c.Reason
+			}
+		}
+	} else if !errors.Is(err, apps.ErrNoManifest) {
+		return err
+	}
+
+	plan, err := restore.Build(restore.Options{Reader: r, Roots: rm, Target: info.OS, Filter: filter, Conflict: policy,
+		Note: func(root pack.Root) string {
+			if root.IsApp() {
+				if why := reasons[root]; why != "" {
+					return "kept aside: " + why
+				}
+				return "application configuration kept aside"
+			}
+			return ""
+		}})
 	if err != nil {
 		return err
 	}
 
-	out := restoreOutput{Package: dir, Target: info, Plan: planJSON(plan)}
+	out := restoreOutput{Package: dir, Target: info, Plan: planJSON(plan), Apps: appPlan}
 	if !*asJSON {
 		printPlan(r, info, plan)
 	}
@@ -246,16 +296,36 @@ func printPlan(r *pack.Reader, info system.Info, p *restore.Plan) {
 		report.Count(m.Files), report.Bytes(m.Raw), m.Created.Local().Format("2006-01-02 15:04"))
 	fmt.Println()
 	fmt.Println(i18n.T("Where it goes"))
+	appFiles, appApps := 0, 0
+	var appBytes int64
 	for _, rs := range p.Roots {
+		if rs.Root.IsApp() {
+			appFiles += rs.Files
+			appBytes += rs.Bytes
+			appApps++
+			continue
+		}
 		fmt.Printf("%s%s %s  %s\n", report.Pad("", w+2), report.Pad(string(rs.Root), 12),
 			report.Pad(i18n.Tf("%s files, %s", report.Count(int64(rs.Files)), report.Bytes(rs.Bytes)), 26), dim(rs.Dest))
 	}
-	if len(p.Unknown) > 0 {
-		names := make([]string, len(p.Unknown))
-		for i, u := range p.Unknown {
-			names[i] = string(u)
+	if appApps > 0 {
+		fmt.Printf("%s%s %s  %s\n", report.Pad("", w+2), report.Pad("apps", 12),
+			report.Pad(i18n.Tf("%s files, %s", report.Count(int64(appFiles)), report.Bytes(appBytes)), 26),
+			dim(i18n.Tf("%d configuration locations, placed where this system keeps them", appApps)))
+	}
+	var plain, appsAside []string
+	for _, u := range p.Unknown {
+		if u.IsApp() {
+			appsAside = append(appsAside, string(u)[len(pack.RootAppsPrefix):])
+		} else {
+			plain = append(plain, string(u))
 		}
-		fmt.Printf("%s%s\n", report.Pad("", w+2), dim(i18n.T("places that do not exist here, moved under DHS-restored: ")+strings.Join(names, ", ")))
+	}
+	if len(plain) > 0 {
+		fmt.Printf("%s%s\n", report.Pad("", w+2), dim(i18n.T("places that do not exist here, moved under DHS-restored: ")+strings.Join(plain, ", ")))
+	}
+	if len(appsAside) > 0 {
+		fmt.Printf("%s%s\n", report.Pad("", w+2), dim(i18n.Tf("application configuration kept aside under DHS-restored/apps (%d) — dhs plan says why", len(appsAside))))
 	}
 	fmt.Println()
 	fmt.Printf(i18n.T("%s%s files · %s\n"), report.Pad(i18n.T("To write"), w), report.Count(int64(p.Files)), report.Bytes(p.Bytes))
