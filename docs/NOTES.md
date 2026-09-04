@@ -4,6 +4,13 @@ Session journal. Newest at the top. Decisions live in `CLAUDE.md`; this is *what
 
 ## 2026-09-04 — applications: the database, detection, `plan` and `install`
 
+**Evening: 0.2.0.** The first release not marked pre-release, with the same eleven artifacts as
+before, built by `packaging/release.sh` on the Codespace. The site gained a block of direct
+download links to the release assets, filled in from the GitHub API by
+`packaging/site-downloads.py` after each release, so the pages stay static HTML with no script
+and no third-party request. A `CHANGELOG.md` now carries the release notes; `gh release create`
+takes them from there.
+
 The side of the product that gives it its name is written. `appdb/` holds the application
 database — JSON, one file per application, embedded with `go:embed`, no parser dependency, a test
 that refuses a database that does not validate, and CC-BY-4.0 for the data so that anyone may reuse

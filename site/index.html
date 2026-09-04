@@ -441,7 +441,23 @@
       <p class="sub" style="margin-bottom:36px">The installer picks the build for your processor, checks it against the SHA-256 sums published with the release, unpacks it under your own profile and puts it on your PATH. No administrator rights, nothing left running. To pin a version, create a script block instead: <code>&amp; ([scriptblock]::Create((irm https://dhs-suite.vercel.app/install.ps1))) -Version 0.2.0</code></p>
       <!-- downloads:start -->
       <h3 style="margin:0 0 12px;font-size:19px">Direct downloads</h3>
-      <p class="sub">The links are filled in from the GitHub release by <code>packaging/site-downloads.py</code>.</p>
+      <p class="sub" style="margin-bottom:14px">Version 0.2.0, straight from the GitHub release. Arch users: <code>dhs-cli</code> and <code>dhs-gui</code> from the AUR recipe in <code>packaging/aur/</code>.</p>
+      <ul class="downloads">
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs_0.2.0_windows_amd64.zip"><strong>Windows, 64-bit — <code>dhs.exe</code> and <code>dhs-gui.exe</code></strong><span class="file">dhs_0.2.0_windows_amd64.zip</span><span class="size">3.3 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs_0.2.0_windows_arm64.zip"><strong>Windows on ARM</strong><span class="file">dhs_0.2.0_windows_arm64.zip</span><span class="size">3.0 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs_0.2.0_amd64.deb"><strong>Debian, Ubuntu, Mint — <code>.deb</code></strong><span class="file">dhs_0.2.0_amd64.deb</span><span class="size">1.7 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs_0.2.0_arm64.deb"><strong>Debian, Ubuntu on ARM — <code>.deb</code></strong><span class="file">dhs_0.2.0_arm64.deb</span><span class="size">1.5 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs-0.2.0-1.x86_64.rpm"><strong>Fedora, RHEL, openSUSE — <code>.rpm</code></strong><span class="file">dhs-0.2.0-1.x86_64.rpm</span><span class="size">1.9 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs-0.2.0-1.aarch64.rpm"><strong>Fedora, openSUSE on ARM — <code>.rpm</code></strong><span class="file">dhs-0.2.0-1.aarch64.rpm</span><span class="size">1.7 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/DHS-0.2.0-x86_64.AppImage"><strong>Any Linux, installing nothing — AppImage</strong><span class="file">DHS-0.2.0-x86_64.AppImage</span><span class="size">2.9 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs_0.2.0_linux_amd64.tar.gz"><strong>Linux, plain archive</strong><span class="file">dhs_0.2.0_linux_amd64.tar.gz</span><span class="size">2.2 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs_0.2.0_linux_arm64.tar.gz"><strong>Linux on ARM, plain archive</strong><span class="file">dhs_0.2.0_linux_arm64.tar.gz</span><span class="size">2.0 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs-0.2.0-source.tar.gz"><strong>Source</strong><span class="file">dhs-0.2.0-source.tar.gz</span><span class="size">555 KiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/SHA256SUMS"><strong>Checksums for everything above</strong><span class="file">SHA256SUMS</span><span class="size">931 B</span></a></li>
+      </ul>
+      <div class="ctas" style="margin-top:18px">
+        <a class="btn" href="https://github.com/Necta14/dhs/releases">All releases on GitHub</a>
+      </div>
       <!-- downloads:end -->
       <p class="sub" style="margin-top:28px">Check what you downloaded against the <code>SHA256SUMS</code> published beside it, with <code>sha256sum -c SHA256SUMS --ignore-missing</code>. Or build from source, in one command and with no extra toolchain, even for Windows.</p>
       <div class="term" aria-label="Build commands">

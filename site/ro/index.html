@@ -428,7 +428,23 @@
       <p class="sub" style="margin-bottom:36px">Instalatorul alege singur varianta pentru procesorul tău, o verifică față de sumele SHA-256 publicate cu versiunea, o dezarhivează în profilul tău și o pune în PATH. Fără drepturi de administrator, fără nimic lăsat în execuție. Ca să fixezi o versiune, creează un bloc de script: <code>&amp; ([scriptblock]::Create((irm https://dhs-suite.vercel.app/install.ps1))) -Version 0.2.0</code></p>
       <!-- downloads:start -->
       <h3 style="margin:0 0 12px;font-size:19px">Descărcări directe</h3>
-      <p class="sub">Legăturile se completează din release-ul de pe GitHub prin <code>packaging/site-downloads.py</code>.</p>
+      <p class="sub" style="margin-bottom:14px">Versiunea 0.2.0, direct din release-ul de pe GitHub. Pe Arch: <code>dhs-cli</code> și <code>dhs-gui</code> din rețeta AUR din <code>packaging/aur/</code>.</p>
+      <ul class="downloads">
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs_0.2.0_windows_amd64.zip"><strong>Windows, 64 de biți — <code>dhs.exe</code> și <code>dhs-gui.exe</code></strong><span class="file">dhs_0.2.0_windows_amd64.zip</span><span class="size">3.3 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs_0.2.0_windows_arm64.zip"><strong>Windows pe ARM</strong><span class="file">dhs_0.2.0_windows_arm64.zip</span><span class="size">3.0 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs_0.2.0_amd64.deb"><strong>Debian, Ubuntu, Mint — <code>.deb</code></strong><span class="file">dhs_0.2.0_amd64.deb</span><span class="size">1.7 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs_0.2.0_arm64.deb"><strong>Debian, Ubuntu pe ARM — <code>.deb</code></strong><span class="file">dhs_0.2.0_arm64.deb</span><span class="size">1.5 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs-0.2.0-1.x86_64.rpm"><strong>Fedora, RHEL, openSUSE — <code>.rpm</code></strong><span class="file">dhs-0.2.0-1.x86_64.rpm</span><span class="size">1.9 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs-0.2.0-1.aarch64.rpm"><strong>Fedora, openSUSE pe ARM — <code>.rpm</code></strong><span class="file">dhs-0.2.0-1.aarch64.rpm</span><span class="size">1.7 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/DHS-0.2.0-x86_64.AppImage"><strong>Orice Linux, fără instalare — AppImage</strong><span class="file">DHS-0.2.0-x86_64.AppImage</span><span class="size">2.9 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs_0.2.0_linux_amd64.tar.gz"><strong>Linux, arhivă simplă</strong><span class="file">dhs_0.2.0_linux_amd64.tar.gz</span><span class="size">2.2 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs_0.2.0_linux_arm64.tar.gz"><strong>Linux pe ARM, arhivă simplă</strong><span class="file">dhs_0.2.0_linux_arm64.tar.gz</span><span class="size">2.0 MiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs-0.2.0-source.tar.gz"><strong>Sursa</strong><span class="file">dhs-0.2.0-source.tar.gz</span><span class="size">555 KiB</span></a></li>
+        <li><a href="https://github.com/Necta14/dhs/releases/download/v0.2.0/SHA256SUMS"><strong>Sumele de control pentru tot ce e mai sus</strong><span class="file">SHA256SUMS</span><span class="size">931 B</span></a></li>
+      </ul>
+      <div class="ctas" style="margin-top:18px">
+        <a class="btn" href="https://github.com/Necta14/dhs/releases">Toate versiunile pe GitHub</a>
+      </div>
       <!-- downloads:end -->
       <p class="sub" style="margin-top:28px">Verifică ce ai descărcat cu fișierul <code>SHA256SUMS</code> publicat lângă el, prin <code>sha256sum -c SHA256SUMS --ignore-missing</code>. Sau compilează din sursă, cu o singură comandă și fără niciun toolchain suplimentar, nici măcar pentru Windows.</p>
       <div class="term" aria-label="Comenzi de compilare">
