@@ -122,6 +122,11 @@
   .btn.primary:hover { background: #4ADE80; }
   .btn.ghost { border: 1px solid rgba(255,255,255,.28); color: var(--on-slate); }
   .btn.ghost:hover { background: rgba(255,255,255,.08); }
+  .downloads { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 10px; }
+  .downloads a { display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); text-decoration: none; }
+  .downloads a:hover { border-color: var(--green); text-decoration: none; }
+  .downloads .file { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; color: var(--muted); word-break: break-all; }
+  .downloads .size { font-size: 12px; color: var(--muted); }
 
   .status {
     background: var(--amber-bg); border-left: 4px solid var(--amber-line); color: var(--amber-ink);
@@ -204,7 +209,7 @@
       "applicationCategory": "UtilitiesApplication",
       "applicationSubCategory": "Backup and migration",
       "operatingSystem": "Linux, Windows",
-      "softwareVersion": "pre-release",
+      "softwareVersion": "0.2.0",
       "description": "Mută-ți întregul mediu de lucru pe un sistem de operare nou — de pe Windows pe Linux, de pe Linux pe Windows, de la o distribuție la alta — printr-un singur pachet portabil, criptat, pe un mediu extern. Open source, fără cloud, fără cont, fără AI.",
       "featureList": [
         "Migrates a whole working environment between operating systems",
@@ -275,7 +280,7 @@
 
   <div class="wrap">
     <div class="status" role="note">
-      <strong>În construcție.</strong> Nucleul pentru fișiere — <code>scan</code>, <code>backup</code>, <code>verify</code>, <code>list</code>, <code>restore</code> — funcționează și e testat pe cinci distribuții Linux. Manifestul aplicațiilor, detectarea lor și <code>plan</code> nu sunt încă scrise. <strong>Nu-l folosi încă pentru o migrare reală.</strong>
+      <strong>0.2.0 e publicată.</strong> Nucleul pentru fișiere e verificat bit cu bit pe cinci distribuții Linux și pe Windows 11, iar acum călătoresc și aplicațiile: ce e instalat, configurările lor și un plan de instalare pentru partea cealaltă, potrivite cu o bază de 759 de aplicații. <strong>E încă devreme: păstrează discul original neatins până restaurezi singur un pachet și te uiți la rezultat.</strong>
     </div>
   </div>
 
@@ -413,30 +418,18 @@
   <section id="get">
     <div class="wrap">
       <h2>Descarcă</h2>
-      <p class="sub"><strong>0.1.3 e publicată ca pre-release.</strong> Nucleul pentru fișiere e testat pe cinci distribuții Linux și pe Windows 11, iar ambele platforme au acum interfață grafică; manifestul aplicațiilor și detectarea lor lipsesc încă.</p>
+      <p class="sub"><strong>0.2.0 e prima versiune obișnuită, nu pre-release.</strong> Fișiere, configurări de aplicații și planul de instalare, pe Windows și Linux, cu interfață grafică pe amândouă. Detectarea pe Windows a rulat deocamdată doar în testele unitare; dacă îi scapă ceva ce ai instalat, spune pe GitHub.</p>
       <h3 style="margin:0 0 12px;font-size:19px">Windows</h3>
       <div class="term" aria-label="Comanda de instalare în PowerShell" style="margin-bottom:16px">
         <div class="bar"><i></i><i></i><i></i>&nbsp; PowerShell</div>
 <pre><span class="p">&gt;</span> irm https://dhs-suite.vercel.app/install.ps1 | iex</pre>
       </div>
       <p class="sub" style="margin-bottom:14px">Asta instalează unealta de linie de comandă. Pentru interfața grafică ia arhiva de Windows de mai jos: conține <code>dhs.exe</code> și <code>dhs-gui.exe</code>, două fișiere care rulează din orice folder, fără să instaleze nimic.</p>
-      <p class="sub" style="margin-bottom:36px">Instalatorul alege singur varianta pentru procesorul tău, o verifică față de sumele SHA-256 publicate cu versiunea, o dezarhivează în profilul tău și o pune în PATH. Fără drepturi de administrator, fără nimic lăsat în execuție. Ca să fixezi o versiune, creează un bloc de script: <code>&amp; ([scriptblock]::Create((irm https://dhs-suite.vercel.app/install.ps1))) -Version 0.1.2</code></p>
-      <h3 style="margin:0 0 12px;font-size:19px">Linux</h3>
-      <div class="tablewrap">
-      <table>
-        <thead><tr><th>Ești pe</th><th>Ia</th></tr></thead>
-        <tbody>
-          <tr><td>Debian, Ubuntu, Mint</td><td><code>dhs_&lt;versiune&gt;_amd64.deb</code> · și arm64</td></tr>
-          <tr><td>Fedora, RHEL, openSUSE</td><td><code>dhs-&lt;versiune&gt;-1.x86_64.rpm</code> · și aarch64</td></tr>
-          <tr><td>Arch</td><td><code>dhs-cli</code> și <code>dhs-gui</code> din rețeta AUR din <code>packaging/aur/</code></td></tr>
-          <tr><td>Orice Linux, fără să instalezi nimic</td><td><code>DHS-&lt;versiune&gt;-x86_64.AppImage</code></td></tr>
-          <tr><td>Compilezi singur</td><td><code>dhs-&lt;versiune&gt;-source.tar.gz</code></td></tr>
-        </tbody>
-      </table>
-      </div>
-      <div class="ctas" style="margin-top:26px">
-        <a class="btn primary" href="https://github.com/Necta14/dhs/releases/latest">Toate descărcările</a>
-      </div>
+      <p class="sub" style="margin-bottom:36px">Instalatorul alege singur varianta pentru procesorul tău, o verifică față de sumele SHA-256 publicate cu versiunea, o dezarhivează în profilul tău și o pune în PATH. Fără drepturi de administrator, fără nimic lăsat în execuție. Ca să fixezi o versiune, creează un bloc de script: <code>&amp; ([scriptblock]::Create((irm https://dhs-suite.vercel.app/install.ps1))) -Version 0.2.0</code></p>
+      <!-- downloads:start -->
+      <h3 style="margin:0 0 12px;font-size:19px">Descărcări directe</h3>
+      <p class="sub">Legăturile se completează din release-ul de pe GitHub prin <code>packaging/site-downloads.py</code>.</p>
+      <!-- downloads:end -->
       <p class="sub" style="margin-top:28px">Verifică ce ai descărcat cu fișierul <code>SHA256SUMS</code> publicat lângă el, prin <code>sha256sum -c SHA256SUMS --ignore-missing</code>. Sau compilează din sursă, cu o singură comandă și fără niciun toolchain suplimentar, nici măcar pentru Windows.</p>
       <div class="term" aria-label="Comenzi de compilare">
         <div class="bar"><i></i><i></i><i></i>&nbsp; build</div>

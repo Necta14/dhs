@@ -13,11 +13,11 @@
 
     To pass options, create a script block from it instead:
 
-        & ([scriptblock]::Create((irm https://dhs-suite.vercel.app/install.ps1))) -Version 0.1.1
+        & ([scriptblock]::Create((irm https://dhs-suite.vercel.app/install.ps1))) -Version 0.2.0
 
 .PARAMETER Version
     A release to install, with or without the leading "v". Defaults to the most recent release,
-    pre-releases included, which is what DHS publishes today.
+    pre-releases included, so a pre-release newer than the last regular one is picked too.
 
 .PARAMETER InstallDir
     Where to put dhs.exe. Defaults to %LOCALAPPDATA%\Programs\dhs.
@@ -75,7 +75,7 @@ switch ($raw.ToUpperInvariant()) {
 $headers = @{ 'Accept' = 'application/vnd.github+json'; 'User-Agent' = 'dhs-install' }
 
 if ($Version -eq 'latest') {
-    # Not /releases/latest: that endpoint skips pre-releases, and every DHS release so far is one.
+    # Not /releases/latest: that endpoint skips pre-releases; the newest release of any kind is wanted.
     Step 'Looking up the most recent release...'
     $rel = (Invoke-RestMethod -Uri "https://api.github.com/repos/$Repo/releases?per_page=10" -Headers $headers) |
            Where-Object { -not $_.draft } | Select-Object -First 1
