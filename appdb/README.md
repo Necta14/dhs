@@ -144,7 +144,7 @@ same operating system (Arch → Fedora) everything is restored in place regardle
 |---|---|---|
 | `identical` | The same files, in the same layout. Text formats with no absolute paths: Firefox profiles, VS Code settings, `.gitconfig`, most Electron applications. | Restores in place, into the location the target platform's `paths` gives for the same key. |
 | `translatable` | The same settings in a different form or with platform paths inside: `vlcrc`, most Qt `.conf` files. | Keeps aside under `~/DHS-restored/apps/<id>/` and says so. v1 translates nothing. |
-| `untranslatable` | Bound to the platform: registry-backed, Windows-only. | Keeps aside and says so. |
+| `untranslatable` | Bound to the platform it runs on: registry-backed Windows applications, desktop-environment-specific Linux ones (`dolphinrc`, GNOME dconf-backed settings). | Keeps aside and says so. |
 | `none` | Nothing worth carrying. No `paths` on any platform. | — |
 
 Be strict with `identical`. If an application writes absolute paths or platform module names into

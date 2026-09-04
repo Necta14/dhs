@@ -118,7 +118,7 @@ echo; echo "── plan on this system ──"
 python3 -c '
 import json
 p=json.load(open("'"$BASE"'/apps-plan.json"))["plan"]
-assert p["install"] == [] , p["install"]           # config-only sources propose nothing
+assert p["install"] == [], p["install"]            # config-only sources propose nothing
 print("plan ok: configs", [(c["id"], c["action"]) for c in p["configs"]])'
 
 echo; echo "── restore into another HOME ──"

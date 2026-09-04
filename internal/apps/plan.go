@@ -117,7 +117,13 @@ func (p *Plan) Placed() int {
 
 // BuildPlan decides, for every application in the manifest, what to do here.
 func BuildPlan(m *Manifest, t Target, db *appdb.DB) *Plan {
-	p := &Plan{SourceOS: m.OS, TargetOS: t.OS, Unknown: m.Unknown}
+	// Empty lists are emitted as [] rather than null, so the JSON contract with the interfaces
+	// does not depend on whether anything was found.
+	p := &Plan{SourceOS: m.OS, TargetOS: t.OS, Unknown: m.Unknown,
+		Install: []InstallItem{}, Present: []PresentItem{}, Configs: []ConfigItem{}, Commands: []Command{}}
+	if p.Unknown == nil {
+		p.Unknown = []Source{}
+	}
 	// planned remembers what the plan installs or finds present, so two source applications
 	// with the same equivalent (Notepad++ and Sublime Text, both → Kate) install it once.
 	planned := map[string]*InstallItem{}
@@ -236,7 +242,9 @@ func BuildPlan(m *Manifest, t Target, db *appdb.DB) *Plan {
 		}
 	}
 
-	p.Commands = Commands(p.Install, t)
+	if cmds := Commands(p.Install, t); cmds != nil {
+		p.Commands = cmds
+	}
 	return p
 }
 
