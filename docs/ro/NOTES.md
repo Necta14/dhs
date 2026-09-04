@@ -2,7 +2,7 @@
 
 > Traducere în română. Versiunea de referință e cea în engleză: [`../NOTES.md`](../NOTES.md)
 
-Jurnal de sesiuni. Cel mai nou sus. Deciziile stau în `CLAUDE.md`; aici e *ce s-a întâmplat*.
+Jurnal de sesiuni. Cel mai nou sus. Deciziile sunt consemnate în `ARHITECTURA.md` acolo unde se aplică; aici e *ce s-a întâmplat*.
 
 ## 03.09.2026 — engleza devine limba principală (Claude Fable 5.1)
 

@@ -146,13 +146,11 @@ Versiunea de referință a fiecărui document e cea în engleză; traducerile î
 
 | engleză (referință) | română | |
 |---|---|---|
-| [`CLAUDE.md`](CLAUDE.md) | [`docs/ro/CLAUDE.md`](docs/ro/CLAUDE.md) | ce e produsul, regulile lui, jurnalul de decizii |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | [`docs/ro/ARHITECTURA.md`](docs/ro/ARHITECTURA.md) | formatul pachetului, structura codului, suprafața CLI |
 | [`docs/COMPRESSION.md`](docs/COMPRESSION.md) | [`docs/ro/COMPRESIE.md`](docs/ro/COMPRESIE.md) | cele trei niveluri, estimarea, research-ul pe compresia extremă |
 | [`docs/LICENSE-CHOICE.md`](docs/LICENSE-CHOICE.md) | [`docs/ro/LICENTA.md`](docs/ro/LICENTA.md) | de ce Apache-2.0 și nu o licență cu clauză etică |
 | [`docs/TESTING.md`](docs/TESTING.md) | [`docs/ro/TESTARE.md`](docs/ro/TESTARE.md) | sesiunea dedicată de teste pe GitHub Codespaces |
 | [`VALUES.md`](VALUES.md) | [`docs/ro/VALUES.md`](docs/ro/VALUES.md) | ce crede proiectul |
-| [`AGENTS.md`](AGENTS.md) | [`docs/ro/AGENTS.md`](docs/ro/AGENTS.md) | reguli pentru agenții care lucrează pe repo |
 
 ## Licență
 

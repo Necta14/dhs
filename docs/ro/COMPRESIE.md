@@ -5,7 +5,7 @@
 > Stare: **research făcut 02.09.2026**, propunere de implementare. Cele trei niveluri, blocurile
 > solide și deduplicarea pe fișier sunt implementate în `internal/pack`; `--precise` și
 > preprocesarea nu.
-> Context: [`CLAUDE.md`](CLAUDE.md), [`ARHITECTURA.md`](ARHITECTURA.md).
+> Context: [`ARHITECTURA.md`](ARHITECTURA.md).
 
 ## 1. Regula care nu se negociază: fără compresie cu pierderi
 

@@ -5,7 +5,7 @@
 > (`appdb/`), detection, `plan` and `install` — is written and covered by unit tests and the e2e
 > script; see the notes for the state of its verification. Points marked ⚠️ still need confirmation.
 >
-> Context and decisions: [`../CLAUDE.md`](../CLAUDE.md).
+> Context: [`../README.md`](../README.md); the decisions are summarised where they apply below.
 
 ## The basic principle
 
@@ -340,6 +340,6 @@ computed anyway.
 1. ⚠️ How we communicate the risk of a lost passphrase, without scaring the ordinary user.
 2. ⚠️ Default exclusions for files: `node_modules`, caches, Steam libraries, virtual machines.
    Proposal: a default list that is visible and editable before the backup.
-3. D7 — decided (see CLAUDE.md): level 1 together with `--no-encrypt`, with a visible warning.
+3. D7 — decided: level 1 together with `--no-encrypt`, with a visible warning.
    See [`COMPRESSION.md` §4.3](COMPRESSION.md).
 4. D6 — decided: Apache-2.0, see [`LICENSE-CHOICE.md`](LICENSE-CHOICE.md).

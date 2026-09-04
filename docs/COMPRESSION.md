@@ -2,7 +2,7 @@
 
 > State: research done 2026-09-02; levels 1–3, solid blocks per class and file-level deduplication
 > are implemented in `internal/pack`. `--precise` and preprocessing are not.
-> Context: [`../CLAUDE.md`](../CLAUDE.md), [`ARCHITECTURE.md`](ARCHITECTURE.md).
+> Context: [`ARCHITECTURE.md`](ARCHITECTURE.md).
 
 ## 1. The non-negotiable rule: no lossy compression
 
@@ -85,7 +85,7 @@ Block-level deduplication, `srep` style, is far more complex. It goes in the BAC
 is no longer at hand, the user can get their files out with Explorer or Ark. But the package is
 **encrypted by default** (D4), and a ZIP encrypted by us cannot be opened with anything else. So ZIP
 earns its place only if we also accept an **unencrypted** mode, with a warning.
-**Decided (D7, see CLAUDE.md):** level 1 is offered together with `--no-encrypt`, with a visible
+**Decided (D7):** level 1 is offered together with `--no-encrypt`, with a visible
 warning.
 
 ## 4.4 Level 3 and preprocessing — how to do it right

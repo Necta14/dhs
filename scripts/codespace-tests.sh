@@ -4,7 +4,7 @@
 #
 #   cd /workspaces/dhs && git pull && bash scripts/codespace-tests.sh
 #
-# Never run on the maintainer's machine (AGENTS.md, rule 7).
+# Never run on the maintainer's machine, by project rule.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 

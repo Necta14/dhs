@@ -1,6 +1,6 @@
 package pack
 
-// The tests here are NOT run on the user's laptop (AGENTS.md, rule 7). They are written for the
+// The tests here are NOT run on the maintainer's laptop, by project rule. They are written for the
 // dedicated session on GitHub Codespaces. All of them write only into t.TempDir().
 
 import (

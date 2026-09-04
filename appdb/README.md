@@ -2,8 +2,8 @@
 
 One JSON file per application, in [`apps/`](apps/). DHS embeds them all in the binary, so it
 recognises applications, installs their counterparts and places their configuration **offline**,
-with nothing guessed: an application is known only if a file here names it (Rule #2 in
-[`CLAUDE.md`](../CLAUDE.md)).
+with nothing guessed: an application is known only if a file here names it (Rule #2: DHS
+contains no AI and invents no equivalent).
 
 The data is [CC BY 4.0](LICENSE). Anyone may reuse it; contributions arrive as pull requests.
 

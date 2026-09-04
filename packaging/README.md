@@ -30,7 +30,7 @@ without installing anything.
 ## Where these run
 
 On the maintainer's machine only `build.sh` is expected to work end to end; the Debian, RPM and
-AppImage tooling lives on the test Codespaces (`docs/TESTING.md`, `AGENTS.md` rule 7). The scripts
+AppImage tooling lives on the test Codespaces (`docs/TESTING.md`). The scripts
 skip cleanly when a tool is missing, and `release.sh` reports what it could not build.
 
 ## Verifying a download

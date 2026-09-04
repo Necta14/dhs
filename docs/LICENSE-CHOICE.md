@@ -1,7 +1,7 @@
 # The licence — options and recommendation (D6)
 
 > State: **proposal**, 2026-09-02, written before the decision. **Decided the same day: path A**
-> (Apache-2.0 + trademark policy + `VALUES.md`) — see D6 in [`../CLAUDE.md`](../CLAUDE.md). The
+> (Apache-2.0 + trademark policy + `VALUES.md`) — decision D6. The
 > reasoning is kept in full below.
 > Your requirements: a **permissive** licence, but **your rights must stay recognised**, and no
 > age-verification-type obligations.

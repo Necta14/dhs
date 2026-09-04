@@ -144,13 +144,11 @@ python3 gui/linux/dhs-gui.py
 
 | | |
 |---|---|
-| [`CLAUDE.md`](CLAUDE.md) | what the product is, its rules, the decision log |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | the package format, the code structure, the CLI surface |
 | [`docs/COMPRESSION.md`](docs/COMPRESSION.md) | the three levels, the estimate, the research on extreme compression |
 | [`docs/LICENSE-CHOICE.md`](docs/LICENSE-CHOICE.md) | why Apache-2.0 and not a licence with an ethical clause |
 | [`docs/TESTING.md`](docs/TESTING.md) | the dedicated test session on GitHub Codespaces |
 | [`VALUES.md`](VALUES.md) | what the project believes |
-| [`AGENTS.md`](AGENTS.md) | rules for the agents working on the repo |
 
 Romanian translations of all documents live in [`docs/ro/`](docs/ro/).
 

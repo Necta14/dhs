@@ -154,7 +154,7 @@ func IsSecret(path string) (string, bool) {
 			return reason, true
 		}
 	}
-	// ".env", ".env.local", ".env.production" -- Rule #1 in CLAUDE.md.
+	// ".env", ".env.local", ".env.production" -- secrets never enter a package unasked (D4).
 	if lower == ".env" || strings.HasPrefix(lower, ".env.") {
 		return "environment variables, may contain secrets", true
 	}

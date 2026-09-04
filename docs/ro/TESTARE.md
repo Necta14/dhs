@@ -2,7 +2,7 @@
 
 > Traducere în română. Versiunea de referință e cea în engleză: [`../TESTING.md`](../TESTING.md)
 
-> Regulă (AGENTS.md, 7): testele **nu** se rulează pe mașina menținătorului. Nici `go test`, nici
+> Regulă: testele **nu** se rulează pe mașina menținătorului. Nici `go test`, nici
 > binarul `dhs` pe datele lui. Se rulează pe două Codespaces, într-o sesiune separată. Documentul
 > ăsta e ce trebuie făcut acolo, în ordine, ca sesiunea să fie scurtă și completă.
 >

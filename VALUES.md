@@ -34,7 +34,7 @@ software freedom. But the project's name is not for lending.
 ## No bloat
 
 One binary, a few megabytes, no services running in the background, no auto-updater, no runtime to
-install. It starts instantly and does what you asked. See Rule #4 in [`CLAUDE.md`](CLAUDE.md) for
+install. It starts instantly and does what you asked. See the budgets in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for
 the concrete budgets.
 
 ## Nothing is lost in silence

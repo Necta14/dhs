@@ -37,7 +37,7 @@ libertății software-ului. Dar numele proiectului nu se împrumută.
 
 Un binar, câțiva megaocteți, fără servicii care rulează în fundal, fără actualizator automat, fără
 runtime de instalat. Pornește instant și face ce i-ai cerut. Vezi Regula #4 din
-[`CLAUDE.md`](CLAUDE.md) pentru bugetele concrete.
+[`ARHITECTURA.md`](ARHITECTURA.md) pentru bugetele concrete.
 
 ## Nimic nu se pierde în tăcere
 

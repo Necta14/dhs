@@ -9,7 +9,7 @@
 > rădăcinile `apps/<id>/<cheie>`, comanda `install`) e descrisă în versiunea engleză, care rămâne
 > referința. Punctele ⚠️ mai au nevoie de confirmare.
 >
-> Context și decizii: [`CLAUDE.md`](CLAUDE.md).
+> Context: [`../../README.ro.md`](../../README.ro.md); deciziile sunt rezumate acolo unde se aplică.
 
 ## Principiul de bază
 
@@ -268,6 +268,6 @@ calculează oricum.
 1. ⚠️ Cum comunicăm riscul parolei pierdute, fără să speriem userul obișnuit.
 2. ⚠️ Excluderi implicite pentru fișiere: `node_modules`, cache-uri, biblioteci Steam, mașini
    virtuale. Propunere: listă implicită vizibilă și editabilă înainte de backup.
-3. D7 — decis (vezi CLAUDE.md): nivelul 1 împreună cu `--no-encrypt`, cu avertisment vizibil.
+3. D7 — decis: nivelul 1 împreună cu `--no-encrypt`, cu avertisment vizibil.
    Vezi [`COMPRESIE.md` §4.3](COMPRESIE.md).
 4. D6 — decis: Apache-2.0, vezi [`LICENTA.md`](LICENTA.md).

@@ -1,6 +1,6 @@
 # NOTES — DHS
 
-Session journal. Newest at the top. Decisions live in `CLAUDE.md`; this is *what happened*.
+Session journal. Newest at the top. Decisions are recorded in `ARCHITECTURE.md` where they apply; this is *what happened*.
 
 ## 2026-09-04 — applications: the database, detection, `plan` and `install`
 

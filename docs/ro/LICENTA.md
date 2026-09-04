@@ -3,7 +3,7 @@
 > Traducere în română. Versiunea de referință e cea în engleză: [`../LICENSE-CHOICE.md`](../LICENSE-CHOICE.md)
 
 > Stare: **propunere**, 02.09.2026, scrisă înainte de decizie. **Decis în aceeași zi: drumul A**
-> (Apache-2.0 + politică de marcă + `VALUES.md`) — vezi D6 în [`CLAUDE.md`](CLAUDE.md).
+> (Apache-2.0 + politică de marcă + `VALUES.md`) — decizia D6.
 > Raționamentul e păstrat integral mai jos.
 > Cerințele tale: licență **permisivă**, dar **drepturile tale să rămână recunoscute**, fără
 > obligații de tip verificare a vârstei.

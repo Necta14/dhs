@@ -8,7 +8,7 @@ pkgbase = dhs
 	makedepends = go
 	options = !debug
 	source = dhs-0.2.0.tar.gz::https://github.com/Necta14/dhs/releases/download/v0.2.0/dhs-0.2.0-source.tar.gz
-	sha256sums = bf2c060da167404a4d9d67e23506fbc604e32cef5266e7ff1a82d42e9dfaf4dc
+	sha256sums = 00253b2fd658723b2899b009f4078338a9f8dca41597a021f3cd96b13479b794
 
 pkgname = dhs-cli
 	pkgdesc = Migrate a working environment between operating systems through a portable, encrypted package

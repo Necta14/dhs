@@ -1,6 +1,6 @@
 # Testing — the dedicated session on GitHub Codespaces
 
-> Rule (AGENTS.md, 7): tests are **not** run on the maintainer's machine. Neither `go test` nor
+> Rule: tests are **not** run on the maintainer's machine. Neither `go test` nor
 > the `dhs` binary on their data. They run on two Codespaces, in a separate session. This document
 > is what has to be done there, in order, so that the session is short and complete.
 >

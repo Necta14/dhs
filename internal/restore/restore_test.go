@@ -1,6 +1,6 @@
 package restore
 
-// NOT run on the user's laptop (AGENTS.md, rule 7) — only on GitHub Codespaces.
+// NOT run on the maintainer's laptop, by project rule — only on GitHub Codespaces.
 
 import (
 	"bytes"

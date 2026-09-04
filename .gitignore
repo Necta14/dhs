@@ -30,3 +30,9 @@
 
 # Python bytecode from the GTK prototype
 __pycache__/
+
+# Internal working notes, never published
+/CLAUDE.md
+/AGENTS.md
+/docs/ro/CLAUDE.md
+/docs/ro/AGENTS.md
