@@ -1,0 +1,155 @@
+=== RUN   TestEmbeddedDatabaseValidates
+--- PASS: TestEmbeddedDatabaseValidates (0.03s)
+=== RUN   TestQueries
+--- PASS: TestQueries (0.00s)
+=== RUN   TestExcluded
+--- PASS: TestExcluded (0.00s)
+=== RUN   TestValidationCatchesMistakes
+--- PASS: TestValidationCatchesMistakes (0.00s)
+PASS
+ok  	github.com/Necta14/dhs/appdb	0.039s
+?   	github.com/Necta14/dhs/cmd/dhs	[no test files]
+=== RUN   TestResolve
+--- PASS: TestResolve (0.00s)
+=== RUN   TestPacmanDesc
+--- PASS: TestPacmanDesc (0.00s)
+=== RUN   TestDpkgStatus
+--- PASS: TestDpkgStatus (0.00s)
+=== RUN   TestApkInstalled
+--- PASS: TestApkInstalled (0.00s)
+=== RUN   TestDesktopEntries
+--- PASS: TestDesktopEntries (0.00s)
+=== RUN   TestSnapYAMLVersion
+--- PASS: TestSnapYAMLVersion (0.00s)
+=== RUN   TestDetectorMatchesAndFindsConfig
+--- PASS: TestDetectorMatchesAndFindsConfig (0.00s)
+=== RUN   TestRegistryAndScoopMatching
+--- PASS: TestRegistryAndScoopMatching (0.00s)
+=== RUN   TestPlanWindowsToArch
+--- PASS: TestPlanWindowsToArch (0.00s)
+=== RUN   TestPlanPrefersFlatpakLocationWhenInstalledThatWay
+--- PASS: TestPlanPrefersFlatpakLocationWhenInstalledThatWay (0.00s)
+=== RUN   TestPlanMissingAndNotInDatabase
+--- PASS: TestPlanMissingAndNotInDatabase (0.00s)
+=== RUN   TestRunnerRetriesBatchOneByOne
+--- PASS: TestRunnerRetriesBatchOneByOne (0.00s)
+=== RUN   TestSnapAndWingetCommandsAreOnePerPackage
+--- PASS: TestSnapAndWingetCommandsAreOnePerPackage (0.00s)
+=== RUN   TestAppRootRoundTrip
+--- PASS: TestAppRootRoundTrip (0.00s)
+PASS
+ok  	github.com/Necta14/dhs/internal/apps	0.010s
+?   	github.com/Necta14/dhs/internal/i18n	[no test files]
+=== RUN   TestRoundTripEncrypted
+=== RUN   TestRoundTripEncrypted/1_·_Compatible
+=== RUN   TestRoundTripEncrypted/2_·_Balanced
+=== RUN   TestRoundTripEncrypted/3_·_Maximum
+--- PASS: TestRoundTripEncrypted (0.67s)
+    --- PASS: TestRoundTripEncrypted/1_·_Compatible (0.25s)
+    --- PASS: TestRoundTripEncrypted/2_·_Balanced (0.18s)
+    --- PASS: TestRoundTripEncrypted/3_·_Maximum (0.24s)
+=== RUN   TestRoundTripUnencrypted
+--- PASS: TestRoundTripUnencrypted (0.06s)
+=== RUN   TestManifestLeaksNothing
+--- PASS: TestManifestLeaksNothing (0.12s)
+=== RUN   TestPassphraseErrors
+--- PASS: TestPassphraseErrors (0.04s)
+=== RUN   TestDedup
+--- PASS: TestDedup (0.13s)
+=== RUN   TestLargeFileSpansVolumes
+--- PASS: TestLargeFileSpansVolumes (0.14s)
+=== RUN   TestFilterSkipsUnneededVolumes
+--- PASS: TestFilterSkipsUnneededVolumes (0.12s)
+=== RUN   TestCorruptionIsDetected
+--- PASS: TestCorruptionIsDetected (0.06s)
+=== RUN   TestAbortLeavesIncompletePackage
+--- PASS: TestAbortLeavesIncompletePackage (0.01s)
+=== RUN   TestRefusesNonEmptyDir
+--- PASS: TestRefusesNonEmptyDir (0.00s)
+=== RUN   TestDuplicateEntryRefused
+--- PASS: TestDuplicateEntryRefused (0.00s)
+=== RUN   TestSizeMismatchIsRecorded
+--- PASS: TestSizeMismatchIsRecorded (0.02s)
+=== RUN   TestDuplicateInSolidBlockKeepsItsParts
+--- PASS: TestDuplicateInSolidBlockKeepsItsParts (0.05s)
+=== RUN   TestRootMapSplitJoin
+--- PASS: TestRootMapSplitJoin (0.00s)
+=== RUN   TestOtherKeyWindows
+    roots_test.go:55: filepath.VolumeName recognizes drive letters only on Windows
+--- SKIP: TestOtherKeyWindows (0.00s)
+PASS
+ok  	github.com/Necta14/dhs/internal/pack	1.416s
+?   	github.com/Necta14/dhs/internal/passphrase	[no test files]
+?   	github.com/Necta14/dhs/internal/report	[no test files]
+=== RUN   TestSanitizeWindows
+--- PASS: TestSanitizeWindows (0.00s)
+=== RUN   TestSanitizeLinuxTouchesAlmostNothing
+--- PASS: TestSanitizeLinuxTouchesAlmostNothing (0.00s)
+=== RUN   TestWithSuffix
+--- PASS: TestWithSuffix (0.00s)
+=== RUN   TestFoldKey
+--- PASS: TestFoldKey (0.00s)
+=== RUN   TestPlanAndExecute
+--- PASS: TestPlanAndExecute (0.04s)
+=== RUN   TestPlanConflictPolicies
+--- PASS: TestPlanConflictPolicies (0.02s)
+=== RUN   TestPlanCaseCollisionOnWindows
+--- PASS: TestPlanCaseCollisionOnWindows (0.01s)
+=== RUN   TestPlanFilter
+--- PASS: TestPlanFilter (0.01s)
+=== RUN   TestParseConflict
+--- PASS: TestParseConflict (0.00s)
+PASS
+ok  	github.com/Necta14/dhs/internal/restore	0.083s
+=== RUN   TestClassOf
+--- PASS: TestClassOf (0.00s)
+=== RUN   TestClassOfDoubleExtension
+--- PASS: TestClassOfDoubleExtension (0.00s)
+=== RUN   TestClassCompressible
+--- PASS: TestClassCompressible (0.00s)
+=== RUN   TestIsSecret
+--- PASS: TestIsSecret (0.00s)
+=== RUN   TestExcluder
+--- PASS: TestExcluder (0.00s)
+=== RUN   TestEstimateIncompressibleStaysWhole
+--- PASS: TestEstimateIncompressibleStaysWhole (0.00s)
+=== RUN   TestEstimateOrderingAcrossLevels
+--- PASS: TestEstimateOrderingAcrossLevels (0.00s)
+=== RUN   TestEstimateVolumes
+--- PASS: TestEstimateVolumes (0.00s)
+=== RUN   TestEstimateSamplingOverridesTable
+--- PASS: TestEstimateSamplingOverridesTable (0.00s)
+=== RUN   TestEstimateWorkersReduceTime
+--- PASS: TestEstimateWorkersReduceTime (0.00s)
+=== RUN   TestEstimateEmpty
+--- PASS: TestEstimateEmpty (0.00s)
+=== RUN   TestLevelValid
+--- PASS: TestLevelValid (0.00s)
+=== RUN   TestWalkClassifiesAndExcludes
+--- PASS: TestWalkClassifiesAndExcludes (0.01s)
+=== RUN   TestWalkIncludeSecrets
+--- PASS: TestWalkIncludeSecrets (0.01s)
+=== RUN   TestWalkLargestAndCallbacks
+--- PASS: TestWalkLargestAndCallbacks (0.01s)
+=== RUN   TestWalkAllowExclusion
+--- PASS: TestWalkAllowExclusion (0.00s)
+=== RUN   TestWalkSkipsSymlinks
+--- PASS: TestWalkSkipsSymlinks (0.00s)
+=== RUN   TestWalkSingleFileRoot
+--- PASS: TestWalkSingleFileRoot (0.00s)
+=== RUN   TestWalkNoRoots
+--- PASS: TestWalkNoRoots (0.00s)
+=== RUN   TestHomeRootsDropsNestedAndMissing
+--- PASS: TestHomeRootsDropsNestedAndMissing (0.00s)
+PASS
+ok  	github.com/Necta14/dhs/internal/scan	0.037s
+=== RUN   TestDetect
+--- PASS: TestDetect (0.00s)
+=== RUN   TestLocationsCoversEveryKind
+--- PASS: TestLocationsCoversEveryKind (0.00s)
+=== RUN   TestSpaceOf
+--- PASS: TestSpaceOf (0.00s)
+=== RUN   TestFAT32FileLimit
+--- PASS: TestFAT32FileLimit (0.00s)
+PASS
+ok  	github.com/Necta14/dhs/internal/system	0.004s

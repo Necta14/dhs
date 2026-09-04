@@ -1,0 +1,10 @@
+ok  	github.com/Necta14/dhs/appdb	1.238s
+?   	github.com/Necta14/dhs/cmd/dhs	[no test files]
+ok  	github.com/Necta14/dhs/internal/apps	1.030s
+?   	github.com/Necta14/dhs/internal/i18n	[no test files]
+ok  	github.com/Necta14/dhs/internal/pack	9.363s
+?   	github.com/Necta14/dhs/internal/passphrase	[no test files]
+?   	github.com/Necta14/dhs/internal/report	[no test files]
+ok  	github.com/Necta14/dhs/internal/restore	1.415s
+ok  	github.com/Necta14/dhs/internal/scan	1.062s
+ok  	github.com/Necta14/dhs/internal/system	1.010s

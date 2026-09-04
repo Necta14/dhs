@@ -1,0 +1,505 @@
+══ source: HOME=/tmp/dhs-e2e.rMoNN8/source ══
+dhs dev  (go1.26.1)
+system: Ubuntu 24.04 (amd64)
+home:   /tmp/dhs-e2e.rMoNN8/source
+System        Ubuntu 24.04 (amd64)
+Roots         /tmp/dhs-e2e.rMoNN8/source/Documents
+              /tmp/dhs-e2e.rMoNN8/source/Downloads
+              /tmp/dhs-e2e.rMoNN8/source/Pictures
+
+To include    12,9 MiB in 6 files   (scanned in under a second)
+
+Composition
+                incompressible   6,0 MiB      47%   stored, not compressed
+                binary           5,0 MiB      39%   
+                text             1,9 MiB      15%   
+
+Level         2 · Balanced
+Estimate      8,6 MiB – 9,7 MiB   under a second on 4 cores
+              estimate from table; --precise would measure it by sampling
+Volumes       1 × 3,5 GiB
+
+Destination   /tmp/dhs-e2e.rMoNN8/ssd   109 GiB free of 118 GiB   ext2/3/4
+
+              ✓ Fits, with 109 GiB to spare.
+
+Largest
+                5,0 MiB     /tmp/dhs-e2e.rMoNN8/source/Downloads/big.bin
+                3,0 MiB     /tmp/dhs-e2e.rMoNN8/source/Downloads/copy.jpg
+                3,0 MiB     /tmp/dhs-e2e.rMoNN8/source/Pictures/photo.jpg
+                1,9 MiB     /tmp/dhs-e2e.rMoNN8/source/Documents/numbers.txt
+                38 B        /tmp/dhs-e2e.rMoNN8/source/Documents/sub/note.md
+
+Applications  22 recognised (22 installed, 0 by configuration only) · 0 configuration locations · 3 unknown
+                backup           rsync
+                database         SQLite
+                devtool          CMake, curl, GCC, GDB, jq, LLVM and Clang, Perl, Python, Valgrind, GNU Wget
+                editor           GNU nano, Vim
+                remote-desktop   OpenSSH
+                security         GnuPG
+                shell            fish, Zsh
+                system           htop
+                utility          ncdu
+                vcs              GitHub CLI, Git
+System        Ubuntu 24.04 (amd64)
+Roots         /tmp/dhs-e2e.rMoNN8/source/Documents
+              /tmp/dhs-e2e.rMoNN8/source/Downloads
+              /tmp/dhs-e2e.rMoNN8/source/Pictures
+
+To include    12,9 MiB in 6 files   (scanned in under a second)
+
+Composition
+                incompressible   6,0 MiB      47%   stored, not compressed
+                binary           5,0 MiB      39%   
+                text             1,9 MiB      15%   
+
+Level         2 · Balanced
+Estimate      8,6 MiB – 9,7 MiB   under a second on 4 cores
+              estimate from table; --precise would measure it by sampling
+Volumes       1 × 3,5 GiB
+
+Destination   /tmp/dhs-e2e.rMoNN8/ssd   109 GiB free of 118 GiB   ext2/3/4
+
+              ✓ Fits, with 109 GiB to spare.
+
+Largest
+                5,0 MiB     /tmp/dhs-e2e.rMoNN8/source/Downloads/big.bin
+                3,0 MiB     /tmp/dhs-e2e.rMoNN8/source/Downloads/copy.jpg
+                3,0 MiB     /tmp/dhs-e2e.rMoNN8/source/Pictures/photo.jpg
+                1,9 MiB     /tmp/dhs-e2e.rMoNN8/source/Documents/numbers.txt
+                38 B        /tmp/dhs-e2e.rMoNN8/source/Documents/sub/note.md
+
+Applications  22 recognised (22 installed, 0 by configuration only) · 0 configuration locations · 3 unknown
+                backup           rsync
+                database         SQLite
+                devtool          CMake, curl, GCC, GDB, jq, LLVM and Clang, Perl, Python, Valgrind, GNU Wget
+                editor           GNU nano, Vim
+                remote-desktop   OpenSSH
+                security         GnuPG
+                shell            fish, Zsh
+                system           htop
+                utility          ncdu
+                vcs              GitHub CLI, Git
+
+Package       /tmp/dhs-e2e.rMoNN8/ssd/test.dhs
+Written       7 files · 12,9 MiB → 8,2 MiB on disk · 1 volumes · ~2 sec
+Applications  22 recognised · 3 unknown · dhs plan /tmp/dhs-e2e.rMoNN8/ssd/test.dhs shows what would be installed elsewhere
+Verified      ✓ all blocks and checksums are fine
+
+Without the passphrase the package is lost for good. We cannot recover it.
+
+── dhs.json (must not contain file names or the user) ──
+{
+  "format": 1,
+  "id": "24ca473846340a780e30beb77fa9e0c4",
+  "created": "2026-09-04T10:51:15.664060465Z",
+  "source": {
+    "os": "linux",
+    "name": "Ubuntu",
+    "version": "24.04",
+    "arch": "amd64"
+  },
+  "cipher": "age-scrypt",
+  "level": 2,
+  "volumes": 1,
+  "files": 7,
+  "raw_bytes": 13529773,
+  "stored_bytes": 8582826,
+  "secrets_included": false,
+  "complete": true,
+  "tool": "dhs dev"
+}
+
+/tmp/dhs-e2e.rMoNN8/ssd/test.dhs:
+total 20
+-rw-r--r--  1 codespace codespace  236 Sep  4 10:51 SHA256SUMS
+-rw-r--r--  1 codespace codespace  405 Sep  4 10:51 dhs.json
+-rw-r--r--  1 codespace codespace 1155 Sep  4 10:51 index.dhsi
+-rw-r--r--  1 codespace codespace  206 Sep  4 10:51 journal.jsonl
+drwxr-xr--+ 2 codespace codespace 4096 Sep  4 10:51 volumes
+
+/tmp/dhs-e2e.rMoNN8/ssd/test.dhs/volumes:
+total 8384
+-rw-r--r-- 1 codespace codespace 8582826 Sep  4 10:51 0001.dhsv
+source: 13523269 bytes · package on disk: 8584828 bytes
+
+══ verify + list ══
+Package       /tmp/dhs-e2e.rMoNN8/ssd/test.dhs
+Source        Ubuntu 24.04 (amd64) · created 2026-09-04 10:51 · dhs dev
+Contents      7 files · 12,9 MiB → 8,2 MiB · 1 volumes · level 2 · Balanced · cipher age-scrypt
+Verified      3 package files, 1 volumes, 2 blocks, 9,9 MiB raw
+              ✓ The package is intact.
+Source        Ubuntu 24.04 (amd64) · created 2026-09-04 10:51 · dhs dev
+Contents      7 files · 12,9 MiB → 8,2 MiB on disk · 1 volumes · level 2 · Balanced · cipher age-scrypt · complete
+
+  downloads    2         files  8,0 MiB
+  pictures     1         files  3,0 MiB
+  documents    3         files  1,9 MiB
+  dhs          1         files  6,4 KiB
+  1 files are duplicates of others and take up space only once
+
+Applications  22 recognised (22 installed) · 0 configuration locations · 3 unknown · from linux
+              CMake, curl, fish, GCC, GDB, GitHub CLI, Git, GnuPG, htop, jq, LLVM and Clang, GNU nano,
+              ncdu, OpenSSH, Perl, Python, rsync, SQLite, Valgrind, Vim, GNU Wget, Zsh
+              dhs plan <package> shows what would be installed on this system
+
+6,4 KiB     dhs/apps.json
+0 B         documents/empty.txt
+1,9 MiB     documents/numbers.txt
+38 B        documents/sub/note.md
+5,0 MiB     downloads/big.bin
+3,0 MiB     downloads/copy.jpg
+3,0 MiB     pictures/photo.jpg (dup)
+
+══ destination: HOME=/tmp/dhs-e2e.rMoNN8/destination ══
+Migration     Ubuntu 24.04 → Ubuntu 24.04 (amd64)
+Package       7 files · 12,9 MiB · created 2026-09-04 10:51
+
+Where it goes
+                downloads    2 files, 8,0 MiB            /tmp/dhs-e2e.rMoNN8/destination/Downloads
+                pictures     1 files, 3,0 MiB            /tmp/dhs-e2e.rMoNN8/destination/Pictures
+                documents    3 files, 1,9 MiB            /tmp/dhs-e2e.rMoNN8/destination/Documents
+
+To write      6 files · 12,9 MiB
+
+--dry-run: nothing was written.
+Migration     Ubuntu 24.04 → Ubuntu 24.04 (amd64)
+Package       7 files · 12,9 MiB · created 2026-09-04 10:51
+
+Where it goes
+                downloads    2 files, 8,0 MiB            /tmp/dhs-e2e.rMoNN8/destination/Downloads
+                pictures     1 files, 3,0 MiB            /tmp/dhs-e2e.rMoNN8/destination/Pictures
+                documents    3 files, 1,9 MiB            /tmp/dhs-e2e.rMoNN8/destination/Documents
+
+To write      6 files · 12,9 MiB
+
+Restored      6 files · 12,9 MiB · under a second
+              ✓ All files were verified and put back in place.
+
+══ comparison ══
+E2E OK: 6 files identical bit for bit
+
+══ second restore: conflict → keep both ══
+Migration     Ubuntu 24.04 → Ubuntu 24.04 (amd64)
+Package       7 files · 12,9 MiB · created 2026-09-04 10:51
+
+Where it goes
+                downloads    2 files, 8,0 MiB            /tmp/dhs-e2e.rMoNN8/destination/Downloads
+                pictures     1 files, 3,0 MiB            /tmp/dhs-e2e.rMoNN8/destination/Pictures
+                documents    3 files, 1,9 MiB            /tmp/dhs-e2e.rMoNN8/destination/Documents
+
+To write      6 files · 12,9 MiB
+Conflicts     6 already exist → the existing one stays, the restored one gets the " (DHS)" suffix
+
+                write-beside   empty.txt  → /tmp/dhs-e2e.rMoNN8/destination/Documents/empty (DHS).txt
+                write-beside   numbers.txt  → /tmp/dhs-e2e.rMoNN8/destination/Documents/numbers (DHS).txt
+                write-beside   sub/note.md  → /tmp/dhs-e2e.rMoNN8/destination/Documents/sub/note (DHS).md
+                write-beside   big.bin  → /tmp/dhs-e2e.rMoNN8/destination/Downloads/big (DHS).bin
+                write-beside   copy.jpg  → /tmp/dhs-e2e.rMoNN8/destination/Downloads/copy (DHS).jpg
+                write-beside   photo.jpg  → /tmp/dhs-e2e.rMoNN8/destination/Pictures/photo (DHS).jpg
+
+Restored      6 files · 12,9 MiB · under a second
+              ✓ All files were verified and put back in place.
+total 3900
+drwxr-xr--+ 3 codespace codespace    4096 Sep  4 10:51 .
+drwxr-xrw-+ 5 codespace codespace    4096 Sep  4 10:51 ..
+-rw-r--rw-  1 codespace codespace       0 Sep  4 10:51 empty (DHS).txt
+-rw-r--rw-  1 codespace codespace       0 Sep  4 10:51 empty.txt
+-rw-r--rw-  1 codespace codespace 1988895 Sep  4 10:51 numbers (DHS).txt
+-rw-r--rw-  1 codespace codespace 1988895 Sep  4 10:51 numbers.txt
+drwxr-xr--+ 2 codespace codespace    4096 Sep  4 10:51 sub
+the copy beside is identical to the original
+
+══ wrong passphrase → refused ══
+dhs: wrong passphrase
+refused correctly (exit 1)
+
+══ unencrypted package, level 1 ══
+System        Ubuntu 24.04 (amd64)
+Roots         /tmp/dhs-e2e.rMoNN8/source/Documents
+              /tmp/dhs-e2e.rMoNN8/source/Downloads
+              /tmp/dhs-e2e.rMoNN8/source/Pictures
+
+To include    12,9 MiB in 6 files   (scanned in under a second)
+
+Composition
+                incompressible   6,0 MiB      47%   stored, not compressed
+                binary           5,0 MiB      39%   
+                text             1,9 MiB      15%   
+
+Level         1 · Compatible
+Estimate      9,7 MiB – 10,9 MiB   under a second on 4 cores
+              estimate from table; --precise would measure it by sampling
+Volumes       1 × 3,5 GiB
+
+Destination   /tmp/dhs-e2e.rMoNN8/ssd   108 GiB free of 118 GiB   ext2/3/4
+
+              ✓ Fits, with 108 GiB to spare.
+
+Largest
+                5,0 MiB     /tmp/dhs-e2e.rMoNN8/source/Downloads/big.bin
+                3,0 MiB     /tmp/dhs-e2e.rMoNN8/source/Downloads/copy.jpg
+                3,0 MiB     /tmp/dhs-e2e.rMoNN8/source/Pictures/photo.jpg
+                1,9 MiB     /tmp/dhs-e2e.rMoNN8/source/Documents/numbers.txt
+                38 B        /tmp/dhs-e2e.rMoNN8/source/Documents/sub/note.md
+
+Applications  22 recognised (22 installed, 0 by configuration only) · 0 configuration locations · 3 unknown
+                backup           rsync
+                database         SQLite
+                devtool          CMake, curl, GCC, GDB, jq, LLVM and Clang, Perl, Python, Valgrind, GNU Wget
+                editor           GNU nano, Vim
+                remote-desktop   OpenSSH
+                security         GnuPG
+                shell            fish, Zsh
+                system           htop
+                utility          ncdu
+                vcs              GitHub CLI, Git
+
+Package       /tmp/dhs-e2e.rMoNN8/ssd/plain.dhs
+Written       7 files · 12,9 MiB → 8,6 MiB on disk · 1 volumes · under a second
+Applications  22 recognised · 3 unknown · dhs plan /tmp/dhs-e2e.rMoNN8/ssd/plain.dhs shows what would be installed elsewhere
+              dhs verify /tmp/dhs-e2e.rMoNN8/ssd/plain.dhs  — verifies the whole package, any time
+Package       /tmp/dhs-e2e.rMoNN8/ssd/plain.dhs
+Source        Ubuntu 24.04 (amd64) · created 2026-09-04 10:51 · dhs dev
+Contents      7 files · 12,9 MiB → 8,6 MiB · 1 volumes · level 1 · Compatible · cipher none
+Verified      3 package files, 1 volumes, 2 blocks, 9,9 MiB raw
+              ✓ The package is intact.
+Source        Ubuntu 24.04 (amd64) · created 2026-09-04 10:51 · dhs dev
+Contents      7 files · 12,9 MiB → 8,6 MiB on disk · 1 volumes · level 1 · Compatible · cipher none · complete
+
+  downloads    2         files  8,0 MiB
+  pictures     1         files  3,0 MiB
+
+══ applications: configuration travels under its own roots ══
+System        Ubuntu 24.04 (amd64)
+Roots         /tmp/dhs-e2e.rMoNN8/apps-source/.config
+              /tmp/dhs-e2e.rMoNN8/apps-source/Documents
+
+To include    36 B in 3 files   (scanned in under a second)
+
+Composition
+                text             30 B         83%   
+                unknown          6 B          17%   settled by an entropy test while packing
+
+Level         2 · Balanced
+Estimate      9 B – 15 B   under a second on 4 cores
+              estimate from table; --precise would measure it by sampling
+Volumes       1 × 3,5 GiB
+
+Largest
+                26 B        /tmp/dhs-e2e.rMoNN8/apps-source/.config/Code/User/settings.json
+                6 B         /tmp/dhs-e2e.rMoNN8/apps-source/.config/Code/User/workspaceStorage/x/state.vscdb
+                4 B         /tmp/dhs-e2e.rMoNN8/apps-source/Documents/doc.txt
+
+Applications  23 recognised (22 installed, 1 by configuration only) · 2 configuration locations · 3 unknown
+                backup           rsync
+                database         SQLite
+                devtool          CMake, curl, GCC, GDB, jq, LLVM and Clang, Perl, Python, Valgrind, GNU Wget
+                editor           GNU nano, Vim, Visual Studio Code
+                remote-desktop   OpenSSH
+                security         GnuPG
+                shell            fish, Zsh
+                system           htop
+                utility          ncdu
+                vcs              GitHub CLI, Git
+System        Ubuntu 24.04 (amd64)
+Roots         /tmp/dhs-e2e.rMoNN8/apps-source/.config
+              /tmp/dhs-e2e.rMoNN8/apps-source/Documents
+              /tmp/dhs-e2e.rMoNN8/apps-source/.gitconfig
+
+To include    50 B in 3 files   (scanned in under a second)
+
+Composition
+                text             50 B         100%  
+
+Level         2 · Balanced
+Estimate      10 B – 16 B   under a second on 4 cores
+              estimate from table; --precise would measure it by sampling
+Volumes       1 × 3,5 GiB
+
+Destination   /tmp/dhs-e2e.rMoNN8/ssd   108 GiB free of 118 GiB   ext2/3/4
+
+              ✓ Fits, with 108 GiB to spare.
+
+Largest
+                26 B        /tmp/dhs-e2e.rMoNN8/apps-source/.config/Code/User/settings.json
+                20 B        /tmp/dhs-e2e.rMoNN8/apps-source/.gitconfig
+                4 B         /tmp/dhs-e2e.rMoNN8/apps-source/Documents/doc.txt
+
+Applications  23 recognised (22 installed, 1 by configuration only) · 2 configuration locations · 3 unknown
+                backup           rsync
+                database         SQLite
+                devtool          CMake, curl, GCC, GDB, jq, LLVM and Clang, Perl, Python, Valgrind, GNU Wget
+                editor           GNU nano, Vim, Visual Studio Code
+                remote-desktop   OpenSSH
+                security         GnuPG
+                shell            fish, Zsh
+                system           htop
+                utility          ncdu
+                vcs              GitHub CLI, Git
+
+Package       /tmp/dhs-e2e.rMoNN8/ssd/apps.dhs
+Written       4 files · 6,8 KiB → 2,1 KiB on disk · 1 volumes · ~2 sec
+Applications  23 recognised · 3 unknown · dhs plan /tmp/dhs-e2e.rMoNN8/ssd/apps.dhs shows what would be installed elsewhere
+              dhs verify /tmp/dhs-e2e.rMoNN8/ssd/apps.dhs  — verifies the whole package, any time
+
+Without the passphrase the package is lost for good. We cannot recover it.
+Source        Ubuntu 24.04 (amd64) · created 2026-09-04 10:51 · dhs dev
+Contents      4 files · 6,8 KiB → 2,1 KiB on disk · 1 volumes · level 2 · Balanced · cipher age-scrypt · complete
+
+  dhs          1         files  6,8 KiB
+  apps         2         files  46 B
+  documents    1         files  4 B
+
+Applications  23 recognised (22 installed) · 2 configuration locations · 3 unknown · from linux
+              CMake, curl, fish, GCC, GDB, GitHub CLI, Git, GnuPG, htop, jq, LLVM and Clang, GNU nano,
+              ncdu, OpenSSH, Perl, Python, rsync, SQLite, Valgrind, Vim, Visual Studio Code, GNU Wget,
+              Zsh
+              dhs plan <package> shows what would be installed on this system
+
+20 B        apps/git/gitconfig/.
+26 B        apps/vscode/user/settings.json
+6,8 KiB     dhs/apps.json
+4 B         documents/doc.txt
+manifest ok: ['cmake', 'curl', 'fish', 'gcc', 'gdb', 'gh', 'git', 'gnupg', 'htop', 'jq', 'llvm', 'nano', 'ncdu', 'openssh', 'perl', 'python', 'rsync', 'sqlite', 'valgrind', 'vim', 'vscode', 'wget', 'zsh']
+
+── plan on this system ──
+Migration     Ubuntu 24.04 → Ubuntu 24.04 (amd64)
+Applications  26 in the package · 23 recognised · 3 unknown
+
+Already here (22)
+  CMake                          apt
+  curl                           apt
+  fish                           apt
+  GCC                            apt
+  GDB                            apt
+  GitHub CLI                     apt
+  Git                            apt
+  GnuPG                          apt
+  htop                           apt
+  jq                             apt
+  LLVM and Clang                 apt
+  GNU nano                       apt
+  ncdu                           apt
+  OpenSSH                        apt
+  Perl                           apt
+  Python                         apt
+  rsync                          apt
+  SQLite                         apt
+  Valgrind                       apt
+  Vim                            apt
+  GNU Wget                       apt
+  Zsh                            apt
+
+Unknown (3)  — not in the database; nothing is installed for them
+  fish-common 3.7.0-1                      apt
+  python3.12 3.12.3-1ubuntu0.12            apt
+  vim-common 2:9.1.0016-1ubuntu7.9         apt
+
+Configuration  1 in place · 1 kept aside under DHS-restored/apps
+  git/gitconfig                      → /tmp/dhs-e2e.rMoNN8/apps-source/.gitconfig
+  vscode/user                        aside: the application is not installed here and is not being installed
+
+plan ok: configs [('git', 'place'), ('vscode', 'aside')]
+
+── restore into another HOME ──
+Migration     Ubuntu 24.04 → Ubuntu 24.04 (amd64)
+Package       4 files · 6,8 KiB · created 2026-09-04 10:51
+
+Where it goes
+                other        1 files, 26 B               /tmp/dhs-e2e.rMoNN8/apps-destination/DHS-restored
+                documents    1 files, 4 B                /tmp/dhs-e2e.rMoNN8/apps-destination/Documents
+                apps         1 files, 20 B               1 configuration locations, placed where this system keeps them
+                application configuration kept aside under DHS-restored/apps (1) — dhs plan says why
+
+To write      3 files · 50 B
+
+Restored      3 files · 50 B · under a second
+              ✓ All files were verified and put back in place.
+.gitconfig placed in HOME
+VS Code settings kept aside: /tmp/dhs-e2e.rMoNN8/apps-destination/DHS-restored/apps/vscode/user/settings.json
+Migration     Ubuntu 24.04 → Ubuntu 24.04 (amd64)
+Package       4 files · 6,8 KiB · created 2026-09-04 10:51
+
+Where it goes
+                other        1 files, 26 B               /tmp/dhs-e2e.rMoNN8/apps-destination/DHS-restored
+                apps         1 files, 20 B               1 configuration locations, placed where this system keeps them
+                application configuration kept aside under DHS-restored/apps (1) — dhs plan says why
+
+To write      2 files · 46 B
+Conflicts     2 already exist → the existing one stays, the restored one gets the " (DHS)" suffix
+
+                write-beside   .  → /tmp/dhs-e2e.rMoNN8/apps-destination/.gitconfig/. (DHS)
+                write-beside   settings.json  → /tmp/dhs-e2e.rMoNN8/apps-destination/DHS-restored/apps/vscode/user/settings (DHS).json
+
+--dry-run: nothing was written.
+
+── install: dry run only, never executes here ──
+Migration     Ubuntu 24.04 → Ubuntu 24.04 (amd64)
+Applications  26 in the package · 23 recognised · 3 unknown
+
+Already here (22)
+  CMake                          apt
+  curl                           apt
+  fish                           apt
+  GCC                            apt
+  GDB                            apt
+  GitHub CLI                     apt
+  Git                            apt
+  GnuPG                          apt
+  htop                           apt
+  jq                             apt
+  LLVM and Clang                 apt
+  GNU nano                       apt
+  ncdu                           apt
+  OpenSSH                        apt
+  Perl                           apt
+  Python                         apt
+  rsync                          apt
+  SQLite                         apt
+  Valgrind                       apt
+  Vim                            apt
+  GNU Wget                       apt
+  Zsh                            apt
+
+Unknown (3)  — not in the database; nothing is installed for them
+  fish-common 3.7.0-1                      apt
+  python3.12 3.12.3-1ubuntu0.12            apt
+  vim-common 2:9.1.0016-1ubuntu7.9         apt
+
+Configuration  1 in place · 1 kept aside under DHS-restored/apps
+  git/gitconfig                      → /tmp/dhs-e2e.rMoNN8/apps-destination/.gitconfig
+  vscode/user                        aside: the application is not installed here and is not being installed
+
+Nothing to install.
+System        Ubuntu 24.04 (amd64)
+Roots         /tmp/dhs-e2e.rMoNN8/apps-destination/Documents
+
+To include    4 B in 1 files   (scanned in under a second)
+
+Composition
+                text             4 B          100%  
+
+Level         2 · Balanced
+Estimate      0 B – 1 B   under a second on 4 cores
+              estimate from table; --precise would measure it by sampling
+Volumes       1 × 3,5 GiB
+
+Destination   /tmp/dhs-e2e.rMoNN8/ssd   108 GiB free of 118 GiB   ext2/3/4
+
+              ✓ Fits, with 108 GiB to spare.
+
+Largest
+                4 B         /tmp/dhs-e2e.rMoNN8/apps-destination/Documents/doc.txt
+
+Package       /tmp/dhs-e2e.rMoNN8/ssd/noapps.dhs
+Written       1 files · 4 B → 691 B on disk · 1 volumes · ~2 sec
+              dhs verify /tmp/dhs-e2e.rMoNN8/ssd/noapps.dhs  — verifies the whole package, any time
+
+Without the passphrase the package is lost for good. We cannot recover it.
+dhs: this package has no application manifest: it was made with --no-apps, or by a DHS from before applications
+refused correctly: no manifest
+
+E2E: everything passed
+
+(test files remain in /tmp/dhs-e2e.rMoNN8)
